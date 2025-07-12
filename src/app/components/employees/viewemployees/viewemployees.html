@@ -1,0 +1,297 @@
+<div class="row mb-5">
+  <div class="col-12">
+    <div class="card">
+      <div class="user-profile-header-banner">
+        <div class="position-absolute top-0 end-0 p-3">
+          <button
+            type="button"
+            class="btn btn-primary"
+            onclick="history.back()"
+          >
+            <i class="fa-solid fa-arrow-left mx-1"></i>Return
+          </button>
+        </div>
+        <img
+          src="assets/img/pages/profile-banner.jpg"
+          alt="Banner image"
+          class="rounded-top"
+          width="100%"
+        />
+      </div>
+      <div
+        class="user-profile-header d-flex flex-column flex-lg-row text-sm-start text-center mb-5"
+      >
+        <div class="flex-shrink-0 mt-n5 mx-sm-0 mx-auto">
+          <img
+            src="{{employee.photo}}"
+            alt="{{employee.name}}"
+            class="d-block h-auto ms-0 ms-sm-6 rounded user-profile-img"
+            style="height: 150px; width: 150px"
+          />
+        </div>
+        <div class="flex-grow-1 mt-3 mt-lg-5">
+          <div
+            class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-5 flex-md-row flex-column gap-4"
+          >
+            <div class="user-profile-info">
+              <h4 class="mb-2 mt-lg-6">{{employee.name}}</h4>
+              <ul
+                class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-4 my-2"
+              >
+                <li class="list-inline-item d-flex gap-2 align-items-center">
+                  <i class="icon-base ti tabler-palette icon-lg"></i
+                  ><span class="fw-medium">{{employee.role}}</span>
+                </li>
+                <li class="list-inline-item d-flex gap-2 align-items-center">
+                  <i class="icon-base ti tabler-map-pin icon-lg"></i
+                  ><span class="fw-medium">{{employee.country}}</span>
+                </li>
+                <li class="list-inline-item d-flex gap-2 align-items-center">
+                  <i class="icon-base ti tabler-calendar icon-lg"></i
+                  ><span class="fw-medium"
+                    >{{employee.joiningDate | date}}</span
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <p
+              [ngClass]="employee.status ? 'btn-success' : 'btn-danger'"
+              class="btn mb-1 waves-effect waves-dark"
+            >
+              {{ employee.status ? 'Active' : 'Inactive' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-4 col-lg-5 col-md-5">
+    <div class="card mb-6">
+      <div class="card-body">
+        <p class="card-text text-uppercase text-body-secondary small mb-0">
+          About
+        </p>
+        <ul class="list-unstyled my-3 py-1">
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-user icon-lg"></i
+            ><span class="fw-medium mx-2">Full Name:</span>
+            <span>{{employee.name}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-id icon-lg"></i
+            ><span class="fw-medium mx-2">NID:</span>
+            <span>{{employee.nid}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-calendar icon-lg"></i
+            ><span class="fw-medium mx-2">Joining Date:</span>
+            <span>{{employee.joiningDate | date}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-file-typography icon-lg"></i
+            ><span class="fw-medium mx-2">Salary Type:</span>
+            <span>{{employee.salarytype}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-coin icon-lg"></i
+            ><span class="fw-medium mx-2">Salary:</span>
+            <span>{{employee.salary}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-flag icon-lg"></i
+            ><span class="fw-medium mx-2">Country:</span>
+            <span>{{employee.country}}</span>
+          </li>
+        </ul>
+        <p class="card-text text-uppercase text-body-secondary small mb-0">
+          Contacts
+        </p>
+        <ul class="list-unstyled my-3 py-1">
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-phone-call icon-lg"></i
+            ><span class="fw-medium mx-2">Contact:</span>
+            <span>{{employee.phone}}</span>
+          </li>
+          <li class="d-flex align-items-center mb-4">
+            <i class="icon-base ti tabler-mail icon-lg"></i
+            ><span class="fw-medium mx-2">Email:</span>
+            <span>{{employee.email}}</span>
+          </li>
+        </ul>
+        <p class="card-text text-uppercase text-body-secondary small mb-0">
+          Address
+        </p>
+        <ul class="list-unstyled my-3 py-1">
+          <li class="d-flex align-items-center mb-4">
+            <span>{{employee.address}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8 col-lg-7 col-md-7">
+    <div class="card mb-6">
+      <div class="mb-4">
+        <div
+          id="DataTables_Table_0_wrapper"
+          class="dt-container dt-bootstrap5 dt-empty-footer"
+        >
+          <div class="row mx-md-3 my-0 justify-content-between">
+            <div
+              class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto"
+            >
+              <h5
+                class="card-title mb-0 text-md-start text-center pt-md-0 pt-6"
+              >
+                Work History
+              </h5>
+            </div>
+            <div
+              class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto gap-md-2 gap-0 mt-0"
+            >
+              <div class="dt-search">
+                <input
+                  type="search"
+                  class="form-control"
+                  id="dt-search-0"
+                  placeholder="Search..."
+                  aria-controls="DataTables_Table_0"
+                /><label for="dt-search-0"></label>
+              </div>
+            </div>
+          </div>
+          <div class="justify-content-between dt-layout-table">
+            <div
+              class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive"
+            >
+              <table
+                class="table datatable-project dataTable dtr-column"
+                id="DataTables_Table_0"
+                aria-describedby="DataTables_Table_0_info"
+              >
+                <colgroup>
+                  <col data-dt-column="0" />
+                  <col data-dt-column="1" />
+                  <col data-dt-column="2" />
+                  <col data-dt-column="3" />
+                  <col data-dt-column="4" />
+                  <col data-dt-column="5" />
+                  <col data-dt-column="6" />
+                </colgroup>
+                <thead class="border-top">
+                  <tr>
+                    <th
+                      data-dt-column="0"
+                      class="control dt-orderable-none"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label=""
+                    >
+                      <span class="dt-column-title"></span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      data-dt-column="1"
+                      rowspan="1"
+                      colspan="1"
+                      class="dt-select dt-orderable-none"
+                      aria-label=""
+                    >
+                      <span class="dt-column-title"></span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      data-dt-column="2"
+                      rowspan="1"
+                      colspan="1"
+                      class="dt-orderable-asc dt-orderable-desc dt-ordering-desc"
+                      aria-sort="descending"
+                      aria-label="Project: Activate to remove sorting"
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Project</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      data-dt-column="3"
+                      rowspan="1"
+                      colspan="1"
+                      class="dt-orderable-asc dt-orderable-desc"
+                      aria-label="Leader: Activate to sort"
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Leader</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      data-dt-column="4"
+                      rowspan="1"
+                      colspan="1"
+                      class="dt-orderable-none"
+                      aria-label="Team"
+                    >
+                      <span class="dt-column-title">Team</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      class="w-px-200 dt-orderable-asc dt-orderable-desc"
+                      data-dt-column="5"
+                      rowspan="1"
+                      colspan="1"
+                      aria-label="Progress: Activate to sort"
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Progress</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      data-dt-column="6"
+                      rowspan="1"
+                      colspan="1"
+                      class="dt-orderable-none"
+                      aria-label="Action"
+                    >
+                      <span class="dt-column-title">Action</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="7" class="dt-empty">Loading...</td>
+                  </tr>
+                </tbody>
+                <tfoot></tfoot>
+              </table>
+            </div>
+          </div>
+          <div class="row mx-3 justify-content-between">
+            <div
+              class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto"
+            >
+              <div
+                class="dt-info"
+                aria-live="polite"
+                id="DataTables_Table_0_info"
+                role="status"
+              >
+                Showing 0 to 0 of 0 entries
+              </div>
+            </div>
+            <div
+              class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto gap-md-2 gap-0 mt-0"
+            >
+              <div class="dt-paging">
+                <nav aria-label="pagination"></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<!-- Project Details Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Project Details</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <div *ngIf="project && project.name; else loadingTemplate">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project ID</label>
+          <div class="text-muted">{{ project.id }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Name</label>
+          <div class="text-muted">{{ project.name }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Location</label>
+          <div class="text-muted">{{ project.location }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Manager</label>
+          <a routerLink="/viewemployees/{{employee.id}}"
+            ><div class="text-success">{{ employee.name }}</div></a
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Start Date</label>
+          <div class="text-muted">
+            {{ project.startDate | date: 'mediumDate' }}
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">End Date</label>
+          <div class="text-muted">
+            {{ project.endDate | date: 'mediumDate' }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Budget</label>
+          <div class="text-muted">{{ project.budget | currency }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Status</label>
+          <div>
+            <span
+              [ngClass]="getStatusClass(project.status)"
+              class="badge rounded-pill"
+            >
+              {{ project.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Type</label>
+          <div class="text-muted">{{ project.projectType }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Total Buildings</label>
+          <ng-container *ngIf="buildings | async as building">
+            <ng-container *ngIf="building.length > 0; else noBuilding">
+              <p>{{ building.length | number:'2.0' }}</p>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #noBuilding>
+            <div class="text-muted">No buildings available.</div>
+          </ng-template>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label class="form-label fw-bold">Description</label>
+          <div class="text-muted">
+            {{ project.description || 'No description provided.' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <ng-template #loadingTemplate>
+      <p class="text-muted fst-italic">
+        Loading project data or no data available.
+      </p>
+    </ng-template>
+  </div>
+</div>

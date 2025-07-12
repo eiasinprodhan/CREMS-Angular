@@ -1,0 +1,72 @@
+<!-- Building Details Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">
+        Building Details
+      </h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <div *ngIf="building && building.name; else loadingTemplate">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Building ID</label>
+          <div class="text-muted">{{ building.id }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Building Name</label>
+          <div class="text-muted">{{ building.name }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Building Type</label>
+          <div class="text-muted">{{ building.type }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Site Manager</label>
+          <div class="text-muted">
+            <a class="text-success" routerLink="/viewemployees/{{siteManager.id}}">{{ siteManager.name }}</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Floor Count</label>
+          <div class="text-muted">{{ building.floorCount }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Unit Count</label>
+          <div class="text-muted">{{ building.unitCount }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project</label>
+          <a routerLink="/viewprojects/{{building.project}}"
+            ><div class="text-success">{{ project.name }}</div></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <ng-template #loadingTemplate>
+      <p class="text-muted fst-italic">
+        Loading building data or no data available.
+      </p>
+    </ng-template>
+  </div>
+</div>

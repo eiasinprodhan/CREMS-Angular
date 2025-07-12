@@ -1,0 +1,152 @@
+<!-- Update Project Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Update Project</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <form
+      *ngIf="project; else loadingTemplate"
+      (ngSubmit)="updateProject()"
+      #projectForm="ngForm"
+    >
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Name</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="project.name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Location</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="project.location"
+            name="location"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Start Date</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="project.startDate"
+            name="startDate"
+          />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">End Date</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="project.endDate"
+            name="endDate"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Budget</label>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="project.budget"
+            name="budget"
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Status</label>
+          <select
+            class="form-select"
+            [(ngModel)]="project.status"
+            name="status"
+          >
+            <option [ngValue]="null" disabled>Select Status</option>
+            <option value="Up Coming">Up Coming</option>
+            <option value="Under Construction">Under Construction</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Type</label>
+          <select
+            id="projectType"
+            [(ngModel)]="project.projectType"
+            name="projectType"
+            class="form-select"
+          >
+            <option [ngValue]="null" disabled>Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Mixed-use">Mixed Use</option>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="projectManager" class="form-label fw-bold">Project Manager</label>
+          <select
+            id="projectManager"
+            class="form-select"
+            [(ngModel)]="project.projectManager"
+            name="projectManager"
+          >
+            <option [ngValue]="null" disabled>Select Project Manager</option>
+            <option *ngFor="let e of projectManagers | async" [ngValue]="e.id">
+              {{ e.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label class="form-label fw-bold">Description</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            [(ngModel)]="project.description"
+            name="description"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Update Button -->
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk mx-1"></i>Update
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Loading State -->
+    <ng-template #loadingTemplate>
+      <p class="text-muted fst-italic">
+        Loading project data or no data available.
+      </p>
+    </ng-template>
+  </div>
+</div>

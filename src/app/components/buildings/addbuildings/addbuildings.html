@@ -1,0 +1,116 @@
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">
+        Add New Building
+      </h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <a routerLink="/listbuildings">
+        <button type="button" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form
+      [formGroup]="addBuildingForm"
+      (ngSubmit)="addBuildings()"
+      method="post"
+    >
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Building Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="addBuildingForm.get('name')?.touched && addBuildingForm.get('name')?.invalid"
+          />
+          <div
+            *ngIf="addBuildingForm.get('name')?.touched && addBuildingForm.get('name')?.invalid"
+            class="invalid-feedback"
+          >
+            Building Name is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="type" class="form-label fw-bold">Building Type</label>
+          <select
+            id="type"
+            class="form-select"
+            formControlName="type"
+            [class.is-invalid]="addBuildingForm.get('type')?.touched && addBuildingForm.get('type')?.invalid"
+          >
+            <option value="" disabled selected>Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Mixed-use">Mixed Use</option>
+          </select>
+          <div
+            *ngIf="addBuildingForm.get('type')?.touched && addBuildingForm.get('type')?.invalid"
+            class="invalid-feedback"
+          >
+            Type is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="project" class="form-label fw-bold">Project</label>
+          <select
+            id="project"
+            class="form-select"
+            formControlName="project"
+            [class.is-invalid]="addBuildingForm.get('project')?.touched && addBuildingForm.get('project')?.invalid"
+          >
+            <option value="" disabled selected>Select Type</option>
+            <option *ngFor="let p of projects|async" [ngValue]="p.id">
+              {{ p.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="addBuildingForm.get('project')?.touched && addBuildingForm.get('project')?.invalid"
+            class="invalid-feedback"
+          >
+            Project selection is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="siteManager" class="form-label fw-bold">Site Manager</label>
+          <select
+            id="siteManager"
+            class="form-select"
+            formControlName="siteManager"
+            [class.is-invalid]="addBuildingForm.get('siteManager')?.touched && addBuildingForm.get('siteManager')?.invalid"
+          >
+            <option value="" disabled selected>Select Site Manager</option>
+            <option *ngFor="let e of siteManagers|async" [ngValue]="e.id">
+              {{ e.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="addBuildingForm.get('siteManager')?.touched && addBuildingForm.get('siteManager')?.invalid"
+            class="invalid-feedback"
+          >
+            Site Manager is required.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Building
+      </button>
+    </form>
+  </div>
+</div>

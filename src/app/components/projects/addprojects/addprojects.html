@@ -1,0 +1,135 @@
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Projects</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <a routerLink="/listprojects">
+        <button type="button" class="btn btn-primary"><i class="fa-solid fa-arrow-left mx-1"></i>Return</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addProjectForm" (ngSubmit)="addProjects()">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Project Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name"
+            [class.is-invalid]="addProjectForm.get('name')?.touched && addProjectForm.get('name')?.invalid" />
+          <div *ngIf="addProjectForm.get('name')?.touched && addProjectForm.get('name')?.invalid" class="invalid-feedback">
+            Project Name is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="location" class="form-label fw-bold">Project Location</label>
+          <input type="text" id="location" class="form-control" formControlName="location"
+            [class.is-invalid]="addProjectForm.get('location')?.touched && addProjectForm.get('location')?.invalid" />
+          <div *ngIf="addProjectForm.get('location')?.touched && addProjectForm.get('location')?.invalid" class="invalid-feedback">
+            Location is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="startDate" class="form-label fw-bold">Start Date</label>
+          <input type="date" id="startDate" class="form-control" formControlName="startDate"
+            [class.is-invalid]="addProjectForm.get('startDate')?.touched && addProjectForm.get('startDate')?.invalid" />
+          <div *ngIf="addProjectForm.get('startDate')?.touched && addProjectForm.get('startDate')?.invalid" class="invalid-feedback">
+            Start Date is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="endDate" class="form-label fw-bold">End Date</label>
+          <input type="date" id="endDate" class="form-control" formControlName="endDate"
+            [class.is-invalid]="addProjectForm.get('endDate')?.touched && addProjectForm.get('endDate')?.invalid" />
+          <div *ngIf="addProjectForm.get('endDate')?.touched && addProjectForm.get('endDate')?.invalid" class="invalid-feedback">
+            End Date is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="budget" class="form-label fw-bold">Budget</label>
+          <input type="number" id="budget" class="form-control" formControlName="budget"
+            [class.is-invalid]="addProjectForm.get('budget')?.touched && addProjectForm.get('budget')?.invalid" />
+          <div *ngIf="addProjectForm.get('budget')?.touched && addProjectForm.get('budget')?.invalid" class="invalid-feedback">
+            Budget must be greater than 0.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="status" class="form-label fw-bold">Status</label>
+          <select id="status" class="form-select" formControlName="status"
+            [class.is-invalid]="addProjectForm.get('status')?.touched && addProjectForm.get('status')?.invalid">
+            <option value="" disabled selected>Select Status</option>
+            <option value="Up Coming">Up Coming</option>
+            <option value="Under Construction">Under Construction</option>
+            <option value="Completed">Completed</option>
+          </select>
+          <div *ngIf="addProjectForm.get('status')?.touched && addProjectForm.get('status')?.invalid" class="invalid-feedback">
+            Status is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="projectType" class="form-label fw-bold">Project Type</label>
+          <select id="projectType" class="form-select" formControlName="projectType"
+            [class.is-invalid]="addProjectForm.get('projectType')?.touched && addProjectForm.get('projectType')?.invalid">
+            <option value="" disabled selected>Select Type</option>
+            <option value="Residential">Residential</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Mixed-use">Mixed Use</option>
+          </select>
+          <div *ngIf="addProjectForm.get('projectType')?.touched && addProjectForm.get('projectType')?.invalid" class="invalid-feedback">
+            Project type is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="projectManager" class="form-label fw-bold">Project Manager</label>
+          <select
+            id="projectManager"
+            class="form-select"
+            formControlName="projectManager"
+            [class.is-invalid]="addProjectForm.get('projectManager')?.touched && addProjectForm.get('projectManager')?.invalid"
+          >
+            <option value="" disabled selected>Select Project Manager</option>
+            <option *ngFor="let e of projectManagers|async" [ngValue]="e.id">
+              {{ e.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="addProjectForm.get('projectManager')?.touched && addProjectForm.get('projectManager')?.invalid"
+            class="invalid-feedback"
+          >
+            Project Manager is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="description" class="form-label fw-bold">Project Description</label>
+          <textarea id="description" rows="4" class="form-control" formControlName="description"
+            [class.is-invalid]="addProjectForm.get('description')?.touched && addProjectForm.get('description')?.invalid"></textarea>
+          <div *ngIf="addProjectForm.get('description')?.touched && addProjectForm.get('description')?.invalid" class="invalid-feedback">
+            Description is required.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk mx-1"></i>Submit Project</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<!-- Floor Details Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Floor details</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <div *ngIf="floor && floor.name; else loadingTemplate">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">floor ID</label>
+          <div class="text-muted">{{ floor.id }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">floor Name</label>
+          <div class="text-muted">{{ floor.name }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <ng-template #loadingTemplate>
+      <p class="text-muted fst-italic">
+        Loading floor data or no data available.
+      </p>
+    </ng-template>
+  </div>
+</div>

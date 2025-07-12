@@ -1,0 +1,49 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Employee } from '../models/employee.model';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class EmployeeService {
+  baseUrl: string = 'http://localhost:3000/employees';
+
+  constructor(private http: HttpClient) {}
+
+  // Create new employee
+  addEmployee(employee: Employee): Observable<any> {
+    return this.http.post(this.baseUrl, employee);
+  }
+
+  // Get all employees
+  listEmployees(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
+
+  // Get single employee
+  viewEmployee(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
+  }
+
+  // Update employee
+  editEmployee(id: string, employee: Employee): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, employee);
+  }
+
+  // Delete employee
+  deleteEmployee(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+  // Search employee by role
+  viewEmployeeByRole(role: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}?role=${role}`);
+  }
+
+
+  //Update employee status
+  editEmployeeStatus(id: string, status: boolean): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, status);
+  }
+}

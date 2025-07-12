@@ -1,0 +1,62 @@
+{
+  "projects": [
+    {
+      "id": "87e9",
+      "name": "Project A",
+      "location": "Dhanmondi",
+      "startDate": "2025-08-01",
+      "endDate": "2025-12-31",
+      "budget": 10000000,
+      "status": "Up Coming",
+      "projectType": "Residential",
+      "projectManager": "9ec8",
+      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+    }
+  ],
+  "buildings": [
+    {
+      "id": "645d",
+      "name": "Building A",
+      "type": "Residential",
+      "project": "87e9",
+      "siteManager": "b8ff",
+      "floorCount": 0,
+      "unitCount": 0
+    }
+  ],
+  "floors": [],
+  "employees": [
+    {
+      "id": "9ec8",
+      "name": "Eiasin Prodhan",
+      "email": "eiasinprodhan@gmail.com",
+      "phone": "1012131415",
+      "nid": 8654875487,
+      "joiningDate": "2025-07-01",
+      "role": "Project Manager",
+      "salarytype": "Monthly",
+      "salary": 10000000,
+      "status": false,
+      "buildingId": "",
+      "photo": "https://avatars.githubusercontent.com/u/196037667?v=4",
+      "country": "Bangladesh",
+      "address": "Gazaria, Munshiganj, Dhaka"
+    },
+    {
+      "id": "b8ff",
+      "name": "Rahmat Ullah",
+      "email": "rahmatullah@gmail.com",
+      "phone": "01986548758",
+      "nid": 9658745874,
+      "joiningDate": "2025-07-01",
+      "role": "Site Manager",
+      "salarytype": "Monthly",
+      "salary": 50000,
+      "status": false,
+      "buildingId": "",
+      "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
+      "country": "Bangladesh",
+      "address": "Kallanpur, Dhaka"
+    }
+  ]
+}
