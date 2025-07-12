@@ -1,60 +1,50 @@
 {
   "projects": [
     {
-      "id": "87e9",
+      "id": "efcf",
       "name": "Project A",
       "location": "Dhanmondi",
-      "startDate": "2025-08-01",
-      "endDate": "2025-12-31",
+      "startDate": "2025-07-01",
+      "endDate": "2025-07-31",
       "budget": 10000000,
-      "status": "Up Coming",
+      "status": "Under Construction",
       "projectType": "Residential",
       "projectManager": "9ec8",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    },
-    {
-      "id": "e08c",
-      "name": "Project B",
-      "location": "Dhaka",
-      "startDate": "2025-07-01",
-      "endDate": "2025-07-01",
-      "budget": 5000,
-      "status": "Completed",
-      "projectType": "Residential",
-      "projectManager": "9ec8",
-      "description": "hfgh"
     }
   ],
   "buildings": [
     {
-      "id": "645d",
+      "id": "0ea1",
       "name": "Building A",
       "type": "Residential",
-      "project": "87e9",
+      "project": "efcf",
       "siteManager": "b8ff",
       "floorCount": 0,
       "unitCount": 0
     },
     {
-      "id": "7dbd",
+      "id": "80ad",
       "name": "Building B",
       "type": "Residential",
-      "project": "e08c",
-      "siteManager": "b8ff",
-      "floorCount": 0,
-      "unitCount": 0
-    },
-    {
-      "id": "872c",
-      "name": "Building C",
-      "type": "Mixed-use",
-      "project": "e08c",
+      "project": "efcf",
       "siteManager": "c5fa",
       "floorCount": 0,
       "unitCount": 0
     }
   ],
-  "floors": [],
+  "floors": [
+    {
+      "id": "cfc0",
+      "name": "Basement",
+      "building": "0ea1"
+    },
+    {
+      "id": "27f3",
+      "name": "Ground",
+      "building": "0ea1"
+    }
+  ],
   "employees": [
     {
       "id": "9ec8",
@@ -66,7 +56,7 @@
       "role": "Project Manager",
       "salarytype": "Monthly",
       "salary": 10000000,
-      "status": false,
+      "status": true,
       "buildingId": "",
       "photo": "https://avatars.githubusercontent.com/u/196037667?v=4",
       "country": "Bangladesh",
