@@ -8,7 +8,7 @@ import { EmployeeService } from '../../../services/employee.service';
   templateUrl: './addemployees.html',
   styleUrl: './addemployees.css'
 })
-export class Addemployees implements OnInit{
+export class Addemployees implements OnInit {
   addEmployeeForm!: FormGroup;
 
   message: string = '';
@@ -18,20 +18,20 @@ export class Addemployees implements OnInit{
     private employeeService: EmployeeService,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addEmployeeForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.email]],
       phone: ['', Validators.required],
-      nid: [null, [Validators.required, Validators.min(1)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      nid: [null, [Validators.required]],
       joiningDate: ['', Validators.required],
       role: ['', Validators.required],
       salarytype: ['', Validators.required],
       salary: [null, [Validators.required, Validators.min(1)]],
       status: [false],
-      buildingId: [''],
       photo: ['', Validators.required],
       country: ['', Validators.required],
       address: ['', Validators.required],

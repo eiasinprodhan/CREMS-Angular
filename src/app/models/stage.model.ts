@@ -1,5 +1,7 @@
-export class Floor {
+export class Stage {
   id!:string;
   name!: string;
-  building!: string;
+  startDate!:Date;
+  endDate!:Date;
+  floor!: string;
 }

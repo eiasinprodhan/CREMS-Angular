@@ -2,6 +2,7 @@ export class Employee {
     id!: string;
     name!: string;
     email!: string;
+    password!: string;
     phone!: string;
     nid!: number;
     joiningDate!: Date;
@@ -9,7 +10,6 @@ export class Employee {
     salarytype!: string;
     salary!: number;
     status!: boolean;
-    buildingId!: string;
     photo!:string;
     country!:string;
     address!:string;

@@ -89,25 +89,31 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="nid" class="form-label fw-bold">NID</label>
+          <label for="password" class="form-label fw-bold">Password</label>
           <input
-            type="number"
-            id="nid"
+            type="password"
+            id="password"
             class="form-control"
-            formControlName="nid"
-            [class.is-invalid]="addEmployeeForm.get('nid')?.touched && addEmployeeForm.get('nid')?.invalid"
+            formControlName="password"
+            [class.is-invalid]="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.invalid"
           />
+
           <div
             class="invalid-feedback"
-            *ngIf="addEmployeeForm.get('nid')?.touched && addEmployeeForm.get('nid')?.invalid"
+            *ngIf="addEmployeeForm.get('password')?.touched && addEmployeeForm.get('password')?.invalid"
           >
-            National ID is required.
+            <div *ngIf="addEmployeeForm.get('password')?.errors?.['required']">
+              Password is required.
+            </div>
+            <div *ngIf="addEmployeeForm.get('password')?.errors?.['minlength']">
+              Password must be at least 8 characters long.
+            </div>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="joiningDate" class="form-label fw-bold"
             >Joining Date</label
           >
@@ -126,7 +132,7 @@
           </div>
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="role" class="form-label fw-bold">Role</label>
           <select
             id="role"
@@ -147,10 +153,8 @@
             Role is required.
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="salarytype" class="form-label fw-bold">Salary Type</label>
           <select
             id="salarytype"
@@ -170,8 +174,10 @@
             Salary type is required.
           </div>
         </div>
+      </div>
 
-        <div class="col-md-6 mb-3">
+      <div class="row">
+        <div class="col-md-4 mb-3">
           <label for="salary" class="form-label fw-bold">Salary</label>
           <input
             type="number"
@@ -187,27 +193,8 @@
             Daily salary must be greater than 0.
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label for="photo" class="form-label fw-bold">Photo</label>
-          <input
-            type="text"
-            id="photo"
-            class="form-control"
-            formControlName="photo"
-            [class.is-invalid]="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
-          />
-          <div
-            class="invalid-feedback"
-            *ngIf="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
-          >
-            Photo is required.
-          </div>
-        </div>
-
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="country" class="form-label fw-bold">Country</label>
           <select
             id="country"
@@ -522,14 +509,58 @@
             Country is required.
           </div>
         </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="nid" class="form-label fw-bold">NID</label>
+          <input
+            type="number"
+            id="nid"
+            class="form-control"
+            formControlName="nid"
+            [class.is-invalid]="addEmployeeForm.get('nid')?.touched && addEmployeeForm.get('nid')?.invalid"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="addEmployeeForm.get('nid')?.touched && addEmployeeForm.get('nid')?.invalid"
+          >
+            National ID is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="photo" class="form-label fw-bold">Photo</label>
+          <input
+            type="text"
+            id="photo"
+            class="form-control"
+            formControlName="photo"
+            [class.is-invalid]="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
+          />
+          <div
+            class="invalid-feedback"
+            *ngIf="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
+          >
+            Photo is required.
+          </div>
+        </div>
       </div>
 
       <div class="row">
         <div class="col-md-12 mb-3">
           <label for="address" class="form-label fw-bold">Address</label>
-          <textarea id="address" rows="4" class="form-control" formControlName="address"
-            [class.is-invalid]="addEmployeeForm.get('address')?.touched && addEmployeeForm.get('address')?.invalid"></textarea>
-          <div *ngIf="addEmployeeForm.get('address')?.touched && addEmployeeForm.get('address')?.invalid" class="invalid-feedback">
+          <textarea
+            id="address"
+            rows="4"
+            class="form-control"
+            formControlName="address"
+            [class.is-invalid]="addEmployeeForm.get('address')?.touched && addEmployeeForm.get('address')?.invalid"
+          ></textarea>
+          <div
+            *ngIf="addEmployeeForm.get('address')?.touched && addEmployeeForm.get('address')?.invalid"
+            class="invalid-feedback"
+          >
             Address is required.
           </div>
         </div>

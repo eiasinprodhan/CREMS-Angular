@@ -9,88 +9,108 @@
       "budget": 10000000,
       "status": "Under Construction",
       "projectType": "Residential",
-      "projectManager": "9ec8",
+      "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
   "buildings": [
     {
-      "id": "0ea1",
+      "id": "9b38",
       "name": "Building A",
       "type": "Residential",
       "project": "efcf",
-      "siteManager": "b8ff",
+      "siteManager": "0b87",
       "floorCount": 0,
       "unitCount": 0
     },
     {
-      "id": "80ad",
+      "id": "eecd",
       "name": "Building B",
       "type": "Residential",
       "project": "efcf",
-      "siteManager": "c5fa",
+      "siteManager": "0b87",
       "floorCount": 0,
       "unitCount": 0
     }
   ],
   "floors": [
     {
-      "id": "cfc0",
+      "id": "8d21",
       "name": "Basement",
-      "building": "0ea1"
+      "building": "9b38"
     },
     {
-      "id": "27f3",
+      "id": "1784",
       "name": "Ground",
-      "building": "0ea1"
+      "building": "9b38"
+    },
+    {
+      "id": "37f3",
+      "name": "Basement",
+      "building": "eecd"
+    },
+    {
+      "id": "b4ce",
+      "name": "Ground",
+      "building": "eecd"
+    },
+    {
+      "id": "9f98",
+      "name": "1st Floor",
+      "building": "eecd"
+    },
+    {
+      "id": "c526",
+      "name": "1st Floor",
+      "building": "9b38"
+    }
+  ],
+  "stages": [
+    {
+      "id": "4b17",
+      "name": "Pilling",
+      "startDate": "2025-07-12",
+      "endDate": "2025-07-01",
+      "floor": "8d21"
+    },
+    {
+      "id": "6756",
+      "name": "Slabing",
+      "startDate": "2025-07-12",
+      "endDate": "2025-09-30",
+      "floor": "8d21"
     }
   ],
   "employees": [
     {
-      "id": "9ec8",
+      "id": "6270",
       "name": "Eiasin Prodhan",
       "email": "eiasinprodhan@gmail.com",
-      "phone": "1012131415",
-      "nid": 8654875487,
+      "phone": "01888118271",
+      "password": "12345678",
+      "nid": 9865214587,
       "joiningDate": "2025-07-01",
       "role": "Project Manager",
-      "salarytype": "Monthly",
-      "salary": 10000000,
-      "status": true,
-      "buildingId": "",
+      "salarytype": "Daily",
+      "salary": 10000,
+      "status": false,
       "photo": "https://avatars.githubusercontent.com/u/196037667?v=4",
       "country": "Bangladesh",
       "address": "Gazaria, Munshiganj, Dhaka"
     },
     {
-      "id": "b8ff",
-      "name": "Rahmat Ullah",
-      "email": "rahmatullah@gmail.com",
-      "phone": "01986548758",
-      "nid": 9658745874,
+      "id": "0b87",
+      "name": "Rahamat Ullah",
+      "email": "rahamatullah@gmail.com",
+      "phone": "01785486985",
+      "password": "12345678",
+      "nid": 8652147587,
       "joiningDate": "2025-07-01",
       "role": "Site Manager",
       "salarytype": "Monthly",
       "salary": 50000,
       "status": false,
-      "buildingId": "",
       "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
-      "country": "Bangladesh",
-      "address": "Kallanpur, Dhaka"
-    },
-    {
-      "id": "c5fa",
-      "name": "Md Atiqul Islam",
-      "email": "mdatiqulislam@gmail.com",
-      "phone": "01865214785",
-      "nid": 9658452158,
-      "joiningDate": "2025-07-01",
-      "role": "Site Manager",
-      "salarytype": "Daily",
-      "salary": 101000,
-      "status": false,
-      "buildingId": "",
-      "photo": "https://avatars.githubusercontent.com/u/196037602?v=4",
       "country": "Bangladesh",
       "address": "Dhaka"
     }

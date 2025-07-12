@@ -77,6 +77,7 @@
                 <th>ID</th>
                 <th>Floor Name</th>
                 <th>Building</th>
+                <th>Stages</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -85,6 +86,9 @@
                 <td>{{ floor.id }}</td>
                 <td>{{ floor.name }}</td>
                 <td>{{getBuildingName(floor.building) }}</td>
+                <td><a routerLink="/liststages/{{floor.id}}">
+                  <button class="btn btn-primary">View</button>
+                </a></td>
                 <td>
                   <div class="d-flex gap-2">
                     <button

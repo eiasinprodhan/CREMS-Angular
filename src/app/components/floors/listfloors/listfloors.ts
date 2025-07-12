@@ -35,6 +35,7 @@ export class Listfloors {
   getBuildingName(id: string): string {
     const building = this.buildings.find((b) => b.id === id);
     return building ? building.name : 'Unknown';
+    this.cdr.markForCheck();
   }
 
   // Building List

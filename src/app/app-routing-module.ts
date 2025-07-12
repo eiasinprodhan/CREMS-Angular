@@ -26,6 +26,16 @@ import { Addrawmaterials } from './components/rawmaterials/addrawmaterials/addra
 import { Listrawmaterials } from './components/rawmaterials/listrawmaterials/listrawmaterials';
 import { Viewrawmaterials } from './components/rawmaterials/viewrawmaterials/viewrawmaterials';
 import { Editrawmaterials } from './components/rawmaterials/editrawmaterials/editrawmaterials';
+import { Addstages } from './components/stages/addstages/addstages';
+import { Liststages } from './components/stages/liststages/liststages';
+import { Viewstages } from './components/stages/viewstages/viewstages';
+import { Editstages } from './components/stages/editstages/editstages';
+import { Addattendances } from './attendances/addattendances/addattendances';
+import { Listattendances } from './attendances/listattendances/listattendances';
+import { Viewattendances } from './attendances/viewattendances/viewattendances';
+import { Editattendances } from './attendances/editattendances/editattendances';
+
+
 
 const routes: Routes = [
   // Others
@@ -56,9 +66,21 @@ const routes: Routes = [
   { path: 'viewfloors/:id', component: Viewfloors },
   { path: 'editfloors/:id', component: Editfloors },
 
+  // Staged
+  { path: 'addstages/:id', component: Addstages },
+  { path: 'liststages/:id', component: Liststages },
+  { path: 'viewstages/:id', component: Viewstages },
+  { path: 'editstages/:id', component: Editstages },
+
+  // Attendance
+  { path: 'addattendances/:id', component: Addattendances },
+  { path: 'listattendances/:id', component: Listattendances },
+  { path: 'viewattendances/:id', component: Viewattendances },
+  { path: 'editattendances/:id', component: Editattendances },
+
   // Raw Materials
-  { path: 'addrawmaterials', component: Addrawmaterials },
-  { path: 'listrawmaterials', component: Listrawmaterials },
+  { path: 'addrawmaterials/:id', component: Addrawmaterials },
+  { path: 'listrawmaterials/:id', component: Listrawmaterials },
   { path: 'viewrawmaterials/:id', component: Viewrawmaterials },
   { path: 'editrawmaterials/:id', component: Editrawmaterials },
 

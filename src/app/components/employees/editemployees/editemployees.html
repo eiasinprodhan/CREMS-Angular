@@ -32,7 +32,9 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Email <span class="text-secondary">(Optional)</span></label>
+          <label class="form-label fw-bold"
+            >Email <span class="text-secondary">(Optional)</span></label
+          >
           <input
             type="email"
             class="form-control"
@@ -47,7 +49,7 @@
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Phone</label>
           <input
-            type="tel"
+            type="text"
             class="form-control"
             name="phone"
             [(ngModel)]="employee.phone"
@@ -55,19 +57,19 @@
           />
         </div>
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">NID</label>
+          <label class="form-label fw-bold">Password</label>
           <input
-            type="number"
+            type="text"
             class="form-control"
-            name="phone"
-            [(ngModel)]="employee.nid"
+            name="password"
+            [(ngModel)]="employee.password"
             required
           />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label class="form-label fw-bold">Joining Date</label>
           <input
             type="date"
@@ -78,7 +80,7 @@
           />
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label class="form-label fw-bold">Role</label>
           <select
             class="form-select"
@@ -93,10 +95,8 @@
             <option value="Labour">Labour</option>
           </select>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label class="form-label fw-bold">Salary Type</label>
           <select
             class="form-select"
@@ -110,8 +110,10 @@
             <option value="Contract">Contract</option>
           </select>
         </div>
+      </div>
 
-        <div class="col-md-6 mb-3">
+      <div class="row">
+        <div class="col-md-4 mb-3">
           <label class="form-label fw-bold">Salary</label>
           <input
             type="number"
@@ -122,23 +124,8 @@
             min="0"
           />
         </div>
-      </div>
-      
-      <div class="row">
 
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Photo</label>
-          <input
-            type="text"
-            class="form-control"
-            name="photo"
-            [(ngModel)]="employee.photo"
-            required
-            min="0"
-          />
-        </div>
-
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label class="form-label fw-bold">Country</label>
           <select
             class="form-select"
@@ -447,17 +434,45 @@
             <option value="Zimbabwe">Zimbabwe</option>
           </select>
         </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label fw-bold">NID</label>
+          <input
+            type="number"
+            class="form-control"
+            name="nid"
+            [(ngModel)]="employee.nid"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label class="form-label fw-bold">Photo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="photo"
+            [(ngModel)]="employee.photo"
+            required
+            min="0"
+          />
+        </div>
       </div>
 
       <div class="row">
         <div class="col-md-12 mb-3">
           <label for="address" class="form-label fw-bold">Address</label>
-          <textarea id="address" rows="4" class="form-control" name="address"
-            [(ngModel)]="employee.address"></textarea>
+          <textarea
+            id="address"
+            rows="4"
+            class="form-control"
+            name="address"
+            [(ngModel)]="employee.address"
+          ></textarea>
         </div>
       </div>
-
-
 
       <!-- Update Button -->
       <div class="row">

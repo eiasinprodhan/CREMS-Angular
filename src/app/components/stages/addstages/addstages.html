@@ -1,0 +1,63 @@
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Stage</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+        <button type="button" class="btn btn-primary" onclick="history.back()">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
+        </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addStageForm" (ngSubmit)="addStage()">
+      <div class="row mt-4">
+        <!-- Name -->
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Stage Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="addStageForm.get('name')?.touched && addStageForm.get('name')?.invalid"
+          />
+          <div
+            *ngIf="addStageForm.get('name')?.touched && addStageForm.get('name')?.invalid"
+            class="invalid-feedback"
+          >
+            Stage name is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="endDate" class="form-label fw-bold"
+            >Expected End Date</label
+          >
+          <input
+            type="date"
+            id="endDate"
+            class="form-control"
+            formControlName="endDate"
+            [class.is-invalid]="addStageForm.get('endDate')?.touched && addStageForm.get('endDate')?.invalid"
+          />
+          <div
+            *ngIf="addStageForm.get('endDate')?.touched && addStageForm.get('endDate')?.invalid"
+            class="invalid-feedback"
+          >
+            End Date is required.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Stage
+      </button>
+    </form>
+  </div>
+</div>
