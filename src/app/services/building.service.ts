@@ -36,5 +36,9 @@ export class BuildingService {
   listBuildingByproject(prodectId: string): Observable<any>{
     return this.http.get(this.baseUrl+"?project="+prodectId);
   }
+
+  listWorkHistory(id: string): Observable<any>{
+    return this.http.get(this.baseUrl+"?siteManager="+id);
+  }
 }
 

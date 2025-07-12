@@ -33,4 +33,8 @@ export class ProjectService {
   deleteProjects(id: string): Observable<any> {
     return this.http.delete(this.baseUrl+'/'+id);
   }
+
+  listWorkHistory(id: string): Observable<any>{
+    return this.http.get(this.baseUrl+"?projectManager="+id);
+  }
 }

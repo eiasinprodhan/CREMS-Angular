@@ -1,9 +1,5 @@
-import { Employee } from "./employee.model";
-
-export class Stage {
-  id!: number;
+export class Floor {
+  id!:string;
   name!: string;
-  startDate!: Date;
-  endDate!: Date;
-  employee!:Employee;
+  building!: string;
 }
