@@ -22,6 +22,15 @@
       "siteManager": "0b87",
       "floorCount": 0,
       "unitCount": 0
+    },
+    {
+      "id": "9dd1",
+      "name": "Building B",
+      "type": "Residential",
+      "project": "efcf",
+      "siteManager": "0b87",
+      "floorCount": 0,
+      "unitCount": 0
     }
   ],
   "floors": [
@@ -58,15 +67,17 @@
   ],
   "stages": [
     {
-      "id": "a586",
+      "id": "3011",
       "name": "Pilling",
       "startDate": "2025-07-13",
-      "endDate": "2025-07-31",
+      "endDate": "2025-07-13",
       "floor": "8d21",
       "labours": [
         "2ec0",
         "5aa8",
-        "6480"
+        "6480",
+        "9854",
+        "1111"
       ]
     }
   ],
@@ -118,7 +129,7 @@
       "joiningDate": "2025-07-01",
       "role": "Site Manager",
       "salarytype": "Monthly",
-      "salary": 50000,
+      "salary": 1,
       "status": false,
       "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
       "country": "Bangladesh",
