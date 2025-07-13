@@ -19,7 +19,7 @@ export class Listfloors {
     private buildingService: BuildingService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.listFloors();
@@ -40,12 +40,13 @@ export class Listfloors {
 
   // Building List
   listBuildings(): void {
-  this.buildingService.listBuildings().subscribe(
-    (data: Building[]) => {
-      this.buildings = data;
-    }
-  );
-}
+    this.buildingService.listBuildings().subscribe(
+      (data: Building[]) => {
+        this.buildings = data;
+        this.cdr.markForCheck();
+      }
+    );
+  }
 
   // View Building
   viewFloors(id: string): void {

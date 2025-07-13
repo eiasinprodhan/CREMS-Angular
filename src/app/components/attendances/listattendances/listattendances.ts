@@ -6,6 +6,7 @@ import { StageService } from '../../../services/stage.service';
 import { EmployeeService } from '../../../services/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from '../../../models/employee.model';
+import { error } from 'console';
 
 @Component({
   selector: 'app-listattendances',
@@ -18,11 +19,13 @@ export class Listattendances implements OnInit {
   attendances: any[] = [];
   employees: Employee[] = [];
   stage: Stage = new Stage();
+  attendance: Attendance = new Attendance();
   today: Date = new Date();
 
   constructor(
     private attendanceService: AttendanceService,
     private employeeService: EmployeeService,
+    private stageService: StageService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) { }
@@ -30,15 +33,22 @@ export class Listattendances implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.listEmployees();
-    this.viewAttendances();
+    this.viewEmployeeByStage();
+    this.listAttendances();
   }
 
-  viewAttendances(): void {
-    this.attendanceService.listAttendances(this.id).subscribe(data => {
-      this.attendances = data;
-      this.cdr.markForCheck();
-    });
+  viewEmployeeByStage():void{
+    this.stageService.viewStages(this.id).subscribe({
+      next: (data) => {
+        this.stage = data;
+        console.log(this.stage);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
+
 
   // Get Employee Name by ID
   getEmployeeName(id: string): string {
@@ -46,24 +56,32 @@ export class Listattendances implements OnInit {
     return employee ? employee.name : 'Unknown';
   }
 
+  // Get Employee Salary by ID
+  getEmployeeSalary(id: string): number {
+    const employee = this.employees.find(e => e.id === id);
+    return employee ? employee.salary : 0;
+  }
+
   // Load employees
   listEmployees(): void {
     this.employeeService.listEmployees().subscribe((data: Employee[]) => {
       this.employees = data;
+      this.cdr.markForCheck();
     });
   }
 
-  viewAttendance(id: string): void {
-  // Implement viewing logic here
-}
+  // Get Attendance By Labour
+  getAttendaceByLabour(id: string): string {
+    const date = new Date().toISOString().slice(0, 10);
+    const attendance = this.attendances.find(e => e.id === id && e.date === date);
+    return attendance ? attendance.status : 'Attendance has not been taken.';
+  }
 
-editAttendance(id: string): void {
-  // Implement editing logic here
-}
-
-deleteAttendance(id: string): void {
-  // Implement delete confirmation and logic here
-}
-
-
+  // Load employees
+  listAttendances(): void {
+    this.attendanceService.listAttendances().subscribe((data: Employee[]) => {
+      this.attendances = data;
+      this.cdr.markForCheck();
+    });
+  }
 }

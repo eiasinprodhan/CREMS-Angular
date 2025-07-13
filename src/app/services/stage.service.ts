@@ -41,5 +41,6 @@ export class StageService {
   listWorkHistory(id: string): Observable<any> {
     return this.http.get(this.baseUrl + "?siteManager=" + id);
   }
+
 }
 

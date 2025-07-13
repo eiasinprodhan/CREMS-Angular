@@ -41,10 +41,10 @@ import { Listattendances } from './components/attendances/listattendances/listat
 import { Viewattendances } from './components/attendances/viewattendances/viewattendances';
 import { Editattendances } from './components/attendances/editattendances/editattendances';
 import { Addattendances } from './components/attendances/addattendances/addattendances';
-import { Addunits } from './units/addunits/addunits';
-import { Viewunits } from './units/viewunits/viewunits';
-import { Listunits } from './units/listunits/listunits';
-import { Editunits } from './units/editunits/editunits';
+import { Addunits } from './components/units/addunits/addunits';
+import { Viewunits } from './components/units/viewunits/viewunits';
+import { Listunits } from './components/units/listunits/listunits';
+import { Editunits } from './components/units/editunits/editunits';
 
 @NgModule({
   declarations: [
