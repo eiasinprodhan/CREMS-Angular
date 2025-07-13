@@ -1,6 +1,8 @@
 export class Attendance {
-    id!: string;
-    date!: Date;
-    stage!: string;
-    employee!: [];
+    id!: number;
+    employeeId!: number;
+    stageId!: number;
+    date!: string;
+    status!: string;
+    salary!: number;
 }

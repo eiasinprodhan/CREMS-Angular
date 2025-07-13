@@ -8,9 +8,9 @@
       <h5 class="card-title mb-0 text-md-start text-center">Add New Stage</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end align-items-center">
-        <button type="button" class="btn btn-primary" onclick="history.back()">
-          <i class="fa-solid fa-arrow-left mx-1"></i>Return
-        </button>
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
     </div>
   </div>
 
@@ -51,6 +51,36 @@
             class="invalid-feedback"
           >
             End Date is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="projectManager" class="form-label fw-bold"
+            >Labours</label
+          >
+          <select
+            id="labours"
+            class="form-select"
+            formControlName="labours"
+            [class.is-invalid]="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid"
+            multiple
+            size="5"
+          >
+            <option value="" disabled selected>Select Labours</option>
+            <option *ngFor="let l of labours|async" [ngValue]="l.id">
+              {{ l.name }}
+            </option>
+          </select>
+          <small class="text-muted"
+            >Hold Ctrl (Windows) or Cmd (Mac) to select multiple labours.</small
+          >
+          <div
+            *ngIf="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid"
+            class="invalid-feedback"
+          >
+            Labours are required.
           </div>
         </div>
       </div>

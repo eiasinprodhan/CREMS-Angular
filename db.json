@@ -22,15 +22,6 @@
       "siteManager": "0b87",
       "floorCount": 0,
       "unitCount": 0
-    },
-    {
-      "id": "eecd",
-      "name": "Building B",
-      "type": "Residential",
-      "project": "efcf",
-      "siteManager": "0b87",
-      "floorCount": 0,
-      "unitCount": 0
     }
   ],
   "floors": [
@@ -67,18 +58,39 @@
   ],
   "stages": [
     {
-      "id": "4b17",
-      "name": "Pilling",
-      "startDate": "2025-07-12",
-      "endDate": "2025-07-01",
-      "floor": "8d21"
+      "id": "ea7f",
+      "name": "আজকে পাইলিং হবে",
+      "startDate": "2025-07-13",
+      "endDate": "2025-07-31",
+      "floor": "8d21",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    }
+  ],
+  "attendances": [
+    {
+      "id": "9857",
+      "date": "2025-07-12",
+      "stage": "206a",
+      "labour": [
+        "6270",
+        "0b87"
+      ],
+      "status": "Present"
     },
     {
-      "id": "6756",
-      "name": "Slabing",
-      "startDate": "2025-07-12",
-      "endDate": "2025-09-30",
-      "floor": "8d21"
+      "id": "9858",
+      "date": "2025-07-13",
+      "stage": "206a",
+      "labour": [
+        "6270"
+      ],
+      "status": "Present"
     }
   ],
   "employees": [
@@ -113,6 +125,102 @@
       "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
       "country": "Bangladesh",
       "address": "Dhaka"
+    },
+    {
+      "id": "2ec0",
+      "name": "Labour A",
+      "email": "",
+      "phone": "01865987587487",
+      "password": "12345678",
+      "nid": 1111111111,
+      "joiningDate": "2025-07-01",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 1000,
+      "status": false,
+      "photo": "11111111",
+      "country": "Bangladesh",
+      "address": "Dhaka"
+    },
+    {
+      "id": "5aa8",
+      "name": "Labour B",
+      "email": null,
+      "phone": "55555555555",
+      "password": "12345678",
+      "nid": 111111111,
+      "joiningDate": "2025-07-01",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 1000,
+      "status": null,
+      "photo": "111",
+      "country": "Bangladesh",
+      "address": "1111"
+    },
+    {
+      "id": "6480",
+      "name": "Labour C",
+      "email": "",
+      "phone": "5454545454",
+      "password": "5454545454545454545",
+      "nid": 465456456456,
+      "joiningDate": "2025-07-16",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 100000,
+      "status": false,
+      "photo": "5645645",
+      "country": "Bangladesh",
+      "address": "6455654"
+    },
+    {
+      "id": "9854",
+      "name": "Labour D",
+      "email": "",
+      "phone": "5454545454",
+      "password": "5454545454545454545",
+      "nid": 465456456456,
+      "joiningDate": "2025-07-16",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 100000,
+      "status": false,
+      "photo": "5645645",
+      "country": "Bangladesh",
+      "address": "6455654"
+    },
+    {
+      "id": "1111",
+      "name": "Labour E",
+      "email": "",
+      "phone": "5454545454",
+      "password": "5454545454545454545",
+      "nid": 465456456456,
+      "joiningDate": "2025-07-16",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 100000,
+      "status": false,
+      "photo": "5645645",
+      "country": "Bangladesh",
+      "address": "6455654"
+    },
+    {
+      "id": "9999",
+      "name": "Labour F",
+      "email": "",
+      "phone": "5454545454",
+      "password": "5454545454545454545",
+      "nid": 465456456456,
+      "joiningDate": "2025-07-16",
+      "role": "Labour",
+      "salarytype": "Daily",
+      "salary": 100000,
+      "status": false,
+      "photo": "5645645",
+      "country": "Bangladesh",
+      "address": "6455654"
     }
   ]
 }

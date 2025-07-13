@@ -30,10 +30,10 @@ import { Addstages } from './components/stages/addstages/addstages';
 import { Liststages } from './components/stages/liststages/liststages';
 import { Viewstages } from './components/stages/viewstages/viewstages';
 import { Editstages } from './components/stages/editstages/editstages';
-import { Addattendances } from './attendances/addattendances/addattendances';
-import { Listattendances } from './attendances/listattendances/listattendances';
-import { Viewattendances } from './attendances/viewattendances/viewattendances';
-import { Editattendances } from './attendances/editattendances/editattendances';
+import { Addattendances } from './components/attendances/addattendances/addattendances';
+import { Listattendances } from './components/attendances/listattendances/listattendances';
+import { Viewattendances } from './components/attendances/viewattendances/viewattendances';
+import { Editattendances } from './components/attendances/editattendances/editattendances';
 
 
 

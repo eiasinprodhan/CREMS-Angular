@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StageService } from '../../../services/stage.service';
 import { Stage } from '../../../models/stage.model';
 import { ActivatedRoute } from '@angular/router';
+import { EmployeeService } from '../../../services/employee.service';
 
 @Component({
   selector: 'app-addstages',
@@ -15,8 +16,11 @@ export class Addstages implements OnInit {
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
+  labours!: any;
+
   constructor(
     private stageService: StageService,
+    private employeeService: EmployeeService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute
   ) { }
@@ -26,7 +30,8 @@ export class Addstages implements OnInit {
       name: ['', Validators.required],
       startDate: [new Date().toISOString().slice(0, 10), Validators.required],
       endDate: ['', Validators.required],
-       floor: ['']
+      floor: [''],
+      labours: [[]],
     });
 
     this.route.params.subscribe(params => {
@@ -34,6 +39,8 @@ export class Addstages implements OnInit {
         this.addStageForm.patchValue({ floor: params['id'] });
       }
     });
+
+    this.viewLabours();
 
   }
 
@@ -69,5 +76,9 @@ export class Addstages implements OnInit {
       const control = this.addStageForm.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
+  }
+
+  viewLabours(): void {
+    this.labours = this.employeeService.viewEmployeeByRole("Labour");
   }
 }
