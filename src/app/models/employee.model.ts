@@ -13,4 +13,6 @@ export class Employee {
     photo!:string;
     country!:string;
     address!:string;
+    totalSalary!:number;
+    lastSalary!: Date;
 }

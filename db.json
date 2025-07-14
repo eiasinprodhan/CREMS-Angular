@@ -15,7 +15,7 @@
   ],
   "buildings": [
     {
-      "id": "5f29",
+      "id": "7368",
       "name": "Building A",
       "type": "Residential",
       "project": "7f85",
@@ -24,48 +24,81 @@
       "unitCount": 0
     }
   ],
-  "floors": [],
-  "stages": [],
+  "floors": [
+    {
+      "id": "7639",
+      "name": "Basement",
+      "building": "7368"
+    }
+  ],
+  "stages": [
+    {
+      "id": "e58f",
+      "name": "Pilling",
+      "startDate": "2025-07-14",
+      "endDate": "2025-07-31",
+      "floor": "7639",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    },
+    {
+      "id": "0791",
+      "name": "Salbbing",
+      "startDate": "2025-07-14",
+      "endDate": "2025-07-31",
+      "floor": "7639",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480"
+      ]
+    }
+  ],
   "attendances": [
     {
       "employeeId": "2ec0",
-      "stageId": null,
+      "stageId": "e58f",
       "date": "2025-07-14",
       "status": "Present",
       "salary": 1000,
-      "id": "292a"
+      "id": "fb04"
     },
     {
       "employeeId": "5aa8",
-      "stageId": null,
+      "stageId": "e58f",
       "date": "2025-07-14",
       "status": "Present",
       "salary": 1000,
-      "id": "40fa"
+      "id": "a08a"
     },
     {
       "employeeId": "6480",
-      "stageId": null,
+      "stageId": "e58f",
       "date": "2025-07-14",
       "status": "Present",
       "salary": 100000,
-      "id": "e4f4"
+      "id": "5a09"
     },
     {
+      "id": "e924",
       "employeeId": "9854",
-      "stageId": null,
+      "stageId": "e58f",
       "date": "2025-07-14",
       "status": "Present",
-      "salary": 100000,
-      "id": "82d4"
+      "salary": 100000
     },
     {
       "employeeId": "1111",
-      "stageId": null,
+      "stageId": "e58f",
       "date": "2025-07-14",
       "status": "Present",
       "salary": 100000,
-      "id": "0993"
+      "id": "a74f"
     }
   ],
   "employees": [

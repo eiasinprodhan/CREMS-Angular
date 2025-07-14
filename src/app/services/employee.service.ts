@@ -46,4 +46,9 @@ export class EmployeeService {
   editEmployeeStatus(id: string, status: boolean): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, status);
   }
+
+  // update empployee totalsalary And 
+  updateTotalSalary(id: string, salary: number): Observable<any>{
+    return this.http.patch(this.baseUrl+"/"+id, {salary: salary});
+  }
 }
