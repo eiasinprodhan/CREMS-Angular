@@ -1,52 +1,76 @@
 {
-  "projects": [
-    {
-      "id": "efcf",
-      "name": "Project A",
-      "location": "Dhanmondi",
-      "startDate": "2025-07-01",
-      "endDate": "2025-07-31",
-      "budget": 10000000,
-      "status": "Under Construction",
-      "projectType": "Residential",
-      "projectManager": "6270",
-      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    }
-  ],
-  "buildings": [
-    {
-      "id": "9b38",
-      "name": "Building A",
-      "type": "Residential",
-      "project": "efcf",
-      "siteManager": "0b87",
-      "floorCount": 0,
-      "unitCount": 0
-    },
-    {
-      "id": "9dd1",
-      "name": "Building B",
-      "type": "Residential",
-      "project": "efcf",
-      "siteManager": "0b87",
-      "floorCount": 0,
-      "unitCount": 0
-    }
-  ],
+  "projects": [],
+  "buildings": [],
   "floors": [
     {
-      "id": "35e7",
+      "id": "a4a7",
       "name": "Basement",
       "building": "9b38"
     },
     {
-      "id": "0f82",
-      "name": "1st Floor",
+      "id": "c15b",
+      "name": "Ground Floor",
       "building": "9b38"
     }
   ],
-  "stages": [],
-  "attendances": [],
+  "stages": [
+    {
+      "id": "9dfe",
+      "name": "Basement",
+      "startDate": "2025-07-14",
+      "endDate": "2025-07-31",
+      "floor": "35e7",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    }
+  ],
+  "attendances": [
+    {
+      "employeeId": "2ec0",
+      "stageId": null,
+      "date": "2025-07-14",
+      "status": "Present",
+      "salary": 1000,
+      "id": "292a"
+    },
+    {
+      "employeeId": "5aa8",
+      "stageId": null,
+      "date": "2025-07-14",
+      "status": "Present",
+      "salary": 1000,
+      "id": "40fa"
+    },
+    {
+      "employeeId": "6480",
+      "stageId": null,
+      "date": "2025-07-14",
+      "status": "Present",
+      "salary": 100000,
+      "id": "e4f4"
+    },
+    {
+      "employeeId": "9854",
+      "stageId": null,
+      "date": "2025-07-14",
+      "status": "Present",
+      "salary": 100000,
+      "id": "82d4"
+    },
+    {
+      "employeeId": "1111",
+      "stageId": null,
+      "date": "2025-07-14",
+      "status": "Present",
+      "salary": 100000,
+      "id": "0993"
+    }
+  ],
   "employees": [
     {
       "id": "6270",
@@ -158,22 +182,6 @@
       "status": false,
       "photo": "5645645",
       "country": "Bangladesh",
-      "address": "6455654"
-    },
-    {
-      "id": "9999",
-      "name": "Labour F",
-      "email": "",
-      "phone": "5454545454",
-      "password": "5454545454545454545",
-      "nid": 465456456456,
-      "joiningDate": "2025-07-16",
-      "role": "Labour",
-      "salarytype": "Daily",
-      "salary": 100000,
-      "status": false,
-      "photo": "5645645",
-      "country": "India",
       "address": "6455654"
     }
   ]
