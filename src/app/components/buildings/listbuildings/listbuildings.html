@@ -49,8 +49,6 @@
                 <th>ID</th>
                 <th>Building Name</th>
                 <th>Type</th>
-                <th>Floors</th>
-                <th>Units</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -59,8 +57,6 @@
                 <td>{{ building.id }}</td>
                 <td>{{ building.name }}</td>
                 <td>{{ building.type }}</td>
-                <td>{{ building.floorCount }}</td>
-                <td>{{ building.unitCount }}</td>
                 <td>
                   <div class="d-flex gap-2">
                     <button class="btn btn-sm btn-outline-info" (click)="viewBuildings(building.id)">

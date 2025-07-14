@@ -1,3 +1,4 @@
+<div class="row mx-0 px-3 my-2"></div>
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div
@@ -11,8 +12,17 @@
           class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
         >
           <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-6">
-            Today Attendance ({{ today | date}})
+            Attendance ({{ selectedDate | date}})
           </h5>
+        </div>
+        <div class="col-md-4">
+          <input
+            type="date"
+            id="attendanceDate"
+            class="form-control border border-primary"
+            [(ngModel)]="selectedDate"
+            (change)="onDateChange()"
+          />
         </div>
       </div>
       <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
@@ -20,51 +30,98 @@
           <div
             class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive"
           >
-            <table
-              class="datatables-basic table dataTable dtr-column"
-              id="DataTables_Table_0"
-              aria-describedby="DataTables_Table_0_info"
-            >
-              <colgroup>
-                <col data-dt-column="0" />
-                <col data-dt-column="1" />
-                <col data-dt-column="3" />
-                <col data-dt-column="4" />
-                <col data-dt-column="5" />
-                <col data-dt-column="6" />
-                <col data-dt-column="7" />
-                <col data-dt-column="8" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th class="dt-orderable-asc dt-orderable-desc">
-                    #
-                  </th>
-                  <th class="dt-orderable-asc dt-orderable-desc">
-                    Employee Name
-                  </th>
-                  <th class="dt-orderable-asc dt-orderable-desc">Salary</th>
-                  <th class="dt-orderable-asc dt-orderable-desc">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let l of stage.labours index as i">
-                  <td>{{i+1}}</td>
-                  <td>{{getEmployeeName(l)}}</td>
-                  <td>{{getEmployeeSalary(l)}}</td>
-                  <ng-container *ngIf="getAttendaceByLabour(l)">
-                    <td>{{ getAttendaceByLabour(l) }}</td>
+            <ng-container *ngIf="dateRestriction; else outOfRange">
+              <table
+                class="datatables-basic table dataTable dtr-column"
+                id="DataTables_Table_0"
+                aria-describedby="DataTables_Table_0_info"
+              >
+                <colgroup>
+                  <col data-dt-column="0" />
+                  <col data-dt-column="1" />
+                  <col data-dt-column="3" />
+                  <col data-dt-column="4" />
+                  <col data-dt-column="5" />
+                  <col data-dt-column="6" />
+                  <col data-dt-column="7" />
+                  <col data-dt-column="8" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="dt-orderable-asc dt-orderable-desc">#</th>
+                    <th class="dt-orderable-asc dt-orderable-desc">
+                      Employee Name
+                    </th>
+                    <th class="dt-orderable-asc dt-orderable-desc">Salary</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let l of stage.labours index as i">
+                    <td>{{i+1}}</td>
+                    <td>{{getEmployeeName(l)}}</td>
+                    <td>{{getEmployeeSalary(l)}}</td>
                     <td>
-                      <select>
-                        <option value="">Present</option>
-                        <option value="">Absent</option>
-                        <option value="">On Leave</option>
-                      </select>
+                      <!-- If status is one of the 3 known values -->
+                      <ng-container
+                        *ngIf="['Present', 'Absent', 'On Leave'].includes(getAttendanceByLabour(l)); else showInitialButtons"
+                      >
+                        <!-- Show editable status buttons -->
+                        <button
+                          class="btn mx-1"
+                          [ngClass]="getAttendanceByLabour(l) === 'Present' ? 'btn-success' : 'btn-outline-success'"
+                          (click)="editAttendance(getAttendanceIDByLabour(l), l, 'Present', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-check"></i>
+                        </button>
+
+                        <button
+                          class="btn mx-1"
+                          [ngClass]="getAttendanceByLabour(l) === 'Absent' ? 'btn-danger' : 'btn-outline-danger'"
+                          (click)="editAttendance(getAttendanceIDByLabour(l), l, 'Absent', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-times"></i>
+                        </button>
+
+                        <button
+                          class="btn mx-1"
+                          [ngClass]="getAttendanceByLabour(l) === 'On Leave' ? 'btn-warning' : 'btn-outline-warning'"
+                          (click)="editAttendance(getAttendanceIDByLabour(l), l, 'On Leave', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-clock"></i>
+                        </button>
+                      </ng-container>
+
+                      <!-- If no status is yet saved -->
+                      <ng-template #showInitialButtons>
+                        <button
+                          class="btn btn-outline-success mx-1"
+                          (click)="saveAttendance(l, 'Present', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-check"></i>
+                        </button>
+                        <button
+                          class="btn btn-outline-danger mx-1"
+                          (click)="saveAttendance(l, 'Absent', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-times"></i>
+                        </button>
+                        <button
+                          class="btn btn-outline-warning mx-1"
+                          (click)="saveAttendance(l, 'On Leave', getEmployeeSalary(l))"
+                        >
+                          <i class="fas fa-user-clock"></i>
+                        </button>
+                      </ng-template>
                     </td>
-                  </ng-container>
-                </tr>
-              </tbody>
-            </table>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+            <ng-template #outOfRange>
+              <div class="alert alert-warning text-center my-3">
+                Out of stage date.
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

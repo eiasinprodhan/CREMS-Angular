@@ -38,7 +38,7 @@ export class AttendanceService {
 
   // Delete an attendance record by ID
   deleteAttendances(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}?stageId=${id}`);
   }
 
   // List attendance records by project ID

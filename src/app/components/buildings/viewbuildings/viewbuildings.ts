@@ -6,6 +6,8 @@ import { ProjectService } from '../../../services/project.service';
 import { Project } from '../../../models/project.model';
 import { EmployeeService } from '../../../services/employee.service';
 import { Employee } from '../../../models/employee.model';
+import { FloorService } from '../../../services/floor.service';
+import { Floor } from '../../../models/floor.model';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -18,10 +20,12 @@ export class Viewbuildings implements OnInit {
   building: Building = new Building();
   project: Project = new Project();
   siteManager: Employee = new Employee();
+  floors!: number;
 
   constructor(
     private buildingService: BuildingService,
     private projectService: ProjectService,
+    private floorService: FloorService,
     private employeeService: EmployeeService,
     private ar: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -31,6 +35,7 @@ export class Viewbuildings implements OnInit {
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
     this.viewBuilding();
+    this.getFloorsById();
   }
 
   viewBuilding(): void {
@@ -74,5 +79,11 @@ export class Viewbuildings implements OnInit {
         console.log(error);
       }
     })
+  }
+
+  getFloorsById(): void {
+    this.floorService.getFloorByBuildingId(this.id).subscribe(data => {
+      this.floors = data.length;
+    });
   }
 }

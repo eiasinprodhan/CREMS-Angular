@@ -32,4 +32,8 @@ export class FloorService {
   deleteFloors(id: string): Observable<any> {
     return this.http.delete(this.baseUrl + '/' + id);
   }
+
+  getFloorByBuildingId(id: string): Observable<Floor[]> {
+    return this.http.get<Floor[]>(this.baseUrl + '?building=' + id);
+  }
 }

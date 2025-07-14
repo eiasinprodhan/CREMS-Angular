@@ -36,7 +36,11 @@
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Site Manager</label>
           <div class="text-muted">
-            <a class="text-success" routerLink="/viewemployees/{{siteManager.id}}">{{ siteManager.name }}</a>
+            <a
+              class="text-success"
+              routerLink="/viewemployees/{{siteManager.id}}"
+              >{{ siteManager.name }}</a
+            >
           </div>
         </div>
       </div>
@@ -44,7 +48,9 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Floor Count</label>
-          <div class="text-muted">{{ building.floorCount }}</div>
+          <div class="text-muted">
+            <td>{{floors | number:'2.0'}}</td>
+          </div>
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Unit Count</label>

@@ -19,8 +19,9 @@ export class Listattendances implements OnInit {
   attendances: any[] = [];
   employees: Employee[] = [];
   stage: Stage = new Stage();
-  attendance: Attendance = new Attendance();
   today: Date = new Date();
+  selectedDate: string = new Date().toISOString().slice(0, 10);
+  dateRestriction: boolean = true;
 
   constructor(
     private attendanceService: AttendanceService,
@@ -37,7 +38,7 @@ export class Listattendances implements OnInit {
     this.listAttendances();
   }
 
-  viewEmployeeByStage():void{
+  viewEmployeeByStage(): void {
     this.stageService.viewStages(this.id).subscribe({
       next: (data) => {
         this.stage = data;
@@ -70,12 +71,26 @@ export class Listattendances implements OnInit {
     });
   }
 
+
   // Get Attendance By Labour
-  getAttendaceByLabour(id: string): string {
-    const date = new Date().toISOString().slice(0, 10);
-    const attendance = this.attendances.find(e => e.id === id && e.date === date);
+  getAttendanceByLabour(id: string): string {
+    const date = this.selectedDate;
+    const attendance = this.attendances.find(
+      a => a.employeeId === id && a.date === date && a.stageId === this.id
+    );
     return attendance ? attendance.status : 'Attendance has not been taken.';
   }
+
+
+  // Get Attendance Id
+  getAttendanceIDByLabour(id: string): string {
+    const date = this.selectedDate;
+    const attendance = this.attendances.find(
+      a => a.employeeId === id && a.date === date
+    );
+    return attendance ? attendance.id : 'Attendance has not been taken.';
+  }
+
 
   // Load employees
   listAttendances(): void {
@@ -83,5 +98,39 @@ export class Listattendances implements OnInit {
       this.attendances = data;
       this.cdr.markForCheck();
     });
+  }
+
+  //Save Attendance
+  saveAttendance(id: string, status: string, salary: number): void {
+    const date = this.selectedDate;
+    const attendance: Attendance = new Attendance(id, this.id, date, status, salary);
+    this.attendanceService.addAttendances(attendance).subscribe(data => {
+      this.listAttendances();
+      this.cdr.markForCheck();
+    });
+  }
+
+
+  // Edit Attendance
+  editAttendance(attendanceId: string, id: string, status: string, salary: number): void {
+    const date = this.selectedDate;
+    const attendance: Attendance = new Attendance(id, this.id, date, status, salary);
+    this.attendanceService.editAttendances(attendanceId, attendance).subscribe(data => {
+      this.listAttendances();
+      this.cdr.markForCheck();
+    });
+  }
+
+  onDateChange(): void {
+    const selected = new Date(this.selectedDate);
+    const start = new Date(this.stage.startDate);
+    const end = new Date(this.stage.endDate);
+
+    if (selected < start || selected > end) {
+      this.dateRestriction = false;
+    } else {
+      this.dateRestriction = true;
+      this.cdr.markForCheck();
+    }
   }
 }
