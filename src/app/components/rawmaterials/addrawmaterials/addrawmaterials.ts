@@ -31,6 +31,7 @@ export class Addrawmaterials implements OnInit {
       date: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
       unitprice: [null, [Validators.required, Validators.min(1)]],
+      unit: [''],
       supplier: ['', Validators.required],
       totalprice: [{ value: null, disabled: true }, [Validators.required, Validators.min(1)]]
     });
@@ -53,7 +54,8 @@ export class Addrawmaterials implements OnInit {
     console.log('Selected:', this.selectedRawMaterials);
     if (this.selectedRawMaterials) {
       this.rawMaterialForm.patchValue({
-        name: this.selectedRawMaterials.name
+        name: this.selectedRawMaterials.name,
+        unit: this.selectedRawMaterials.unit
       });
 
       this.updateTotalPrice();

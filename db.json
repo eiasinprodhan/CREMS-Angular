@@ -50,13 +50,7 @@
       "startDate": "2025-07-14",
       "endDate": "2025-07-31",
       "floor": "7639",
-      "labours": [
-        "2ec0",
-        "5aa8",
-        "6480",
-        "9854",
-        "1111"
-      ]
+      "labours": ["2ec0", "5aa8", "6480", "9854", "1111"]
     },
     {
       "id": "0791",
@@ -64,11 +58,7 @@
       "startDate": "2025-07-14",
       "endDate": "2025-07-31",
       "floor": "7639",
-      "labours": [
-        "2ec0",
-        "5aa8",
-        "6480"
-      ]
+      "labours": ["2ec0", "5aa8", "6480"]
     }
   ],
   "attendances": [
@@ -117,7 +107,7 @@
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 800,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
@@ -325,38 +315,7 @@
       "unit": "Liters"
     }
   ],
-  "rawmaterialsstockin": [
-    {
-      "id": "4b0c",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-31",
-      "quantity": 100,
-      "unitprice": 22,
-      "supplier": "Modina Traders",
-      "totalprice": 2200
-    },
-    {
-      "id": "8e59",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-01",
-      "quantity": 200,
-      "unitprice": 25,
-      "supplier": "Ambuja Traders",
-      "totalprice": 5000
-    },
-    {
-      "id": "1521",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-31",
-      "quantity": 500,
-      "unitprice": 25,
-      "supplier": "Modina Traders",
-      "totalprice": 12500
-    }
-  ],
+  "rawmaterialsstockin": [],
   "rawmaterialsstockout": [],
   "employees": [
     {
