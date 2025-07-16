@@ -113,6 +113,251 @@
       "id": "a74f"
     }
   ],
+  "rawmaterials": [
+    {
+      "id": "1",
+      "name": "Sand",
+      "quantity": 800,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "2",
+      "name": "Gravel",
+      "quantity": 0,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "3",
+      "name": "Crushed Stone",
+      "quantity": 0,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "4",
+      "name": "Cement",
+      "quantity": 0,
+      "unit": "Bags"
+    },
+    {
+      "id": "5",
+      "name": "Lime",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "6",
+      "name": "Fly Ash",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "7",
+      "name": "Slag",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "8",
+      "name": "Concrete",
+      "quantity": 0,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "9",
+      "name": "Mortar",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "10",
+      "name": "Clay Bricks",
+      "quantity": 0,
+      "unit": "Pieces"
+    },
+    {
+      "id": "11",
+      "name": "Concrete Blocks",
+      "quantity": 0,
+      "unit": "Pieces"
+    },
+    {
+      "id": "12",
+      "name": "Fly Ash Bricks",
+      "quantity": 0,
+      "unit": "Pieces"
+    },
+    {
+      "id": "13",
+      "name": "Aac Blocks",
+      "quantity": 0,
+      "unit": "Pieces"
+    },
+    {
+      "id": "14",
+      "name": "Tmt Bars",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "15",
+      "name": "Steel Rods",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "16",
+      "name": "Wire Mesh",
+      "quantity": 0,
+      "unit": "Square Feet"
+    },
+    {
+      "id": "17",
+      "name": "Structural Steel",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "18",
+      "name": "Plywood",
+      "quantity": 0,
+      "unit": "Sheets"
+    },
+    {
+      "id": "19",
+      "name": "Timber",
+      "quantity": 0,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "20",
+      "name": "Pvc Pipes",
+      "quantity": 0,
+      "unit": "Feet"
+    },
+    {
+      "id": "21",
+      "name": "Plastic Sheets",
+      "quantity": 0,
+      "unit": "Square Feet"
+    },
+    {
+      "id": "22",
+      "name": "Glass",
+      "quantity": 0,
+      "unit": "Square Feet"
+    },
+    {
+      "id": "23",
+      "name": "Bitumen",
+      "quantity": 0,
+      "unit": "Liters"
+    },
+    {
+      "id": "24",
+      "name": "Asphalt",
+      "quantity": 0,
+      "unit": "Tons"
+    },
+    {
+      "id": "25",
+      "name": "Paint",
+      "quantity": 0,
+      "unit": "Liters"
+    },
+    {
+      "id": "26",
+      "name": "Primer",
+      "quantity": 0,
+      "unit": "Liters"
+    },
+    {
+      "id": "27",
+      "name": "Ceramic Tiles",
+      "quantity": 0,
+      "unit": "Square Feet"
+    },
+    {
+      "id": "28",
+      "name": "Vitrified Tiles",
+      "quantity": 0,
+      "unit": "Square Feet"
+    },
+    {
+      "id": "29",
+      "name": "Plaster Of Paris",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "30",
+      "name": "Water",
+      "quantity": 0,
+      "unit": "Liters"
+    },
+    {
+      "id": "31",
+      "name": "Admixtures",
+      "quantity": 0,
+      "unit": "Liters"
+    },
+    {
+      "id": "32",
+      "name": "Insulation Foam",
+      "quantity": 0,
+      "unit": "Sheets"
+    },
+    {
+      "id": "33",
+      "name": "Rock Wool",
+      "quantity": 0,
+      "unit": "Kg"
+    },
+    {
+      "id": "34",
+      "name": "Sealant",
+      "quantity": 0,
+      "unit": "Tubes"
+    },
+    {
+      "id": "35",
+      "name": "Adhesive",
+      "quantity": 0,
+      "unit": "Liters"
+    }
+  ],
+  "rawmaterialsstockin": [
+    {
+      "id": "4b0c",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-31",
+      "quantity": 100,
+      "unitprice": 22,
+      "supplier": "Modina Traders",
+      "totalprice": 2200
+    },
+    {
+      "id": "8e59",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-01",
+      "quantity": 200,
+      "unitprice": 25,
+      "supplier": "Ambuja Traders",
+      "totalprice": 5000
+    },
+    {
+      "id": "1521",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-31",
+      "quantity": 500,
+      "unitprice": 25,
+      "supplier": "Modina Traders",
+      "totalprice": 12500
+    }
+  ],
+  "rawmaterialsstockout": [],
   "employees": [
     {
       "id": "6270",

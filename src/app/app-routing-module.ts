@@ -79,10 +79,9 @@ const routes: Routes = [
   { path: 'editattendances/:id', component: Editattendances },
 
   // Raw Materials
-  { path: 'addrawmaterials/:id', component: Addrawmaterials },
-  { path: 'listrawmaterials/:id', component: Listrawmaterials },
-  { path: 'viewrawmaterials/:id', component: Viewrawmaterials },
-  { path: 'editrawmaterials/:id', component: Editrawmaterials },
+  { path: 'stockin', component: Addrawmaterials },
+  { path: 'listrawmaterials', component: Listrawmaterials },
+  { path: 'rawmaterilas/:id', component: Viewrawmaterials },
 
   // Employees
   { path: 'addemployees', component: Addemployees },
