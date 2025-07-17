@@ -111,13 +111,53 @@
       "status": "Present",
       "salary": 100000,
       "id": "a74f"
+    },
+    {
+      "id": "b30d",
+      "employeeId": "2ec0",
+      "stageId": "e58f",
+      "date": "2025-07-15",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "58b0",
+      "employeeId": "5aa8",
+      "stageId": "e58f",
+      "date": "2025-07-15",
+      "status": "Absent",
+      "salary": 800
+    },
+    {
+      "id": "3a70",
+      "employeeId": "6480",
+      "stageId": "e58f",
+      "date": "2025-07-15",
+      "status": "Absent",
+      "salary": 800
+    },
+    {
+      "id": "d00e",
+      "employeeId": "9854",
+      "stageId": "e58f",
+      "date": "2025-07-15",
+      "status": "Absent",
+      "salary": 900
+    },
+    {
+      "id": "d36e",
+      "employeeId": "1111",
+      "stageId": "e58f",
+      "date": "2025-07-15",
+      "status": "Present",
+      "salary": 1000
     }
   ],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 0,
+      "quantity": -1000,
       "unit": "Cubic Feet"
     },
     {
@@ -412,6 +452,15 @@
       "name": "Sand",
       "date": "2025-07-17",
       "quantity": 5645,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "ce31",
+      "rawMaterialId": "1",
+      "stageId": "e58f",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 1000,
       "unit": "Cubic Feet"
     }
   ],
