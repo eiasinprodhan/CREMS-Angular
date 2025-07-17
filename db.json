@@ -117,7 +117,7 @@
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 200,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
@@ -344,6 +344,28 @@
       "date": "2025-07-17",
       "quantity": 500,
       "unit": "Cubic Feet"
+    },
+    {
+      "id": "4a4e",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 1000,
+      "unitprice": 24,
+      "unit": "Cubic Feet",
+      "supplier": "Parvej Sand Company Ltd.",
+      "totalprice": 24000
+    },
+    {
+      "id": "f50f",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 5645,
+      "unitprice": 1,
+      "unit": "Cubic Feet",
+      "supplier": "Parvej Sand Company Ltd.",
+      "totalprice": 5645
     }
   ],
   "rawmaterialsstockout": [
@@ -372,6 +394,24 @@
       "name": "Sand",
       "date": "2025-07-22",
       "quantity": 100,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "d4e3",
+      "rawMaterialId": "1",
+      "stageId": "0791",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 1200,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "ff48",
+      "rawMaterialId": "1",
+      "stageId": "0791",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 5645,
       "unit": "Cubic Feet"
     }
   ],
