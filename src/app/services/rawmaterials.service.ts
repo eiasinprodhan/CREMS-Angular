@@ -37,7 +37,7 @@ export class RawmaterialsService {
     return this.http.post(this.baseUrlOfRawMaterialsStockOut, stockOut);
   }
 
-  listStockOut(): Observable<any>{
-    return this.http.get(this.baseUrlOfRawMaterialsStockOut);
+  listStockOut(id: string): Observable<any>{
+    return this.http.get(this.baseUrlOfRawMaterialsStockOut+"?stageId="+id);
   }
 }

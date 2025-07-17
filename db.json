@@ -50,7 +50,13 @@
       "startDate": "2025-07-14",
       "endDate": "2025-07-31",
       "floor": "7639",
-      "labours": ["2ec0", "5aa8", "6480", "9854", "1111"]
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
     },
     {
       "id": "0791",
@@ -58,7 +64,11 @@
       "startDate": "2025-07-14",
       "endDate": "2025-07-31",
       "floor": "7639",
-      "labours": ["2ec0", "5aa8", "6480"]
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480"
+      ]
     }
   ],
   "attendances": [
@@ -107,7 +117,7 @@
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 0,
+      "quantity": 200,
       "unit": "Cubic Feet"
     },
     {
@@ -315,8 +325,56 @@
       "unit": "Liters"
     }
   ],
-  "rawmaterialsstockin": [],
-  "rawmaterialsstockout": [],
+  "rawmaterialsstockin": [
+    {
+      "id": "ab86",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 1000,
+      "unitprice": 22,
+      "unit": "Cubic Feet",
+      "supplier": "Sand Corporation LTD.",
+      "totalprice": 22000
+    },
+    {
+      "id": "67da",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-17",
+      "quantity": 500,
+      "unit": "Cubic Feet"
+    }
+  ],
+  "rawmaterialsstockout": [
+    {
+      "id": "40e8",
+      "rawMaterialId": "1",
+      "stageId": "e58f",
+      "name": "Sand",
+      "date": "2025-07-16",
+      "quantity": 100,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "f387",
+      "rawMaterialId": "1",
+      "stageId": "e58f",
+      "name": "Sand",
+      "date": "2025-07-31",
+      "quantity": 100,
+      "unit": "Cubic Feet"
+    },
+    {
+      "id": "3698",
+      "rawMaterialId": "1",
+      "stageId": "0791",
+      "name": "Sand",
+      "date": "2025-07-22",
+      "quantity": 100,
+      "unit": "Cubic Feet"
+    }
+  ],
   "employees": [
     {
       "id": "6270",

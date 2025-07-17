@@ -34,12 +34,16 @@ export class StageService {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  liststageByproject(prodectId: string): Observable<any> {
-    return this.http.get(this.baseUrl + "?project=" + prodectId);
+  liststageByproject(projectId: string): Observable<any> {
+    return this.http.get(this.baseUrl + "?project=" + projectId);
   }
 
   listWorkHistory(id: string): Observable<any> {
     return this.http.get(this.baseUrl + "?siteManager=" + id);
+  }
+
+  loadAllStages(): Observable<any>{
+    return this.http.get(this.baseUrl);
   }
 
 }

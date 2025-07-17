@@ -1,1 +1,197 @@
-<p>viewrawmaterials works!</p>
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">
+        Add Raw Material Stock In
+      </h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+        <button type="button" class="btn btn-primary" onclick="history.back()">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
+        </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="rawMaterialForm" (ngSubmit)="submitStockOut()">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="rawMaterialId" class="form-label fw-bold"
+            >Raw Material</label
+          >
+          <select
+            id="rawMaterialId"
+            class="form-select"
+            formControlName="rawMaterialId"
+            [class.is-invalid]="rawMaterialForm.get('rawMaterialId')?.touched && rawMaterialForm.get('rawMaterialId')?.invalid"
+            (change)="onItemSelect($event)"
+          >
+            <option value="" disabled selected>Select Raw Material</option>
+            <option *ngFor="let rm of rawmaterials" [value]="rm.id">
+              {{ rm.name }} (Available: {{ rm.quantity }})
+            </option>
+          </select>
+          <div
+            *ngIf="rawMaterialForm.get('rawMaterialId')?.touched && rawMaterialForm.get('rawMaterialId')?.invalid"
+            class="invalid-feedback"
+          >
+            Raw Material is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="date" class="form-label fw-bold">Date</label>
+          <input
+            type="date"
+            id="date"
+            class="form-control"
+            formControlName="date"
+            [class.is-invalid]="rawMaterialForm.get('date')?.touched && rawMaterialForm.get('date')?.invalid"
+          />
+          <div
+            *ngIf="rawMaterialForm.get('date')?.touched && rawMaterialForm.get('date')?.invalid"
+            class="invalid-feedback"
+          >
+            Date is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label for="quantity" class="form-label fw-bold">Quantity</label>
+          <div class="input-group">
+            <input
+              type="number"
+              id="quantity"
+              class="form-control"
+              formControlName="quantity"
+              [class.is-invalid]="rawMaterialForm.get('quantity')?.touched && rawMaterialForm.get('quantity')?.invalid"
+            />
+            <span class="input-group-text"
+              >{{ selectedRawMaterials?.unit || 'Unit' }}</span
+            >
+          </div>
+          <div
+            *ngIf="rawMaterialForm.get('quantity')?.touched && rawMaterialForm.get('quantity')?.invalid"
+            class="invalid-feedback"
+          >
+            Quantity must be greater than 0.
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Stock
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-datatable table-responsive pt-0">
+    <div
+      id="DataTables_Table_0_wrapper"
+      class="dt-container dt-bootstrap5 dt-empty-footer"
+    >
+      <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
+        >
+          <div class="dt-length">
+            <label for="dt-length-0"
+              >Show<select
+                name="DataTables_Table_0_length"
+                aria-controls="DataTables_Table_0"
+                id="dt-length-0"
+                class="form-select"
+              >
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option></select
+              >entries</label
+            >
+          </div>
+        </div>
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0"
+        >
+          <div class="dt-search mt-0 mt-md-6 mb-6">
+            <label for="dt-search-0">Search:</label
+            ><input
+              type="search"
+              id="dt-search-0"
+              placeholder=""
+              aria-controls="DataTables_Table_0"
+              class="form-control ms-4"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="justify-content-between dt-layout-table">
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive"
+        >
+          <table
+            id="DataTables_Table_0"
+            aria-describedby="DataTables_Table_0_info"
+            class="datatables-basic table dataTable dtr-column"
+          >
+            <colgroup>
+              <col data-dt-column="0" />
+              <col data-dt-column="1" />
+              <col data-dt-column="3" />
+              <col data-dt-column="4" />
+              <col data-dt-column="5" />
+              <col data-dt-column="6" />
+              <col data-dt-column="7" />
+              <col data-dt-column="8" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="dt-orderable-asc dt-orderable-desc">ID</th>
+                <th class="dt-orderable-asc dt-orderable-desc">Raw Material Name</th>
+                <th class="dt-orderable-asc dt-orderable-desc">Date</th>
+                <th class="dt-orderable-asc dt-orderable-desc">Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sl of stockOutlist|async">
+                <td>{{sl.id}}</td>
+                <td>{{sl.name}}</td>
+                <td>{{sl.date}}</td>
+                <td>{{sl.quantity}} {{sl.unit}}</td>
+              </tr>
+              <!--container-->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row mx-3 justify-content-between">
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
+        >
+          <div
+            aria-live="polite"
+            id="DataTables_Table_0_info"
+            role="status"
+            class="dt-info"
+          >
+            Showing 0 to 0 of 0 entries
+          </div>
+        </div>
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0"
+        >
+          <div class="dt-paging"><nav aria-label="pagination"></nav></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
