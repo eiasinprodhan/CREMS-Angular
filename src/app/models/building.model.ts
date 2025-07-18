@@ -8,4 +8,5 @@ export class Building {
     siteManager!: string;
     floorCount!: number;
     unitCount!: number;
+    photo!:string;
 }

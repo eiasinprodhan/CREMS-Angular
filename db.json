@@ -1,55 +1,44 @@
 {
   "projects": [
     {
-      "id": "7f85",
+      "id": "c9cd",
       "name": "Project A",
       "location": "Dhanmondi",
       "startDate": "2025-07-01",
-      "endDate": "2025-07-31",
-      "budget": 1000000,
+      "endDate": "2025-12-31",
+      "budget": 100000000,
       "status": "Under Construction",
-      "projectType": "Residential",
+      "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    },
-    {
-      "id": "8387",
-      "name": "Project B",
-      "location": "Dhanmondi",
-      "startDate": "2025-07-01",
-      "endDate": "2025-07-31",
-      "budget": 500000,
-      "status": "Under Construction",
-      "projectType": "Residential",
-      "projectManager": "6270",
-      "description": "sasfd"
     }
   ],
   "buildings": [
     {
-      "id": "7368",
+      "id": "faf0",
       "name": "Building A",
-      "type": "Residential",
-      "project": "7f85",
+      "type": "Mixed-use",
+      "project": "c9cd",
       "siteManager": "0b87",
-      "floorCount": 0,
-      "unitCount": 0
+      "floorCount": 20,
+      "unitCount": 40,
+      "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/OVERVIEW_0001_MBR-1.jpg"
     }
   ],
   "floors": [
     {
-      "id": "7639",
+      "id": "3069",
       "name": "Basement",
-      "building": "7368"
+      "building": "faf0"
     }
   ],
   "stages": [
     {
-      "id": "e58f",
+      "id": "a8ee",
       "name": "Pilling",
-      "startDate": "2025-07-14",
+      "startDate": "2025-07-18",
       "endDate": "2025-07-31",
-      "floor": "7639",
+      "floor": "3069",
       "labours": [
         "2ec0",
         "5aa8",
@@ -57,107 +46,14 @@
         "9854",
         "1111"
       ]
-    },
-    {
-      "id": "0791",
-      "name": "Salbbing",
-      "startDate": "2025-07-14",
-      "endDate": "2025-07-31",
-      "floor": "7639",
-      "labours": [
-        "2ec0",
-        "5aa8",
-        "6480"
-      ]
     }
   ],
-  "attendances": [
-    {
-      "employeeId": "2ec0",
-      "stageId": "e58f",
-      "date": "2025-07-14",
-      "status": "Present",
-      "salary": 1000,
-      "id": "fb04"
-    },
-    {
-      "employeeId": "5aa8",
-      "stageId": "e58f",
-      "date": "2025-07-14",
-      "status": "Present",
-      "salary": 1000,
-      "id": "a08a"
-    },
-    {
-      "employeeId": "6480",
-      "stageId": "e58f",
-      "date": "2025-07-14",
-      "status": "Present",
-      "salary": 100000,
-      "id": "5a09"
-    },
-    {
-      "id": "e924",
-      "employeeId": "9854",
-      "stageId": "e58f",
-      "date": "2025-07-14",
-      "status": "Present",
-      "salary": 100000
-    },
-    {
-      "employeeId": "1111",
-      "stageId": "e58f",
-      "date": "2025-07-14",
-      "status": "Present",
-      "salary": 100000,
-      "id": "a74f"
-    },
-    {
-      "id": "b30d",
-      "employeeId": "2ec0",
-      "stageId": "e58f",
-      "date": "2025-07-15",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "58b0",
-      "employeeId": "5aa8",
-      "stageId": "e58f",
-      "date": "2025-07-15",
-      "status": "Absent",
-      "salary": 800
-    },
-    {
-      "id": "3a70",
-      "employeeId": "6480",
-      "stageId": "e58f",
-      "date": "2025-07-15",
-      "status": "Absent",
-      "salary": 800
-    },
-    {
-      "id": "d00e",
-      "employeeId": "9854",
-      "stageId": "e58f",
-      "date": "2025-07-15",
-      "status": "Absent",
-      "salary": 900
-    },
-    {
-      "id": "d36e",
-      "employeeId": "1111",
-      "stageId": "e58f",
-      "date": "2025-07-15",
-      "status": "Present",
-      "salary": 1000
-    }
-  ],
+  "attendances": [],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": -1000,
+      "quantity": 5000,
       "unit": "Cubic Feet"
     },
     {
@@ -367,101 +263,15 @@
   ],
   "rawmaterialsstockin": [
     {
-      "id": "ab86",
+      "id": "2761",
       "rawMaterialId": "1",
       "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 1000,
-      "unitprice": 22,
+      "date": "2025-07-18",
+      "quantity": 5000,
+      "unitprice": 25,
       "unit": "Cubic Feet",
-      "supplier": "Sand Corporation LTD.",
-      "totalprice": 22000
-    },
-    {
-      "id": "67da",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 500,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "4a4e",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 1000,
-      "unitprice": 24,
-      "unit": "Cubic Feet",
-      "supplier": "Parvej Sand Company Ltd.",
-      "totalprice": 24000
-    },
-    {
-      "id": "f50f",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 5645,
-      "unitprice": 1,
-      "unit": "Cubic Feet",
-      "supplier": "Parvej Sand Company Ltd.",
-      "totalprice": 5645
-    }
-  ],
-  "rawmaterialsstockout": [
-    {
-      "id": "40e8",
-      "rawMaterialId": "1",
-      "stageId": "e58f",
-      "name": "Sand",
-      "date": "2025-07-16",
-      "quantity": 100,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "f387",
-      "rawMaterialId": "1",
-      "stageId": "e58f",
-      "name": "Sand",
-      "date": "2025-07-31",
-      "quantity": 100,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "3698",
-      "rawMaterialId": "1",
-      "stageId": "0791",
-      "name": "Sand",
-      "date": "2025-07-22",
-      "quantity": 100,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "d4e3",
-      "rawMaterialId": "1",
-      "stageId": "0791",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 1200,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "ff48",
-      "rawMaterialId": "1",
-      "stageId": "0791",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 5645,
-      "unit": "Cubic Feet"
-    },
-    {
-      "id": "ce31",
-      "rawMaterialId": "1",
-      "stageId": "e58f",
-      "name": "Sand",
-      "date": "2025-07-17",
-      "quantity": 1000,
-      "unit": "Cubic Feet"
+      "supplier": "Sand Traders Ltd.",
+      "totalprice": 125000
     }
   ],
   "employees": [

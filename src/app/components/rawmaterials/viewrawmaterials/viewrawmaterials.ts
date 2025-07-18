@@ -87,53 +87,64 @@ export class Viewrawmaterials {
   }
 
   submitStockOut(): void {
-    if (this.rawMaterialForm.invalid) {
-      this.rawMaterialForm.markAllAsTouched();
-      return;
-    }
-
-    const stockOutData = this.rawMaterialForm.getRawValue();
-
-    this.rawMaterialsService.saveStockOut(stockOutData).subscribe({
-      next: () => {
-        if (!this.selectedRawMaterials) {
-          console.error('No raw material selected');
-          return;
-        }
-
-        const updatedQuantity = Number((this.selectedRawMaterials.quantity || 0) - (stockOutData.quantity));
-
-
-        const updatedRawMaterial: RawMaterials = {
-          id: this.selectedRawMaterials.id,
-          name: this.selectedRawMaterials.name,
-          quantity: updatedQuantity,
-          unit: this.selectedRawMaterials.unit
-        };
-
-        this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial.id, updatedRawMaterial).subscribe({
-          next: () => {
-            this.listRawMaterials();
-            this.rawMaterialForm.reset();
-            this.selectedRawMaterials = undefined;
-            this.message = 'Stock in record added successfully.';
-            this.messageType = 'success';
-            this.listStockOut();
-          },
-          error: (updateError) => {
-            console.error('Error updating raw materials quantity:', updateError);
-            this.message = 'Failed to update raw materials quantity.';
-            this.messageType = 'danger';
-          }
-        });
-      },
-      error: (err) => {
-        console.error('Error adding stock in:', err);
-        this.message = 'Failed to add stock in. Please try again.';
-        this.messageType = 'danger';
-      }
-    });
+  if (this.rawMaterialForm.invalid) {
+    this.rawMaterialForm.markAllAsTouched();
+    return;
   }
+
+  const stockOutData = this.rawMaterialForm.getRawValue();
+
+  if (!this.selectedRawMaterials) {
+    this.message = 'Please select a raw material.';
+    this.messageType = 'danger';
+    return;
+  }
+
+  const availableQuantity = this.selectedRawMaterials.quantity || 0;
+
+  // ❌ Prevent saving if requested quantity > available quantity
+  if (stockOutData.quantity > availableQuantity) {
+    this.message = 'Stock is not available. Requested quantity exceeds available stock.';
+    this.messageType = 'danger';
+    return; // 💥 Stop execution here
+  }
+
+  // ✅ Continue only if quantity is available
+  const updatedQuantity = availableQuantity - stockOutData.quantity;
+
+  this.rawMaterialsService.saveStockOut(stockOutData).subscribe({
+    next: () => {
+      const updatedRawMaterial: RawMaterials = {
+        id: this.selectedRawMaterials!.id,
+        name: this.selectedRawMaterials!.name,
+        quantity: updatedQuantity,
+        unit: this.selectedRawMaterials!.unit
+      };
+
+      this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial.id, updatedRawMaterial).subscribe({
+        next: () => {
+          this.listRawMaterials();
+          this.rawMaterialForm.reset();
+          this.selectedRawMaterials = undefined;
+          this.message = 'Stock out record added successfully.';
+          this.messageType = 'success';
+          this.listStockOut();
+        },
+        error: (updateError) => {
+          console.error('Error updating raw materials quantity:', updateError);
+          this.message = 'Failed to update raw materials quantity.';
+          this.messageType = 'danger';
+        }
+      });
+    },
+    error: (err) => {
+      console.error('Error saving stock out:', err);
+      this.message = 'Failed to add stock out. Please try again.';
+      this.messageType = 'danger';
+    }
+  });
+}
+
 
   listStockOut(): void {
     this.stockOutlist = this.rawMaterialsService.listStockOut(this.id);

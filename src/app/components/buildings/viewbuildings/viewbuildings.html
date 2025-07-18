@@ -1,7 +1,7 @@
 <!-- Building Details Card -->
 <div class="card">
   <!-- Card Header -->
-  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 my-5 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
       <h5 class="card-title mb-0 text-md-start text-center">
         Building Details
@@ -17,53 +17,61 @@
   <!-- Card Body -->
   <div class="card-body">
     <div *ngIf="building && building.name; else loadingTemplate">
-      <div class="row mt-4">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Building ID</label>
-          <div class="text-muted">{{ building.id }}</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Building Name</label>
-          <div class="text-muted">{{ building.name }}</div>
-        </div>
-      </div>
-
       <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Building Type</label>
-          <div class="text-muted">{{ building.type }}</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Site Manager</label>
-          <div class="text-muted">
-            <a
-              class="text-success"
-              routerLink="/viewemployees/{{siteManager.id}}"
-              >{{ siteManager.name }}</a
-            >
+        <!-- Left Column: Text -->
+        <div class="col-md-6 d-flex flex-column justify-content-center">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Building ID</label>
+            <div class="text-muted">{{ building.id }}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Building Name</label>
+            <div class="text-muted">{{ building.name }}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Building Type</label>
+            <div class="text-muted">{{ building.type }}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Site Manager</label>
+            <div class="text-muted">
+              <a
+                class="text-success"
+                routerLink="/viewemployees/{{ siteManager.id }}"
+                >{{ siteManager.name }}</a
+              >
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Floor Count</label>
+            <div class="text-muted">{{ floors | number:'2.0' }}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Unit Count</label>
+            <div class="text-muted">{{ building.unitCount }}</div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">Project</label>
+            <a routerLink="/viewprojects/{{ building.project }}">
+              <div class="text-success">{{ project.name }}</div>
+            </a>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Floor Count</label>
-          <div class="text-muted">
-            <td>{{floors | number:'2.0'}}</td>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Unit Count</label>
-          <div class="text-muted">{{ building.unitCount }}</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Project</label>
-          <a routerLink="/viewprojects/{{building.project}}"
-            ><div class="text-success">{{ project.name }}</div></a
-          >
+        <!-- Right Column: Image -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <img
+            [src]="building.photo || 'assets/images/placeholder.jpg'"
+            alt="Building Photo"
+            class="img-fluid rounded shadow"
+            style="max-height: 100%; object-fit: cover; width: 100%;"
+          />
         </div>
       </div>
     </div>

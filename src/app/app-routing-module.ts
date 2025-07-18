@@ -36,6 +36,8 @@ import { Viewattendances } from './components/attendances/viewattendances/viewat
 import { Editattendances } from './components/attendances/editattendances/editattendances';
 import { Addunits } from './components/units/addunits/addunits';
 import { Listunits } from './components/units/listunits/listunits';
+import { Editunits } from './components/units/editunits/editunits';
+import { Viewunits } from './components/units/viewunits/viewunits';
 
 
 
@@ -65,13 +67,12 @@ const routes: Routes = [
   // Floors
   { path: 'addfloors', component: Addfloors },
   { path: 'listfloors', component: Listfloors },
-  { path: 'viewfloors/:id', component: Viewfloors },
   { path: 'editfloors/:id', component: Editfloors },
 
   // Staged
   { path: 'addstages/:id', component: Addstages },
   { path: 'liststages/:id', component: Liststages },
-  { path: 'viewstages', component: Viewstages },
+  { path: 'viewstages/:id', component: Viewstages },
   { path: 'editstages/:id', component: Editstages },
 
   // Attendance
@@ -81,8 +82,10 @@ const routes: Routes = [
   { path: 'editattendances/:id', component: Editattendances },
 
   // Ubits
-  { path: 'addunits/:id', component: Addunits },
+  { path: 'addunits', component: Addunits },
   { path: 'listunits', component: Listunits },
+  { path: 'viewunits', component: Viewunits },
+  { path: 'editunits', component: Editunits },
 
   // Raw Materials
   { path: 'stockin', component: Addrawmaterials },

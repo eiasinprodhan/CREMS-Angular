@@ -35,7 +35,8 @@ export class Addbuildings implements OnInit {
       project: ['', Validators.required],
       siteManager: ['', [Validators.required]],
       floorCount: [0],
-      unitCount: [0]
+      unitCount: [0],
+      photo: ['']
     });
 
     this.listProjects();

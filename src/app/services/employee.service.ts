@@ -41,6 +41,10 @@ export class EmployeeService {
     return this.http.get(`${this.baseUrl}?role=${role}`);
   }
 
+  viewEmployeeByRoles(role: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(`${this.baseUrl}?role=${role}`);
+  }
+
 
   //Update employee status
   editEmployeeStatus(id: string, status: boolean): Observable<any> {

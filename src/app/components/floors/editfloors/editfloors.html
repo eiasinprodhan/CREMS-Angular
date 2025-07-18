@@ -1,1 +1,73 @@
-<p>editfloors works!</p>
+<!-- Alert Message -->
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<!-- Update Floor Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Update Floor</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <a routerLink="/listfloors">
+        <button type="button" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <form [formGroup]="editFloorForm" (ngSubmit)="updateFloor()">
+      <div class="row mt-4">
+        <!-- Floor Name -->
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Floor Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            formControlName="name"
+            [class.is-invalid]="editFloorForm.get('name')?.touched && editFloorForm.get('name')?.invalid"
+          />
+          <div
+            *ngIf="editFloorForm.get('name')?.touched && editFloorForm.get('name')?.invalid"
+            class="invalid-feedback"
+          >
+            Floor name is required.
+          </div>
+        </div>
+
+        <!-- Building Selection -->
+        <div class="col-md-6 mb-3">
+          <label for="building" class="form-label fw-bold">Building</label>
+          <select
+            id="building"
+            class="form-select"
+            formControlName="building"
+            [class.is-invalid]="editFloorForm.get('building')?.touched && editFloorForm.get('building')?.invalid"
+          >
+            <option value="" disabled selected>Select Building</option>
+            <option *ngFor="let b of buildings" [ngValue]="b.id">
+              {{ b.name }}
+            </option>
+          </select>
+          <div
+            *ngIf="editFloorForm.get('building')?.touched && editFloorForm.get('building')?.invalid"
+            class="invalid-feedback"
+          >
+            Building selection is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Update Floor
+      </button>
+    </form>
+  </div>
+</div>

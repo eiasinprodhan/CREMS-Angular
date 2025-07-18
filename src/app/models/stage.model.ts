@@ -4,5 +4,5 @@ export class Stage {
   startDate!: Date;
   endDate!: Date;
   floor!: string;
-  labours!: [];
+  labours!: string[];
 }

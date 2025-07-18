@@ -73,8 +73,8 @@
             formControlName="project"
             [class.is-invalid]="addBuildingForm.get('project')?.touched && addBuildingForm.get('project')?.invalid"
           >
-            <option value="" disabled selected>Select Type</option>
-            <option *ngFor="let p of projects|async" [ngValue]="p.id">
+            <option value="" disabled selected>Select Project</option>
+            <option *ngFor="let p of projects | async" [ngValue]="p.id">
               {{ p.name }}
             </option>
           </select>
@@ -95,7 +95,7 @@
             [class.is-invalid]="addBuildingForm.get('siteManager')?.touched && addBuildingForm.get('siteManager')?.invalid"
           >
             <option value="" disabled selected>Select Site Manager</option>
-            <option *ngFor="let e of siteManagers|async" [ngValue]="e.id">
+            <option *ngFor="let e of siteManagers | async" [ngValue]="e.id">
               {{ e.name }}
             </option>
           </select>
@@ -104,6 +104,48 @@
             class="invalid-feedback"
           >
             Site Manager is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="floorCount" class="form-label fw-bold">Number of Floors</label>
+          <input
+            type="number"
+            id="floorCount"
+            class="form-control"
+            formControlName="floorCount"
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="unitCount" class="form-label fw-bold">Number of Units</label>
+          <input
+            type="number"
+            id="unitCount"
+            class="form-control"
+            formControlName="unitCount"
+          />
+        </div>
+      </div>
+
+      <!-- Photo field -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="photo" class="form-label fw-bold">Photo URL</label>
+          <input
+            type="text"
+            id="photo"
+            class="form-control"
+            formControlName="photo"
+            [class.is-invalid]="addBuildingForm.get('photo')?.touched && addBuildingForm.get('photo')?.invalid"
+          />
+          <div
+            *ngIf="addBuildingForm.get('photo')?.touched && addBuildingForm.get('photo')?.invalid"
+            class="invalid-feedback"
+          >
+            Photo URL is required.
           </div>
         </div>
       </div>
