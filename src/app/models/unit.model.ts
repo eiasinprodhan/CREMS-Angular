@@ -1,6 +1,7 @@
-export class FloorUnit {
+export class Unit {
   id!: string;
-  floorID!:string;
+  floorId!:string;
+  buildingId!:string;
   unitNumber!: string;
   area!: number;
   bedrooms!: number;

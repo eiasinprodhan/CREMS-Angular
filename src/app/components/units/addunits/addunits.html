@@ -1,1 +1,92 @@
-<p>addunits works!</p>
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Unit</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <a routerLink="/listunits">
+        <button type="button" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addUnitForm" (ngSubmit)="addUnit()">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="unitNumber" class="form-label fw-bold">Unit Number</label>
+          <input type="text" id="unitNumber" class="form-control" formControlName="unitNumber"
+            [class.is-invalid]="addUnitForm.get('unitNumber')?.touched && addUnitForm.get('unitNumber')?.invalid" />
+          <div *ngIf="addUnitForm.get('unitNumber')?.touched && addUnitForm.get('unitNumber')?.invalid"
+            class="invalid-feedback">
+            Unit Number is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="area" class="form-label fw-bold">Area (m²)</label>
+          <input type="number" id="area" class="form-control" formControlName="area"
+            [class.is-invalid]="addUnitForm.get('area')?.touched && addUnitForm.get('area')?.invalid" />
+          <div *ngIf="addUnitForm.get('area')?.touched && addUnitForm.get('area')?.invalid"
+            class="invalid-feedback">
+            Area must be greater than 0.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="bedrooms" class="form-label fw-bold">Bedrooms</label>
+          <input type="number" id="bedrooms" class="form-control" formControlName="bedrooms"
+            [class.is-invalid]="addUnitForm.get('bedrooms')?.touched && addUnitForm.get('bedrooms')?.invalid" />
+          <div *ngIf="addUnitForm.get('bedrooms')?.touched && addUnitForm.get('bedrooms')?.invalid"
+            class="invalid-feedback">
+            Bedrooms must be greater than 0.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="bathrooms" class="form-label fw-bold">Bathrooms</label>
+          <input type="number" id="bathrooms" class="form-control" formControlName="bathrooms"
+            [class.is-invalid]="addUnitForm.get('bathrooms')?.touched && addUnitForm.get('bathrooms')?.invalid" />
+          <div *ngIf="addUnitForm.get('bathrooms')?.touched && addUnitForm.get('bathrooms')?.invalid"
+            class="invalid-feedback">
+            Bathrooms must be greater than 0.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="photoUrls" class="form-label fw-bold">Unit Photos (URLs)</label>
+
+          <div formArrayName="photoUrls">
+            <div *ngFor="let photoUrl of photoUrls.controls; let i = index" [formGroupName]="i">
+              <div class="input-group mb-2">
+                <input type="text" class="form-control" formControlName="url"
+                  [class.is-invalid]="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid" placeholder="Enter photo URL" />
+                <button type="button" class="btn btn-outline-secondary" (click)="addPhotoUrl()"
+                  *ngIf="i === photoUrls.length - 1">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+              <div *ngIf="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid" class="invalid-feedback">
+                Please provide a valid URL.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Unit
+      </button>
+    </form>
+  </div>
+</div>

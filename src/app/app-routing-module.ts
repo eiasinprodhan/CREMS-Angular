@@ -82,10 +82,10 @@ const routes: Routes = [
   { path: 'editattendances/:id', component: Editattendances },
 
   // Ubits
-  { path: 'addunits', component: Addunits },
+  { path: 'addunits/:id', component: Addunits },
   { path: 'listunits', component: Listunits },
-  { path: 'viewunits', component: Viewunits },
-  { path: 'editunits', component: Editunits },
+  { path: 'viewunits/:id', component: Viewunits },
+  { path: 'editunits/:id', component: Editunits },
 
   // Raw Materials
   { path: 'stockin', component: Addrawmaterials },

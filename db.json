@@ -53,7 +53,7 @@
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 5000,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
@@ -272,8 +272,21 @@
       "unit": "Cubic Feet",
       "supplier": "Sand Traders Ltd.",
       "totalprice": 125000
+    },
+    {
+      "id": "91fd",
+      "rawMaterialId": "2",
+      "name": "Gravel",
+      "date": "2025-07-19",
+      "quantity": 9000,
+      "unitprice": 22,
+      "unit": "Cubic Feet",
+      "supplier": "GravelTraders Ltd.",
+      "totalprice": 198000
     }
   ],
+  "rawmaterialsstockout": [],
+  "units":[],
   "employees": [
     {
       "id": "6270",

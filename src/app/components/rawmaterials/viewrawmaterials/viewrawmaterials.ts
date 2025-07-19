@@ -102,14 +102,13 @@ export class Viewrawmaterials {
 
   const availableQuantity = this.selectedRawMaterials.quantity || 0;
 
-  // ❌ Prevent saving if requested quantity > available quantity
+ 
   if (stockOutData.quantity > availableQuantity) {
     this.message = 'Stock is not available. Requested quantity exceeds available stock.';
     this.messageType = 'danger';
-    return; // 💥 Stop execution here
+    return;
   }
 
-  // ✅ Continue only if quantity is available
   const updatedQuantity = availableQuantity - stockOutData.quantity;
 
   this.rawMaterialsService.saveStockOut(stockOutData).subscribe({
