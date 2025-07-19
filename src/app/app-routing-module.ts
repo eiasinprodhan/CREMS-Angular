@@ -38,6 +38,7 @@ import { Addunits } from './components/units/addunits/addunits';
 import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
 import { Viewunits } from './components/units/viewunits/viewunits';
+import { Signout } from './components/others/signout/signout';
 
 
 
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'productdetails', component: Productdetails },
   { path: 'signin', component: Signin },
   { path: 'signup', component: Signup },
+  { path: 'signout', component: Signout },
 
   // Projects
   { path: 'addprojects', component: Addprojects },

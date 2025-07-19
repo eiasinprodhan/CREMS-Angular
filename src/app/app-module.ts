@@ -45,6 +45,7 @@ import { Addunits } from './components/units/addunits/addunits';
 import { Viewunits } from './components/units/viewunits/viewunits';
 import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
+import { Signout } from './components/others/signout/signout';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { Editunits } from './components/units/editunits/editunits';
     Addunits,
     Viewunits,
     Listunits,
-    Editunits
+    Editunits,
+    Signout
   ],
   imports: [
     BrowserModule,

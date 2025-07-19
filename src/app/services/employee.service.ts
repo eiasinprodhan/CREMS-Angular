@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,10 @@ import { Observable } from 'rxjs';
 export class EmployeeService {
   baseUrl: string = 'http://localhost:3000/employees';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
 
   // Create new employee
   addEmployee(employee: Employee): Observable<any> {
@@ -54,5 +58,14 @@ export class EmployeeService {
   // update empployee totalsalary And 
   updateTotalSalary(id: string, salary: number): Observable<any>{
     return this.http.patch(this.baseUrl+"/"+id, {salary: salary});
+  }
+  
+  getEmployeeProfile(): Observable<Employee | null> {
+    return of(this.authService.getEmployeeProfileFromStorage());
+  }
+
+  updateEmployeeProfile(employee: Employee): Observable<Employee> {
+    localStorage.setItem('userProfile', JSON.stringify(employee));
+    return this.http.put<Employee>(`${this.baseUrl}/${employee.id}`, employee);
   }
 }
