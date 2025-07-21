@@ -48,12 +48,277 @@
       ]
     }
   ],
-  "attendances": [],
+  "attendances": [
+    {
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-21",
+      "status": "Present",
+      "salary": 600,
+      "id": "2dd6"
+    },
+    {
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-21",
+      "status": "Present",
+      "salary": 800,
+      "id": "9fe7"
+    },
+    {
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-21",
+      "status": "Present",
+      "salary": 800,
+      "id": "5319"
+    },
+    {
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-21",
+      "status": "Present",
+      "salary": 900,
+      "id": "291b"
+    },
+    {
+      "id": "1103",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-21",
+      "status": "Present",
+      "salary": 0
+    },
+    {
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 600,
+      "id": "a3f9"
+    },
+    {
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 800,
+      "id": "338b"
+    },
+    {
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 800,
+      "id": "51dc"
+    },
+    {
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 900,
+      "id": "3672"
+    },
+    {
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 1000,
+      "id": "571c"
+    },
+    {
+      "id": "b8e9",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "ad86",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "885a",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-23",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "e033",
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-23",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "ac6c",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 1000
+    },
+    {
+      "id": "17c5",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-20",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "4c44",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-20",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "d0aa",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-20",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "7979",
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-20",
+      "status": "Present",
+      "salary": 900
+    },
+    {
+      "id": "9d26",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-20",
+      "status": "Present",
+      "salary": 1000
+    },
+    {
+      "id": "4536",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "6342",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "1760",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "b468",
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-31",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "63f9",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-31",
+      "status": "On Leave",
+      "salary": 0
+    },
+    {
+      "id": "373d",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "55af",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "e5a9",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "d121",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-29",
+      "status": "Present",
+      "salary": 1000
+    },
+    {
+      "id": "2d24",
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-29",
+      "status": "Present",
+      "salary": 900
+    },
+    {
+      "id": "e824",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-29",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "6a07",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-29",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "9288",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-29",
+      "status": "Present",
+      "salary": 600
+    }
+  ],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 0,
+      "quantity": 2100,
       "unit": "Cubic Feet"
     },
     {
@@ -283,10 +548,43 @@
       "unit": "Cubic Feet",
       "supplier": "GravelTraders Ltd.",
       "totalprice": 198000
+    },
+    {
+      "id": "35a0",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-21",
+      "quantity": 1000,
+      "unitprice": 25,
+      "unit": "Cubic Feet",
+      "supplier": "hfdg",
+      "totalprice": 25000
+    },
+    {
+      "id": "f5d1",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-21",
+      "quantity": 100,
+      "unitprice": 25,
+      "unit": "Cubic Feet",
+      "supplier": "hfdg",
+      "totalprice": 2500
+    },
+    {
+      "id": "d37f",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-21",
+      "quantity": 1000,
+      "unitprice": 25,
+      "unit": "Cubic Feet",
+      "supplier": "hfdg",
+      "totalprice": 25000
     }
   ],
   "rawmaterialsstockout": [],
-  "units":[],
+  "units": [],
   "employees": [
     {
       "id": "6270",
@@ -399,6 +697,14 @@
       "photo": "5645645",
       "country": "Bangladesh",
       "address": "6455654"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "a921",
+      "name": "Labours daily salary",
+      "date": "2025-07-29",
+      "amount": 4100
     }
   ]
 }

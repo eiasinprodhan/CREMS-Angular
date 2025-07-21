@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RawmaterialsService } from '../../../services/rawmaterials.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RawMaterials } from '../../../models/rawmaterial.model';
+import { TransactionService } from '../../../services/transaction.service';
+import { Transaction } from '../../../models/transaction.model';
 
 @Component({
   selector: 'app-addrawmaterials',
@@ -21,13 +23,14 @@ export class Addrawmaterials implements OnInit {
   constructor(
     private rawMaterialsService: RawmaterialsService,
     private formBuilder: FormBuilder,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private transactionService: TransactionService
   ) { }
 
   ngOnInit(): void {
     this.rawMaterialForm = this.formBuilder.group({
       rawMaterialId: ['', Validators.required],
-      name:[''],
+      name: [''],
       date: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
       unitprice: [null, [Validators.required, Validators.min(1)]],
@@ -108,6 +111,23 @@ export class Addrawmaterials implements OnInit {
           unit: this.selectedRawMaterials.unit
         };
 
+        const transaction: Transaction = new Transaction(
+          this.selectedRawMaterials.name,
+          stockInData.date,
+          stockInData.totalprice
+        );
+
+        this.transactionService.saveTransaction(transaction).subscribe({
+          next: () => {
+            console.log('Transaction saved successfully');
+          },
+          error: (err) => {
+            console.error('Error saving transaction:', err);
+            this.message = 'Failed to save transaction.';
+            this.messageType = 'danger';
+          }
+        });
+
         this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial.id, updatedRawMaterial).subscribe({
           next: () => {
             this.listRawMaterials();
@@ -132,7 +152,7 @@ export class Addrawmaterials implements OnInit {
     });
   }
 
-  listStockIn():void{
+  listStockIn(): void {
     this.stockinlist = this.rawMaterialsService.listStockIn();
     this.cdr.markForCheck();
   }

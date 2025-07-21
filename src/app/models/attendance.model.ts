@@ -1,5 +1,5 @@
 export class Attendance {
-    id!: number;
+    id!: string;
     employeeId!: string;
     stageId!: string;
     date!: string;

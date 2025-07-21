@@ -39,6 +39,7 @@ import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
 import { Viewunits } from './components/units/viewunits/viewunits';
 import { Signout } from './components/others/signout/signout';
+import { Listtransactions } from './transactions/listtransactions/listtransactions';
 
 
 
@@ -83,7 +84,7 @@ const routes: Routes = [
   { path: 'viewattendances/:id', component: Viewattendances },
   { path: 'editattendances/:id', component: Editattendances },
 
-  // Ubits
+  // Units
   { path: 'addunits/:id', component: Addunits },
   { path: 'listunits', component: Listunits },
   { path: 'viewunits/:id', component: Viewunits },
@@ -98,7 +99,10 @@ const routes: Routes = [
   { path: 'addemployees', component: Addemployees },
   { path: 'listemployees', component: Listemployees },
   { path: 'viewemployees/:id', component: Viewemployees },
-  { path: 'editemployees/:id', component: Editemployees }
+  { path: 'editemployees/:id', component: Editemployees },
+
+  // Transaction
+  {path: 'listtransactions', component: Listtransactions}
 ];
 
 @NgModule({

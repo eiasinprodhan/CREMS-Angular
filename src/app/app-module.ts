@@ -46,6 +46,7 @@ import { Viewunits } from './components/units/viewunits/viewunits';
 import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
 import { Signout } from './components/others/signout/signout';
+import { Listtransactions } from './transactions/listtransactions/listtransactions';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { Signout } from './components/others/signout/signout';
     Viewunits,
     Listunits,
     Editunits,
-    Signout
+    Signout,
+    Listtransactions
   ],
   imports: [
     BrowserModule,
