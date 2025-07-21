@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +16,8 @@ export class Signin {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +29,8 @@ export class Signin {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Please fill in all required fields correctly.';
+      this.errorMessage = 'Please correct the highlighted errors.';
+      this.loginForm.markAllAsTouched();
       return;
     }
 
@@ -36,12 +38,10 @@ export class Signin {
 
     this.authService.login(employeeDetails).subscribe({
       next: (res) => {
-        console.log('Employee logged in successfully:', res);
-
         this.authService.storeToken(res.token);
 
         const role = this.authService.getEmployeeRole();
-        console.log('Employee role:', role);
+        this.cdr.detectChanges();
 
         if (role === 'Admin') {
           this.router.navigate(['/dashboard']);
@@ -52,9 +52,10 @@ export class Signin {
         }
 
         this.loginForm.reset();
+        this.errorMessage = '';
       },
       error: (err) => {
-        console.error('Error logging in:', err);
+        console.error('Login error:', err);
         this.errorMessage = 'Invalid email or password.';
       },
     });

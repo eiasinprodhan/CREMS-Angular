@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 
@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class Signout {
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -21,6 +22,7 @@ export class Signout {
   logout(): void {
     this.authService.logout();
     this.authService.removeEmployeeDetails();
+    this.cdr.markForCheck();
     this.router.navigate(['/signin']);
   }
 }

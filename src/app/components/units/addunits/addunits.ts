@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../services/unit.service';
 import { Unit } from '../../../models/unit.model';
+import { ActivatedRoute } from '@angular/router';
+import { BuildingService } from '../../../services/building.service';
 
 @Component({
   selector: 'app-addunits',
@@ -10,28 +12,41 @@ import { Unit } from '../../../models/unit.model';
   styleUrl: './addunits.css',
 })
 export class Addunits {
+  floorId!: string;
+  buildings: any[] = [];
   addUnitForm!: FormGroup;
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
-  projectManagers!: any;
-
   constructor(
     private unitService: UnitService,
-    private formBuilder: FormBuilder
+    private buildingService: BuildingService,
+    private formBuilder: FormBuilder,
+    private ar: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.floorId = this.ar.snapshot.params['id'];
+    const buildingId = this.ar.snapshot.queryParams['buildingId'];
+
+    this.loadBuildings();
+
     this.addUnitForm = this.formBuilder.group({
       unitNumber: ['', Validators.required],
-      buildingId: ['dfgsdfg'],
-      floorId: ['dfgsdg'],
+      buildingId: [''],
+      floorId: [''],
       area: [0, [Validators.required, Validators.min(1)]],
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
       isBooked: [false, Validators.required],
-      customerId: ['sdfsd', Validators.required],
+      customerId: [''],
       photoUrls: this.formBuilder.array([this.createPhotoUrl()]),
+    });
+
+    // Patch floorId and buildingId (if available)
+    this.addUnitForm.patchValue({
+      floorId: this.floorId,
+      buildingId: buildingId || '',
     });
   }
 
@@ -61,6 +76,12 @@ export class Addunits {
         this.message = 'Unit Added Successfully.';
         this.messageType = 'success';
         this.addUnitForm.reset();
+
+        // Optionally reset floorId and buildingId after reset
+        this.addUnitForm.patchValue({
+          floorId: this.floorId,
+          buildingId: this.addUnitForm.value.buildingId || '',
+        });
       },
       error: (err) => {
         console.error(err);
@@ -79,5 +100,16 @@ export class Addunits {
 
   get photoUrls(): FormArray {
     return this.addUnitForm.get('photoUrls') as FormArray;
+  }
+
+  loadBuildings(): void {
+    this.buildingService.listBuildings().subscribe({
+      next: (data) => {
+        this.buildings = data;
+      },
+      error: (err) => {
+        console.error('Failed to load buildings', err);
+      },
+    });
   }
 }
