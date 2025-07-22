@@ -45,10 +45,10 @@ import { Listtransactions } from './transactions/listtransactions/listtransactio
 
 const routes: Routes = [
   // Others
-  { path: 'dashboard', component: Dashboard },
+  { path: '', component: Dashboard },
 
   // Pages
-  { path: '', component: Home },
+  { path: 'dashboard', component: Home },
   { path: 'products', component: Products },
   { path: 'productdetails', component: Productdetails },
   { path: 'signin', component: Signin },

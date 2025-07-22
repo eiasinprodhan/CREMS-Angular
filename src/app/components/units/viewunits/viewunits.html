@@ -1,1 +1,115 @@
-<p>viewunits works!</p>
+<!-- Unit Details Card -->
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Unit Details</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <!-- Card Body -->
+  <div class="card-body">
+    <div *ngIf="unit && unit.unitNumber; else loadingTemplate">
+      <!-- Row 1: ID and Unit Number -->
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Unit ID</label>
+          <div class="text-muted">{{ unit.id }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Unit Number</label>
+          <div class="text-muted">{{ unit.unitNumber }}</div>
+        </div>
+      </div>
+
+      <!-- Row 2: Area and Bedrooms -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Area (sqft)</label>
+          <div class="text-muted">{{ unit.area }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Bedrooms</label>
+          <div class="text-muted">{{ unit.bedrooms }}</div>
+        </div>
+      </div>
+
+      <!-- Row 3: Bathrooms and Booking -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Bathrooms</label>
+          <div class="text-muted">{{ unit.bathrooms }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Booking Status</label>
+          <div>
+            <span
+              class="badge rounded-pill"
+              [ngClass]="unit.isBooked ? 'bg-success' : 'bg-secondary'"
+            >
+              {{ unit.isBooked ? 'Booked' : 'Available' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4: Floor and Building Names -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Floor</label>
+          <div class="text-muted">{{ floor.name || unit.floorId }}</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Building</label>
+          <div class="text-muted">{{ building.name || unit.buildingId }}</div>
+        </div>
+      </div>
+
+      <!-- Row 5: Customer Name -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Customer</label>
+          <div class="text-muted">
+            {{ customer.name || unit.customerId || 'N/A' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 6: Photos -->
+      <div class="row">
+        <div class="col-12 mb-3">
+          <label class="form-label fw-bold">Photos</label>
+          <div class="d-flex flex-wrap gap-2">
+            <ng-container
+              *ngIf="unit.photoUrls && unit.photoUrls.length > 0; else noPhotos"
+            >
+              <img
+                *ngFor="let url of unit.photoUrls"
+                [src]="url"
+                alt="Unit photo"
+                class="img-thumbnail"
+                style="max-width: 180px; max-height: 140px"
+              />
+            </ng-container>
+
+            <ng-template #noPhotos>
+              <div class="text-muted">No photos available.</div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <ng-template #loadingTemplate>
+      <p class="text-muted fst-italic">
+        Loading unit data or no data available.
+      </p>
+    </ng-template>
+  </div>
+</div>

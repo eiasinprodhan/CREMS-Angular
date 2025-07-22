@@ -4,6 +4,8 @@ import { UnitService } from '../../../services/unit.service';
 import { Unit } from '../../../models/unit.model';
 import { ActivatedRoute } from '@angular/router';
 import { BuildingService } from '../../../services/building.service';
+import { FloorService } from '../../../services/floor.service';
+import { Floor } from '../../../models/floor.model';
 
 @Component({
   selector: 'app-addunits',
@@ -13,28 +15,25 @@ import { BuildingService } from '../../../services/building.service';
 })
 export class Addunits {
   floorId!: string;
-  buildings: any[] = [];
+  floor: Floor = new Floor();
   addUnitForm!: FormGroup;
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
   constructor(
     private unitService: UnitService,
-    private buildingService: BuildingService,
+    private floorService: FloorService,
     private formBuilder: FormBuilder,
     private ar: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.floorId = this.ar.snapshot.params['id'];
-    const buildingId = this.ar.snapshot.queryParams['buildingId'];
-
-    this.loadBuildings();
 
     this.addUnitForm = this.formBuilder.group({
       unitNumber: ['', Validators.required],
       buildingId: [''],
-      floorId: [''],
+      floorId: [this.floorId, Validators.required],
       area: [0, [Validators.required, Validators.min(1)]],
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
@@ -43,10 +42,22 @@ export class Addunits {
       photoUrls: this.formBuilder.array([this.createPhotoUrl()]),
     });
 
-    // Patch floorId and buildingId (if available)
-    this.addUnitForm.patchValue({
-      floorId: this.floorId,
-      buildingId: buildingId || '',
+    this.loadFloors();
+  }
+
+  loadFloors(): void {
+    this.floorService.viewFloors(this.floorId).subscribe({
+      next: (data) => {
+        this.floor = data;
+
+
+        this.addUnitForm.patchValue({
+          buildingId: this.floor.building || ''
+        });
+      },
+      error: (err) => {
+        console.error('Error loading floor:', err);
+      }
     });
   }
 
@@ -59,6 +70,10 @@ export class Addunits {
   addPhotoUrl() {
     const photoUrls = this.addUnitForm.get('photoUrls') as FormArray;
     photoUrls.push(this.createPhotoUrl());
+  }
+
+  get photoUrls(): FormArray {
+    return this.addUnitForm.get('photoUrls') as FormArray;
   }
 
   addUnit(): void {
@@ -75,13 +90,14 @@ export class Addunits {
       next: () => {
         this.message = 'Unit Added Successfully.';
         this.messageType = 'success';
-        this.addUnitForm.reset();
 
-        // Optionally reset floorId and buildingId after reset
+        // Reset form
+        this.addUnitForm.reset();
         this.addUnitForm.patchValue({
           floorId: this.floorId,
-          buildingId: this.addUnitForm.value.buildingId || '',
+          buildingId: this.floor.building || ''
         });
+        this.addUnitForm.setControl('photoUrls', this.formBuilder.array([this.createPhotoUrl()]));
       },
       error: (err) => {
         console.error(err);
@@ -96,20 +112,10 @@ export class Addunits {
       const control = this.addUnitForm.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
-  }
 
-  get photoUrls(): FormArray {
-    return this.addUnitForm.get('photoUrls') as FormArray;
-  }
-
-  loadBuildings(): void {
-    this.buildingService.listBuildings().subscribe({
-      next: (data) => {
-        this.buildings = data;
-      },
-      error: (err) => {
-        console.error('Failed to load buildings', err);
-      },
+    // Also mark photo URL fields as touched
+    this.photoUrls.controls.forEach(group => {
+      group.get('url')?.markAsTouched();
     });
   }
 }

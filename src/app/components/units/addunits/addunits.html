@@ -64,13 +64,13 @@
 
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label for="photoUrls" class="form-label fw-bold">Unit Photos (URLs)</label>
-
+          <label class="form-label fw-bold">Unit Photos (URLs)</label>
           <div formArrayName="photoUrls">
             <div *ngFor="let photoUrl of photoUrls.controls; let i = index" [formGroupName]="i">
               <div class="input-group mb-2">
                 <input type="text" class="form-control" formControlName="url"
-                  [class.is-invalid]="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid" placeholder="Enter photo URL" />
+                  [class.is-invalid]="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid"
+                  placeholder="Enter photo URL" />
                 <button type="button" class="btn btn-outline-secondary" (click)="addPhotoUrl()"
                   *ngIf="i === photoUrls.length - 1">
                   <i class="fas fa-plus"></i>

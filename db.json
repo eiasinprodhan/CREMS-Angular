@@ -706,5 +706,14 @@
       "date": "2025-07-29",
       "amount": 4100
     }
+  ],
+  "customers": [
+    {
+      "id": "dsf5",
+      "name": "Atik",
+      "email": "atik@gmail.com",
+      "phone": "01865487987",
+      "address": "Dhaka"
+    }
   ]
 }

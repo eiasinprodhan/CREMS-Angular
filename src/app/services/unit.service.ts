@@ -13,7 +13,7 @@ export class UnitService {
 
 
   addUnit(unit: Unit): Observable<any> {
-    return this.http.post(this.baseUrl, Unit);
+    return this.http.post(this.baseUrl, unit);
   }
 
   listUnits(): Observable<Unit[]> {
