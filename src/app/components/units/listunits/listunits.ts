@@ -28,6 +28,12 @@ export class Listunits implements OnInit{
     this.units = this.unitService.listUnits();
   }
 
+  // Book Unit
+  bookUnit(id: string): void {
+    this.router.navigate(['bookunit', id]);
+  }
+
+
   // View Unit
   viewUnit(id: string): void {
     this.router.navigate(['viewunits', id]);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../services/unit.service';
 import { Unit } from '../../../models/unit.model';
 import { ActivatedRoute } from '@angular/router';
@@ -39,6 +39,7 @@ export class Addunits {
       bathrooms: [0, [Validators.required, Validators.min(1)]],
       isBooked: [false, Validators.required],
       customerId: [''],
+      price: [0],
       photoUrls: this.formBuilder.array([this.createPhotoUrl()]),
     });
 
@@ -49,7 +50,6 @@ export class Addunits {
     this.floorService.viewFloors(this.floorId).subscribe({
       next: (data) => {
         this.floor = data;
-
 
         this.addUnitForm.patchValue({
           buildingId: this.floor.building || ''
@@ -84,14 +84,23 @@ export class Addunits {
       return;
     }
 
-    const unit: Unit = { ...this.addUnitForm.value };
+    const formValue = this.addUnitForm.value;
+
+    // Map photoUrls from [{url: string}] to string[]
+    const photoUrlsArray = formValue.photoUrls.map((p: { url: string }) => p.url);
+
+    const unit: Unit = {
+      ...formValue,
+      photoUrls: photoUrlsArray,
+    };
+
+    console.log('Submitting unit:', unit);
 
     this.unitService.addUnit(unit).subscribe({
       next: () => {
         this.message = 'Unit Added Successfully.';
         this.messageType = 'success';
 
-        // Reset form
         this.addUnitForm.reset();
         this.addUnitForm.patchValue({
           floorId: this.floorId,
@@ -113,9 +122,6 @@ export class Addunits {
       control?.markAsTouched({ onlySelf: true });
     });
 
-    // Also mark photo URL fields as touched
-    this.photoUrls.controls.forEach(group => {
-      group.get('url')?.markAsTouched();
-    });
+    this.photoUrls.controls.forEach(control => control.markAsTouched());
   }
 }

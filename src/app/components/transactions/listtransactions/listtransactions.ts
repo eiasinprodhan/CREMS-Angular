@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { TransactionService } from '../../services/transaction.service';
 import { Router } from '@angular/router';
+import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
   selector: 'app-listtransactions',

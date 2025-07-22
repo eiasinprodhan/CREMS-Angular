@@ -1,11 +1,19 @@
+<!-- Unit Details Card -->
 <div class="card">
-  <div class="card-header">
-    <h5 class="mb-0">Edit Unit</h5>
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Edit Unit</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
   </div>
 
-  <div class="card-body">
+  <div class="card-body my-5">
     <form (ngSubmit)="updateUnit()" #unitForm="ngForm">
-
       <!-- Unit Number -->
       <div class="mb-3">
         <label for="unitNumber" class="form-label">Unit Number</label>
@@ -58,54 +66,13 @@
         />
       </div>
 
-      <!-- Is Booked -->
-      <div class="mb-3">
-        <label class="form-label">Booking Status</label>
-        <select
-          class="form-select"
-          name="isBooked"
-          [(ngModel)]="unit.isBooked"
-        >
-          <option [ngValue]="false">Available</option>
-          <option [ngValue]="true">Booked</option>
-        </select>
-      </div>
-
-      <!-- Customer -->
-      <div class="mb-3">
-        <label for="customerId" class="form-label">Customer</label>
-        <select
-          id="customerId"
-          class="form-select"
-          name="customerId"
-          [(ngModel)]="unit.customerId"
-        >
-          <option [ngValue]="null">-- No Customer --</option>
-          <option *ngFor="let customer of customers" [ngValue]="customer.id">
-            {{ customer.name }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Floor -->
-      <div class="mb-3">
-        <label for="floorId" class="form-label">Floor</label>
-        <select
-          id="floorId"
-          class="form-select"
-          name="floorId"
-          [(ngModel)]="unit.floorId"
-          required
-        >
-          <option *ngFor="let floor of floors" [ngValue]="floor.id">
-            {{ floor.name }}
-          </option>
-        </select>
-      </div>
-
       <!-- Submit Button -->
       <div class="d-flex justify-content-end">
-        <button class="btn btn-primary" type="submit" [disabled]="!unitForm.form.valid">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!unitForm.form.valid"
+        >
           Update Unit
         </button>
       </div>
@@ -113,12 +80,13 @@
 
     <!-- Optional Success/Failure Message -->
     <div *ngIf="message" class="mt-3">
-      <div [ngClass]="{
+      <div
+        [ngClass]="{
           'alert alert-success': messageType === 'success',
           'alert alert-danger': messageType === 'error'
-        }">
+        }"
+      >
         {{ message }}
       </div>
     </div>
   </div>
-</div>

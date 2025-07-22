@@ -1,0 +1,140 @@
+<div class="card">
+  <!-- Card Header -->
+  <div class="row card-header flex-column flex-md-row align-items-center mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="mb-0 text-md-start text-center">Book Unit</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left me-2"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body py-5 px-4 px-md-5">
+    <form (ngSubmit)="updateUnit()" #unitForm="ngForm" novalidate>
+      <!-- Photos Section -->
+      <div id="unitPhotoCarouselWrapper" class="mx-auto mb-4" style="max-width: 500px;">
+        <div id="unitPhotoCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div 
+              *ngFor="let url of unit.photoUrls; let i = index" 
+              class="carousel-item" 
+              [ngClass]="{ active: i === 0 }"
+            >
+              <img 
+                [src]="url" 
+                class="d-block w-100" 
+                alt="Unit Photo" 
+                style="max-height: 250px; object-fit: cover;" 
+              />
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Unit Details -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <label class="form-label">Unit Number</label>
+          <p class="form-control-plaintext">{{ unit.unitNumber }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Area (sqft)</label>
+          <p class="form-control-plaintext">{{ unit.area }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Bedrooms</label>
+          <p class="form-control-plaintext">{{ unit.bedrooms }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Bathrooms</label>
+          <p class="form-control-plaintext">{{ unit.bathrooms }}</p>
+        </div>
+        <!-- ✅ Floor & Building Name -->
+        <div class="col-md-6">
+          <label class="form-label">Floor</label>
+          <p class="form-control-plaintext">{{ floor.name || unit.floorId }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Building</label>
+          <p class="form-control-plaintext"><a routerLink="/viewbuildings/{{building.id}}">{{ building.name || unit.buildingId }}</a></p>
+        </div>
+      </div>
+
+      <!-- Booking Status -->
+      <div class="mb-4">
+        <label class="form-label">Booking Status</label>
+        <select class="form-select" name="isBooked" [(ngModel)]="unit.isBooked" required>
+          <option [ngValue]="false">Available</option>
+          <option [ngValue]="true">Booked</option>
+        </select>
+      </div>
+
+      <!-- Customer -->
+      <div class="mb-4">
+        <label for="customerId" class="form-label">Customer</label>
+        <select
+          id="customerId"
+          class="form-select"
+          name="customerId"
+          [(ngModel)]="unit.customerId"
+          required
+        >
+          <option [ngValue]="null">-- No Customer --</option>
+          <option *ngFor="let customer of customers" [ngValue]="customer.id">
+            {{ customer.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-5">
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="number"
+          id="price"
+          class="form-control"
+          name="price"
+          [(ngModel)]="unit.price"
+          required
+          min="0"
+          step="0.01"
+          placeholder="Enter price in USD"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!unitForm.form.valid"
+        >
+          Book Unit
+        </button>
+      </div>
+    </form>
+
+    <!-- Success / Error Message -->
+    <div *ngIf="message" class="mt-4">
+      <div
+        [ngClass]="{
+          'alert alert-success': messageType === 'success',
+          'alert alert-danger': messageType === 'error'
+        }"
+        role="alert"
+      >
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>

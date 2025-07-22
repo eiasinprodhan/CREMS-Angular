@@ -30,6 +30,11 @@
       "id": "3069",
       "name": "Basement",
       "building": "faf0"
+    },
+    {
+      "id": "ebdb",
+      "name": "Ground",
+      "building": "faf0"
     }
   ],
   "stages": [
@@ -48,277 +53,12 @@
       ]
     }
   ],
-  "attendances": [
-    {
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-21",
-      "status": "Present",
-      "salary": 600,
-      "id": "2dd6"
-    },
-    {
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-21",
-      "status": "Present",
-      "salary": 800,
-      "id": "9fe7"
-    },
-    {
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-21",
-      "status": "Present",
-      "salary": 800,
-      "id": "5319"
-    },
-    {
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-21",
-      "status": "Present",
-      "salary": 900,
-      "id": "291b"
-    },
-    {
-      "id": "1103",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-21",
-      "status": "Present",
-      "salary": 0
-    },
-    {
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 600,
-      "id": "a3f9"
-    },
-    {
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 800,
-      "id": "338b"
-    },
-    {
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 800,
-      "id": "51dc"
-    },
-    {
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 900,
-      "id": "3672"
-    },
-    {
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 1000,
-      "id": "571c"
-    },
-    {
-      "id": "b8e9",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-23",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "ad86",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-23",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "885a",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-23",
-      "status": "Absent",
-      "salary": 0
-    },
-    {
-      "id": "e033",
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-23",
-      "status": "Absent",
-      "salary": 0
-    },
-    {
-      "id": "ac6c",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-23",
-      "status": "Present",
-      "salary": 1000
-    },
-    {
-      "id": "17c5",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-20",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "4c44",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-20",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "d0aa",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-20",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "7979",
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-20",
-      "status": "Present",
-      "salary": 900
-    },
-    {
-      "id": "9d26",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-20",
-      "status": "Present",
-      "salary": 1000
-    },
-    {
-      "id": "4536",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-31",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "6342",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-31",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "1760",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-31",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "b468",
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-31",
-      "status": "Absent",
-      "salary": 0
-    },
-    {
-      "id": "63f9",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-31",
-      "status": "On Leave",
-      "salary": 0
-    },
-    {
-      "id": "373d",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-24",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "55af",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-24",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "e5a9",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-24",
-      "status": "Absent",
-      "salary": 0
-    },
-    {
-      "id": "d121",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-29",
-      "status": "Present",
-      "salary": 1000
-    },
-    {
-      "id": "2d24",
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-29",
-      "status": "Present",
-      "salary": 900
-    },
-    {
-      "id": "e824",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-29",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "6a07",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-29",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "9288",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-29",
-      "status": "Present",
-      "salary": 600
-    }
-  ],
+  "attendances": [],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 2100,
+      "quantity": 1000,
       "unit": "Cubic Feet"
     },
     {
@@ -528,63 +268,37 @@
   ],
   "rawmaterialsstockin": [
     {
-      "id": "2761",
+      "id": "90ee",
       "rawMaterialId": "1",
       "name": "Sand",
-      "date": "2025-07-18",
-      "quantity": 5000,
-      "unitprice": 25,
-      "unit": "Cubic Feet",
-      "supplier": "Sand Traders Ltd.",
-      "totalprice": 125000
-    },
-    {
-      "id": "91fd",
-      "rawMaterialId": "2",
-      "name": "Gravel",
-      "date": "2025-07-19",
-      "quantity": 9000,
-      "unitprice": 22,
-      "unit": "Cubic Feet",
-      "supplier": "GravelTraders Ltd.",
-      "totalprice": 198000
-    },
-    {
-      "id": "35a0",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-21",
+      "date": "2025-07-22",
       "quantity": 1000,
       "unitprice": 25,
       "unit": "Cubic Feet",
-      "supplier": "hfdg",
-      "totalprice": 25000
-    },
-    {
-      "id": "f5d1",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-21",
-      "quantity": 100,
-      "unitprice": 25,
-      "unit": "Cubic Feet",
-      "supplier": "hfdg",
-      "totalprice": 2500
-    },
-    {
-      "id": "d37f",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-21",
-      "quantity": 1000,
-      "unitprice": 25,
-      "unit": "Cubic Feet",
-      "supplier": "hfdg",
+      "supplier": "Parvej Balur Dokan",
       "totalprice": 25000
     }
   ],
   "rawmaterialsstockout": [],
-  "units": [],
+  "units": [
+    {
+      "id": "ba07",
+      "unitNumber": "100",
+      "buildingId": "faf0",
+      "floorId": "ebdb",
+      "area": 100,
+      "bedrooms": 100,
+      "bathrooms": 100,
+      "isBooked": true,
+      "customerId": null,
+      "price": 5000,
+      "photoUrls": [
+        "https://media.istockphoto.com/id/2194122031/photo/cozy-modern-bedroom-design.webp?a=1&b=1&s=612x612&w=0&k=20&c=VeQRJvHDEdafzwhlC-V-D_wcHuAEiDbWS_fOfTgYC4I=",
+        "https://media.istockphoto.com/id/2155899923/photo/well-furnished-bedroom-in-a-new-construction-home-in-encino-california.webp?a=1&b=1&s=612x612&w=0&k=20&c=LAoVG8V-fi2mfwMmAfHmd-ES2mtRyjee7Xa-OOS5MoA=",
+        "https://media.istockphoto.com/id/2159352100/photo/digitally-generated-image-of-old-style-bedroom-with-access-to-balcony.webp?a=1&b=1&s=612x612&w=0&k=20&c=vgblBzchRrnSO-0yRFc2EPBKiHQ_HJC9hh5Stmjj3ps="
+      ]
+    }
+  ],
   "employees": [
     {
       "id": "6270",
@@ -701,19 +415,21 @@
   ],
   "transactions": [
     {
-      "id": "a921",
-      "name": "Labours daily salary",
-      "date": "2025-07-29",
-      "amount": 4100
+      "id": "1db5",
+      "name": "Sand",
+      "date": "2025-07-22",
+      "amount": 25000,
+      "credit": false
     }
   ],
   "customers": [
     {
-      "id": "dsf5",
-      "name": "Atik",
-      "email": "atik@gmail.com",
-      "phone": "01865487987",
-      "address": "Dhaka"
+      "name": "Rahamatullah Khan",
+      "email": "rahmatullahkhan@gmail.com",
+      "phone": "01865248578",
+      "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
+      "address": "Dhaka, Bangladesh",
+      "id": "8b18"
     }
   ]
 }

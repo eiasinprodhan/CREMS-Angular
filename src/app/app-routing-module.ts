@@ -39,7 +39,12 @@ import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
 import { Viewunits } from './components/units/viewunits/viewunits';
 import { Signout } from './components/others/signout/signout';
-import { Listtransactions } from './transactions/listtransactions/listtransactions';
+import { Listtransactions } from './components/transactions/listtransactions/listtransactions';
+import { Bookunits } from './components/units/bookunits/bookunits';
+import { Addcustomers } from './components/customers/addcustomers/addcustomers';
+import { Listcustomers } from './components/customers/listcustomers/listcustomers';
+import { Viewcustomers } from './components/customers/viewcustomers/viewcustomers';
+import { Editcustomers } from './components/customers/editcustomers/editcustomers';
 
 
 
@@ -89,6 +94,7 @@ const routes: Routes = [
   { path: 'listunits', component: Listunits },
   { path: 'viewunits/:id', component: Viewunits },
   { path: 'editunits/:id', component: Editunits },
+  { path: 'bookunit/:id', component: Bookunits },
 
   // Raw Materials
   { path: 'stockin', component: Addrawmaterials },
@@ -100,6 +106,14 @@ const routes: Routes = [
   { path: 'listemployees', component: Listemployees },
   { path: 'viewemployees/:id', component: Viewemployees },
   { path: 'editemployees/:id', component: Editemployees },
+
+    // Customers
+  { path: 'addcustomers', component: Addcustomers },
+  { path: 'listcustomers', component: Listcustomers },
+  { path: 'viewcustomers/:id', component: Viewcustomers },
+  { path: 'editcustomers/:id', component: Editcustomers },
+
+
 
   // Transaction
   {path: 'listtransactions', component: Listtransactions}

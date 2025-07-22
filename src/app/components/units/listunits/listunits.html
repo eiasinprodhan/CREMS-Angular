@@ -66,6 +66,15 @@
                 </td>
                 <td>
                   <div class="d-flex gap-2">
+                    <!-- Book -->
+                    <ng-container *ngIf="!unit.isBooked">
+                      <button
+                      class="btn btn-sm btn-outline-info"
+                      (click)="bookUnit(unit.id)"
+                    >
+                      <i class="fa fa-book"></i>
+                    </button>
+                    </ng-container>
                     <!-- View -->
                     <button
                       class="btn btn-sm btn-outline-info"

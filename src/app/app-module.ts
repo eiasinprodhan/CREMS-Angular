@@ -46,7 +46,12 @@ import { Viewunits } from './components/units/viewunits/viewunits';
 import { Listunits } from './components/units/listunits/listunits';
 import { Editunits } from './components/units/editunits/editunits';
 import { Signout } from './components/others/signout/signout';
-import { Listtransactions } from './transactions/listtransactions/listtransactions';
+import { Listtransactions } from './components/transactions/listtransactions/listtransactions';
+import { Bookunits } from './components/units/bookunits/bookunits';
+import { Listcustomers } from './components/customers/listcustomers/listcustomers';
+import { Addcustomers } from './components/customers/addcustomers/addcustomers';
+import { Editcustomers } from './components/customers/editcustomers/editcustomers';
+import { Viewcustomers } from './components/customers/viewcustomers/viewcustomers';
 
 @NgModule({
   declarations: [
@@ -92,7 +97,12 @@ import { Listtransactions } from './transactions/listtransactions/listtransactio
     Listunits,
     Editunits,
     Signout,
-    Listtransactions
+    Listtransactions,
+    Bookunits,
+    Listcustomers,
+    Addcustomers,
+    Editcustomers,
+    Viewcustomers
   ],
   imports: [
     BrowserModule,

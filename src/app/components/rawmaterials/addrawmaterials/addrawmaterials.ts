@@ -114,7 +114,8 @@ export class Addrawmaterials implements OnInit {
         const transaction: Transaction = new Transaction(
           this.selectedRawMaterials.name,
           stockInData.date,
-          stockInData.totalprice
+          stockInData.totalprice,
+          false
         );
 
         this.transactionService.saveTransaction(transaction).subscribe({

@@ -1,0 +1,75 @@
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Customer</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addCustomerForm" (ngSubmit)="addCustomer()">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name"
+            [class.is-invalid]="addCustomerForm.get('name')?.touched && addCustomerForm.get('name')?.invalid" />
+          <div *ngIf="addCustomerForm.get('name')?.touched && addCustomerForm.get('name')?.invalid" class="invalid-feedback">
+            Name is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="email" class="form-label fw-bold">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email"
+            [class.is-invalid]="addCustomerForm.get('email')?.touched && addCustomerForm.get('email')?.invalid" />
+          <div *ngIf="addCustomerForm.get('email')?.touched && addCustomerForm.get('email')?.invalid" class="invalid-feedback">
+            A valid email is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="phone" class="form-label fw-bold">Phone</label>
+          <input type="text" id="phone" class="form-control" formControlName="phone"
+            [class.is-invalid]="addCustomerForm.get('phone')?.touched && addCustomerForm.get('phone')?.invalid" />
+          <div *ngIf="addCustomerForm.get('phone')?.touched && addCustomerForm.get('phone')?.invalid" class="invalid-feedback">
+            Phone number is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="photo" class="form-label fw-bold">Photo</label>
+          <input type="text" id="photo" class="form-control" formControlName="photo"
+            [class.is-invalid]="addCustomerForm.get('photo')?.touched && addCustomerForm.get('photo')?.invalid" />
+          <div *ngIf="addCustomerForm.get('photo')?.touched && addCustomerForm.get('photo')?.invalid" class="invalid-feedback">
+            Photo is required.
+          </div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12 mb-3">
+          <label for="address" class="form-label fw-bold">Address</label>
+          <textarea id="address" rows="4" class="form-control" formControlName="address"
+            [class.is-invalid]="addCustomerForm.get('address')?.touched && addCustomerForm.get('address')?.invalid"></textarea>
+          <div *ngIf="addCustomerForm.get('address')?.touched && addCustomerForm.get('address')?.invalid" class="invalid-feedback">
+            Address is required.
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Customer
+      </button>
+    </form>
+  </div>
+</div>
