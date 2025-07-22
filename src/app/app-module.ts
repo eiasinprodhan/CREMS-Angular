@@ -52,6 +52,8 @@ import { Listcustomers } from './components/customers/listcustomers/listcustomer
 import { Addcustomers } from './components/customers/addcustomers/addcustomers';
 import { Editcustomers } from './components/customers/editcustomers/editcustomers';
 import { Viewcustomers } from './components/customers/viewcustomers/viewcustomers';
+import { Addtransactions } from './components/transactions/addtransactions/addtransactions';
+import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,9 @@ import { Viewcustomers } from './components/customers/viewcustomers/viewcustomer
     Listcustomers,
     Addcustomers,
     Editcustomers,
-    Viewcustomers
+    Viewcustomers,
+    Addtransactions,
+    Edittransactions
   ],
   imports: [
     BrowserModule,

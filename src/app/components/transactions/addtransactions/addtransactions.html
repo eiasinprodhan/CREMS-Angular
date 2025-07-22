@@ -1,0 +1,74 @@
+<!-- Alert Message -->
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<!-- Transaction Form Card -->
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Transaction</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="transactionForm" (ngSubmit)="submitTransaction()">
+      <div class="row mt-4">
+        <!-- Name -->
+        <div class="col-md-6 mb-3">
+          <label for="name" class="form-label fw-bold">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name"
+            [class.is-invalid]="transactionForm.get('name')?.touched && transactionForm.get('name')?.invalid" />
+          <div *ngIf="transactionForm.get('name')?.touched && transactionForm.get('name')?.invalid" class="invalid-feedback">
+            Name is required.
+          </div>
+        </div>
+
+        <!-- Date -->
+        <div class="col-md-6 mb-3">
+          <label for="date" class="form-label fw-bold">Date</label>
+          <input type="date" id="date" class="form-control" formControlName="date"
+            [class.is-invalid]="transactionForm.get('date')?.touched && transactionForm.get('date')?.invalid" />
+          <div *ngIf="transactionForm.get('date')?.touched && transactionForm.get('date')?.invalid" class="invalid-feedback">
+            Date is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Amount -->
+        <div class="col-md-6 mb-3">
+          <label for="amount" class="form-label fw-bold">Amount</label>
+          <input type="number" id="amount" class="form-control" formControlName="amount"
+            [class.is-invalid]="transactionForm.get('amount')?.touched && transactionForm.get('amount')?.invalid" />
+          <div *ngIf="transactionForm.get('amount')?.touched && transactionForm.get('amount')?.invalid" class="invalid-feedback">
+            Amount is required and must be a valid number.
+          </div>
+        </div>
+
+        <!-- Credit/Debit -->
+        <div class="col-md-6 mb-3">
+          <label for="credit" class="form-label fw-bold">Transaction Type</label>
+          <select id="credit" class="form-select" formControlName="credit"
+            [class.is-invalid]="transactionForm.get('credit')?.touched && transactionForm.get('credit')?.invalid">
+            <option [value]="true">Credit</option>
+            <option [value]="false">Debit</option>
+          </select>
+          <div *ngIf="transactionForm.get('credit')?.touched && transactionForm.get('credit')?.invalid" class="invalid-feedback">
+            Please select a transaction type.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Submit Transaction
+      </button>
+    </form>
+  </div>
+</div>

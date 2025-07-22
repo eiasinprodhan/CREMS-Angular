@@ -45,15 +45,17 @@ import { Addcustomers } from './components/customers/addcustomers/addcustomers';
 import { Listcustomers } from './components/customers/listcustomers/listcustomers';
 import { Viewcustomers } from './components/customers/viewcustomers/viewcustomers';
 import { Editcustomers } from './components/customers/editcustomers/editcustomers';
+import { Addtransactions } from './components/transactions/addtransactions/addtransactions';
+import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
 
 
 
 const routes: Routes = [
   // Others
-  { path: '', component: Dashboard },
+  { path: 'dashboard', component: Dashboard },
 
   // Pages
-  { path: 'dashboard', component: Home },
+  { path: '', component: Home },
   { path: 'products', component: Products },
   { path: 'productdetails', component: Productdetails },
   { path: 'signin', component: Signin },
@@ -116,7 +118,9 @@ const routes: Routes = [
 
 
   // Transaction
-  {path: 'listtransactions', component: Listtransactions}
+  {path: 'listtransactions', component: Listtransactions},
+  {path: 'addtransactions', component: Addtransactions},
+  {path: 'edittransactions/:id', component: Edittransactions}
 ];
 
 @NgModule({

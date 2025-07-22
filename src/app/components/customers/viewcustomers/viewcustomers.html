@@ -16,7 +16,17 @@
   <div class="card-body">
     <div *ngIf="customer && customer.name; else loadingTemplate">
       <div class="row">
-        <!-- Left Column -->
+        <!-- Right Column: Image -->
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <img
+            [src]="customer.photo || 'assets/images/placeholder.jpg'"
+            alt="Customer Photo"
+            class="img-fluid rounded shadow"
+            style="max-width: 150px; object-fit: cover; width: 100%;"
+          />
+        </div>
+
+        
         <div class="col-md-6 d-flex flex-column justify-content-center">
           <div class="mb-3">
             <label class="form-label fw-bold">Customer ID</label>
@@ -42,16 +52,6 @@
             <label class="form-label fw-bold">Address</label>
             <div class="text-muted">{{ customer.address }}</div>
           </div>
-        </div>
-
-        <!-- Right Column: Image -->
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
-          <img
-            [src]="customer.photo || 'assets/images/placeholder.jpg'"
-            alt="Customer Photo"
-            class="img-fluid rounded shadow"
-            style="max-height: 100%; object-fit: cover; width: 100%;"
-          />
         </div>
       </div>
     </div>

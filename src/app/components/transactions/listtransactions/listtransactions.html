@@ -61,7 +61,7 @@
             <tr *ngFor="let transaction of transactions | async">
               <td>{{ transaction.id }}</td>
               <td>{{ transaction.name }}</td>
-              <td>{{ transaction.date | date: 'shortDate' }}</td>
+              <td>{{ transaction.date | date }}</td>
               <td [ngClass]="transaction.credit ? 'text-success' : 'text-danger'">
                 {{ transaction.amount }}
                 <i

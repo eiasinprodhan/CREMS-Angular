@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Customer } from '../../../models/customer.model';
 import { CustomerService } from '../../../services/customer.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +16,8 @@ export class Viewcustomers implements OnInit{
   constructor(
     private customerService: CustomerService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +29,7 @@ export class Viewcustomers implements OnInit{
     this.customerService.viewCustomers(this.id).subscribe({
       next: (data) => {
         this.customer = data;
+        this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Error loading customer:', error);

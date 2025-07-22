@@ -8,6 +8,8 @@ import { CustomerService } from '../../../services/customer.service';
 import { UnitService } from '../../../services/unit.service';
 import { Building } from '../../../models/building.model';
 import { BuildingService } from '../../../services/building.service';
+import { TransactionService } from '../../../services/transaction.service';
+import { Transaction } from '../../../models/transaction.model';
 
 @Component({
   selector: 'app-bookunits',
@@ -33,8 +35,9 @@ export class Bookunits implements OnInit {
     private buildingService: BuildingService,
     private customerService: CustomerService,
     private router: Router,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private transactionService: TransactionService
+  ) { }
 
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
@@ -113,6 +116,25 @@ export class Bookunits implements OnInit {
   }
 
   updateUnit(): void {
+    const transaction: Transaction = new Transaction(
+      "Building Name: " + this.building.name+ ", " + "Floor Name: " + this.floor.name + ", " + "Unit Number: " + this.unit.unitNumber +" Booking",
+      new Date(),
+      this.unit.price,
+      true
+    );
+
+    this.transactionService.saveTransaction(transaction).subscribe({
+      next: () => {
+        console.log('Transaction saved successfully');
+      },
+      error: (err) => {
+        console.error('Error saving transaction:', err);
+        this.message = 'Failed to save transaction.';
+        this.messageType = 'danger';
+      }
+    });
+
+
     this.unitService.editUnit(this.id, this.unit).subscribe({
       next: () => {
         this.message = 'Unit updated successfully!';

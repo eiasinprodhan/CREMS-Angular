@@ -11,6 +11,30 @@
       "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
+    },
+    {
+      "id": "0cfe",
+      "name": "Project B",
+      "location": "Dhanmondi",
+      "startDate": "2025-07-22",
+      "endDate": "2025-07-22",
+      "budget": 50000,
+      "status": "Up Coming",
+      "projectType": "Residential",
+      "projectManager": "6270",
+      "description": "dfgdfsag"
+    },
+    {
+      "id": "f702",
+      "name": "Project B",
+      "location": "Dhanmondi",
+      "startDate": "2025-07-11",
+      "endDate": "2025-07-16",
+      "budget": 5000,
+      "status": "Up Coming",
+      "projectType": "Commercial",
+      "projectManager": "6270",
+      "description": "sdgdsfgfdg"
     }
   ],
   "buildings": [
@@ -23,6 +47,16 @@
       "floorCount": 20,
       "unitCount": 40,
       "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/OVERVIEW_0001_MBR-1.jpg"
+    },
+    {
+      "id": "0e7d",
+      "name": "Project B",
+      "type": "Mixed-use",
+      "project": "f702",
+      "siteManager": "0b87",
+      "floorCount": 5,
+      "unitCount": 5,
+      "photo": "https://avatars.githubusercontent.com/u/196037667?v=4"
     }
   ],
   "floors": [
@@ -53,7 +87,48 @@
       ]
     }
   ],
-  "attendances": [],
+  "attendances": [
+    {
+      "id": "1769",
+      "employeeId": "2ec0",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "a6bc",
+      "employeeId": "5aa8",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "a3f1",
+      "employeeId": "6480",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "a507",
+      "employeeId": "9854",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 900
+    },
+    {
+      "id": "8ac5",
+      "employeeId": "1111",
+      "stageId": "a8ee",
+      "date": "2025-07-22",
+      "status": "Present",
+      "salary": 1000
+    }
+  ],
   "rawmaterials": [
     {
       "id": "1",
@@ -64,19 +139,19 @@
     {
       "id": "2",
       "name": "Gravel",
-      "quantity": 0,
+      "quantity": 1000,
       "unit": "Cubic Feet"
     },
     {
       "id": "3",
       "name": "Crushed Stone",
-      "quantity": 0,
+      "quantity": 1000,
       "unit": "Cubic Feet"
     },
     {
       "id": "4",
       "name": "Cement",
-      "quantity": 0,
+      "quantity": 1000,
       "unit": "Bags"
     },
     {
@@ -277,25 +352,56 @@
       "unit": "Cubic Feet",
       "supplier": "Parvej Balur Dokan",
       "totalprice": 25000
+    },
+    {
+      "id": "86cd",
+      "rawMaterialId": "2",
+      "name": "Gravel",
+      "date": "2025-07-22",
+      "quantity": 1000,
+      "unitprice": 50,
+      "unit": "Cubic Feet",
+      "supplier": "sdfasdf",
+      "totalprice": 50000
+    },
+    {
+      "id": "53c8",
+      "rawMaterialId": "3",
+      "name": "Crushed Stone",
+      "date": "2025-07-24",
+      "quantity": 1000,
+      "unitprice": 5000,
+      "unit": "Cubic Feet",
+      "supplier": "sdfasdf",
+      "totalprice": 5000000
+    },
+    {
+      "id": "9b7e",
+      "rawMaterialId": "4",
+      "name": "Cement",
+      "date": "2025-07-31",
+      "quantity": 1000,
+      "unitprice": 5,
+      "unit": "Bags",
+      "supplier": "sdfasdf",
+      "totalprice": 5000
     }
   ],
   "rawmaterialsstockout": [],
   "units": [
     {
-      "id": "ba07",
+      "id": "0fcd",
       "unitNumber": "100",
       "buildingId": "faf0",
-      "floorId": "ebdb",
-      "area": 100,
-      "bedrooms": 100,
-      "bathrooms": 100,
+      "floorId": "3069",
+      "area": 500,
+      "bedrooms": 5,
+      "bathrooms": 10,
       "isBooked": true,
-      "customerId": null,
-      "price": 5000,
+      "customerId": "8b18",
+      "price": 1000,
       "photoUrls": [
-        "https://media.istockphoto.com/id/2194122031/photo/cozy-modern-bedroom-design.webp?a=1&b=1&s=612x612&w=0&k=20&c=VeQRJvHDEdafzwhlC-V-D_wcHuAEiDbWS_fOfTgYC4I=",
-        "https://media.istockphoto.com/id/2155899923/photo/well-furnished-bedroom-in-a-new-construction-home-in-encino-california.webp?a=1&b=1&s=612x612&w=0&k=20&c=LAoVG8V-fi2mfwMmAfHmd-ES2mtRyjee7Xa-OOS5MoA=",
-        "https://media.istockphoto.com/id/2159352100/photo/digitally-generated-image-of-old-style-bedroom-with-access-to-balcony.webp?a=1&b=1&s=612x612&w=0&k=20&c=vgblBzchRrnSO-0yRFc2EPBKiHQ_HJC9hh5Stmjj3ps="
+        "https://avatars.githubusercontent.com/u/196037667?v=4"
       ]
     }
   ],
@@ -415,11 +521,11 @@
   ],
   "transactions": [
     {
-      "id": "1db5",
-      "name": "Sand",
-      "date": "2025-07-22",
-      "amount": 25000,
-      "credit": false
+      "id": "ad1f",
+      "name": "Tracking",
+      "date": "2025-07-31T00:00:00.000Z",
+      "amount": 5000,
+      "credit": "true"
     }
   ],
   "customers": [
@@ -430,6 +536,14 @@
       "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
       "address": "Dhaka, Bangladesh",
       "id": "8b18"
+    },
+    {
+      "id": "29ee",
+      "name": "Rakib Isalm",
+      "email": "rakibislam@gmail.com",
+      "phone": "01875485474",
+      "photo": "https://avatars.githubusercontent.com/u/196038058?v=4",
+      "address": "Mohammadpur, Dhaka"
     }
   ]
 }
