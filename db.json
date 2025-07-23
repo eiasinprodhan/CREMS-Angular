@@ -737,6 +737,13 @@
       "date": "2025-07-23T16:51:15.939Z",
       "amount": 1000000,
       "credit": true
+    },
+    {
+      "id": "3d9f",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T18:30:45.292Z",
+      "amount": 1000000,
+      "credit": true
     }
   ],
   "customers": [
