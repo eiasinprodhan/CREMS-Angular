@@ -13,62 +13,45 @@
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     },
     {
-      "id": "0cfe",
+      "id": "7e3d",
       "name": "Project B",
-      "location": "Dhanmondi",
-      "startDate": "2025-07-22",
-      "endDate": "2025-07-22",
-      "budget": 50000,
-      "status": "Up Coming",
-      "projectType": "Residential",
-      "projectManager": "6270",
-      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    },
-    {
-      "id": "f702",
-      "name": "Project B",
-      "location": "Dhanmondi",
-      "startDate": "2025-07-11",
-      "endDate": "2025-07-16",
-      "budget": 5000,
-      "status": "Up Coming",
-      "projectType": "Commercial",
+      "location": "Gulshan",
+      "startDate": "2025-07-23",
+      "endDate": "2025-12-31",
+      "budget": 10000000,
+      "status": "Under Construction",
+      "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
   "buildings": [
     {
-      "id": "faf0",
+      "id": "a9e3",
       "name": "Building A",
       "type": "Mixed-use",
       "project": "c9cd",
       "siteManager": "0b87",
       "floorCount": 20,
-      "unitCount": 40,
+      "unitCount": 60,
       "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/OVERVIEW_0001_MBR-1.jpg"
     },
     {
-      "id": "0e7d",
-      "name": "Project B",
+      "id": "daa0",
+      "name": "Building B",
       "type": "Mixed-use",
-      "project": "f702",
+      "project": "7e3d",
       "siteManager": "0b87",
-      "floorCount": 5,
-      "unitCount": 5,
-      "photo": "https://avatars.githubusercontent.com/u/196037667?v=4"
+      "floorCount": 30,
+      "unitCount": 150,
+      "photo": "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-2-1.png"
     }
   ],
   "floors": [
     {
-      "id": "3069",
+      "id": "539d",
       "name": "Basement",
-      "building": "faf0"
-    },
-    {
-      "id": "ebdb",
-      "name": "Ground",
-      "building": "faf0"
+      "building": "a9e3"
     }
   ],
   "stages": [
@@ -78,15 +61,76 @@
       "startDate": "2025-07-18",
       "endDate": "2025-07-31",
       "floor": "3069",
-      "labours": ["2ec0", "5aa8", "6480", "9854", "1111"]
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    },
+    {
+      "id": "c3b2",
+      "name": "Pilling",
+      "startDate": "2025-07-23",
+      "endDate": "2025-08-30",
+      "floor": "539d",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
     }
   ],
-  "attendances": [],
+  "attendances": [
+    {
+      "id": "c3f6",
+      "employeeId": "2ec0",
+      "stageId": "c3b2",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "7d25",
+      "employeeId": "5aa8",
+      "stageId": "c3b2",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "9e67",
+      "employeeId": "6480",
+      "stageId": "c3b2",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "7f22",
+      "employeeId": "9854",
+      "stageId": "c3b2",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 900
+    },
+    {
+      "id": "ea3f",
+      "employeeId": "1111",
+      "stageId": "c3b2",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 1000
+    }
+  ],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 0,
+      "quantity": 500,
       "unit": "Cubic Feet"
     },
     {
@@ -294,9 +338,51 @@
       "unit": "Liters"
     }
   ],
-  "rawmaterialsstockin": [],
-  "rawmaterialsstockout": [],
-  "units": [],
+  "rawmaterialsstockin": [
+    {
+      "id": "934b",
+      "rawMaterialId": "1",
+      "name": "Sand",
+      "date": "2025-07-23",
+      "quantity": 1000,
+      "unitprice": 25,
+      "unit": "Cubic Feet",
+      "supplier": "Sand Traders Ltd.",
+      "totalprice": 25000
+    }
+  ],
+  "rawmaterialsstockout": [
+    {
+      "id": "d305",
+      "rawMaterialId": "1",
+      "stageId": "c3b2",
+      "name": "Sand",
+      "date": "2025-07-23",
+      "quantity": 500,
+      "unit": "Cubic Feet"
+    }
+  ],
+  "units": [
+    {
+      "id": "f4e1",
+      "unitNumber": "100",
+      "buildingId": "a9e3",
+      "floorId": "539d",
+      "area": 5000,
+      "bedrooms": 5,
+      "bathrooms": 10,
+      "isBooked": true,
+      "customerId": "29ee",
+      "price": 500000000,
+      "photoUrls": [
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-8-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-9-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-10-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-7-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-6.png"
+      ]
+    }
+  ],
   "employees": [
     {
       "id": "6270",
@@ -411,7 +497,22 @@
       "address": "6455654"
     }
   ],
-  "transactions": [],
+  "transactions": [
+    {
+      "id": "a828",
+      "name": "Sand (1000 Cubic Feet)",
+      "date": "2025-07-23",
+      "amount": 25000,
+      "credit": false
+    },
+    {
+      "id": "75a7",
+      "name": "Building Name: Building A, Floor Name: Basement, Unit Number: 100 Booking",
+      "date": "2025-07-23T10:53:35.208Z",
+      "amount": 500000000,
+      "credit": true
+    }
+  ],
   "customers": [
     {
       "name": "Rahamatullah Khan",

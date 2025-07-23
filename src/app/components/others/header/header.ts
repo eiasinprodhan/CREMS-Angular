@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 })
 export class Header {
   employee: Employee | null = null;
-  private subscription: Subscription = new Subscription();
 
   constructor(
     private employeeService: EmployeeService,
@@ -35,11 +34,5 @@ export class Header {
         console.error('Error loading user profile:', err);
       },
     });
-
-    this.subscription.add(sub);
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
