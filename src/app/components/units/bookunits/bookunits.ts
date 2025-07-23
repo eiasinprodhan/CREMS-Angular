@@ -10,6 +10,8 @@ import { Building } from '../../../models/building.model';
 import { BuildingService } from '../../../services/building.service';
 import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../models/transaction.model';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-bookunits',
@@ -24,6 +26,8 @@ export class Bookunits implements OnInit {
   building: Building = new Building();
   floors: Floor[] = [];
   customers: Customer[] = [];
+  selectedCustomer?: Customer;
+  today: Date = new Date();
 
   message: string = '';
   messageType: string = '';
@@ -51,14 +55,10 @@ export class Bookunits implements OnInit {
       next: (data) => {
         this.unit = data;
 
-        if (this.unit.floorId) {
-          this.loadFloor(this.unit.floorId);
-        }
+        if (this.unit.floorId) this.loadFloor(this.unit.floorId);
+        if (this.unit.buildingId) this.loadBuilding(this.unit.buildingId);
 
-        if (this.unit.buildingId) {
-          this.loadBuilding(this.unit.buildingId);
-        }
-
+        this.selectedCustomer = this.customers.find(c => c.id === this.unit.customerId);
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -107,6 +107,7 @@ export class Bookunits implements OnInit {
     this.customerService.listCustomers().subscribe({
       next: (data) => {
         this.customers = data;
+        this.selectedCustomer = this.customers.find(c => c.id === this.unit.customerId);
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -116,30 +117,26 @@ export class Bookunits implements OnInit {
   }
 
   updateUnit(): void {
+    // Save transaction
     const transaction: Transaction = new Transaction(
-      "Building Name: " + this.building.name+ ", " + "Floor Name: " + this.floor.name + ", " + "Unit Number: " + this.unit.unitNumber +" Booking",
+      `Booking: Building - ${this.building.name}, Floor - ${this.floor.name}, Unit - ${this.unit.unitNumber}`,
       new Date(),
       this.unit.price,
       true
     );
 
-    this.transactionService.saveTransaction(transaction).subscribe({
-      next: () => {
-        console.log('Transaction saved successfully');
-      },
-      error: (err) => {
-        console.error('Error saving transaction:', err);
-        this.message = 'Failed to save transaction.';
-        this.messageType = 'danger';
-      }
-    });
-
+    this.transactionService.saveTransaction(transaction).subscribe();
 
     this.unitService.editUnit(this.id, this.unit).subscribe({
       next: () => {
+        this.selectedCustomer = this.customers.find(c => c.id === this.unit.customerId);
+
         this.message = 'Unit updated successfully!';
         this.messageType = 'success';
-        this.router.navigate(['/listunits']);
+
+        setTimeout(() => {
+          this.printInvoice();
+        }, 300); // delay to ensure `selectedCustomer` is ready
       },
       error: (err) => {
         console.error('Failed to update unit:', err);
@@ -148,4 +145,42 @@ export class Bookunits implements OnInit {
       }
     });
   }
+
+
+  printInvoice() {
+    const element = document.getElementById('invoiceToPrint');
+    if (!element) return;
+
+    // Temporarily make visible for rendering
+    element.style.visibility = 'visible';
+    element.style.position = 'static';
+    element.style.left = '0';
+
+    setTimeout(() => {
+      html2canvas(element, {
+        useCORS: true,
+        allowTaint: false,
+        scale: 2, // higher quality
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save(`${this.unit.id || 'invoice'}.pdf`);
+
+        // Hide again after PDF generation
+        element.style.visibility = 'hidden';
+        element.style.position = 'absolute';
+        element.style.left = '-9999px';
+
+        // 🔁 Route to 'listunits' after saving the PDF
+        this.router.navigate(['/listunits']);
+      });
+    }, 500);
+  }
+
+
 }

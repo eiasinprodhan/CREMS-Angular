@@ -52,6 +52,16 @@
       "id": "539d",
       "name": "Basement",
       "building": "a9e3"
+    },
+    {
+      "id": "c2df",
+      "name": "Ground",
+      "building": "a9e3"
+    },
+    {
+      "id": "05aa",
+      "name": "First Floor",
+      "building": "a9e3"
     }
   ],
   "stages": [
@@ -70,7 +80,7 @@
       ]
     },
     {
-      "id": "c3b2",
+      "id": "a1ec",
       "name": "Pilling",
       "startDate": "2025-07-23",
       "endDate": "2025-07-31",
@@ -88,7 +98,7 @@
     {
       "id": "c3f6",
       "employeeId": "2ec0",
-      "stageId": "c3b2",
+      "stageId": null,
       "date": "2025-07-23",
       "status": "Present",
       "salary": 600
@@ -96,7 +106,7 @@
     {
       "id": "7d25",
       "employeeId": "5aa8",
-      "stageId": "c3b2",
+      "stageId": null,
       "date": "2025-07-23",
       "status": "Present",
       "salary": 800
@@ -104,7 +114,7 @@
     {
       "id": "9e67",
       "employeeId": "6480",
-      "stageId": "c3b2",
+      "stageId": null,
       "date": "2025-07-23",
       "status": "Present",
       "salary": 800
@@ -112,7 +122,7 @@
     {
       "id": "7f22",
       "employeeId": "9854",
-      "stageId": "c3b2",
+      "stageId": null,
       "date": "2025-07-23",
       "status": "Present",
       "salary": 900
@@ -120,10 +130,130 @@
     {
       "id": "ea3f",
       "employeeId": "1111",
-      "stageId": "c3b2",
+      "stageId": null,
       "date": "2025-07-23",
       "status": "Present",
       "salary": 1000
+    },
+    {
+      "id": "2113",
+      "employeeId": "2ec0",
+      "stageId": null,
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "9bf3",
+      "employeeId": "5aa8",
+      "stageId": null,
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "8f66",
+      "employeeId": "6480",
+      "stageId": null,
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "e28f",
+      "employeeId": "9854",
+      "stageId": null,
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "48f0",
+      "employeeId": "1111",
+      "stageId": null,
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 1000
+    },
+    {
+      "id": "529f",
+      "employeeId": "2ec0",
+      "stageId": null,
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "f93d",
+      "employeeId": "5aa8",
+      "stageId": null,
+      "date": "2025-07-31",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "0a32",
+      "employeeId": "6480",
+      "stageId": null,
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "c030",
+      "employeeId": "9854",
+      "stageId": null,
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 900
+    },
+    {
+      "id": "0000",
+      "employeeId": "1111",
+      "stageId": null,
+      "date": "2025-07-31",
+      "status": "Present",
+      "salary": 1000
+    },
+    {
+      "id": "cd65",
+      "employeeId": "2ec0",
+      "stageId": "a1ec",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "64b3",
+      "employeeId": "5aa8",
+      "stageId": "a1ec",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "53ba",
+      "employeeId": "6480",
+      "stageId": "a1ec",
+      "date": "2025-07-23",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "employeeId": "9854",
+      "stageId": "a1ec",
+      "date": "2025-07-23",
+      "status": "Absent",
+      "salary": 0,
+      "id": "f142"
+    },
+    {
+      "id": "6892",
+      "employeeId": "1111",
+      "stageId": "a1ec",
+      "date": "2025-07-23",
+      "status": "Absent",
+      "salary": 0
     }
   ],
   "rawmaterials": [
@@ -292,7 +422,7 @@
     {
       "id": "28",
       "name": "Vitrified Tiles",
-      "quantity": 0,
+      "quantity": 250,
       "unit": "Square Feet"
     },
     {
@@ -349,37 +479,56 @@
       "unit": "Cubic Feet",
       "supplier": "Sand Traders Ltd.",
       "totalprice": 25000
+    },
+    {
+      "id": "f212",
+      "rawMaterialId": "28",
+      "name": "Vitrified Tiles",
+      "date": "2025-07-23",
+      "quantity": 500,
+      "unitprice": 33,
+      "unit": "Square Feet",
+      "supplier": "fdsafdf",
+      "totalprice": 16500
     }
   ],
   "rawmaterialsstockout": [
     {
       "id": "d305",
       "rawMaterialId": "1",
-      "stageId": "c3b2",
+      "stageId": null,
       "name": "Sand",
       "date": "2025-07-23",
       "quantity": 500,
       "unit": "Cubic Feet"
+    },
+    {
+      "id": "2fb2",
+      "rawMaterialId": "28",
+      "stageId": null,
+      "name": "Vitrified Tiles",
+      "date": "2025-07-23",
+      "quantity": 250,
+      "unit": "Square Feet"
     }
   ],
   "units": [
     {
-      "id": "f4e1",
-      "unitNumber": "100",
+      "id": "42d1",
+      "unitNumber": "U - 101",
       "buildingId": "a9e3",
       "floorId": "539d",
-      "area": 5000,
+      "area": 1000,
       "bedrooms": 5,
       "bathrooms": 10,
-      "isBooked": true,
-      "customerId": "29ee",
-      "price": 500000000,
+      "isBooked": false,
+      "customerId": "8b18",
+      "price": 1000000,
       "photoUrls": [
-        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-8-1.png",
-        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-9-1.png",
-        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-10-1.png",
-        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-7-1.png",
-        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-6.png"
+        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-4-scaled.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-5-scaled.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-24-scaled.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-2-scaled.jpg"
       ]
     }
   ],
@@ -499,17 +648,94 @@
   ],
   "transactions": [
     {
-      "id": "a828",
-      "name": "Sand (1000 Cubic Feet)",
-      "date": "2025-07-23",
-      "amount": 25000,
+      "id": "be1d",
+      "name": "Labours daily salary",
+      "date": "2025-07-23T16:19:45.414Z",
+      "amount": 2200,
       "credit": false
     },
     {
-      "id": "75a7",
-      "name": "Building Name: Building A, Floor Name: Basement, Unit Number: 100 Booking",
-      "date": "2025-07-23T10:53:35.208Z",
-      "amount": 500000000,
+      "id": "00a4",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:28:51.220Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "ce8d",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:29:22.429Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "0216",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:29:55.188Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "3d0a",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:34:13.716Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "226a",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:42:05.246Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "8023",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:43:06.766Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "74dc",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:43:17.812Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "faca",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:43:40.579Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "f007",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:50:35.987Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "f67d",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:50:44.203Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "f396",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:51:01.084Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "c9df",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-23T16:51:15.939Z",
+      "amount": 1000000,
       "credit": true
     }
   ],
