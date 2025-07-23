@@ -22,7 +22,7 @@
       "status": "Up Coming",
       "projectType": "Residential",
       "projectManager": "6270",
-      "description": "dfgdfsag"
+      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     },
     {
       "id": "f702",
@@ -34,7 +34,7 @@
       "status": "Up Coming",
       "projectType": "Commercial",
       "projectManager": "6270",
-      "description": "sdgdsfgfdg"
+      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
   "buildings": [
@@ -78,80 +78,33 @@
       "startDate": "2025-07-18",
       "endDate": "2025-07-31",
       "floor": "3069",
-      "labours": [
-        "2ec0",
-        "5aa8",
-        "6480",
-        "9854",
-        "1111"
-      ]
+      "labours": ["2ec0", "5aa8", "6480", "9854", "1111"]
     }
   ],
-  "attendances": [
-    {
-      "id": "1769",
-      "employeeId": "2ec0",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 600
-    },
-    {
-      "id": "a6bc",
-      "employeeId": "5aa8",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "a3f1",
-      "employeeId": "6480",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 800
-    },
-    {
-      "id": "a507",
-      "employeeId": "9854",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 900
-    },
-    {
-      "id": "8ac5",
-      "employeeId": "1111",
-      "stageId": "a8ee",
-      "date": "2025-07-22",
-      "status": "Present",
-      "salary": 1000
-    }
-  ],
+  "attendances": [],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 1000,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
       "id": "2",
       "name": "Gravel",
-      "quantity": 1000,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
       "id": "3",
       "name": "Crushed Stone",
-      "quantity": 1000,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
       "id": "4",
       "name": "Cement",
-      "quantity": 1000,
+      "quantity": 0,
       "unit": "Bags"
     },
     {
@@ -341,70 +294,9 @@
       "unit": "Liters"
     }
   ],
-  "rawmaterialsstockin": [
-    {
-      "id": "90ee",
-      "rawMaterialId": "1",
-      "name": "Sand",
-      "date": "2025-07-22",
-      "quantity": 1000,
-      "unitprice": 25,
-      "unit": "Cubic Feet",
-      "supplier": "Parvej Balur Dokan",
-      "totalprice": 25000
-    },
-    {
-      "id": "86cd",
-      "rawMaterialId": "2",
-      "name": "Gravel",
-      "date": "2025-07-22",
-      "quantity": 1000,
-      "unitprice": 50,
-      "unit": "Cubic Feet",
-      "supplier": "sdfasdf",
-      "totalprice": 50000
-    },
-    {
-      "id": "53c8",
-      "rawMaterialId": "3",
-      "name": "Crushed Stone",
-      "date": "2025-07-24",
-      "quantity": 1000,
-      "unitprice": 5000,
-      "unit": "Cubic Feet",
-      "supplier": "sdfasdf",
-      "totalprice": 5000000
-    },
-    {
-      "id": "9b7e",
-      "rawMaterialId": "4",
-      "name": "Cement",
-      "date": "2025-07-31",
-      "quantity": 1000,
-      "unitprice": 5,
-      "unit": "Bags",
-      "supplier": "sdfasdf",
-      "totalprice": 5000
-    }
-  ],
+  "rawmaterialsstockin": [],
   "rawmaterialsstockout": [],
-  "units": [
-    {
-      "id": "0fcd",
-      "unitNumber": "100",
-      "buildingId": "faf0",
-      "floorId": "3069",
-      "area": 500,
-      "bedrooms": 5,
-      "bathrooms": 10,
-      "isBooked": true,
-      "customerId": "8b18",
-      "price": 1000,
-      "photoUrls": [
-        "https://avatars.githubusercontent.com/u/196037667?v=4"
-      ]
-    }
-  ],
+  "units": [],
   "employees": [
     {
       "id": "6270",
@@ -519,15 +411,7 @@
       "address": "6455654"
     }
   ],
-  "transactions": [
-    {
-      "id": "ad1f",
-      "name": "Tracking",
-      "date": "2025-07-31T00:00:00.000Z",
-      "amount": 5000,
-      "credit": "true"
-    }
-  ],
+  "transactions": [],
   "customers": [
     {
       "name": "Rahamatullah Khan",
