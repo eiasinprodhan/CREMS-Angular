@@ -11,18 +11,6 @@
       "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-    },
-    {
-      "id": "7e3d",
-      "name": "Project B",
-      "location": "Gulshan",
-      "startDate": "2025-07-23",
-      "endDate": "2025-12-31",
-      "budget": 10000000,
-      "status": "Under Construction",
-      "projectType": "Mixed-use",
-      "projectManager": "6270",
-      "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
   "buildings": [
@@ -35,16 +23,6 @@
       "floorCount": 20,
       "unitCount": 60,
       "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/OVERVIEW_0001_MBR-1.jpg"
-    },
-    {
-      "id": "daa0",
-      "name": "Building B",
-      "type": "Mixed-use",
-      "project": "7e3d",
-      "siteManager": "0b87",
-      "floorCount": 30,
-      "unitCount": 150,
-      "photo": "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-2-1.png"
     }
   ],
   "floors": [
@@ -84,20 +62,6 @@
       "name": "Pilling",
       "startDate": "2025-07-23",
       "endDate": "2025-07-31",
-      "floor": "539d",
-      "labours": [
-        "2ec0",
-        "5aa8",
-        "6480",
-        "9854",
-        "1111"
-      ]
-    },
-    {
-      "id": "e891",
-      "name": "Basement",
-      "startDate": "2025-07-24",
-      "endDate": "2025-08-15",
       "floor": "539d",
       "labours": [
         "2ec0",
@@ -272,7 +236,7 @@
     {
       "id": "c993",
       "employeeId": "2ec0",
-      "stageId": "e891",
+      "stageId": null,
       "date": "2025-07-24",
       "status": "Present",
       "salary": 600
@@ -280,7 +244,7 @@
     {
       "id": "2863",
       "employeeId": "5aa8",
-      "stageId": "e891",
+      "stageId": null,
       "date": "2025-07-24",
       "status": "Present",
       "salary": 800
@@ -288,7 +252,7 @@
     {
       "id": "e97e",
       "employeeId": "6480",
-      "stageId": "e891",
+      "stageId": null,
       "date": "2025-07-24",
       "status": "Absent",
       "salary": 0
@@ -296,7 +260,7 @@
     {
       "id": "767f",
       "employeeId": "9854",
-      "stageId": "e891",
+      "stageId": null,
       "date": "2025-07-24",
       "status": "Absent",
       "salary": 0
@@ -304,17 +268,57 @@
     {
       "id": "2963",
       "employeeId": "1111",
-      "stageId": "e891",
+      "stageId": null,
       "date": "2025-07-24",
       "status": "Present",
       "salary": 1000
+    },
+    {
+      "id": "4a2a",
+      "employeeId": "2ec0",
+      "stageId": "a1ec",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "e8c2",
+      "employeeId": "5aa8",
+      "stageId": "a1ec",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "9ae0",
+      "employeeId": "6480",
+      "stageId": "a1ec",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "991a",
+      "employeeId": "9854",
+      "stageId": "a1ec",
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "0867",
+      "employeeId": "1111",
+      "stageId": "a1ec",
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
     }
   ],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 500,
+      "quantity": 250,
       "unit": "Cubic Feet"
     },
     {
@@ -564,6 +568,15 @@
       "date": "2025-07-23",
       "quantity": 250,
       "unit": "Square Feet"
+    },
+    {
+      "id": "8d5f",
+      "rawMaterialId": "1",
+      "stageId": "a1ec",
+      "name": "Sand",
+      "date": "2025-07-24",
+      "quantity": 250,
+      "unit": "Cubic Feet"
     }
   ],
   "units": [
@@ -575,8 +588,8 @@
       "area": 1000,
       "bedrooms": 5,
       "bathrooms": 10,
-      "isBooked": false,
-      "customerId": "8b18",
+      "isBooked": true,
+      "customerId": "29ee",
       "price": 1000000,
       "photoUrls": [
         "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-4-scaled.jpg",
@@ -812,17 +825,37 @@
       "date": "2025-07-24T06:05:12.131Z",
       "amount": 2400,
       "credit": false
+    },
+    {
+      "id": "e978",
+      "name": "Labours daily salary",
+      "date": "2025-07-24T10:56:31.023Z",
+      "amount": 2200,
+      "credit": false
+    },
+    {
+      "id": "0370",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-24T11:00:20.886Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "28a2",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-24T11:00:51.982Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "2b13",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-24T11:06:08.086Z",
+      "amount": 1000000,
+      "credit": true
     }
   ],
   "customers": [
-    {
-      "name": "Rahamatullah Khan",
-      "email": "rahmatullahkhan@gmail.com",
-      "phone": "01865248578",
-      "photo": "https://avatars.githubusercontent.com/u/108518708?v=4",
-      "address": "Dhaka, Bangladesh",
-      "id": "8b18"
-    },
     {
       "id": "29ee",
       "name": "Rakib Isalm",
