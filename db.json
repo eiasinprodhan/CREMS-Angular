@@ -92,6 +92,20 @@
         "9854",
         "1111"
       ]
+    },
+    {
+      "id": "e891",
+      "name": "Basement",
+      "startDate": "2025-07-24",
+      "endDate": "2025-08-15",
+      "floor": "539d",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
     }
   ],
   "attendances": [
@@ -254,6 +268,46 @@
       "date": "2025-07-23",
       "status": "Absent",
       "salary": 0
+    },
+    {
+      "id": "c993",
+      "employeeId": "2ec0",
+      "stageId": "e891",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "2863",
+      "employeeId": "5aa8",
+      "stageId": "e891",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "e97e",
+      "employeeId": "6480",
+      "stageId": "e891",
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "767f",
+      "employeeId": "9854",
+      "stageId": "e891",
+      "date": "2025-07-24",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "2963",
+      "employeeId": "1111",
+      "stageId": "e891",
+      "date": "2025-07-24",
+      "status": "Present",
+      "salary": 1000
     }
   ],
   "rawmaterials": [
@@ -744,6 +798,20 @@
       "date": "2025-07-23T18:30:45.292Z",
       "amount": 1000000,
       "credit": true
+    },
+    {
+      "id": "104f",
+      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
+      "date": "2025-07-24T05:43:07.207Z",
+      "amount": 1000000,
+      "credit": true
+    },
+    {
+      "id": "754e",
+      "name": "Labours daily salary",
+      "date": "2025-07-24T06:05:12.131Z",
+      "amount": 2400,
+      "credit": false
     }
   ],
   "customers": [

@@ -52,10 +52,10 @@ import { Edittransactions } from './components/transactions/edittransactions/edi
 
 const routes: Routes = [
   // Others
-  { path: 'dashboard', component: Dashboard },
+  { path: '', component: Dashboard },
 
   // Pages
-  { path: '', component: Home },
+  { path: 'faka', component: Home },
   { path: 'products', component: Products },
   { path: 'productdetails', component: Productdetails },
   { path: 'signin', component: Signin },
