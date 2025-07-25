@@ -82,11 +82,9 @@
               <tr>
                 <th class="dt-orderable-asc dt-orderable-desc">ID</th>
                 <th class="dt-orderable-asc dt-orderable-desc">Project Name</th>
-                <th class="dt-orderable-asc dt-orderable-desc">Location</th>
                 <th class="dt-orderable-asc dt-orderable-desc">Budget</th>
                 <th class="dt-orderable-asc dt-orderable-desc">Start Date</th>
-                <th class="dt-orderable-asc dt-orderable-desc">End Date</th>
-                <th class="dt-orderable-asc dt-orderable-desc">Status</th>
+                <th class="dt-orderable-asc dt-orderable-desc">Expected End Date</th>
                 <th class="dt-orderable-asc dt-orderable-desc">Action</th>
               </tr>
             </thead>
@@ -94,18 +92,9 @@
               <tr *ngFor="let project of projects | async">
                 <td>{{ project.id }}</td>
                 <td>{{ project.name }}</td>
-                <td>{{ project.location }}</td>
                 <td>{{ project.budget | currency }}</td>
                 <td>{{ project.startDate | date }}</td>
-                <td>{{ project.endDate | date }}</td>
-                <td>
-                  <span
-                    [ngClass]="getStatusClass(project.status)"
-                    class="badge rounded-pill"
-                  >
-                    {{ project.status }}
-                  </span>
-                </td>
+                <td>{{ project.expectedEndDate | date }}</td>
                 <td>
                   <div class="d-flex gap-2">
                     <!-- View -->

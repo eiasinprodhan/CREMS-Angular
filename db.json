@@ -1,47 +1,18 @@
 {
   "projects": [
     {
-      "id": "c9cd",
+      "id": "c17b",
       "name": "Project A",
-      "location": "Dhanmondi",
-      "startDate": "2025-07-01",
-      "endDate": "2025-12-31",
-      "budget": 100000000,
-      "status": "Under Construction",
+      "budget": 10000000,
+      "startDate": "2025-07-25",
+      "expectedEndDate": "2025-12-31",
       "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
-  "buildings": [
-    {
-      "id": "a9e3",
-      "name": "Building A",
-      "type": "Mixed-use",
-      "project": "c9cd",
-      "siteManager": "0b87",
-      "floorCount": 20,
-      "unitCount": 60,
-      "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/OVERVIEW_0001_MBR-1.jpg"
-    }
-  ],
-  "floors": [
-    {
-      "id": "539d",
-      "name": "Basement",
-      "building": "a9e3"
-    },
-    {
-      "id": "c2df",
-      "name": "Ground",
-      "building": "a9e3"
-    },
-    {
-      "id": "05aa",
-      "name": "First Floor",
-      "building": "a9e3"
-    }
-  ],
+  "buildings": [],
+  "floors": [],
   "stages": [
     {
       "id": "a8ee",
@@ -579,26 +550,7 @@
       "unit": "Cubic Feet"
     }
   ],
-  "units": [
-    {
-      "id": "42d1",
-      "unitNumber": "U - 101",
-      "buildingId": "a9e3",
-      "floorId": "539d",
-      "area": 1000,
-      "bedrooms": 5,
-      "bathrooms": 10,
-      "isBooked": true,
-      "customerId": "29ee",
-      "price": 1000000,
-      "photoUrls": [
-        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-4-scaled.jpg",
-        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-5-scaled.jpg",
-        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-24-scaled.jpg",
-        "https://concordrealestatebd.com/wp-content/uploads/2024/11/Concord-Aurora-Heights-2-scaled.jpg"
-      ]
-    }
-  ],
+  "units": [],
   "employees": [
     {
       "id": "6270",
@@ -713,148 +665,7 @@
       "address": "6455654"
     }
   ],
-  "transactions": [
-    {
-      "id": "be1d",
-      "name": "Labours daily salary",
-      "date": "2025-07-23T16:19:45.414Z",
-      "amount": 2200,
-      "credit": false
-    },
-    {
-      "id": "00a4",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:28:51.220Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "ce8d",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:29:22.429Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "0216",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:29:55.188Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "3d0a",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:34:13.716Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "226a",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:42:05.246Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "8023",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:43:06.766Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "74dc",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:43:17.812Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "faca",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:43:40.579Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "f007",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:50:35.987Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "f67d",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:50:44.203Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "f396",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:51:01.084Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "c9df",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T16:51:15.939Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "3d9f",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-23T18:30:45.292Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "104f",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-24T05:43:07.207Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "754e",
-      "name": "Labours daily salary",
-      "date": "2025-07-24T06:05:12.131Z",
-      "amount": 2400,
-      "credit": false
-    },
-    {
-      "id": "e978",
-      "name": "Labours daily salary",
-      "date": "2025-07-24T10:56:31.023Z",
-      "amount": 2200,
-      "credit": false
-    },
-    {
-      "id": "0370",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-24T11:00:20.886Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "28a2",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-24T11:00:51.982Z",
-      "amount": 1000000,
-      "credit": true
-    },
-    {
-      "id": "2b13",
-      "name": "Booking: Building - Building A, Floor - Basement, Unit - U - 101",
-      "date": "2025-07-24T11:06:08.086Z",
-      "amount": 1000000,
-      "credit": true
-    }
-  ],
+  "transactions": [],
   "customers": [
     {
       "id": "29ee",

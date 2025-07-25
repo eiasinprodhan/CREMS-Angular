@@ -21,16 +21,14 @@ export class Addprojects implements OnInit {
     private projectService: ProjectService,
     private employeeService: EmployeeService,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.addProjectForm = this.formBuilder.group({
       name: ['', Validators.required],
-      location: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
       budget: [0, [Validators.required, Validators.min(1)]],
-      status: ['', Validators.required],
+      startDate: ['', Validators.required],
+      expectedEndDate: ['', Validators.required],
       projectType: ['', Validators.required],
       projectManager: ['', Validators.required],
       description: ['', Validators.required],

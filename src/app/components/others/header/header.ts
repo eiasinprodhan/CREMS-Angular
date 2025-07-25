@@ -24,7 +24,6 @@ export class Header {
   loadUserProfile(): void {
     const sub = this.employeeService.getEmployeeProfile().subscribe({
       next: (res) => {
-        console.log(res);
         if (res) {
           this.employee = res;
           this.cdr.detectChanges();

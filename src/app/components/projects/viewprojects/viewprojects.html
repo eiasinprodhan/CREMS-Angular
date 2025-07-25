@@ -28,46 +28,15 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Location</label>
-          <div class="text-muted">{{ project.location }}</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Project Manager</label>
-          <a routerLink="/viewemployees/{{employee.id}}"
-            ><div class="text-success">{{ employee.name }}</div></a
-          >
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Start Date</label>
           <div class="text-muted">
             {{ project.startDate | date: 'mediumDate' }}
           </div>
         </div>
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">End Date</label>
+          <label class="form-label fw-bold">Expected End Date</label>
           <div class="text-muted">
-            {{ project.endDate | date: 'mediumDate' }}
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Budget</label>
-          <div class="text-muted">{{ project.budget | currency }}</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Status</label>
-          <div>
-            <span
-              [ngClass]="getStatusClass(project.status)"
-              class="badge rounded-pill"
-            >
-              {{ project.status }}
-            </span>
+            {{ project.expectedEndDate | date: 'mediumDate' }}
           </div>
         </div>
       </div>
@@ -77,6 +46,21 @@
           <label class="form-label fw-bold">Project Type</label>
           <div class="text-muted">{{ project.projectType }}</div>
         </div>
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Budget</label>
+          <div class="text-muted">{{ project.budget | currency }}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Project Manager</label>
+          <a routerLink="/viewemployees/{{employee.id}}"
+            ><div class="text-success">{{ employee.name }}</div></a
+          >
+        </div>
+
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Total Buildings</label>
           <ng-container *ngIf="buildings | async as building">

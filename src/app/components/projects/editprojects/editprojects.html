@@ -30,15 +30,17 @@
             required
           />
         </div>
+
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Project Location</label>
+          <label class="form-label fw-bold">Budget</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            [(ngModel)]="project.location"
-            name="location"
+            [(ngModel)]="project.budget"
+            name="budget"
           />
         </div>
+        
       </div>
 
       <div class="row">
@@ -52,39 +54,13 @@
           />
         </div>
         <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">End Date</label>
+          <label class="form-label fw-bold">Expected End Date</label>
           <input
             type="date"
             class="form-control"
-            [(ngModel)]="project.endDate"
+            [(ngModel)]="project.expectedEndDate"
             name="endDate"
           />
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Budget</label>
-          <input
-            type="number"
-            class="form-control"
-            [(ngModel)]="project.budget"
-            name="budget"
-          />
-        </div>
-
-        <div class="col-md-6 mb-3">
-          <label class="form-label fw-bold">Status</label>
-          <select
-            class="form-select"
-            [(ngModel)]="project.status"
-            name="status"
-          >
-            <option [ngValue]="null" disabled>Select Status</option>
-            <option value="Up Coming">Up Coming</option>
-            <option value="Under Construction">Under Construction</option>
-            <option value="Completed">Completed</option>
-          </select>
         </div>
       </div>
 
@@ -136,7 +112,7 @@
       <div class="row">
         <div class="col-12">
           <button type="submit" class="btn btn-primary">
-            <i class="fa-solid fa-floppy-disk mx-1"></i>Update
+            <i class="fa-solid fa-floppy-disk mx-1"></i>Update Project
           </button>
         </div>
       </div>
