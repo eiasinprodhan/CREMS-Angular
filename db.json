@@ -1,18 +1,50 @@
 {
   "projects": [
     {
-      "id": "c17b",
+      "id": "d28e",
       "name": "Project A",
-      "budget": 10000000,
-      "startDate": "2025-07-25",
-      "expectedEndDate": "2025-12-31",
+      "budget": 100000,
+      "startDate": "2025-07-27",
+      "expectedEndDate": "2026-01-31",
       "projectType": "Mixed-use",
       "projectManager": "6270",
       "description": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     }
   ],
-  "buildings": [],
-  "floors": [],
+  "buildings": [
+    {
+      "id": "f82b",
+      "name": "Building A",
+      "type": "Mixed-use",
+      "project": "d28e",
+      "siteManager": "0b87",
+      "floorCount": 20,
+      "unitCount": 60,
+      "photo": "https://concordrealestatebd.com/wp-content/uploads/2023/12/01.-MBR_EXT_V01.jpg"
+    },
+    {
+      "id": "be5f",
+      "name": "Building B",
+      "type": "Mixed-use",
+      "project": "d28e",
+      "siteManager": "0b87",
+      "floorCount": 30,
+      "unitCount": 60,
+      "photo": "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-3-1.png"
+    }
+  ],
+  "floors": [
+    {
+      "id": "ff2a",
+      "name": "Ground",
+      "building": "f82b"
+    },
+    {
+      "id": "2cdd",
+      "name": "Ground",
+      "building": "be5f"
+    }
+  ],
   "stages": [
     {
       "id": "a8ee",
@@ -34,6 +66,34 @@
       "startDate": "2025-07-23",
       "endDate": "2025-07-31",
       "floor": "539d",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    },
+    {
+      "id": "112a",
+      "name": "Pilling",
+      "startDate": "2025-07-27",
+      "endDate": "2025-07-27",
+      "floor": "1ef9",
+      "labours": [
+        "2ec0",
+        "5aa8",
+        "6480",
+        "9854",
+        "1111"
+      ]
+    },
+    {
+      "id": "8be1",
+      "name": "Pilling",
+      "startDate": "2025-07-27",
+      "endDate": "2025-08-27",
+      "floor": "2cdd",
       "labours": [
         "2ec0",
         "5aa8",
@@ -283,13 +343,53 @@
       "date": "2025-07-24",
       "status": "Absent",
       "salary": 0
+    },
+    {
+      "id": "b6be",
+      "employeeId": "2ec0",
+      "stageId": "112a",
+      "date": "2025-07-27",
+      "status": "Present",
+      "salary": 600
+    },
+    {
+      "id": "7008",
+      "employeeId": "5aa8",
+      "stageId": "112a",
+      "date": "2025-07-27",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "a0de",
+      "employeeId": "6480",
+      "stageId": "112a",
+      "date": "2025-07-27",
+      "status": "Present",
+      "salary": 800
+    },
+    {
+      "id": "406c",
+      "employeeId": "9854",
+      "stageId": "112a",
+      "date": "2025-07-27",
+      "status": "Absent",
+      "salary": 0
+    },
+    {
+      "id": "88e9",
+      "employeeId": "1111",
+      "stageId": "112a",
+      "date": "2025-07-27",
+      "status": "Absent",
+      "salary": 0
     }
   ],
   "rawmaterials": [
     {
       "id": "1",
       "name": "Sand",
-      "quantity": 250,
+      "quantity": 0,
       "unit": "Cubic Feet"
     },
     {
@@ -548,9 +648,62 @@
       "date": "2025-07-24",
       "quantity": 250,
       "unit": "Cubic Feet"
+    },
+    {
+      "id": "0b68",
+      "rawMaterialId": "1",
+      "stageId": "112a",
+      "name": "Sand",
+      "date": "2025-07-27",
+      "quantity": 250,
+      "unit": "Cubic Feet"
     }
   ],
-  "units": [],
+  "units": [
+    {
+      "id": "1e9d",
+      "unitNumber": "G-101",
+      "buildingId": "f82b",
+      "floorId": "ff2a",
+      "area": 5000,
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "isBooked": false,
+      "customerId": "",
+      "price": 5000000,
+      "photoUrls": [
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/09.-MBR_PodiumAxono.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/12.-MBR_Reception_R2.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/10.-MBR_DropOff_V04.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/17.-MBR_Restaurant-01.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/15.-MBR_LObby.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/20.-MBR_Terrace.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/MBR_Office.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/13.-MBR_Security-Entry.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/22.-MBR_BAR01.jpg",
+        "https://concordrealestatebd.com/wp-content/uploads/2023/12/23.-MBR_BAR02.jpg"
+      ]
+    },
+    {
+      "id": "1dc4",
+      "unitNumber": "G-101",
+      "buildingId": "be5f",
+      "floorId": "2cdd",
+      "area": 5000,
+      "bedrooms": 5,
+      "bathrooms": 3,
+      "isBooked": false,
+      "customerId": "",
+      "price": 100000,
+      "photoUrls": [
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-9-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-6.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-7-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-10-1.png",
+        "https://concordrealestatebd.com/wp-content/uploads/2025/03/Concord-MN-Nibash-8-1.png"
+      ]
+    }
+  ],
   "employees": [
     {
       "id": "6270",
