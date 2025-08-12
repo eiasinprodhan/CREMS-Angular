@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  baseUrl: string = 'http://localhost:3000/employees';
+  baseUrl: string = environment.apiBaseUrl + "/projectmanagers";
 
   constructor(
     private http: HttpClient,
@@ -17,26 +18,26 @@ export class EmployeeService {
 
   // Create new employee
   addEmployee(employee: Employee): Observable<any> {
-    return this.http.post(this.baseUrl, employee);
+    return this.http.post(this.baseUrl+'/save', employee);
   }
 
   // Get all employees
   listEmployees(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl+'/all');
   }
 
   // Get single employee
-  viewEmployee(id: string): Observable<any> {
+  viewEmployee(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   // Update employee
-  editEmployee(id: string, employee: Employee): Observable<any> {
+  editEmployee(id: number, employee: Employee): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, employee);
   }
 
   // Delete employee
-  deleteEmployee(id: string): Observable<any> {
+  deleteEmployee(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
@@ -51,12 +52,12 @@ export class EmployeeService {
 
 
   //Update employee status
-  editEmployeeStatus(id: string, status: boolean): Observable<any> {
+  editEmployeeStatus(id: number, status: boolean): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, status);
   }
 
   // update empployee totalsalary And 
-  updateTotalSalary(id: string, salary: number): Observable<any>{
+  updateTotalSalary(id: number, salary: number): Observable<any>{
     return this.http.patch(this.baseUrl+"/"+id, {salary: salary});
   }
   
