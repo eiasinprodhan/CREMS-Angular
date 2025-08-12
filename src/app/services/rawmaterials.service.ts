@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RawMaterials } from '../models/rawmaterial.model';
 import { RawMaterialsStockIn } from '../models/rawmaterialsstockin.model';
+import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RawmaterialsService {
-  baseUrlOfRawMaterials: string = "http://localhost:3000/rawmaterials";
+  baseUrlOfRawMaterials: string = environment.apiBaseUrl + "/rawmaterials/";
   baseUrlOfRawMaterialsStockIn: string = "http://localhost:3000/rawmaterialsstockin";
   baseUrlOfRawMaterialsStockOut: string = "http://localhost:3000/rawmaterialsstockout";
 
