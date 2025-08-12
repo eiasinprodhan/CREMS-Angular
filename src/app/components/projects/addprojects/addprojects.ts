@@ -69,6 +69,6 @@ export class Addprojects implements OnInit {
   }
 
   viewProjectManager(): void {
-    this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
+    this.projectManagers = this.employeeService.listEmployees();
   }
 }

@@ -19,6 +19,7 @@ export class Listprojects implements OnInit {
 
   ngOnInit(): void {
     this.listProjects();
+    this.cdr.markForCheck();
   }
 
   //Projects List

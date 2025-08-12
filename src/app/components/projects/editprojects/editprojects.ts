@@ -46,7 +46,7 @@ export class Editprojects {
 
   // Edit Project
   updateProject():void{
-    this.projectService.editProjects(this.id, this.project).subscribe({
+    this.projectService.editProjects(this.project).subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(['listprojects']);
@@ -59,7 +59,7 @@ export class Editprojects {
 
   // View Employees
   viewEmployees(): void {
-    this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
+    this.projectManagers = this.employeeService.listEmployees();
     console.log(this.projectManagers);
   }
 }
