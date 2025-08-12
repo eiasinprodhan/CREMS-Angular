@@ -1,14 +1,14 @@
 export class Attendance {
-    id!: string;
-    employeeId!: string;
-    stageId!: string;
+    id!: number;
+    employeeId!: number;
+    stageId!: number;
     date!: string;
     status!: string;
     salary!: number;
 
-    constructor(employeeId?: string, stageId?: string, date?: string, status?: string, salary?: number) {
-        this.employeeId = employeeId || '';
-        this.stageId = stageId || '';
+    constructor(employeeId?: number, stageId?: number, date?: string, status?: string, salary?: number) {
+        this.employeeId = employeeId || 0;
+        this.stageId = stageId || 0;
         this.date = date || '';
         this.status = status || '';
         this.salary = salary || 0;

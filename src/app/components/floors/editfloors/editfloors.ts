@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './editfloors.css'
 })
 export class Editfloors {
-  id!: string;
+  id!: number;
   editFloorForm!: FormGroup;
   floor: Floor = new Floor();
   buildings!: any[];

@@ -33,7 +33,7 @@ export class Listcustomers {
     this.router.navigate(['editcustomers', id]);
   }
 
-  deleteCustomer(id: string): void {
+  deleteCustomer(id: number): void {
     this.customerService.deleteCustomers(id).subscribe({
       next: () => {
         console.log('Deleted customer', id);

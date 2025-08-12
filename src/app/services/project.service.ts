@@ -22,19 +22,19 @@ export class ProjectService {
     return this.http.get(this.baseUrl);
   }
 
-  viewProjects(id: string): Observable<any> {
+  viewProjects(id: number): Observable<any> {
     return this.http.get(this.baseUrl+'/'+id);
   }
 
-  editProjects(id: string, project: Project): Observable<any> {
+  editProjects(id: number, project: Project): Observable<any> {
     return this.http.put(this.baseUrl+'/'+id, project);
   }
 
-  deleteProjects(id: string): Observable<any> {
+  deleteProjects(id: number): Observable<any> {
     return this.http.delete(this.baseUrl+'/'+id);
   }
 
-  listWorkHistory(id: string): Observable<any>{
+  listWorkHistory(id: number): Observable<any>{
     return this.http.get(this.baseUrl+"?projectManager="+id);
   }
 }

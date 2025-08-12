@@ -16,7 +16,7 @@ import { Floor } from '../../../models/floor.model';
   styleUrl: './viewbuildings.css'
 })
 export class Viewbuildings implements OnInit {
-  id!: string;
+  id!: number;
   building: Building = new Building();
   project: Project = new Project();
   siteManager: Employee = new Employee();
@@ -56,7 +56,7 @@ export class Viewbuildings implements OnInit {
     this.router.navigate(['viewprojects', id]);
   }
 
-  viewProjectDetails(id: string): void {
+  viewProjectDetails(id: number): void {
     this.projectService.viewProjects(id).subscribe({
       next: (data) => {
         this.project = data;
@@ -68,7 +68,7 @@ export class Viewbuildings implements OnInit {
     })
   }
 
-  viewSiteManager(id: string): void {
+  viewSiteManager(id: number): void {
     this.employeeService.viewEmployee(id).subscribe({
       next: (data) => {
         this.siteManager = data;

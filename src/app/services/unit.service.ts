@@ -20,15 +20,15 @@ export class UnitService {
     return this.http.get<Unit[]>(this.baseUrl);
   }
 
-  viewUnit(id: string): Observable<Unit> {
+  viewUnit(id: number): Observable<Unit> {
     return this.http.get<Unit>(`${this.baseUrl}/${id}`);
   }
 
-  editUnit(id: string, unit: Unit): Observable<any> {
+  editUnit(id: number, unit: Unit): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, unit);
   }
 
-  deleteUnit(id: string): Observable<any> {
+  deleteUnit(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 

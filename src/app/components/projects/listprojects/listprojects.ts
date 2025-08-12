@@ -36,7 +36,7 @@ export class Listprojects implements OnInit {
   }
 
   // Delete Project
-  deleteProjects(id: string): void {
+  deleteProjects(id: number): void {
     this.projectService.deleteProjects(id).subscribe({
       next: (res) => {
         console.log(res);

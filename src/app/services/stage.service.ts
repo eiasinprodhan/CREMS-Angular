@@ -18,27 +18,27 @@ export class StageService {
     return this.http.post(this.baseUrl, stage);
   }
 
-  listStages(id: string): Observable<any> {
+  listStages(id: number): Observable<any> {
     return this.http.get(this.baseUrl + "?floor=" + id);
   }
 
-  viewStages(id: string): Observable<any> {
+  viewStages(id: number): Observable<any> {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editStages(id: string, stage: Stage): Observable<any> {
+  editStages(id: number, stage: Stage): Observable<any> {
     return this.http.put(this.baseUrl + '/' + id, stage);
   }
 
-  deletestages(id: string): Observable<any> {
+  deletestages(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  liststageByproject(projectId: string): Observable<any> {
+  liststageByproject(projectId: number): Observable<any> {
     return this.http.get(this.baseUrl + "?project=" + projectId);
   }
 
-  listWorkHistory(id: string): Observable<any> {
+  listWorkHistory(id: number): Observable<any> {
     return this.http.get(this.baseUrl + "?siteManager=" + id);
   }
 

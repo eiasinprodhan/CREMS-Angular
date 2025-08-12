@@ -21,19 +21,19 @@ export class FloorService {
     return this.http.get(this.baseUrl);
   }
 
-  viewFloors(id: string): Observable<any> {
+  viewFloors(id: number): Observable<any> {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editFloors(id: string, floor: Floor): Observable<any> {
+  editFloors(id: number, floor: Floor): Observable<any> {
     return this.http.put(this.baseUrl + '/' + id, floor);
   }
 
-  deleteFloors(id: string): Observable<any> {
+  deleteFloors(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  getFloorByBuildingId(id: string): Observable<Floor[]> {
+  getFloorByBuildingId(id: number): Observable<Floor[]> {
     return this.http.get<Floor[]>(this.baseUrl + '?building=' + id);
   }
 }

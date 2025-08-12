@@ -22,7 +22,7 @@ export class RawmaterialsService {
 }
 
 
-  updateRawMaterialsQuantity(id: string, rawMaterials: RawMaterials): Observable<any>{
+  updateRawMaterialsQuantity(id: number, rawMaterials: RawMaterials): Observable<any>{
     return this.http.put(this.baseUrlOfRawMaterials+"/"+id, rawMaterials);
   }
 
@@ -38,7 +38,7 @@ export class RawmaterialsService {
     return this.http.post(this.baseUrlOfRawMaterialsStockOut, stockOut);
   }
 
-  listStockOut(id: string): Observable<any>{
+  listStockOut(id: number): Observable<any>{
     return this.http.get(this.baseUrlOfRawMaterialsStockOut+"?stageId="+id);
   }
 }

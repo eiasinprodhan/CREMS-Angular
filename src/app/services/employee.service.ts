@@ -32,13 +32,13 @@ export class EmployeeService {
   }
 
   // Update employee
-  editEmployee(id: number, employee: Employee): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, employee);
+  editEmployee(employee: Employee): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update`, employee);
   }
 
   // Delete employee
   deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/delete/${id}`);
   }
 
   // Search employee by role

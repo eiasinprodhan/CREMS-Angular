@@ -16,7 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './viewunits.css'
 })
 export class Viewunits implements OnInit{
-  id!: string;
+  id!: number;
   unit: Unit = new Unit();
   customer: Customer = new Customer();
   floor: Floor = new Floor();
@@ -62,7 +62,7 @@ export class Viewunits implements OnInit{
     });
   }
 
-  loadCustomer(id: string): void {
+  loadCustomer(id: number): void {
     this.customerService.viewCustomers(id).subscribe({
       next: (data) => {
         this.customer = data;
@@ -74,7 +74,7 @@ export class Viewunits implements OnInit{
     });
   }
 
-  loadFloor(id: string): void {
+  loadFloor(id: number): void {
     this.floorService.viewFloors(id).subscribe({
       next: (data) => {
         this.floor = data;
@@ -86,7 +86,7 @@ export class Viewunits implements OnInit{
     });
   }
 
-  loadBuilding(id: string): void {
+  loadBuilding(id: number): void {
     this.buildingService.viewBuildings(id).subscribe({
       next: (data) => {
         this.building = data;

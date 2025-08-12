@@ -10,7 +10,7 @@ import { Customer } from '../../../models/customer.model';
   styleUrl: './editcustomers.css'
 })
 export class Editcustomers {
-  id!: string;
+  id!: number;
   customer: Customer = new Customer();
 
   constructor(

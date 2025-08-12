@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './editemployees.css'
 })
 export class Editemployees implements OnInit {
-  id!: string;
+  id!: number;
   employee: Employee = new Employee();
 
   constructor(
@@ -40,7 +40,7 @@ export class Editemployees implements OnInit {
 
   // Update employee
   updateEmployee(): void {
-    this.employeeService.editEmployee(this.id, this.employee).subscribe({
+    this.employeeService.editEmployee(this.employee).subscribe({
       next: () => {
         this.router.navigate(['listemployees']);
       },
