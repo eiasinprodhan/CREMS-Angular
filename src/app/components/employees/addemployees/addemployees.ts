@@ -29,7 +29,7 @@ export class Addemployees implements OnInit {
       nid: [null, [Validators.required]],
       joiningDate: ['', Validators.required],
       role: ['', Validators.required],
-      salarytype: ['', Validators.required],
+      salaryType: ['', Validators.required],
       salary: [null, [Validators.required, Validators.min(1)]],
       status: [false],
       photo: ['', Validators.required],

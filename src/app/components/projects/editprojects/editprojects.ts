@@ -11,7 +11,7 @@ import { EmployeeService } from '../../../services/employee.service';
   styleUrl: './editprojects.css',
 })
 export class Editprojects {
-  id!: string;
+  id!: number;
   project: Project = new Project();
   projectManagers!: any;
 

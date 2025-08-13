@@ -27,17 +27,17 @@ export class Listbuildings implements OnInit {
   }
 
   // View Building
-  viewBuildings(id: string): void {
+  viewBuildings(id: number): void {
     this.router.navigate(['viewbuildings', id]);
   }
 
   // Edit Building
-  editBuildings(id: string): void {
+  editBuildings(id: number): void {
     this.router.navigate(['editbuildings', id]);
   }
 
   // Delete Building
-  deleteBuildings(id: string): void {
+  deleteBuildings(id: number): void {
     this.buildingService.deleteBuildings(id).subscribe({
       next: (res) => {
         console.log(res);

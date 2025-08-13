@@ -1,6 +1,6 @@
 export class RawMaterialsStockIn {
-    id!: string;
-    rawMaterialId!:string;
+    id!: number;
+    rawMaterialId!:number;
     name!: string;
     date!:Date;
     quantity!: number;

@@ -22,27 +22,27 @@ export class AttendanceService {
   }
 
   // View a specific attendance record by ID
-  viewAttendances(id: string): Observable<any> {
+  viewAttendances(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   // View attendance records by stage ID
-  viewAttendancesByStage(stageId: string): Observable<any> {
+  viewAttendancesByStage(stageId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}?stageId=${stageId}`);
   }
 
   // Edit an existing attendance record by ID
-  editAttendances(id: string, attendance: Attendance): Observable<any> {
+  editAttendances(id: number, attendance: Attendance): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, attendance);
   }
 
   // Delete an attendance record by ID
-  deleteAttendances(id: string): Observable<any> {
+  deleteAttendances(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}?stageId=${id}`);
   }
 
   // List attendance records by project ID
-  listAttendanceByProject(projectId: string): Observable<any> {
+  listAttendanceByProject(projectId: number): Observable<any> {
     return this.http.get(`${this.baseUrl}?project=${projectId}`);
   }
 

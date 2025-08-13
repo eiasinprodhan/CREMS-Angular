@@ -29,23 +29,23 @@ export class Listunits implements OnInit{
   }
 
   // Book Unit
-  bookUnit(id: string): void {
+  bookUnit(id: number): void {
     this.router.navigate(['bookunit', id]);
   }
 
 
   // View Unit
-  viewUnit(id: string): void {
+  viewUnit(id: number): void {
     this.router.navigate(['viewunits', id]);
   }
 
   // Edit Unit
-  editUnit(id: string): void {
+  editUnit(id: number): void {
     this.router.navigate(['editunits', id]);
   }
 
   // Delete Unit
-  deleteUnit(id: string): void {
+  deleteUnit(id: number): void {
     this.unitService.deleteUnit(id).subscribe({
       next: (res) => {
         console.log(res);

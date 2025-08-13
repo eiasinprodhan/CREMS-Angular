@@ -13,7 +13,7 @@ import { EmployeeService } from '../../../services/employee.service';
   styleUrl: './editbuildings.css'
 })
 export class Editbuildings implements OnInit {
-  id!: string;
+  id!: number;
   building: Building = new Building();
   siteManagers!:any;
 

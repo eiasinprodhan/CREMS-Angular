@@ -1,5 +1,5 @@
 export class Floor {
-  id!:string;
+  id!:number;
   name!: string;
-  building!: string;
+  building!: number;
 }

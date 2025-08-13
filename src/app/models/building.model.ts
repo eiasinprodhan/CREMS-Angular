@@ -1,11 +1,11 @@
 import { Project } from "./project.model";
 
 export class Building {
-    id!: string;
+    id!: number;
     name!: string;
     type!: string;
-    project!: string;
-    siteManager!: string;
+    project!: number;
+    siteManager!: number;
     floorCount!: number;
     unitCount!: number;
     photo!:string;

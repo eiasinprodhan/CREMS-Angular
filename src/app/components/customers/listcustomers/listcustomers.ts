@@ -25,15 +25,15 @@ export class Listcustomers {
     this.customers = this.customerService.listCustomers();
   }
 
-  viewCustomer(id: string): void {
+  viewCustomer(id: number): void {
     this.router.navigate(['viewcustomers', id]);
   }
 
-  editCustomer(id: string): void {
+  editCustomer(id: number): void {
     this.router.navigate(['editcustomers', id]);
   }
 
-  deleteCustomer(id: string): void {
+  deleteCustomer(id: number): void {
     this.customerService.deleteCustomers(id).subscribe({
       next: () => {
         console.log('Deleted customer', id);

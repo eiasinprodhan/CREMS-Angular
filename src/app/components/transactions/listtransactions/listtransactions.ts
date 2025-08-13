@@ -27,17 +27,17 @@ export class Listtransactions {
   }
 
   // View Transaction
-  viewTransaction(id: string): void {
+  viewTransaction(id: number): void {
     this.router.navigate(['viewtransaction', id]);
   }
 
   // Edit Transaction
-  editTransaction(id: string): void {
+  editTransaction(id: number): void {
     this.router.navigate(['edittransaction', id]);
   }
 
   // Delete Transaction
-  deleteTransaction(id: string): void {
+  deleteTransaction(id: number): void {
     this.transactionService.deleteTransaction(id).subscribe({
       next: (res) => {
         console.log(res);

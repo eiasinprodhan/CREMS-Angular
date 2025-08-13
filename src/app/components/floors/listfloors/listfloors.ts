@@ -32,7 +32,7 @@ export class Listfloors {
   }
 
   // Get Building Name
-  getBuildingName(id: string): string {
+  getBuildingName(id: number): string {
     const building = this.buildings.find((b) => b.id === id);
     return building ? building.name : 'Unknown';
     this.cdr.markForCheck();
@@ -49,17 +49,17 @@ export class Listfloors {
   }
 
   // View Building
-  viewFloors(id: string): void {
+  viewFloors(id: number): void {
     this.router.navigate(['viewfloors', id]);
   }
 
   // Edit Building
-  editFloors(id: string): void {
+  editFloors(id: number): void {
     this.router.navigate(['editfloors', id]);
   }
 
   // Delete Building
-  deleteFloors(id: string): void {
+  deleteFloors(id: number): void {
     this.floorService.deleteFloors(id).subscribe({
       next: (res) => {
         console.log(res);

@@ -14,7 +14,7 @@ import { Building } from '../../../models/building.model';
   styleUrl: './liststages.css'
 })
 export class Liststages implements OnInit {
-  id!: string;
+  id!: number;
   buildings: Building[] = [];
   stages: Stage[] = [];
   floor: Floor = new Floor();
@@ -77,15 +77,15 @@ export class Liststages implements OnInit {
     });
   }
 
-  viewStage(id: string): void {
+  viewStage(id: number): void {
     this.router.navigate(['viewstages', id]);
   }
 
-  editStage(id: string): void {
+  editStage(id: number): void {
     this.router.navigate(['editstages', id]);
   }
 
-  deleteStage(id: string): void {
+  deleteStage(id: number): void {
     this.stageService.deletestages(id).subscribe({
       next: () => {
         this.listStages();
@@ -117,7 +117,7 @@ export class Liststages implements OnInit {
     return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
   }
 
-  getBuildingName(id: string): string {
+  getBuildingName(id: number): string {
     const building = this.buildings.find((b) => b.id === id);
     return building ? building.name : 'Unknown';
   }

@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './editemployees.css'
 })
 export class Editemployees implements OnInit {
-  id!: string;
+  id!: number;
   employee: Employee = new Employee();
 
   constructor(

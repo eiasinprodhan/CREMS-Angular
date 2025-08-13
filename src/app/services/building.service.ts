@@ -21,23 +21,23 @@ export class BuildingService {
     return this.http.get(this.baseUrl);
   }
 
-  viewBuildings(id: string): Observable<any> {
+  viewBuildings(id: number): Observable<any> {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editBuildings(id: string, building: Building): Observable<any> {
+  editBuildings(id: number, building: Building): Observable<any> {
     return this.http.put(this.baseUrl + '/' + id, building);
   }
 
-  deleteBuildings(id: string): Observable<any> {
+  deleteBuildings(id: number): Observable<any> {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  listBuildingByproject(prodectId: string): Observable<any>{
+  listBuildingByproject(prodectId: number): Observable<any>{
     return this.http.get(this.baseUrl+"?project="+prodectId);
   }
 
-  listWorkHistory(id: string): Observable<any>{
+  listWorkHistory(id: number): Observable<any>{
     return this.http.get(this.baseUrl+"?siteManager="+id);
   }
 }

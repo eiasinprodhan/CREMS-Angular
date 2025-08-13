@@ -14,7 +14,7 @@ import { Floor } from '../../../models/floor.model';
   styleUrl: './addunits.css',
 })
 export class Addunits {
-  floorId!: string;
+  floorId!: number;
   floor: Floor = new Floor();
   addUnitForm!: FormGroup;
   message: string = '';

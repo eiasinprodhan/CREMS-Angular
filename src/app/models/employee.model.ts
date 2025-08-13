@@ -1,5 +1,5 @@
 export class Employee {
-    id!: string;
+    id!: number;
     name!: string;
     email!: string;
     password!: string;
@@ -7,7 +7,7 @@ export class Employee {
     nid!: number;
     joiningDate!: Date;
     role!: string;
-    salarytype!: string;
+    salaryType!: string;
     salary!: number;
     status!: boolean;
     photo!:string;

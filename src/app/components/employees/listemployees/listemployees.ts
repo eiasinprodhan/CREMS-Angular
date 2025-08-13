@@ -27,17 +27,17 @@ export class Listemployees {
   }
 
   // View employee
-  viewEmployee(id: string): void {
+  viewEmployee(id: number): void {
     this.router.navigate(['viewemployees', id]);
   }
 
   // Edit employee
-  editEmployee(id: string): void {
+  editEmployee(id: number): void {
     this.router.navigate(['editemployees', id]);
   }
 
   // Delete employee
-  deleteEmployee(id: string): void {
+  deleteEmployee(id: number): void {
     this.employeeService.deleteEmployee(id).subscribe({
       next: (res) => {
         console.log(res);

@@ -20,7 +20,7 @@ import html2canvas from 'html2canvas';
   styleUrl: './bookunits.css',
 })
 export class Bookunits implements OnInit {
-  id!: string;
+  id!: number;
   unit: Unit = new Unit();
   floor: Floor = new Floor();
   building: Building = new Building();
@@ -67,7 +67,7 @@ export class Bookunits implements OnInit {
     });
   }
 
-  loadFloor(id: string): void {
+  loadFloor(id: number): void {
     this.floorService.viewFloors(id).subscribe({
       next: (data) => {
         this.floor = data;
@@ -79,7 +79,7 @@ export class Bookunits implements OnInit {
     });
   }
 
-  loadBuilding(id: string): void {
+  loadBuilding(id: number): void {
     this.buildingService.viewBuildings(id).subscribe({
       next: (data) => {
         this.building = data;

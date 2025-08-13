@@ -3,17 +3,15 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  baseUrl: string = 'http://localhost:3000/employees';
+  baseUrl: string = environments.apiBaseUrl + '/employees/';
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Create new employee
   addEmployee(employee: Employee): Observable<any> {
@@ -26,17 +24,17 @@ export class EmployeeService {
   }
 
   // Get single employee
-  viewEmployee(id: string): Observable<any> {
+  viewEmployee(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   // Update employee
-  editEmployee(id: string, employee: Employee): Observable<any> {
+  editEmployee(id: number, employee: Employee): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, employee);
   }
 
   // Delete employee
-  deleteEmployee(id: string): Observable<any> {
+  deleteEmployee(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
@@ -49,17 +47,16 @@ export class EmployeeService {
     return this.http.get<Employee[]>(`${this.baseUrl}?role=${role}`);
   }
 
-
   //Update employee status
-  editEmployeeStatus(id: string, status: boolean): Observable<any> {
+  editEmployeeStatus(id: number, status: boolean): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, status);
   }
 
-  // update empployee totalsalary And 
-  updateTotalSalary(id: string, salary: number): Observable<any>{
-    return this.http.patch(this.baseUrl+"/"+id, {salary: salary});
+  // update empployee totalsalary And
+  updateTotalSalary(id: number, salary: number): Observable<any> {
+    return this.http.patch(this.baseUrl + '/' + id, { salary: salary });
   }
-  
+
   getEmployeeProfile(): Observable<Employee | null> {
     return of(this.authService.getEmployeeProfileFromStorage());
   }
