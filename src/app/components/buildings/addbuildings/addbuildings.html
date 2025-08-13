@@ -133,6 +133,23 @@
       <!-- Photo field -->
       <div class="row">
         <div class="col-md-6 mb-3">
+          <label for="location" class="form-label fw-bold">Location</label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            formControlName="location"
+            [class.is-invalid]="addBuildingForm.get('location')?.touched && addBuildingForm.get('location')?.invalid"
+          />
+          <div
+            *ngIf="addBuildingForm.get('location')?.touched && addBuildingForm.get('location')?.invalid"
+            class="invalid-feedback"
+          >
+            Location is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
           <label for="photo" class="form-label fw-bold">Photo URL</label>
           <input
             type="text"

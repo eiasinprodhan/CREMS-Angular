@@ -9,18 +9,18 @@ import { environments } from './environments';
   providedIn: 'root',
 })
 export class EmployeeService {
-  baseUrl: string = environments.apiBaseUrl + '/employees/';
+  baseUrl: string = environments.apiBaseUrl + '/employees';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Create new employee
   addEmployee(employee: Employee): Observable<any> {
-    return this.http.post(this.baseUrl, employee);
+    return this.http.post(this.baseUrl+'/', employee);
   }
 
   // Get all employees
   listEmployees(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl+'/');
   }
 
   // Get single employee
@@ -29,8 +29,8 @@ export class EmployeeService {
   }
 
   // Update employee
-  editEmployee(id: number, employee: Employee): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, employee);
+  editEmployee(employee: Employee): Observable<any> {
+    return this.http.put(`${this.baseUrl}/`, employee);
   }
 
   // Delete employee

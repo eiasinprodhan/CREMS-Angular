@@ -2,20 +2,21 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Stage } from '../models/stage.model';
 import { Observable } from 'rxjs';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StageService {
 
-  baseUrl: string = "http://localhost:3000/stages";
+  baseUrl: string = environments.apiBaseUrl + '/stages';
 
   constructor(
     private http: HttpClient
   ) { }
 
   addStages(stage: Stage): Observable<any> {
-    return this.http.post(this.baseUrl, stage);
+    return this.http.post(this.baseUrl+'/', stage);
   }
 
   listStages(id: number): Observable<any> {
@@ -42,7 +43,7 @@ export class StageService {
     return this.http.get(this.baseUrl + "?siteManager=" + id);
   }
 
-  loadAllStages(): Observable<any>{
+  loadAllStages(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
 

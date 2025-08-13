@@ -32,11 +32,12 @@ export class Addbuildings implements OnInit {
     this.addBuildingForm = this.formBuilder.group({
       name: ['', Validators.required],
       type: ['', Validators.required],
+      location: ['', Validators.required],
       project: ['', Validators.required],
       siteManager: ['', [Validators.required]],
-      floorCount: [0],
-      unitCount: [0],
-      photo: ['']
+      floorCount: [0, [Validators.required]],
+      unitCount: [0, [Validators.required]],
+      photo: ['', [Validators.required]]
     });
 
     this.listProjects();

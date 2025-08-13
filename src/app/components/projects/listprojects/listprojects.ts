@@ -27,11 +27,11 @@ export class Listprojects implements OnInit {
   }
 
   // View Projects
-  viewProjects(id: string): void{
+  viewProjects(id: number): void{
     this.router.navigate(['viewprojects', id]);
   }
 
-  editProjects(id: string): void{
+  editProjects(id: number): void{
     this.router.navigate(['editprojects', id]);
   }
 

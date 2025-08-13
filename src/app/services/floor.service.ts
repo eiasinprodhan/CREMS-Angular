@@ -2,31 +2,32 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Floor } from '../models/floor.model';
 import { Observable } from 'rxjs';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FloorService {
-  baseUrl: string = "http://localhost:3000/floors";
+  baseUrl: string = environments.apiBaseUrl + '/floors';
 
   constructor(
     private http: HttpClient
   ) { }
 
   addFloors(floor: Floor): Observable<any> {
-    return this.http.post(this.baseUrl, floor);
+    return this.http.post(this.baseUrl + '/', floor);
   }
 
   listFloors(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl + '/');
   }
 
   viewFloors(id: number): Observable<any> {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editFloors(id: number, floor: Floor): Observable<any> {
-    return this.http.put(this.baseUrl + '/' + id, floor);
+  editFloors(floor: Floor): Observable<any> {
+    return this.http.put(this.baseUrl + '/', floor);
   }
 
   deleteFloors(id: number): Observable<any> {

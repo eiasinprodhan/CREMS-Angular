@@ -62,7 +62,7 @@ export class Editbuildings implements OnInit {
   }
 
   updateBuilding(): void {
-    this.buildingService.editBuildings(this.id, this.building).subscribe({
+    this.buildingService.editBuildings(this.building).subscribe({
       next: () => {
         this.message = 'Building updated successfully!';
         this.messageType = 'success';

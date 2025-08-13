@@ -64,7 +64,7 @@ export class Editfloors {
       return;
     }
 
-    this.floorService.editFloors(this.id, this.editFloorForm.value).subscribe({
+    this.floorService.editFloors(this.editFloorForm.value).subscribe({
       next: (res) => {
         this.message = 'Floor updated successfully!';
         this.messageType = 'success';
