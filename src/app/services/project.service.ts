@@ -2,40 +2,39 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
-import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  baseUrl: string = environment.apiBaseUrl + "/projects";
+  baseUrl: string = "http://localhost:3000/projects";
 
   constructor(
     private http: HttpClient
   ) { }
 
   addProjects(project: Project): Observable<any> {
-    return this.http.post(this.baseUrl+'/save', project);
+    return this.http.post(this.baseUrl, project);
   }
 
   listProjects(): Observable<any> {
-    return this.http.get(this.baseUrl+'/all');
+    return this.http.get(this.baseUrl);
   }
 
-  viewProjects(id: number): Observable<any> {
+  viewProjects(id: string): Observable<any> {
     return this.http.get(this.baseUrl+'/'+id);
   }
 
-  editProjects(project: Project): Observable<any> {
-    return this.http.put(this.baseUrl+'/update', project);
+  editProjects(id: string, project: Project): Observable<any> {
+    return this.http.put(this.baseUrl+'/'+id, project);
   }
 
-  deleteProjects(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl+'/delete/'+id);
+  deleteProjects(id: string): Observable<any> {
+    return this.http.delete(this.baseUrl+'/'+id);
   }
 
-  listWorkHistory(id: number): Observable<any>{
+  listWorkHistory(id: string): Observable<any>{
     return this.http.get(this.baseUrl+"?projectManager="+id);
   }
 }

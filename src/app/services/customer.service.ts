@@ -19,15 +19,15 @@ export class CustomerService {
     return this.http.get(this.baseUrl);
   }
 
-  public viewCustomers(id: number): Observable<any> {
+  public viewCustomers(id: string): Observable<any> {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  public editCustomers(id: number, customer: Customer): Observable<any> {
+  public editCustomers(id: string, customer: Customer): Observable<any> {
     return this.http.put(this.baseUrl + '/' + id, customer);
   }
 
-  public deleteCustomers(id: number): Observable<any> {
+  public deleteCustomers(id: string): Observable<any> {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 }

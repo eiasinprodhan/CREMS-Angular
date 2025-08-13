@@ -37,7 +37,7 @@ export class Listbuildings implements OnInit {
   }
 
   // Delete Building
-  deleteBuildings(id: number): void {
+  deleteBuildings(id: string): void {
     this.buildingService.deleteBuildings(id).subscribe({
       next: (res) => {
         console.log(res);

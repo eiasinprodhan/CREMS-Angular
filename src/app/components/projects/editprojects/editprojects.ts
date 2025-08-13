@@ -11,7 +11,7 @@ import { EmployeeService } from '../../../services/employee.service';
   styleUrl: './editprojects.css',
 })
 export class Editprojects {
-  id!: number;
+  id!: string;
   project: Project = new Project();
   projectManagers!: any;
 
@@ -46,7 +46,7 @@ export class Editprojects {
 
   // Edit Project
   updateProject():void{
-    this.projectService.editProjects(this.project).subscribe({
+    this.projectService.editProjects(this.id, this.project).subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(['listprojects']);
@@ -59,7 +59,7 @@ export class Editprojects {
 
   // View Employees
   viewEmployees(): void {
-    this.projectManagers = this.employeeService.listEmployees();
+    this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
     console.log(this.projectManagers);
   }
 }

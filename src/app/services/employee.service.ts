@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Employee } from '../models/employee.model';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
-import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  baseUrl: string = environment.apiBaseUrl + "/projectmanagers";
+  baseUrl: string = 'http://localhost:3000/employees';
 
   constructor(
     private http: HttpClient,
@@ -18,27 +17,27 @@ export class EmployeeService {
 
   // Create new employee
   addEmployee(employee: Employee): Observable<any> {
-    return this.http.post(this.baseUrl+'/save', employee);
+    return this.http.post(this.baseUrl, employee);
   }
 
   // Get all employees
   listEmployees(): Observable<any> {
-    return this.http.get(this.baseUrl+'/all');
+    return this.http.get(this.baseUrl);
   }
 
   // Get single employee
-  viewEmployee(id: number): Observable<any> {
+  viewEmployee(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   // Update employee
-  editEmployee(employee: Employee): Observable<any> {
-    return this.http.put(`${this.baseUrl}/update`, employee);
+  editEmployee(id: string, employee: Employee): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, employee);
   }
 
   // Delete employee
-  deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${id}`);
+  deleteEmployee(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 
   // Search employee by role
@@ -52,12 +51,12 @@ export class EmployeeService {
 
 
   //Update employee status
-  editEmployeeStatus(id: number, status: boolean): Observable<any> {
+  editEmployeeStatus(id: string, status: boolean): Observable<any> {
     return this.http.put(`${this.baseUrl}/${id}`, status);
   }
 
   // update empployee totalsalary And 
-  updateTotalSalary(id: number, salary: number): Observable<any>{
+  updateTotalSalary(id: string, salary: number): Observable<any>{
     return this.http.patch(this.baseUrl+"/"+id, {salary: salary});
   }
   

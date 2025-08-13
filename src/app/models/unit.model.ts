@@ -1,13 +1,13 @@
 export class Unit {
-  id!: number;
-  floorId!: number;
-  buildingId!: number;
+  id!: string;
+  floorId!: string;
+  buildingId!: string;
   unitNumber!: string;
   area!: number;
   bedrooms!: number;
   bathrooms!: number;
   isBooked!: boolean;
-  customerId!: number;
+  customerId!: string;
   photoUrls!: string[];
   price!: number;
 }

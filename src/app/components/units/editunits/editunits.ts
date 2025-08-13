@@ -14,7 +14,7 @@ import { CustomerService } from '../../../services/customer.service';
   styleUrl: './editunits.css'
 })
 export class Editunits implements OnInit{
-  id!: number;
+  id!: string;
   unit: Unit = new Unit();
   floors: Floor[] = [];
   customers: Customer[] = [];

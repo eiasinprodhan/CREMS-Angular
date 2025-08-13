@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './editstages.css',
 })
 export class Editstages {
-  id!: number;
+  id!: string;
   stage: Stage = new Stage();
   labours!: any[];
 

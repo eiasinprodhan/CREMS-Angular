@@ -1,8 +1,8 @@
 export class Stage {
-  id!: number;
+  id!: string;
   name!: string;
   startDate!: Date;
   endDate!: Date;
   floor!: string;
-  labours!: number[];
+  labours!: string[];
 }

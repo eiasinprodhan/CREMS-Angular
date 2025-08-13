@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './viewrawmaterials.css'
 })
 export class Viewrawmaterials {
-  id!: number;
+  id!: string;
   rawmaterials: RawMaterials[] = [];
   selectedRawMaterials?: RawMaterials;
   rawMaterialForm!: FormGroup;

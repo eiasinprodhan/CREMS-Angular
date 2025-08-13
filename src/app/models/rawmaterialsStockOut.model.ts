@@ -1,7 +1,7 @@
 export class RawMaterialsStockIn {
-    id!: number;
-    stageId!:number;
-    rawMaterialId!:number;
+    id!: string;
+    stageId!:string;
+    rawMaterialId!:string;
     name!: string;
     date!:Date;
     quantity!: number;

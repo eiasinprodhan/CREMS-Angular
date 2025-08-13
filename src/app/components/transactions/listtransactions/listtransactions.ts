@@ -37,7 +37,7 @@ export class Listtransactions {
   }
 
   // Delete Transaction
-  deleteTransaction(id: number): void {
+  deleteTransaction(id: string): void {
     this.transactionService.deleteTransaction(id).subscribe({
       next: (res) => {
         console.log(res);

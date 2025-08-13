@@ -1,5 +1,5 @@
 export class Customer{
-    id!: number;
+    id!: string;
     photo!:string;
     name!:string;
     email!:string;

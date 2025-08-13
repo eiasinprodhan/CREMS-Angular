@@ -16,7 +16,7 @@ import { Building } from '../../../models/building.model';
   styleUrl: './viewprojects.css'
 })
 export class Viewprojects implements OnInit {
-  id!: number;
+  id!: string;
   project: Project = new Project();
   employee: Employee = new Employee();
   buildings: Observable<Building[]> = of([]);
@@ -51,7 +51,7 @@ export class Viewprojects implements OnInit {
   }
 
   // View Employees
-  viewEmployee(id: number): void{
+  viewEmployee(id: string): void{
     this.employeeService.viewEmployee(id).subscribe({
       next: (data) => {
         this.employee = data;

@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Viewcustomers implements OnInit{
   customer: Customer = new Customer();
-  id!: number;
+  id!: string;
 
   constructor(
     private customerService: CustomerService,

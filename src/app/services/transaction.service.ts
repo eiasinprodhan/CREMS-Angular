@@ -21,7 +21,7 @@ export class TransactionService {
     return this.http.get(this.baseUrl);
   }
 
-  public deleteTransaction(id: number): Observable<any>{
+  public deleteTransaction(id: string): Observable<any>{
     return this.http.delete(this.baseUrl+"/"+id);
   }
 

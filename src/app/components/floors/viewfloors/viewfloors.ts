@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './viewfloors.css'
 })
 export class Viewfloors {
-  id!: number;
+  id!: string;
   floor: Floor = new Floor();
 
   constructor(

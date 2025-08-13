@@ -1,5 +1,5 @@
 export class Product{
-    id!:number;
+    id!:string;
     category!:string;
     products!:string[];
 }

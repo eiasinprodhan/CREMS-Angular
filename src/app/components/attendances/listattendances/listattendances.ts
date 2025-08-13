@@ -16,7 +16,7 @@ import { Transaction } from '../../../models/transaction.model';
   styleUrl: './listattendances.css'
 })
 export class Listattendances implements OnInit {
-  id!: number;
+  id!: string;
   attendances: Attendance[] = [];
   employees: Employee[] = [];
   stage: Stage = new Stage();
@@ -88,17 +88,17 @@ export class Listattendances implements OnInit {
     });
   }
 
-  getEmployeeName(id: number): string {
+  getEmployeeName(id: string): string {
     const employee = this.employees.find(e => e.id === id);
     return employee ? employee.name : 'Unknown';
   }
 
-  getBaseSalary(id: number): number {
+  getBaseSalary(id: string): number {
     const employee = this.employees.find(e => e.id === id);
     return employee ? employee.salary : 0;
   }
 
-  getEmployeeSalary(id: number): number {
+  getEmployeeSalary(id: string): number {
     const attendance = this.attendances.find(
       a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
     );
@@ -108,13 +108,13 @@ export class Listattendances implements OnInit {
 
   getTotalSalary(): number {
     return Array.isArray(this.stage.labours)
-      ? this.stage.labours.reduce((total, labourId: number) => {
+      ? this.stage.labours.reduce((total, labourId: string) => {
           return total + this.getEmployeeSalary(labourId);
         }, 0)
       : 0;
   }
 
-  getAttendanceByLabour(id: number): string {
+  getAttendanceByLabour(id: string): string {
     const attendance = this.attendances.find(
       a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
     );
@@ -127,14 +127,14 @@ export class Listattendances implements OnInit {
     return salary !== 0 ? 'Present' : '';
   }
 
-  getAttendanceIDByLabour(id: number): number {
+  getAttendanceIDByLabour(id: string): string {
     const attendance = this.attendances.find(
       a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
     );
-    return attendance ? attendance.id : 0;
+    return attendance ? attendance.id : '';
   }
 
-  saveAttendance(id: number, status: string, baseSalary: number): void {
+  saveAttendance(id: string, status: string, baseSalary: number): void {
     const salary = status === 'Present' ? baseSalary : 0;
     const attendance = new Attendance(id, this.id, this.selectedDate, status, salary);
     this.attendanceService.addAttendances(attendance).subscribe(() => {
@@ -142,7 +142,7 @@ export class Listattendances implements OnInit {
     });
   }
 
-  editAttendance(attendanceId: number, id: number, status: string, baseSalary: number): void {
+  editAttendance(attendanceId: string, id: string, status: string, baseSalary: number): void {
     if (!attendanceId) return;
     const salary = status === 'Present' ? baseSalary : 0;
     const attendance = new Attendance(id, this.id, this.selectedDate, status, salary);

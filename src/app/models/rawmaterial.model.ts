@@ -1,5 +1,5 @@
 export class RawMaterials {
-    id!: number;
+    id!: string;
     name!: string;
     quantity!: number;
     unit!:string;

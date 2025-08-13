@@ -19,7 +19,6 @@ export class Listprojects implements OnInit {
 
   ngOnInit(): void {
     this.listProjects();
-    this.cdr.markForCheck();
   }
 
   //Projects List
@@ -37,7 +36,7 @@ export class Listprojects implements OnInit {
   }
 
   // Delete Project
-  deleteProjects(id: number): void {
+  deleteProjects(id: string): void {
     this.projectService.deleteProjects(id).subscribe({
       next: (res) => {
         console.log(res);

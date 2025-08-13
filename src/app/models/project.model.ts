@@ -1,10 +1,10 @@
 export class Project {
-    id!: number;
+    id!: string;
     name!: string;
     budget!: number;
     startDate!: Date;
     expectedEndDate!: Date;
     projectType!: string;
-    projectManager!: number;
+    projectManager!: string;
     description!: string;
 }

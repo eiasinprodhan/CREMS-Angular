@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RawMaterials } from '../models/rawmaterial.model';
 import { RawMaterialsStockIn } from '../models/rawmaterialsstockin.model';
-import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RawmaterialsService {
-  baseUrlOfRawMaterials: string = environment.apiBaseUrl + "/rawmaterials/";
+  baseUrlOfRawMaterials: string = "http://localhost:3000/rawmaterials";
   baseUrlOfRawMaterialsStockIn: string = "http://localhost:3000/rawmaterialsstockin";
   baseUrlOfRawMaterialsStockOut: string = "http://localhost:3000/rawmaterialsstockout";
 
@@ -22,7 +21,7 @@ export class RawmaterialsService {
 }
 
 
-  updateRawMaterialsQuantity(id: number, rawMaterials: RawMaterials): Observable<any>{
+  updateRawMaterialsQuantity(id: string, rawMaterials: RawMaterials): Observable<any>{
     return this.http.put(this.baseUrlOfRawMaterials+"/"+id, rawMaterials);
   }
 
@@ -38,7 +37,7 @@ export class RawmaterialsService {
     return this.http.post(this.baseUrlOfRawMaterialsStockOut, stockOut);
   }
 
-  listStockOut(id: number): Observable<any>{
+  listStockOut(id: string): Observable<any>{
     return this.http.get(this.baseUrlOfRawMaterialsStockOut+"?stageId="+id);
   }
 }

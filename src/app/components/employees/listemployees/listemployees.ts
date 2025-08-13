@@ -19,7 +19,6 @@ export class Listemployees {
 
   ngOnInit(): void {
     this.listEmployees();
-    this.cdr.markForCheck();
   }
 
   // Get list of employees
@@ -38,7 +37,7 @@ export class Listemployees {
   }
 
   // Delete employee
-  deleteEmployee(id: number): void {
+  deleteEmployee(id: string): void {
     this.employeeService.deleteEmployee(id).subscribe({
       next: (res) => {
         console.log(res);

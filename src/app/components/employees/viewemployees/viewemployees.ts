@@ -12,7 +12,7 @@ import { BuildingService } from '../../../services/building.service';
   styleUrl: './viewemployees.css'
 })
 export class Viewemployees implements OnInit{
-  id!: number;
+  id!: string;
   employee: Employee = new Employee();
   workHistoryData!: any;
 
@@ -47,7 +47,7 @@ export class Viewemployees implements OnInit{
     this.router.navigate(['viewbuildings', id]);
   }
 
-  workHistory(id: number, role: string){
+  workHistory(id: string, role: string){
     if(role==="Project Manager"){
       this.workHistoryData = this.projectService.listWorkHistory(id);
     }
