@@ -27,8 +27,8 @@ export class StageService {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editStages(id: number, stage: Stage): Observable<any> {
-    return this.http.put(this.baseUrl + '/' + id, stage);
+  editStages(stage: Stage): Observable<any> {
+    return this.http.put(this.baseUrl + '/', stage);
   }
 
   deletestages(id: number): Observable<any> {

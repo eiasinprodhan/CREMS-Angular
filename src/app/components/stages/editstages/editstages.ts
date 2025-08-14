@@ -75,7 +75,7 @@ export class Editstages {
       .filter(labour => labour.selected)
       .map(labour => labour.id);
     this.stage.labours = selectedLabours;
-    this.stageService.editStages(this.id, this.stage).subscribe({
+    this.stageService.editStages(this.stage).subscribe({
       next: (res) => {
         console.log('Stage updated:', res);
         this.router.navigate(['liststages', this.stage.floor]);

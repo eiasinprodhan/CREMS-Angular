@@ -129,7 +129,7 @@ export class Addrawmaterials implements OnInit {
           }
         });
 
-        this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial.id, updatedRawMaterial).subscribe({
+        this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial).subscribe({
           next: () => {
             this.listRawMaterials();
             this.rawMaterialForm.reset();
