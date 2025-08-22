@@ -120,7 +120,7 @@ export class Viewrawmaterials {
         unit: this.selectedRawMaterials!.unit
       };
 
-      this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial.id, updatedRawMaterial).subscribe({
+      this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial).subscribe({
         next: () => {
           this.listRawMaterials();
           this.rawMaterialForm.reset();

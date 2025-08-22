@@ -52,7 +52,7 @@ export class Addrawmaterials implements OnInit {
   }
 
   onItemSelect(event: any): void {
-    const selectedId = event.target.value;
+    const selectedId = Number.parseInt(event.target.value);
     this.selectedRawMaterials = this.rawmaterials.find(rm => rm.id === selectedId);
     console.log('Selected:', this.selectedRawMaterials);
     if (this.selectedRawMaterials) {

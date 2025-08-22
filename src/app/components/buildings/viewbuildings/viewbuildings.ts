@@ -7,7 +7,7 @@ import { Project } from '../../../models/project.model';
 import { EmployeeService } from '../../../services/employee.service';
 import { Employee } from '../../../models/employee.model';
 import { FloorService } from '../../../services/floor.service';
-import { Floor } from '../../../models/floor.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -20,7 +20,8 @@ export class Viewbuildings implements OnInit {
   building: Building = new Building();
   project: Project = new Project();
   siteManager: Employee = new Employee();
-  floors!: number;
+  floors: number = 0;
+  buildingStatus: number = 0;
 
   constructor(
     private buildingService: BuildingService,
@@ -33,21 +34,24 @@ export class Viewbuildings implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.id = this.ar.snapshot.params['id'];
-    this.viewBuilding();
-    this.getFloorsById();
-  }
+    this.id = +this.ar.snapshot.params['id'];
 
-  viewBuilding(): void {
-    this.buildingService.viewBuildings(this.id).subscribe({
-      next: (data) => {
-        this.building = data;
-        this.viewProjectDetails(this.building.project);
-        this.viewSiteManager(this.building.siteManager);
-        this.cdr.markForCheck();
+    // Use forkJoin to wait for both async calls to complete
+    forkJoin({
+      building: this.buildingService.viewBuildings(this.id),
+      floors: this.floorService.getFloorByBuildingId(this.id)
+    }).subscribe({
+      next: ({ building, floors }) => {
+        this.building = building;
+        this.floors = floors.length > 0 ? floors.length - 1 : 0;
+
+        this.viewProjectDetails(building.project);
+        this.viewSiteManager(building.siteManager);
+
+        this.getBuildingStatus();
       },
       error: (error) => {
-        console.error('Error fetching building:', error);
+        console.error('Error loading building or floors:', error);
       }
     });
   }
@@ -63,27 +67,29 @@ export class Viewbuildings implements OnInit {
         this.cdr.markForCheck();
       },
       error: (error) => {
-        console.log(error);
+        console.error('Error loading project:', error);
       }
-    })
+    });
   }
 
   viewSiteManager(id: number): void {
     this.employeeService.viewEmployee(id).subscribe({
       next: (data) => {
         this.siteManager = data;
-        console.log(this.siteManager);
         this.cdr.markForCheck();
       },
       error: (error) => {
-        console.log(error);
+        console.error('Error loading site manager:', error);
       }
-    })
+    });
   }
 
-  getFloorsById(): void {
-    this.floorService.getFloorByBuildingId(this.id).subscribe(data => {
-      this.floors = data.length;
-    });
+  getBuildingStatus(): void {
+    if (this.building.floorCount && this.floors != null) {
+      this.buildingStatus = (this.floors / this.building.floorCount) * 100;
+    } else {
+      this.buildingStatus = 0;
+    }
+    this.cdr.markForCheck();
   }
 }

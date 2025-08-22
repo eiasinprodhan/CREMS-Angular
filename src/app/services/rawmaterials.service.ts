@@ -10,7 +10,7 @@ import { environments } from './environments';
 })
 export class RawmaterialsService {
   baseUrlOfRawMaterials: string = environments.apiBaseUrl + "/rawmaterials";
-  baseUrlOfRawMaterialsStockIn: string = environments.apiBaseUrl + "/rawmaterialsstockin";
+  baseUrlOfRawMaterialsStockIn: string = environments.apiBaseUrl + "/stockindetails";
   baseUrlOfRawMaterialsStockOut: string = environments.apiBaseUrl + "/rawmaterialsstockout";
 
   constructor(
@@ -31,7 +31,7 @@ export class RawmaterialsService {
   }
 
   listStockIn(): Observable<any> {
-    return this.http.get(this.baseUrlOfRawMaterialsStockIn);
+    return this.http.get(this.baseUrlOfRawMaterialsStockIn+'/');
   }
 
   saveStockOut(stockOut: RawMaterialsStockIn): Observable<any> {

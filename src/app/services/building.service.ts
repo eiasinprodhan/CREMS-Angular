@@ -34,8 +34,8 @@ export class BuildingService {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
-  listBuildingByproject(prodectId: number): Observable<any> {
-    return this.http.get(this.baseUrl + "?project=" + prodectId);
+  listBuildingByproject(projectId: number): Observable<any> {
+    return this.http.get(this.baseUrl + "?project=" + projectId);
   }
 
   listWorkHistory(id: number): Observable<any> {

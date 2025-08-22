@@ -5,7 +5,7 @@ export class RawMaterialsStockIn {
     date!:Date;
     quantity!: number;
     unit!:string;
-    unitprice!:number;
+    unitPrice!:number;
     supplier!:string;
-    totalprice!:number;
+    totalPrice!:number;
 }
