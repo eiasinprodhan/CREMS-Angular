@@ -39,7 +39,7 @@ export class BuildingService {
   }
 
   listWorkHistory(id: number): Observable<any> {
-    return this.http.get(this.baseUrl + "?siteManager=" + id);
+    return this.http.get(this.baseUrl + "/siteManager?siteManager=" + id);
   }
 }
 

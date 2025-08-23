@@ -195,10 +195,7 @@
                       <th class="dt-orderable-asc dt-orderable-desc">
                         End Date
                       </th>
-                      <th class="dt-orderable-asc dt-orderable-desc">
-                        Location
-                      </th>
-                      <th class="dt-orderable-asc dt-orderable-desc">Status</th>
+                      <!-- <th class="dt-orderable-asc dt-orderable-desc">Status</th> -->
                       <th class="dt-orderable-asc dt-orderable-desc">Action</th>
                     </tr>
                   </thead>
@@ -206,16 +203,15 @@
                     <tr *ngFor="let wh of workHistoryData | async">
                       <td>{{ wh.name }}</td>
                       <td>{{ wh.startDate | date }}</td>
-                      <td>{{ wh.endDate | date }}</td>
-                      <td>{{ wh.location }}</td>
-                      <td>
+                      <td>{{ wh.expectedEndDate | date }}</td>
+                      <!-- <td>
                         <span
                           [ngClass]="getStatusClass(wh.status)"
                           class="badge rounded-pill"
                         >
                           {{ wh.status }}
                         </span>
-                      </td>
+                      </td> -->
                       <td>
                         <div class="d-flex gap-2">
                           <a routerLink="/viewprojects/{{wh.id}}">
@@ -262,6 +258,12 @@
                     </tr>
                   </tbody>
                 </table>
+              </ng-container>
+
+              <ng-container *ngIf="employee.role === 'Labour'">
+                <p class="p-5 text-center">
+                  Labour don't have any work history.
+                </p>
               </ng-container>
             </div>
           </div>

@@ -2,23 +2,24 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Attendance } from '../models/attendance.model';
 import { Observable } from 'rxjs';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private baseUrl: string = "http://localhost:3000/attendances"; // Base URL of the API (adjust for production)
+  private baseUrl: string = environments.apiBaseUrl + '/attendances'; // Base URL of the API (adjust for production)
 
   constructor(private http: HttpClient) {}
 
   // Add a new attendance record
   addAttendances(attendance: Attendance): Observable<any> {
-    return this.http.post(this.baseUrl, attendance);
+    return this.http.post(this.baseUrl + '/', attendance);
   }
 
   // List all attendance records
   listAttendances(): Observable<any> {
-    return this.http.get(this.baseUrl);
+    return this.http.get(this.baseUrl + '/');
   }
 
   // View a specific attendance record by ID

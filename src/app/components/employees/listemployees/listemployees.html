@@ -50,7 +50,7 @@
                 <th>Name</th>
                 <th>Phone</th>
                 <th>Role</th>
-                <th>Status</th>
+                <!-- <th>Status</th> -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -60,11 +60,11 @@
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.phone }}</td>
                 <td>{{ employee.role }}</td>
-                <td>
+                <!-- <td>
                   <span class="badge rounded-pill" [ngClass]="employee.status ? 'bg-success' : 'bg-danger'">
                     {{ employee.status ? 'Active' : 'Inactive' }}
                   </span>
-                </td>
+                </td> -->
                 <td>
                   <div class="d-flex gap-2">
                     <button class="btn btn-sm btn-outline-info" (click)="viewEmployee(employee.id)">
