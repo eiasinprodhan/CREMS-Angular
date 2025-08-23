@@ -32,15 +32,15 @@ export class Addunits {
 
     this.addUnitForm = this.formBuilder.group({
       unitNumber: ['', Validators.required],
-      buildingId: [''],
+      buildingId: [0],
       floorId: [this.floorId, Validators.required],
       area: [0, [Validators.required, Validators.min(1)]],
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
       isBooked: [false, Validators.required],
-      customerId: [''],
+      customerId: [0],
       price: [0],
-      photoUrls: this.formBuilder.array([this.createPhotoUrl()]),
+      photoUrls: this.formBuilder.array([this.createPhotoUrl()])
     });
 
     this.loadFloors();
@@ -52,7 +52,7 @@ export class Addunits {
         this.floor = data;
 
         this.addUnitForm.patchValue({
-          buildingId: this.floor.building || ''
+          buildingId: this.floor.building || 0
         });
       },
       error: (err) => {
@@ -104,7 +104,7 @@ export class Addunits {
         this.addUnitForm.reset();
         this.addUnitForm.patchValue({
           floorId: this.floorId,
-          buildingId: this.floor.building || ''
+          buildingId: this.floor.building || 0
         });
         this.addUnitForm.setControl('photoUrls', this.formBuilder.array([this.createPhotoUrl()]));
       },

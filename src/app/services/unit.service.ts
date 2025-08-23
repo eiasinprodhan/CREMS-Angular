@@ -2,22 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Unit } from '../models/unit.model';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UnitService {
-  baseUrl: string = 'http://localhost:3000/units';
+  baseUrl: string = environments.apiBaseUrl + '/units';
 
   constructor(private http: HttpClient) {}
 
 
   addUnit(unit: Unit): Observable<any> {
-    return this.http.post(this.baseUrl, unit);
+    return this.http.post(this.baseUrl + '/', unit);
   }
 
   listUnits(): Observable<Unit[]> {
-    return this.http.get<Unit[]>(this.baseUrl);
+    return this.http.get<Unit[]>(this.baseUrl + '/');
   }
 
   viewUnit(id: number): Observable<Unit> {
@@ -25,7 +26,7 @@ export class UnitService {
   }
 
   editUnit(id: number, unit: Unit): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, unit);
+    return this.http.put(`${this.baseUrl}`, unit);
   }
 
   deleteUnit(id: number): Observable<any> {
