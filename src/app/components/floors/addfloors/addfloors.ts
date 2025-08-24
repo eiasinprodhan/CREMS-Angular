@@ -9,13 +9,12 @@ import { BuildingService } from '../../../services/building.service';
   templateUrl: './addfloors.html',
   styleUrl: './addfloors.css',
 })
-export class Addfloors implements OnInit{
+export class Addfloors implements OnInit {
   addFloorForm!: FormGroup;
   buildings!: any;
 
   message: string = '';
   messageType: string = '';
-
 
   constructor(
     private floorService: FloorService,
@@ -28,10 +27,10 @@ export class Addfloors implements OnInit{
     this.addFloorForm = this.formBuilder.group({
       name: ['', Validators.required],
       building: ['', Validators.required],
+      expectedEndDate: ['', Validators.required],
     });
 
     this.listBuildings();
-
   }
 
   addFloor(): void {
@@ -40,23 +39,27 @@ export class Addfloors implements OnInit{
       return;
     }
 
-    this.floorService.addFloors(this.addFloorForm.value).subscribe({
-      next: () => {
-        this.message = 'Floor added successfully!';
-        this.messageType = 'success';
-        this.addFloorForm.reset();
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        this.message = 'Failed to add floor. Please try again.';
-        this.messageType = 'danger';
-        console.error(err);
-      },
-    });
+    this.floorService
+      .addFloors({
+        ...this.addFloorForm.value,
+        expectedEndDate: new Date(this.addFloorForm.value.expectedEndDate),
+      })
+      .subscribe({
+        next: () => {
+          this.message = 'Floor added successfully!';
+          this.messageType = 'success';
+          this.addFloorForm.reset();
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          this.message = 'Failed to add floor. Please try again.';
+          this.messageType = 'danger';
+          console.error(err);
+        },
+      });
   }
 
   listBuildings(): void {
     this.buildings = this.buildingService.listBuildings();
   }
-
 }

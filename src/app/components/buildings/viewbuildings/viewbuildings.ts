@@ -20,7 +20,7 @@ export class Viewbuildings implements OnInit {
   building: Building = new Building();
   project: Project = new Project();
   siteManager: Employee = new Employee();
-  floors: number = 0;
+  floors: number = 0; // ✅ Only completed floors
   buildingStatus: number = 0;
 
   constructor(
@@ -31,23 +31,24 @@ export class Viewbuildings implements OnInit {
     private ar: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.id = +this.ar.snapshot.params['id'];
 
-    // Use forkJoin to wait for both async calls to complete
     forkJoin({
       building: this.buildingService.viewBuildings(this.id),
       floors: this.floorService.getFloorByBuildingId(this.id)
     }).subscribe({
       next: ({ building, floors }) => {
         this.building = building;
-        this.floors = floors.length > 0 ? floors.length - 1 : 0;
+
+        // ✅ Count only completed floors
+        const today = new Date();
+        this.floors = floors.filter(floor => new Date(floor.expectedEndDate) <= today).length;
 
         this.viewProjectDetails(building.project);
         this.viewSiteManager(building.siteManager);
-
         this.getBuildingStatus();
       },
       error: (error) => {

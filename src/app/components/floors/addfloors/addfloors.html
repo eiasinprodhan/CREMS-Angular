@@ -5,9 +5,7 @@
 <div class="card">
   <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
-      <h5 class="card-title mb-0 text-md-start text-center">
-        Add New Floor
-      </h5>
+      <h5 class="card-title mb-0 text-md-start text-center">Add New Floor</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end align-items-center">
       <a routerLink="/listfloors">
@@ -19,11 +17,7 @@
   </div>
 
   <div class="card-body">
-    <form
-      [formGroup]="addFloorForm"
-      (ngSubmit)="addFloor()"
-      method="post"
-    >
+    <form [formGroup]="addFloorForm" (ngSubmit)="addFloor()" method="post">
       <div class="row mt-4">
         <!-- Floor Name -->
         <div class="col-md-6 mb-3">
@@ -62,6 +56,26 @@
             class="invalid-feedback"
           >
             Building selection is required.
+          </div>
+        </div>
+
+        <!-- Expected End Date -->
+        <div class="col-md-6 mb-3">
+          <label for="expectedEndDate" class="form-label fw-bold"
+            >Expected End Date</label
+          >
+          <input
+            type="date"
+            id="expectedEndDate"
+            class="form-control"
+            formControlName="expectedEndDate"
+            [class.is-invalid]="addFloorForm.get('expectedEndDate')?.touched && addFloorForm.get('expectedEndDate')?.invalid"
+          />
+          <div
+            *ngIf="addFloorForm.get('expectedEndDate')?.touched && addFloorForm.get('expectedEndDate')?.invalid"
+            class="invalid-feedback"
+          >
+            Expected end date is required.
           </div>
         </div>
       </div>

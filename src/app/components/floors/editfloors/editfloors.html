@@ -24,7 +24,7 @@
     <form [formGroup]="editFloorForm" (ngSubmit)="updateFloor()">
       <div class="row mt-4">
         <!-- Floor Name -->
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="name" class="form-label fw-bold">Floor Name</label>
           <input
             type="text"
@@ -42,7 +42,7 @@
         </div>
 
         <!-- Building Selection -->
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="building" class="form-label fw-bold">Building</label>
           <select
             id="building"
@@ -60,6 +60,24 @@
             class="invalid-feedback"
           >
             Building selection is required.
+          </div>
+        </div>
+
+        <!-- Expected End Date -->
+        <div class="col-md-4 mb-3">
+          <label for="expectedEndDate" class="form-label fw-bold">Expected End Date</label>
+          <input
+            type="date"
+            id="expectedEndDate"
+            class="form-control"
+            formControlName="expectedEndDate"
+            [class.is-invalid]="editFloorForm.get('expectedEndDate')?.touched && editFloorForm.get('expectedEndDate')?.invalid"
+          />
+          <div
+            *ngIf="editFloorForm.get('expectedEndDate')?.touched && editFloorForm.get('expectedEndDate')?.invalid"
+            class="invalid-feedback"
+          >
+            Expected end date is required.
           </div>
         </div>
       </div>

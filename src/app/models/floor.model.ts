@@ -1,5 +1,6 @@
 export class Floor {
-  id!:number;
+  id!: number;
   name!: string;
   building!: number;
+  expectedEndDate!: Date;
 }

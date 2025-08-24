@@ -71,4 +71,30 @@ export class Listfloors {
       },
     });
   }
+
+  // Returns true if the floor is completed
+isComplete(expectedEndDate: Date | string): boolean {
+  const today = new Date();
+  const expected = new Date(expectedEndDate);
+  return expected <= today;
+}
+
+// Returns a human-readable time left
+getTimeLeft(expectedEndDate: Date | string): string {
+  const today = new Date();
+  const endDate = new Date(expectedEndDate);
+
+  const diffTime = endDate.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays > 0) {
+    return `${diffDays} day(s) left`;
+  } else if (diffDays === 0) {
+    return 'Due today';
+  } else {
+    return 'Past due';
+  }
+}
+
+
 }

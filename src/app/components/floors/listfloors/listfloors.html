@@ -77,6 +77,8 @@
                 <th>ID</th>
                 <th>Floor Name</th>
                 <th>Building</th>
+                <th>Status</th> <!-- ✅ New column -->
+                <th>Time Left</th> <!-- ⏳ New column -->
                 <th>Action</th>
               </tr>
             </thead>
@@ -84,15 +86,36 @@
               <tr *ngFor="let floor of floors | async">
                 <td>{{ floor.id }}</td>
                 <td>{{ floor.name }}</td>
-                <td>{{getBuildingName(floor.building) }}</td>
+                <td>{{ getBuildingName(floor.building) }}</td>
+
+                <!-- ✅ Status Column -->
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': isComplete(floor.expectedEndDate),
+                      'bg-warning': !isComplete(floor.expectedEndDate)
+                    }"
+                  >
+                    {{ isComplete(floor.expectedEndDate) ? 'Complete' : 'Ongoing' }}
+                  </span>
+                </td>
+
+                <!-- ⏳ Time Left Column -->
+                <td>
+                  {{ getTimeLeft(floor.expectedEndDate) }}
+                </td>
+
+                <!-- Actions -->
                 <td>
                   <div class="d-flex gap-2">
-                    <a routerLink="/liststages/{{floor.id}}"><button
-                      class="btn btn-sm btn-outline-info"
-                      (click)="viewFloors(floor.id)"
-                    >
-                      <i class="fa fa-eye"></i>
-                    </button>
+                    <a routerLink="/liststages/{{floor.id}}">
+                      <button
+                        class="btn btn-sm btn-outline-info"
+                        (click)="viewFloors(floor.id)"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
                     </a>
                     <button
                       class="btn btn-sm btn-outline-primary"

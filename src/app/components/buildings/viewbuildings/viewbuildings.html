@@ -17,11 +17,12 @@
               <i class="icon-base ti tabler-chart-pie-2 icon-lg"></i>
             </div>
             <div class="card-info">
-              <h5 class="mb-0">{{buildingStatus | number:'2.0' }} %</h5>
+              <h5 class="mb-0">{{buildingStatus | number:'2.0'}} %</h5>
               <small>Building Progress</small>
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="d-flex align-items-center">
             <div class="badge rounded bg-label-info me-4 p-2">
@@ -33,6 +34,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="d-flex align-items-center">
             <div class="badge rounded bg-label-danger me-4 p-2">
@@ -44,6 +46,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-md-3 col-6">
           <div class="d-flex align-items-center">
             <div class="badge rounded bg-label-success me-4 p-2">
@@ -60,13 +63,9 @@
   </div>
 
   <!-- Card Header -->
-  <div
-    class="row card-header flex-column flex-md-row border-bottom mx-0 my-5 px-3"
-  >
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 my-5 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
-      <h5 class="card-title mb-0 text-md-start text-center">
-        Building Details
-      </h5>
+      <h5 class="card-title mb-0 text-md-start text-center">Building Details</h5>
     </div>
   </div>
 
@@ -94,10 +93,8 @@
           <div class="mb-3">
             <label class="form-label fw-semibold">Site Manager</label>
             <div class="text-muted">
-              <a
-                class="text-decoration-none text-success fw-medium"
-                [routerLink]="'/viewemployees/' + siteManager.id"
-              >
+              <a class="text-decoration-none text-success fw-medium"
+                [routerLink]="'/viewemployees/' + siteManager.id">
                 {{ siteManager.name }}
               </a>
             </div>
@@ -106,10 +103,8 @@
           <div class="mb-3">
             <label class="form-label fw-semibold">Project</label>
             <div>
-              <a
-                class="text-decoration-none text-success fw-medium"
-                [routerLink]="'/viewprojects/' + building.project"
-              >
+              <a class="text-decoration-none text-success fw-medium"
+                [routerLink]="'/viewprojects/' + building.project">
                 {{ project.name }}
               </a>
             </div>
@@ -118,12 +113,10 @@
 
         <!-- Right Column: Building Image -->
         <div class="col-md-6 d-flex align-items-center justify-content-center">
-          <img
-            [src]="building.photo || 'assets/images/placeholder.jpg'"
+          <img [src]="building.photo || 'assets/images/placeholder.jpg'"
             alt="Building Photo"
             class="img-fluid rounded shadow"
-            style="object-fit: cover; max-height: 400px; width: 100%"
-          />
+            style="object-fit: cover; max-height: 400px; width: 100%" />
         </div>
       </div>
     </div>

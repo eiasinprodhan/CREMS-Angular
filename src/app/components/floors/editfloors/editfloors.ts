@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-editfloors',
   standalone: false,
   templateUrl: './editfloors.html',
-  styleUrl: './editfloors.css'
+  styleUrl: './editfloors.css',
 })
 export class Editfloors {
   id!: number;
@@ -33,6 +33,7 @@ export class Editfloors {
     this.editFloorForm = this.formBuilder.group({
       name: ['', Validators.required],
       building: ['', Validators.required],
+      expectedEndDate: ['', Validators.required], // ✅ Added
     });
 
     this.listBuildings();
@@ -47,8 +48,8 @@ export class Editfloors {
         this.editFloorForm.patchValue({
           name: this.floor.name,
           building: this.floor.building,
+          expectedEndDate: this.formatDate(this.floor.expectedEndDate), // ✅ Format
         });
-        console.log(data);
         this.cdr.markForCheck();
       },
       error: (error) => {
@@ -64,8 +65,13 @@ export class Editfloors {
       return;
     }
 
-    this.floorService.editFloors(this.editFloorForm.value).subscribe({
-      next: (res) => {
+    const updatedFloor = {
+      ...this.editFloorForm.value,
+      expectedEndDate: new Date(this.editFloorForm.value.expectedEndDate), id: this.id
+    };
+
+    this.floorService.editFloors(updatedFloor).subscribe({
+      next: () => {
         this.message = 'Floor updated successfully!';
         this.messageType = 'success';
         this.router.navigate(['listfloors']);
@@ -84,11 +90,16 @@ export class Editfloors {
     this.buildingService.listBuildings().subscribe({
       next: (data) => {
         this.buildings = data;
-        console.log(this.buildings);
       },
       error: (error) => {
         console.log(error);
       },
     });
+  }
+
+
+  private formatDate(dateString: string | Date): string {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
   }
 }
