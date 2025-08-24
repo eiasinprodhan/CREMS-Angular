@@ -11,10 +11,11 @@ import { BuildingService } from '../../../services/building.service';
   templateUrl: './viewemployees.html',
   styleUrl: './viewemployees.css'
 })
-export class Viewemployees implements OnInit{
+export class Viewemployees implements OnInit {
   id!: number;
   employee: Employee = new Employee();
-  workHistoryData!: any;
+  workHistoryData: any;  // Observable<any[]> expected
+  isInactive: boolean = true;  // Default to inactive until proven otherwise
 
   constructor(
     private employeeService: EmployeeService,
@@ -23,7 +24,7 @@ export class Viewemployees implements OnInit{
     private ar: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
@@ -35,7 +36,6 @@ export class Viewemployees implements OnInit{
       next: (data) => {
         this.employee = data;
         this.workHistory(this.employee.id, this.employee.role);
-        this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Error fetching employee:', error);
@@ -47,25 +47,46 @@ export class Viewemployees implements OnInit{
     this.router.navigate(['viewbuildings', id]);
   }
 
-  workHistory(id: number, role: string){
-    if(role==="Project Manager"){
+  workHistory(id: number, role: string): void {
+    if (role === 'Project Manager') {
       this.workHistoryData = this.projectService.listWorkHistory(id);
-    }
-    else if(role==="Site Manager"){
+    } else if (role === 'Site Manager') {
       this.workHistoryData = this.buildingService.listWorkHistory(id);
+    } else {
+      this.isInactive = true;  // Labour or unknown roles
+      return;
     }
+
+    this.workHistoryData.subscribe((data: any[]) => {
+      if (!data || data.length === 0) {
+        this.isInactive = true;
+      } else {
+        // Consider all ongoing if at least one project is ongoing
+        const now = new Date();
+        const hasOngoing = data.some(wh => new Date(wh.expectedEndDate) >= now);
+        this.isInactive = !hasOngoing;
+      }
+      this.cdr.markForCheck();
+    });
   }
 
-  getStatusClass(status: string): string {
+  getDynamicStatus(expectedEndDate: string | Date): string {
+    const today = new Date();
+    const endDate = new Date(expectedEndDate);
+    return endDate < today ? 'Completed' : 'Ongoing';
+  }
+
+  getStatusClass(status: string | undefined | null): string {
+    if (!status) return 'bg-danger';
+
     switch (status.toLowerCase()) {
-      case 'up coming':
-        return 'bg-primary';
-      case 'under construction':
+      case 'ongoing':
         return 'bg-warning';
       case 'completed':
         return 'bg-success';
       default:
-        return 'bg-danger';
+        return 'bg-secondary';
     }
   }
+
 }

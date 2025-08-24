@@ -36,6 +36,6 @@ export class ProjectService {
   }
 
   listWorkHistory(id: number): Observable<any>{
-    return this.http.get(this.baseUrl+"/?projectManager="+id);
+    return this.http.get(this.baseUrl+"?projectManager="+id);
   }
 }

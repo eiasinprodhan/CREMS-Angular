@@ -55,12 +55,12 @@
               </ul>
             </div>
 
-            <!-- <p
-              [ngClass]="employee.status ? 'btn-success' : 'btn-danger'"
+            <p
+              [ngClass]="isInactive ? 'btn-danger' : 'btn-success'"
               class="btn mb-1 waves-effect waves-dark"
             >
-              {{ employee.status ? 'Active' : 'Inactive' }}
-            </p> -->
+              {{ isInactive ? 'Inactive' : 'Active' }}
+            </p>
           </div>
         </div>
       </div>
@@ -195,7 +195,6 @@
                       <th class="dt-orderable-asc dt-orderable-desc">
                         End Date
                       </th>
-                      <!-- <th class="dt-orderable-asc dt-orderable-desc">Status</th> -->
                       <th class="dt-orderable-asc dt-orderable-desc">Action</th>
                     </tr>
                   </thead>
@@ -204,14 +203,6 @@
                       <td>{{ wh.name }}</td>
                       <td>{{ wh.startDate | date }}</td>
                       <td>{{ wh.expectedEndDate | date }}</td>
-                      <!-- <td>
-                        <span
-                          [ngClass]="getStatusClass(wh.status)"
-                          class="badge rounded-pill"
-                        >
-                          {{ wh.status }}
-                        </span>
-                      </td> -->
                       <td>
                         <div class="d-flex gap-2">
                           <a routerLink="/viewprojects/{{wh.id}}">
