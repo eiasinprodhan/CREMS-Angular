@@ -26,16 +26,17 @@ export class Editprojects {
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
     this.viewProjects();
-    this. viewEmployees();
+    this.viewEmployees();
   }
 
   // View Project
-
   viewProjects(): void {
     this.projectService.viewProjects(this.id).subscribe({
       next: (data) => {
+        // Convert date objects to strings for input fields
+        data.startDate = this.formatDate(data.startDate);
+        data.expectedEndDate = this.formatDate(data.expectedEndDate);
         this.project = data;
-        console.log(data);
         this.cdr.markForCheck();
       },
       error: (error) => {
@@ -44,8 +45,21 @@ export class Editprojects {
     });
   }
 
+  // Convert Date or date string to 'YYYY-MM-DD' format
+  formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
+    const day = ('0' + d.getDate()).slice(-2);
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
+
   // Edit Project
-  updateProject():void{
+  updateProject(): void {
+    // Convert string dates back to Date objects if needed by backend
+    this.project.startDate = new Date(this.project.startDate);
+    this.project.expectedEndDate = new Date(this.project.expectedEndDate);
+
     this.projectService.editProjects(this.project).subscribe({
       next: (res) => {
         console.log(res);
@@ -54,12 +68,11 @@ export class Editprojects {
       error: (error) => {
         console.log(error);
       }
-    })
+    });
   }
 
   // View Employees
   viewEmployees(): void {
     this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
-    console.log(this.projectManagers);
   }
 }

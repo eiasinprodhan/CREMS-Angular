@@ -25,12 +25,12 @@ export class UnitService {
     return this.http.get<Unit>(`${this.baseUrl}/${id}`);
   }
 
-  editUnit(id: number, unit: Unit): Observable<any> {
-    return this.http.put(`${this.baseUrl}`, unit);
+  editUnit(unit: Unit): Observable<any> {
+    return this.http.put(this.baseUrl + '/', unit);
   }
 
   deleteUnit(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    return this.http.delete(this.baseUrl + '/' + id);
   }
 
 }

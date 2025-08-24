@@ -21,7 +21,7 @@ export class Listattendances implements OnInit {
   employees: Employee[] = [];
   stage: Stage = new Stage();
   today: Date = new Date();
-  selectedDate: string = new Date().toISOString().slice(0, 10);
+  selectedDate: string = new Date().toISOString().slice(0, 10); // format: YYYY-MM-DD
   dateRestriction: boolean = true;
   paidDates: { [date: string]: boolean } = {};
   loading: boolean = false;
@@ -51,6 +51,9 @@ export class Listattendances implements OnInit {
   viewEmployeeByStage(): void {
     this.stageService.viewStages(this.id).subscribe({
       next: (data) => {
+        // ✅ Format the stage start and end dates for comparison/input compatibility
+        data.startDate = this.formatDate(data.startDate);
+        data.endDate = this.formatDate(data.endDate);
         this.stage = data;
         this.onDateChange();
       },
@@ -118,7 +121,6 @@ export class Listattendances implements OnInit {
     const attendance = this.attendances.find(
       a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
     );
-
     if (attendance) {
       return attendance.status;
     }
@@ -136,7 +138,10 @@ export class Listattendances implements OnInit {
 
   saveAttendance(id: number, status: string, baseSalary: number): void {
     const salary = status === 'Present' ? baseSalary : 0;
-    const attendance = new Attendance(id, this.id, this.selectedDate, status, salary);
+    const attendance = new Attendance();
+    attendance.employeeId = id;
+    attendance.status = status;
+    attendance.salary = baseSalary;
     this.attendanceService.addAttendances(attendance).subscribe(() => {
       this.listAttendances();
     });
@@ -145,8 +150,12 @@ export class Listattendances implements OnInit {
   editAttendance(attendanceId: number, id: number, status: string, baseSalary: number): void {
     if (!attendanceId) return;
     const salary = status === 'Present' ? baseSalary : 0;
-    const attendance = new Attendance(id, this.id, this.selectedDate, status, salary);
-    this.attendanceService.editAttendances(attendanceId, attendance).subscribe(() => {
+    const attendance = new Attendance();
+    attendance.id = attendanceId;
+    attendance.employeeId = id;
+    attendance.status = status;
+    attendance.salary = baseSalary;
+    this.attendanceService.editAttendances(attendance).subscribe(() => {
       this.listAttendances();
     });
   }
@@ -165,19 +174,18 @@ export class Listattendances implements OnInit {
   }
 
   onPay(): void {
-  const transaction = new Transaction("Labours daily salary", this.today, this.getTotalSalary(), false);
-  this.transactionService.saveTransaction(transaction).subscribe({
-    next: () => {
-      this.paidDates[this.selectedDate] = true;
-      this.savePaidDates();
-      this.cdr.markForCheck();
-    },
-    error: (err) => {
-      console.error('Failed to save transaction:', err);
-    }
-  });
-}
-
+    const transaction = new Transaction("Labours daily salary", this.today, this.getTotalSalary(), false);
+    this.transactionService.saveTransaction(transaction).subscribe({
+      next: () => {
+        this.paidDates[this.selectedDate] = true;
+        this.savePaidDates();
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Failed to save transaction:', err);
+      }
+    });
+  }
 
   isPaid(): boolean {
     return !!this.paidDates[this.selectedDate];
@@ -193,5 +201,14 @@ export class Listattendances implements OnInit {
     if (saved) {
       this.paidDates = JSON.parse(saved);
     }
+  }
+
+  // ✅ New: Date formatting method
+  formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
+    const day = ('0' + d.getDate()).slice(-2);
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
   }
 }

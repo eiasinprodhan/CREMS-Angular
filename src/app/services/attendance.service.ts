@@ -33,8 +33,8 @@ export class AttendanceService {
   }
 
   // Edit an existing attendance record by ID
-  editAttendances(id: number, attendance: Attendance): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, attendance);
+  editAttendances(attendance: Attendance): Observable<any> {
+    return this.http.put(`${this.baseUrl}/`, attendance);
   }
 
   // Delete an attendance record by ID

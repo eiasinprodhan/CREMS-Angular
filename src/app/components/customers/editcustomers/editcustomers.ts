@@ -38,7 +38,7 @@ export class Editcustomers {
   }
 
   updateCustomer(): void {
-    this.customerService.editCustomers(this.id, this.customer).subscribe({
+    this.customerService.editCustomers(this.customer).subscribe({
       next: (res) => {
         console.log('Customer updated:', res);
         this.router.navigate(['/listcustomers']);

@@ -27,12 +27,11 @@ export class Editunits implements OnInit{
     private unitService: UnitService,
     private floorService: FloorService,
     private customerService: CustomerService,
-    private router: Router,
-    private cdr: ChangeDetectorRef
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.id = this.ar.snapshot.params['id'];
+    this.id = +this.ar.snapshot.params['id'];
     this.loadUnit();
     this.loadFloors();
     this.loadCustomers();
@@ -42,40 +41,32 @@ export class Editunits implements OnInit{
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
         this.unit = data;
-        this.cdr.detectChanges();
+        this.unit.id = this.id;
       },
       error: (err) => {
         console.error('Failed to load unit:', err);
+        this.message = 'Failed to load unit.';
+        this.messageType = 'error';
       }
     });
   }
 
   loadFloors(): void {
     this.floorService.listFloors().subscribe({
-      next: (data) => {
-        this.floors = data;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Failed to load floors:', err);
-      }
+      next: (data) => this.floors = data,
+      error: (err) => console.error('Failed to load floors:', err)
     });
   }
 
   loadCustomers(): void {
     this.customerService.listCustomers().subscribe({
-      next: (data) => {
-        this.customers = data;
-        this.cdr.detectChanges();
-      },
-      error: (err) => {
-        console.error('Failed to load customers:', err);
-      }
+      next: (data) => this.customers = data,
+      error: (err) => console.error('Failed to load customers:', err)
     });
   }
 
   updateUnit(): void {
-    this.unitService.editUnit(this.id, this.unit).subscribe({
+    this.unitService.editUnit(this.unit).subscribe({
       next: () => {
         this.message = 'Unit updated successfully!';
         this.messageType = 'success';
@@ -83,6 +74,8 @@ export class Editunits implements OnInit{
       },
       error: (err) => {
         console.error('Failed to update unit:', err);
+        this.message = 'Failed to update unit.';
+        this.messageType = 'error';
       }
     });
   }

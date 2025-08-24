@@ -127,7 +127,7 @@ export class Bookunits implements OnInit {
 
     this.transactionService.saveTransaction(transaction).subscribe();
 
-    this.unitService.editUnit(this.id, this.unit).subscribe({
+    this.unitService.editUnit(this.unit).subscribe({
       next: () => {
         this.selectedCustomer = this.customers.find(c => c.id === this.unit.customerId);
 
@@ -136,7 +136,7 @@ export class Bookunits implements OnInit {
 
         setTimeout(() => {
           this.printInvoice();
-        }, 300); // delay to ensure `selectedCustomer` is ready
+        }, 300);
       },
       error: (err) => {
         console.error('Failed to update unit:', err);

@@ -1,4 +1,6 @@
-<div class="card">
+<!-- Book Unit Card -->
+<div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
   <!-- Card Header -->
   <div
     class="row card-header flex-column flex-md-row align-items-center mx-0 px-3"
@@ -13,111 +15,90 @@
     </div>
   </div>
 
-  <div class="card-body py-5 px-4 px-md-5">
+  <!-- Card Body -->
+  <div class="card-body px-4 py-5">
     <form (ngSubmit)="updateUnit()" #unitForm="ngForm" novalidate>
-      <!-- Photos Section -->
-      <div
-        id="unitPhotoCarouselWrapper"
-        class="mx-auto mb-4"
-        style="max-width: 500px"
-      >
-        <div
-          id="unitPhotoCarousel"
-          class="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div class="carousel-inner">
-            <div
-              *ngFor="let url of unit.photoUrls; let i = index"
-              class="carousel-item"
-              [ngClass]="{ active: i === 0 }"
-            >
-              <img
-                [src]="url"
-                class="d-block w-100"
-                alt="Unit Photo"
-                style="max-height: 250px; object-fit: cover"
-              />
+
+      <!-- Carousel -->
+      <div id="unitPhotoCarouselWrapper" class="mx-auto mb-5" style="max-width: 500px;">
+        <div id="unitPhotoCarousel" class="carousel slide rounded-3 shadow-sm" data-bs-ride="carousel">
+          <div class="carousel-inner rounded-3 overflow-hidden">
+            <div 
+              *ngFor="let url of unit.photoUrls; let i = index" 
+              class="carousel-item" 
+              [ngClass]="{ active: i === 0 }">
+              <img 
+                [src]="url" 
+                class="d-block w-100" 
+                alt="Unit Photo" 
+                style="max-height: 300px; object-fit: cover;" />
             </div>
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#unitPhotoCarousel"
-            data-bs-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <button class="carousel-control-prev" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#unitPhotoCarousel"
-            data-bs-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <button class="carousel-control-next" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
         </div>
       </div>
 
-      <!-- Unit Details -->
+      <!-- Unit Info Display -->
       <div class="row g-4 mb-4">
         <div class="col-md-6">
-          <label class="form-label">Unit Number</label>
-          <p class="form-control-plaintext">{{ unit.unitNumber }}</p>
+          <label class="form-label text-primary fw-semibold">Unit Number</label>
+          <p class="form-control-plaintext text-muted">{{ unit.unitNumber }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Area (sqft)</label>
-          <p class="form-control-plaintext">{{ unit.area }}</p>
+          <label class="form-label text-primary fw-semibold">Area (sqft)</label>
+          <p class="form-control-plaintext text-muted">{{ unit.area }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Bedrooms</label>
-          <p class="form-control-plaintext">{{ unit.bedrooms }}</p>
+          <label class="form-label text-primary fw-semibold">Bedrooms</label>
+          <p class="form-control-plaintext text-muted">{{ unit.bedrooms }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Bathrooms</label>
-          <p class="form-control-plaintext">{{ unit.bathrooms }}</p>
-        </div>
-        <!-- ✅ Floor & Building Name -->
-        <div class="col-md-6">
-          <label class="form-label">Floor</label>
-          <p class="form-control-plaintext">{{ floor.name || unit.floorId }}</p>
+          <label class="form-label text-primary fw-semibold">Bathrooms</label>
+          <p class="form-control-plaintext text-muted">{{ unit.bathrooms }}</p>
         </div>
         <div class="col-md-6">
-          <label class="form-label">Building</label>
+          <label class="form-label text-primary fw-semibold">Floor</label>
+          <p class="form-control-plaintext text-muted">{{ floor.name || unit.floorId }}</p>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-primary fw-semibold">Building</label>
           <p class="form-control-plaintext">
-            <a routerLink="/viewbuildings/{{building.id}}"
-              >{{ building.name || unit.buildingId }}</a
-            >
+            <a routerLink="/viewbuildings/{{building.id}}" class="text-decoration-none text-info fw-medium">
+              {{ building.name || unit.buildingId }}
+            </a>
           </p>
         </div>
       </div>
 
-      <!-- Booking Status -->
+      <!-- Booking Status Dropdown -->
       <div class="mb-4">
-        <label class="form-label">Booking Status</label>
+        <label class="form-label fw-semibold text-primary">Booking Status</label>
         <select
-          class="form-select"
+          class="form-select shadow-sm"
           name="isBooked"
           [(ngModel)]="unit.isBooked"
-          required
-        >
+          required>
           <option [ngValue]="false">Available</option>
           <option [ngValue]="true">Booked</option>
         </select>
       </div>
 
-      <!-- Customer -->
+      <!-- Customer Selection -->
       <div class="mb-4">
-        <label for="customerId" class="form-label">Customer</label>
+        <label for="customerId" class="form-label fw-semibold text-primary">Customer</label>
         <select
           id="customerId"
-          class="form-select"
+          class="form-select shadow-sm"
           name="customerId"
           [(ngModel)]="unit.customerId"
-          required
-        >
+          required>
           <option [ngValue]="null">-- No Customer --</option>
           <option *ngFor="let customer of customers" [ngValue]="customer.id">
             {{ customer.name }}
@@ -125,224 +106,42 @@
         </select>
       </div>
 
-      <!-- Price -->
+      <!-- Price Input -->
       <div class="mb-5">
-        <label for="price" class="form-label">Price</label>
+        <label for="price" class="form-label fw-semibold text-primary">Price</label>
         <input
           type="number"
           id="price"
-          class="form-control"
+          class="form-control shadow-sm"
           name="price"
           [(ngModel)]="unit.price"
           required
           min="0"
           step="0.01"
-          placeholder="Enter price in USD"
-        />
+          placeholder="Enter price in USD" />
       </div>
 
       <!-- Submit Button -->
       <div class="d-flex justify-content-end">
         <button
-          class="btn btn-primary"
+          class="btn btn-gradient-primary px-4 py-2"
           type="submit"
           [disabled]="!unitForm.form.valid"
-          (click)="printInvoice()"
-        >
-          Book Unit
+          (click)="printInvoice()">
+          <i class="fa-solid fa-check me-2"></i>Book Unit
         </button>
       </div>
     </form>
 
-    <!-- Success / Error Message -->
+    <!-- Alert Messages -->
     <div *ngIf="message" class="mt-4">
       <div
         [ngClass]="{
           'alert alert-success': messageType === 'success',
           'alert alert-danger': messageType === 'error'
         }"
-        role="alert"
-      >
+        role="alert">
         {{ message }}
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Invoice -->
-
-<!-- Primary Color Invoice with Bottom Signature -->
-<div
-  id="invoiceToPrint"
-  [style.visibility]="'hidden'"
-  [style.position]="'absolute'"
-  [style.left]="'-9999px'"
-  class="text-primary"
-  style="
-    width: 210mm;
-    height: 297mm;
-    padding: 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #f3f9ff, #ffffff);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
-    position: relative;
-    overflow: hidden;
-  "
->
-  <!-- Decorative Blurred Circles -->
-  <div
-    style="
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: rgba(13, 110, 253, 0.15);
-      filter: blur(80px);
-      border-radius: 50%;
-      top: -60px;
-      left: -60px;
-      z-index: 0;
-    "
-  ></div>
-
-  <div
-    style="
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: rgba(13, 110, 253, 0.1);
-      filter: blur(100px);
-      border-radius: 50%;
-      bottom: -100px;
-      right: -100px;
-      z-index: 0;
-    "
-  ></div>
-
-  <!-- Main Content -->
-  <div
-    style="
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    "
-  >
-    <!-- Header -->
-    <!-- Header: Centered CREMS -->
-    <div style="text-align: center; position: relative; margin-bottom: 24px">
-      <div style="display: inline-flex; align-items: center; gap: 10px">
-        <svg
-            width="32"
-            height="22"
-            viewBox="0 0 32 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-              fill="currentColor"
-            />
-            <path
-              opacity="0.06"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-              fill="#161616"
-            />
-            <path
-              opacity="0.06"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-              fill="#161616"
-            />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-              fill="currentColor"
-            />
-          </svg>
-        <span class="fs-2 fw-bold text-primary" style="font-size: 28px"
-          >CREMS</span
-        >
-      </div>
-      <p class="fs-5 text-muted mt-2 mb-0">🏠 Unit Booking Invoice</p>
-    </div>
-
-    <!-- Customer Info -->
-    <div class="d-flex justify-content-between mb-4 gap-3">
-      <div *ngIf="selectedCustomer" class="flex-fill">
-        <div class="d-flex align-items-center gap-3">
-          <img
-            [src]="selectedCustomer.photo"
-            alt="{{ selectedCustomer.name }}"
-            class="rounded-circle border border-primary"
-            style="width: 80px; height: 80px; object-fit: cover"
-          />
-          <div>
-            <p class="mb-0 fw-bold">{{ selectedCustomer.name }}</p>
-            <p class="mb-0 text-muted small">{{ selectedCustomer.email }}</p>
-            <p class="mb-0 text-muted small">{{ selectedCustomer.phone }}</p>
-          </div>
-        </div>
-        <p class="mt-2 small">
-          <strong>Address:</strong> {{ selectedCustomer.address }}
-        </p>
-      </div>
-      <div class="flex-fill text-end small">
-        <p><strong>Invoice Date:</strong> {{ today | date: 'mediumDate' }}</p>
-        <p><strong>Invoice No:</strong> INV-{{ unit.unitNumber }}</p>
-      </div>
-    </div>
-
-    <!-- Unit Table -->
-    <table
-      class="table table-bordered rounded overflow-hidden"
-      style="font-size: 15px"
-    >
-      <thead class="bg-primary text-white">
-        <tr>
-          <th class="p-2 text-center">Unit Number</th>
-          <th class="p-2 text-center">Building</th>
-          <th class="p-2 text-center">Floor</th>
-          <th class="p-2 text-center">Area (sqft)</th>
-          <th class="p-2 text-center">Bedrooms</th>
-          <th class="p-2 text-center">Bathrooms</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-white">
-          <td class="text-center p-2">{{ unit.unitNumber }}</td>
-          <td class="text-center p-2">
-            {{ building.name || unit.buildingId }}
-          </td>
-          <td class="text-center p-2">{{ floor.name || unit.floorId }}</td>
-          <td class="text-end p-2">{{ unit.area }}</td>
-          <td class="text-end p-2">{{ unit.bedrooms }}</td>
-          <td class="text-end p-2">{{ unit.bathrooms }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Spacer -->
-    <div class="flex-grow-1"></div>
-
-    <!-- Signature -->
-    <div
-      style="position: absolute; bottom: 40px; right: 40px; text-align: center"
-    >
-      <div
-        class="border-top border-2 border-primary"
-        style="width: 200px; padding-top: 6px"
-      >
-        <p class="mb-0 text-primary small">
-          <strong>Authorized Signature</strong>
-        </p>
       </div>
     </div>
   </div>
