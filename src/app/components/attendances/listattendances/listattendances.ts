@@ -51,7 +51,6 @@ export class Listattendances implements OnInit {
   viewEmployeeByStage(): void {
     this.stageService.viewStages(this.id).subscribe({
       next: (data) => {
-        // ✅ Format the stage start and end dates for comparison/input compatibility
         data.startDate = this.formatDate(data.startDate);
         data.endDate = this.formatDate(data.endDate);
         this.stage = data;
@@ -203,7 +202,6 @@ export class Listattendances implements OnInit {
     }
   }
 
-  // ✅ New: Date formatting method
   formatDate(date: string | Date): string {
     const d = new Date(date);
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
