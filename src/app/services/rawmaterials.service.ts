@@ -27,7 +27,7 @@ export class RawmaterialsService {
   }
 
   saveStockIn(stockIn: RawMaterialsStockIn): Observable<any> {
-    return this.http.post(this.baseUrlOfRawMaterialsStockIn, stockIn);
+    return this.http.post(this.baseUrlOfRawMaterialsStockIn + '/', stockIn);
   }
 
   listStockIn(): Observable<any> {
