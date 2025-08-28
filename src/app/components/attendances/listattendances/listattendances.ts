@@ -9,6 +9,8 @@ import { Employee } from '../../../models/employee.model';
 import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../models/transaction.model';
 import { isPlatformBrowser } from '@angular/common';
+import { StagepaymentService } from '../../../services/stagepayment.service';
+import { StagePayment } from '../../../models/stagepayments.model';
 
 @Component({
   selector: 'app-listattendances',
@@ -35,12 +37,12 @@ export class Listattendances implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private transactionService: TransactionService,
+    private stagePaymentService: StagepaymentService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    this.id = +this.route.snapshot.params['id']; // force number type
-    this.loadPaidDates();
+    this.id = +this.route.snapshot.params['id'];
     this.loadData();
   }
 
@@ -56,6 +58,9 @@ export class Listattendances implements OnInit {
         this.stage = data;
         console.log('Loaded stage:', this.stage);
         this.onDateChange();
+
+        // ✅ Load payment dates AFTER stage is loaded
+        this.loadPaidDates();
       },
       error: (error) => {
         console.error('Error loading stage:', error);
@@ -113,27 +118,17 @@ export class Listattendances implements OnInit {
   getTotalSalary(): number {
     return Array.isArray(this.stage.labours)
       ? this.stage.labours.reduce((total, labourId: number) => {
-        return total + this.getEmployeeSalary(labourId);
-      }, 0)
+          return total + this.getEmployeeSalary(labourId);
+        }, 0)
       : 0;
   }
 
   getAttendanceByLabour(id: number): string {
-    if (!this.id || !this.selectedDate) {
-      console.warn('id or selectedDate not set yet');
-      return '';
-    }
-
-    console.log(`Looking for attendance with employeeId=${id}, stageId=${this.id}, date=${this.selectedDate}`);
-
     const attendance = this.attendances.find(a =>
       a.employeeId === id &&
       a.stageId === this.id &&
       a.date === this.selectedDate
     );
-
-    console.log('Attendance found:', attendance);
-
     return attendance?.status ?? '';
   }
 
@@ -176,7 +171,7 @@ export class Listattendances implements OnInit {
 
   isEditable(): boolean {
     const cutoff = new Date();
-    cutoff.setHours(17, 0, 0, 0); // 5:00 PM cutoff
+    cutoff.setHours(17, 0, 0, 0);
     const now = new Date();
     return !this.isPaid() && now <= cutoff;
   }
@@ -213,17 +208,37 @@ export class Listattendances implements OnInit {
   }
 
   savePaidDates(): void {
-    localStorage.setItem('paidDates_' + this.id, JSON.stringify(this.paidDates));
-    this.cdr.markForCheck();
+    let payment = new StagePayment();
+    payment.date = this.selectedDate;
+    payment.stageId = this.id;
+    payment.paid = true;
+
+    this.stagePaymentService.savePayment(payment).subscribe({
+      next: () => {
+        this.paidDates[this.selectedDate] = true;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Failed to save payment status:', err);
+      }
+    });
   }
 
-  loadPaidDates() {
-    if (isPlatformBrowser(this.platformId)) {
-      const paidDates = localStorage.getItem('paidDates_' + this.id);
-      if (paidDates) {
-        this.paidDates = JSON.parse(paidDates);
+  loadPaidDates(): void {
+    console.log('Calling loadPaidDates with stageId:', this.id);
+    this.stagePaymentService.getPaymentsByStage(this.id).subscribe({
+      next: (payments) => {
+        console.log('Loaded payment records:', payments);
+        this.paidDates = {};
+        payments.forEach(p => {
+          this.paidDates[p.date] = p.paid;
+        });
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Failed to load payment statuses:', err);
       }
-    }
+    });
   }
 
   getStatusTotals(): { present: number; absent: number; onLeave: number } {
