@@ -11,7 +11,7 @@ import { environments } from './environments';
 export class RawmaterialsService {
   baseUrlOfRawMaterials: string = environments.apiBaseUrl + "/rawmaterials";
   baseUrlOfRawMaterialsStockIn: string = environments.apiBaseUrl + "/stockindetails";
-  baseUrlOfRawMaterialsStockOut: string = environments.apiBaseUrl + "/rawmaterialsstockout";
+  baseUrlOfRawMaterialsStockOut: string = environments.apiBaseUrl + "/stockoutdetails";
 
   constructor(
     private http: HttpClient
@@ -31,14 +31,14 @@ export class RawmaterialsService {
   }
 
   listStockIn(): Observable<any> {
-    return this.http.get(this.baseUrlOfRawMaterialsStockIn+'/');
+    return this.http.get(this.baseUrlOfRawMaterialsStockIn + '/');
   }
 
   saveStockOut(stockOut: RawMaterialsStockIn): Observable<any> {
-    return this.http.post(this.baseUrlOfRawMaterialsStockOut, stockOut);
+    return this.http.post(this.baseUrlOfRawMaterialsStockOut + '/', stockOut);
   }
 
   listStockOut(id: number): Observable<any> {
-    return this.http.get(this.baseUrlOfRawMaterialsStockOut + "?stageId=" + id);
+    return this.http.get(this.baseUrlOfRawMaterialsStockOut + "?stageid=" + id);
   }
 }
