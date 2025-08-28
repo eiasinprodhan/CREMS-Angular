@@ -8,7 +8,7 @@ import { environments } from './environments';
   providedIn: 'root'
 })
 export class AttendanceService {
-  private baseUrl: string = environments.apiBaseUrl + '/attendances'; // Base URL of the API (adjust for production)
+  private baseUrl: string = environments.apiBaseUrl + '/attendances';
 
   constructor(private http: HttpClient) {}
 

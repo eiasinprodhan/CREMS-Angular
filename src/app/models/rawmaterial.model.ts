@@ -3,6 +3,7 @@ export class RawMaterials {
     name!: string;
     quantity!: number;
     unit!:string;
+    
 
     constructor(name: string, quantity: number, unit:string){
 

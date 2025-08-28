@@ -1,10 +1,13 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div class="dt-container dt-bootstrap5 dt-empty-footer">
-      
       <!-- Header -->
-      <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0">
+      <div
+        class="row card-header flex-column flex-md-row border-bottom mx-0 px-3"
+      >
+        <div
+          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
+        >
           <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-2">
             Attendance ({{ selectedDate | date: 'yyyy-MM-dd' }})
           </h5>
@@ -19,11 +22,18 @@
         </div>
       </div>
 
-      <!-- Table -->
       <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
         <div class="dt-layout-table w-100">
           <div class="table-responsive">
             <ng-container *ngIf="dateRestriction; else outOfRange">
+              <!-- Totals -->
+              <div class="alert alert-secondary my-2">
+                <strong>Totals:</strong>
+                Present: {{ getStatusTotals().present }}, Absent: {{
+                getStatusTotals().absent }}, On Leave: {{
+                getStatusTotals().onLeave }}
+              </div>
+
               <table class="table table-bordered align-middle">
                 <thead class="table-light">
                   <tr>
@@ -39,61 +49,56 @@
                     <td>{{ getEmployeeName(labourId) }}</td>
                     <td>{{ getEmployeeSalary(labourId) }}</td>
                     <td>
-                      <ng-container *ngIf="getAttendanceByLabour(labourId); else showButtons">
-                        <!-- Present Button -->
+                      <ng-container
+                        *ngIf="getAttendanceByLabour(labourId) as attendanceStatus; else showButtons"
+                      >
                         <button
                           class="btn mx-1"
-                          [ngClass]="{
-                            'btn-success': getAttendanceByLabour(labourId) === 'Present',
-                            'btn-outline-success': getAttendanceByLabour(labourId) !== 'Present'
-                          }"
+                          [ngClass]="{ 'btn-success': attendanceStatus === 'Present', 'btn-outline-success': attendanceStatus !== 'Present' }"
                           (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Present', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-check"></i>
                         </button>
 
-                        <!-- Absent Button -->
                         <button
                           class="btn mx-1"
-                          [ngClass]="{
-                            'btn-danger': getAttendanceByLabour(labourId) === 'Absent',
-                            'btn-outline-danger': getAttendanceByLabour(labourId) !== 'Absent'
-                          }"
+                          [ngClass]="{ 'btn-danger': attendanceStatus === 'Absent', 'btn-outline-danger': attendanceStatus !== 'Absent' }"
                           (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Absent', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-times"></i>
                         </button>
 
-                        <!-- On Leave Button -->
                         <button
                           class="btn mx-1"
-                          [ngClass]="{
-                            'btn-warning': getAttendanceByLabour(labourId) === 'On Leave',
-                            'btn-outline-warning': getAttendanceByLabour(labourId) !== 'On Leave'
-                          }"
+                          [ngClass]="{ 'btn-warning': attendanceStatus === 'On Leave', 'btn-outline-warning': attendanceStatus !== 'On Leave' }"
                           (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'On Leave', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-clock"></i>
                         </button>
                       </ng-container>
 
                       <ng-template #showButtons>
-                        <!-- Initial Save Buttons -->
                         <button
                           class="btn btn-outline-success mx-1"
                           (click)="saveAttendance(labourId, 'Present', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-check"></i>
                         </button>
                         <button
                           class="btn btn-outline-danger mx-1"
                           (click)="saveAttendance(labourId, 'Absent', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-times"></i>
                         </button>
                         <button
                           class="btn btn-outline-warning mx-1"
                           (click)="saveAttendance(labourId, 'On Leave', getBaseSalary(labourId))"
+                          [disabled]="!isEditable()"
                         >
                           <i class="fas fa-user-clock"></i>
                         </button>
@@ -101,7 +106,6 @@
                     </td>
                   </tr>
 
-                  <!-- Total Row -->
                   <tr class="table-info fw-bold">
                     <td colspan="2" class="text-end">Total Salary</td>
                     <td>{{ getTotalSalary() }}</td>
@@ -113,14 +117,15 @@
                       >
                         Pay
                       </button>
-                      <span *ngIf="isPaid()" class="text-success fw-bold">Paid</span>
+                      <span *ngIf="isPaid()" class="text-success fw-bold"
+                        >Paid</span
+                      >
                     </td>
                   </tr>
                 </tbody>
               </table>
             </ng-container>
 
-            <!-- Out of range alert -->
             <ng-template #outOfRange>
               <div class="alert alert-warning text-center my-3">
                 Selected date is outside the stage duration.
@@ -129,7 +134,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -1,13 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Attendance } from '../../../models/attendance.model';
 import { Stage } from '../../../models/stage.model';
 import { AttendanceService } from '../../../services/attendance.service';
 import { StageService } from '../../../services/stage.service';
 import { EmployeeService } from '../../../services/employee.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Employee } from '../../../models/employee.model';
 import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../models/transaction.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-listattendances',
@@ -21,7 +22,7 @@ export class Listattendances implements OnInit {
   employees: Employee[] = [];
   stage: Stage = new Stage();
   today: Date = new Date();
-  selectedDate: string = new Date().toISOString().slice(0, 10); // format: YYYY-MM-DD
+  selectedDate: string = new Date().toISOString().slice(0, 10);
   dateRestriction: boolean = true;
   paidDates: { [date: string]: boolean } = {};
   loading: boolean = false;
@@ -33,11 +34,12 @@ export class Listattendances implements OnInit {
     private stageService: StageService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['id'];
+    this.id = +this.route.snapshot.params['id']; // force number type
     this.loadPaidDates();
     this.loadData();
   }
@@ -51,9 +53,8 @@ export class Listattendances implements OnInit {
   viewEmployeeByStage(): void {
     this.stageService.viewStages(this.id).subscribe({
       next: (data) => {
-        data.startDate = this.formatDate(data.startDate);
-        data.endDate = this.formatDate(data.endDate);
         this.stage = data;
+        console.log('Loaded stage:', this.stage);
         this.onDateChange();
       },
       error: (error) => {
@@ -79,6 +80,7 @@ export class Listattendances implements OnInit {
     this.attendanceService.listAttendances().subscribe({
       next: (data: Attendance[]) => {
         this.attendances = data;
+        console.log('Loaded attendances:', this.attendances);
         this.loading = false;
         this.cdr.markForCheck();
       },
@@ -111,36 +113,47 @@ export class Listattendances implements OnInit {
   getTotalSalary(): number {
     return Array.isArray(this.stage.labours)
       ? this.stage.labours.reduce((total, labourId: number) => {
-          return total + this.getEmployeeSalary(labourId);
-        }, 0)
+        return total + this.getEmployeeSalary(labourId);
+      }, 0)
       : 0;
   }
 
   getAttendanceByLabour(id: number): string {
-    const attendance = this.attendances.find(
-      a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
-    );
-    if (attendance) {
-      return attendance.status;
+    if (!this.id || !this.selectedDate) {
+      console.warn('id or selectedDate not set yet');
+      return '';
     }
 
-    const salary = this.getEmployeeSalary(id);
-    return salary !== 0 ? 'Present' : '';
+    console.log(`Looking for attendance with employeeId=${id}, stageId=${this.id}, date=${this.selectedDate}`);
+
+    const attendance = this.attendances.find(a =>
+      a.employeeId === id &&
+      a.stageId === this.id &&
+      a.date === this.selectedDate
+    );
+
+    console.log('Attendance found:', attendance);
+
+    return attendance?.status ?? '';
   }
 
   getAttendanceIDByLabour(id: number): number {
-    const attendance = this.attendances.find(
-      a => a.employeeId === id && a.date === this.selectedDate && a.stageId === this.id
+    const attendance = this.attendances.find(a =>
+      a.employeeId === id &&
+      a.stageId === this.id &&
+      a.date === this.selectedDate
     );
     return attendance ? attendance.id : 0;
   }
 
   saveAttendance(id: number, status: string, baseSalary: number): void {
-    const salary = status === 'Present' ? baseSalary : 0;
     const attendance = new Attendance();
     attendance.employeeId = id;
+    attendance.stageId = this.id;
+    attendance.date = this.selectedDate;
     attendance.status = status;
-    attendance.salary = baseSalary;
+    attendance.salary = status === 'Present' ? baseSalary : 0;
+
     this.attendanceService.addAttendances(attendance).subscribe(() => {
       this.listAttendances();
     });
@@ -148,15 +161,24 @@ export class Listattendances implements OnInit {
 
   editAttendance(attendanceId: number, id: number, status: string, baseSalary: number): void {
     if (!attendanceId) return;
-    const salary = status === 'Present' ? baseSalary : 0;
     const attendance = new Attendance();
     attendance.id = attendanceId;
     attendance.employeeId = id;
+    attendance.stageId = this.id;
+    attendance.date = this.selectedDate;
     attendance.status = status;
-    attendance.salary = baseSalary;
+    attendance.salary = status === 'Present' ? baseSalary : 0;
+
     this.attendanceService.editAttendances(attendance).subscribe(() => {
       this.listAttendances();
     });
+  }
+
+  isEditable(): boolean {
+    const cutoff = new Date();
+    cutoff.setHours(17, 0, 0, 0); // 5:00 PM cutoff
+    const now = new Date();
+    return !this.isPaid() && now <= cutoff;
   }
 
   onDateChange(): void {
@@ -195,18 +217,24 @@ export class Listattendances implements OnInit {
     this.cdr.markForCheck();
   }
 
-  loadPaidDates(): void {
-    const saved = localStorage.getItem('paidDates_' + this.id);
-    if (saved) {
-      this.paidDates = JSON.parse(saved);
+  loadPaidDates() {
+    if (isPlatformBrowser(this.platformId)) {
+      const paidDates = localStorage.getItem('paidDates_' + this.id);
+      if (paidDates) {
+        this.paidDates = JSON.parse(paidDates);
+      }
     }
   }
 
-  formatDate(date: string | Date): string {
-    const d = new Date(date);
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    const year = d.getFullYear();
-    return `${year}-${month}-${day}`;
+  getStatusTotals(): { present: number; absent: number; onLeave: number } {
+    const counts = { present: 0, absent: 0, onLeave: 0 };
+    this.attendances.forEach(a => {
+      if (a.date === this.selectedDate && a.stageId === this.id) {
+        if (a.status === 'Present') counts.present++;
+        else if (a.status === 'Absent') counts.absent++;
+        else if (a.status === 'On Leave') counts.onLeave++;
+      }
+    });
+    return counts;
   }
 }

@@ -95,7 +95,7 @@
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Customer</label>
           <div class="text-secondary">
-            {{ customer.name || unit.customerId || 'N/A' }}
+            <a routerLink="/viewcustomers/{{customer.id}}"> {{customer.name || 'N/A' }}</a>
           </div>
         </div>
       </div>

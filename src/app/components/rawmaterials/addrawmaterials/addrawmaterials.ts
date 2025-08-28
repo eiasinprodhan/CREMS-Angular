@@ -33,7 +33,7 @@ export class Addrawmaterials implements OnInit {
       name: [''],
       date: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
-      unitprice: [null, [Validators.required, Validators.min(1)]],
+      unitPrice: [null, [Validators.required, Validators.min(1)]],
       unit: [''],
       supplier: ['', Validators.required],
       totalprice: [{ value: null, disabled: true }, [Validators.required, Validators.min(1)]]
@@ -70,7 +70,7 @@ export class Addrawmaterials implements OnInit {
 
 
   watchPriceChanges(): void {
-    this.rawMaterialForm.get('unitprice')?.valueChanges.subscribe(() => {
+    this.rawMaterialForm.get('unitPrice')?.valueChanges.subscribe(() => {
       this.updateTotalPrice();
     });
 
@@ -80,9 +80,9 @@ export class Addrawmaterials implements OnInit {
   }
 
   updateTotalPrice(): void {
-    const unitprice = this.rawMaterialForm.get('unitprice')?.value || 0;
+    const unitPrice = this.rawMaterialForm.get('unitPrice')?.value || 0;
     const quantity = this.rawMaterialForm.get('quantity')?.value || 0;
-    const total = unitprice * quantity;
+    const total = unitPrice * quantity;
     this.rawMaterialForm.get('totalprice')?.setValue(total, { emitEvent: false });
   }
 
@@ -108,7 +108,8 @@ export class Addrawmaterials implements OnInit {
           id: this.selectedRawMaterials.id,
           name: this.selectedRawMaterials.name,
           quantity: updatedQuantity,
-          unit: this.selectedRawMaterials.unit
+          unit: this.selectedRawMaterials.unit,
+
         };
 
         const transaction: Transaction = new Transaction(
@@ -158,4 +159,18 @@ export class Addrawmaterials implements OnInit {
     this.cdr.markForCheck();
   }
 
+  deleteStockIn(id: number): void {
+    this.rawMaterialsService.deleteStockIn(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cdr.reattach();
+        this.listStockIn();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
 }
+
+

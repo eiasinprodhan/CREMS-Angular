@@ -34,6 +34,10 @@ export class RawmaterialsService {
     return this.http.get(this.baseUrlOfRawMaterialsStockIn + '/');
   }
 
+  deleteStockIn(id: number): Observable<any>{
+    return this.http.delete(this.baseUrlOfRawMaterialsStockIn + '/' + id);
+  }
+
   saveStockOut(stockOut: RawMaterialsStockIn): Observable<any> {
     return this.http.post(this.baseUrlOfRawMaterialsStockOut + '/', stockOut);
   }
