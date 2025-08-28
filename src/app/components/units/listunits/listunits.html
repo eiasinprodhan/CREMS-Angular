@@ -61,12 +61,12 @@
                 <td>{{ unit.bedrooms }}</td>
                 <td>{{ unit.bathrooms }}</td>
                 <td>
-                    <span ngClass="{{unit.isBooked ? 'badge bg-success' : 'badge bg-danger'}}">{{ unit.isBooked ? 'Yes' : 'No' }}</span>
+                    <span ngClass="{{unit.booked ? 'badge bg-success' : 'badge bg-danger'}}">{{ unit.booked ? 'Yes' : 'No' }}</span>
                 </td>
                 <td>
                   <div class="d-flex gap-2">
                     <!-- Book -->
-                    <ng-container *ngIf="!unit.isBooked">
+                    <ng-container *ngIf="!unit.booked">
                       <button
                       class="btn btn-sm btn-outline-info"
                       (click)="bookUnit(unit.id)"

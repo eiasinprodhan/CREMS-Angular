@@ -165,7 +165,7 @@
               <tr *ngFor="let sl of stockOutlist|async">
                 <td>{{sl.id}}</td>
                 <td>{{sl.name}}</td>
-                <td>{{sl.date}}</td>
+                <td>{{sl.date | date }}</td>
                 <td>{{sl.quantity}} {{sl.unit}}</td>
               </tr>
               <!--container-->

@@ -71,8 +71,8 @@
           <label class="form-label text-primary fw-semibold">Booking Status</label>
           <div>
             <span class="badge px-3 py-2 fs-6"
-              [ngClass]="unit.isBooked ? 'bg-success' : 'bg-warning text-dark'">
-              {{ unit.isBooked ? 'Booked' : 'Available' }}
+              [ngClass]="unit.booked ? 'bg-success' : 'bg-warning text-dark'">
+              {{ unit.booked ? 'Booked' : 'Available' }}
             </span>
           </div>
         </div>

@@ -27,6 +27,7 @@ export class Editunits implements OnInit{
     private unitService: UnitService,
     private floorService: FloorService,
     private customerService: CustomerService,
+    private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
 
@@ -35,6 +36,7 @@ export class Editunits implements OnInit{
     this.loadUnit();
     this.loadFloors();
     this.loadCustomers();
+    this.cdr.markForCheck();
   }
 
   loadUnit(): void {
@@ -42,6 +44,7 @@ export class Editunits implements OnInit{
       next: (data) => {
         this.unit = data;
         this.unit.id = this.id;
+        this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Failed to load unit:', err);

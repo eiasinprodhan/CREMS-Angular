@@ -54,6 +54,7 @@ export class Bookunits implements OnInit {
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
         this.unit = data;
+        this.unit.id = this.id;
 
         if (this.unit.floorId) this.loadFloor(this.unit.floorId);
         if (this.unit.buildingId) this.loadBuilding(this.unit.buildingId);
@@ -136,7 +137,7 @@ export class Bookunits implements OnInit {
 
         setTimeout(() => {
           this.printInvoice();
-        }, 300);
+        }, 300); // delay to ensure `selectedCustomer` is ready
       },
       error: (err) => {
         console.error('Failed to update unit:', err);

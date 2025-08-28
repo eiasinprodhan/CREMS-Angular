@@ -49,7 +49,7 @@ export class Listunits implements OnInit{
     this.unitService.deleteUnit(id).subscribe({
       next: (res) => {
         console.log(res);
-        this.cdr.reattach(); // optional, depends on how change detection is working in your app
+        this.cdr.reattach();
         this.listUnits();
       },
       error: (error) => {

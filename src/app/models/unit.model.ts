@@ -6,7 +6,7 @@ export class Unit {
   area!: number;
   bedrooms!: number;
   bathrooms!: number;
-  isBooked!: boolean;
+  booked!: boolean;
   customerId!: number;
   photoUrls!: string[];
   price!: number;
