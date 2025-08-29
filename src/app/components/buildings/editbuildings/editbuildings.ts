@@ -16,6 +16,7 @@ export class Editbuildings implements OnInit {
   id!: number;
   building: Building = new Building();
   siteManagers!:any;
+  photoFile!: File;
 
   projects: Project[] = [];
   message: string = '';
@@ -62,7 +63,7 @@ export class Editbuildings implements OnInit {
   }
 
   updateBuilding(): void {
-    this.buildingService.editBuildings(this.building).subscribe({
+    this.buildingService.editBuildings(this.building, this.photoFile).subscribe({
       next: () => {
         this.message = 'Building updated successfully!';
         this.messageType = 'success';
@@ -76,6 +77,13 @@ export class Editbuildings implements OnInit {
 
   viewSiteManager(): void {
     this.siteManagers = this.employeeService.viewEmployeeByRole("Site Manager");
+  }
+
+  onPhotoSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.photoFile = event.target.files[0];
+      console.log('Selected file:', this.photoFile);
+    }
   }
 
 }

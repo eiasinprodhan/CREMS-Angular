@@ -16,6 +16,7 @@ export class Addbuildings implements OnInit {
   addBuildingForm!: FormGroup;
   projects!: any;
   siteManagers!:any;
+  photoFile!: File;
 
   message: string = '';
   messageType: string = '';
@@ -36,8 +37,7 @@ export class Addbuildings implements OnInit {
       project: ['', Validators.required],
       siteManager: ['', [Validators.required]],
       floorCount: [0, [Validators.required]],
-      unitCount: [0, [Validators.required]],
-      photo: ['', [Validators.required]]
+      unitCount: [0, [Validators.required]]
     });
 
     this.listProjects();
@@ -51,7 +51,7 @@ export class Addbuildings implements OnInit {
       return;
     }
 
-    this.buildingService.addBuildings(this.addBuildingForm.value).subscribe({
+    this.buildingService.addBuildings(this.addBuildingForm.value, this.photoFile).subscribe({
       next: () => {
         this.message = 'Building added successfully!';
         this.messageType = 'success';
@@ -71,5 +71,12 @@ export class Addbuildings implements OnInit {
 
   viewSiteManager(): void {
     this.siteManagers = this.employeeService.viewEmployeeByRole("Site Manager");
+  }
+
+  onPhotoSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.photoFile = event.target.files[0];
+      console.log('Selected file:', this.photoFile);
+    }
   }
 }

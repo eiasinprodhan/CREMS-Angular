@@ -150,12 +150,13 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="photo" class="form-label fw-bold">Photo URL</label>
+          <label for="photo" class="form-label fw-bold">Photo</label>
           <input
-            type="text"
+            type="file"
             id="photo"
             class="form-control"
             formControlName="photo"
+            (change)="onPhotoSelected($event)"
             [class.is-invalid]="addBuildingForm.get('photo')?.touched && addBuildingForm.get('photo')?.invalid"
           />
           <div

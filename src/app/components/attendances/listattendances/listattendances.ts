@@ -171,7 +171,7 @@ export class Listattendances implements OnInit {
 
   isEditable(): boolean {
     const cutoff = new Date();
-    cutoff.setHours(17, 0, 0, 0);
+    cutoff.setHours(24, 0, 0, 0);
     const now = new Date();
     return !this.isPaid() && now <= cutoff;
   }

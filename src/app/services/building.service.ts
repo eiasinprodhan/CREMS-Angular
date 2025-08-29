@@ -14,8 +14,11 @@ export class BuildingService {
     private http: HttpClient
   ) { }
 
-  addBuildings(building: Building): Observable<any> {
-    return this.http.post(this.baseUrl+'/', building);
+  addBuildings(building: Building, photo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('building', JSON.stringify(building));
+    formData.append('photo', photo);
+    return this.http.post(this.baseUrl+'/', formData);
   }
 
   listBuildings(): Observable<any> {
@@ -26,8 +29,11 @@ export class BuildingService {
     return this.http.get(this.baseUrl + '/' + id);
   }
 
-  editBuildings(building: Building): Observable<any> {
-    return this.http.put(this.baseUrl + '/', building);
+  editBuildings(building: Building, photo: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('building', JSON.stringify(building));
+    formData.append('photo', photo);
+    return this.http.put(this.baseUrl + '/', formData);
   }
 
   deleteBuildings(id: number): Observable<any> {

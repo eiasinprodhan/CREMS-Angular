@@ -5,9 +5,7 @@
 <div class="card">
   <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
-      <h5 class="card-title mb-0 text-md-start text-center">
-        Edit Building
-      </h5>
+      <h5 class="card-title mb-0 text-md-start text-center">Edit Building</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end align-items-center">
       <a routerLink="/listbuildings">
@@ -68,7 +66,9 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="siteManager" class="form-label fw-bold">Site Manager</label>
+          <label for="siteManager" class="form-label fw-bold"
+            >Site Manager</label
+          >
           <select
             id="siteManager"
             class="form-select"
@@ -86,7 +86,9 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="floorCount" class="form-label fw-bold">Number of Floors</label>
+          <label for="floorCount" class="form-label fw-bold"
+            >Number of Floors</label
+          >
           <input
             type="number"
             id="floorCount"
@@ -97,7 +99,9 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="unitCount" class="form-label fw-bold">Number of Units</label>
+          <label for="unitCount" class="form-label fw-bold"
+            >Number of Units</label
+          >
           <input
             type="number"
             id="unitCount"
@@ -111,13 +115,26 @@
       <!-- Photo field -->
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label for="photo" class="form-label fw-bold">Photo URL</label>
+          <label for="photo" class="form-label fw-bold">Previous Photo</label>
+
+          <!-- Show existing photo if available -->
+          <div *ngIf="building.photo" class="mb-2">
+            <img
+              [src]="'http://localhost:8080/images/buildings/' + building.photo"
+              alt="Old Photo"
+              class="img-thumbnail"
+              style="max-height: 200px"
+            />
+          </div>
+
+          <!-- File input for new photo -->
+          <label for="photo" class="form-label fw-bold">Upload New Photo</label>
           <input
-            type="text"
+            type="file"
             id="photo"
             class="form-control"
             name="photo"
-            [(ngModel)]="building.photo"
+            (change)="onPhotoSelected($event)"
           />
         </div>
       </div>
