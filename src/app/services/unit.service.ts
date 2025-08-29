@@ -10,11 +10,19 @@ import { environments } from './environments';
 export class UnitService {
   baseUrl: string = environments.apiBaseUrl + '/units';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
-  addUnit(unit: Unit): Observable<any> {
-    return this.http.post(this.baseUrl + '/', unit);
+  addUnit(unit: any, photos: File[]): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('unit', JSON.stringify(unit));
+
+    photos.forEach((photo, index) => {
+      formData.append('photos', photo);
+    });
+
+    return this.http.post(`${this.baseUrl}/`, formData);
   }
 
   listUnits(): Observable<Unit[]> {
@@ -25,8 +33,20 @@ export class UnitService {
     return this.http.get<Unit>(`${this.baseUrl}/${id}`);
   }
 
-  editUnit(unit: Unit): Observable<any> {
-    return this.http.put(this.baseUrl + '/', unit);
+  editUnit(unit: any, photos: File[]): Observable<any> {
+    const formData = new FormData();
+
+    formData.append('unit', JSON.stringify(unit));
+
+    photos.forEach((photo, index) => {
+      formData.append('photos', photo);
+    });
+
+    return this.http.put(`${this.baseUrl}/`, formData);
+  }
+
+  updateUnitForBook(unit: Unit): Observable<any> {
+    return this.http.put(this.baseUrl + '/updateunitforbook', unit);
   }
 
   deleteUnit(id: number): Observable<any> {

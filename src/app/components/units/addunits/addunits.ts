@@ -20,6 +20,8 @@ export class Addunits {
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
+  selectedFiles: File[] = [];  // <-- To hold selected files
+
   constructor(
     private unitService: UnitService,
     private floorService: FloorService,
@@ -37,10 +39,10 @@ export class Addunits {
       area: [0, [Validators.required, Validators.min(1)]],
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
-      isBooked: [false, Validators.required],
+      booked: [false, Validators.required],
       customerId: [0],
       price: [0],
-      photoUrls: this.formBuilder.array([this.createPhotoUrl()])
+      // Removed photoUrls from form since files will be handled separately
     });
 
     this.loadFloors();
@@ -52,28 +54,20 @@ export class Addunits {
         this.floor = data;
 
         this.addUnitForm.patchValue({
-          buildingId: this.floor.building || 0
+          buildingId: this.floor.building || 0,
         });
       },
       error: (err) => {
         console.error('Error loading floor:', err);
-      }
+      },
     });
   }
 
-  createPhotoUrl(): FormGroup {
-    return this.formBuilder.group({
-      url: ['', [Validators.required, Validators.pattern('https?://.+')]],
-    });
-  }
-
-  addPhotoUrl() {
-    const photoUrls = this.addUnitForm.get('photoUrls') as FormArray;
-    photoUrls.push(this.createPhotoUrl());
-  }
-
-  get photoUrls(): FormArray {
-    return this.addUnitForm.get('photoUrls') as FormArray;
+  // Handle file input change event
+  onFileSelected(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFiles = Array.from(event.target.files);  // Store all selected files
+    }
   }
 
   addUnit(): void {
@@ -84,19 +78,10 @@ export class Addunits {
       return;
     }
 
-    const formValue = this.addUnitForm.value;
+    const unit: Unit = this.addUnitForm.value;
 
-    // Map photoUrls from [{url: string}] to string[]
-    const photoUrlsArray = formValue.photoUrls.map((p: { url: string }) => p.url);
-
-    const unit: Unit = {
-      ...formValue,
-      photoUrls: photoUrlsArray,
-    };
-
-    console.log('Submitting unit:', unit);
-
-    this.unitService.addUnit(unit).subscribe({
+    // Call service and pass both unit object and the files array
+    this.unitService.addUnit(unit, this.selectedFiles).subscribe({
       next: () => {
         this.message = 'Unit Added Successfully.';
         this.messageType = 'success';
@@ -104,9 +89,15 @@ export class Addunits {
         this.addUnitForm.reset();
         this.addUnitForm.patchValue({
           floorId: this.floorId,
-          buildingId: this.floor.building || 0
+          buildingId: this.floor.building || 0,
         });
-        this.addUnitForm.setControl('photoUrls', this.formBuilder.array([this.createPhotoUrl()]));
+
+        this.selectedFiles = [];
+        // Reset file input UI (optional)
+        const fileInput = document.getElementById('photoFiles') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = '';
+        }
       },
       error: (err) => {
         console.error(err);
@@ -121,7 +112,5 @@ export class Addunits {
       const control = this.addUnitForm.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
-
-    this.photoUrls.controls.forEach(control => control.markAsTouched());
   }
 }

@@ -8,9 +8,9 @@
       <h5 class="card-title mb-0 text-md-start text-center">Add New Unit</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end align-items-center">
-        <button type="button" class="btn btn-primary" onclick="history.back()">
-          <i class="fa-solid fa-arrow-left mx-1"></i>Return
-        </button>
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
     </div>
   </div>
 
@@ -26,7 +26,10 @@
             formControlName="unitNumber"
             [class.is-invalid]="addUnitForm.get('unitNumber')?.touched && addUnitForm.get('unitNumber')?.invalid"
           />
-          <div *ngIf="addUnitForm.get('unitNumber')?.touched && addUnitForm.get('unitNumber')?.invalid" class="invalid-feedback">
+          <div
+            *ngIf="addUnitForm.get('unitNumber')?.touched && addUnitForm.get('unitNumber')?.invalid"
+            class="invalid-feedback"
+          >
             Unit Number is required.
           </div>
         </div>
@@ -40,7 +43,10 @@
             formControlName="area"
             [class.is-invalid]="addUnitForm.get('area')?.touched && addUnitForm.get('area')?.invalid"
           />
-          <div *ngIf="addUnitForm.get('area')?.touched && addUnitForm.get('area')?.invalid" class="invalid-feedback">
+          <div
+            *ngIf="addUnitForm.get('area')?.touched && addUnitForm.get('area')?.invalid"
+            class="invalid-feedback"
+          >
             Area must be greater than 0.
           </div>
         </div>
@@ -56,7 +62,10 @@
             formControlName="bedrooms"
             [class.is-invalid]="addUnitForm.get('bedrooms')?.touched && addUnitForm.get('bedrooms')?.invalid"
           />
-          <div *ngIf="addUnitForm.get('bedrooms')?.touched && addUnitForm.get('bedrooms')?.invalid" class="invalid-feedback">
+          <div
+            *ngIf="addUnitForm.get('bedrooms')?.touched && addUnitForm.get('bedrooms')?.invalid"
+            class="invalid-feedback"
+          >
             Bedrooms must be greater than 0.
           </div>
         </div>
@@ -70,67 +79,45 @@
             formControlName="bathrooms"
             [class.is-invalid]="addUnitForm.get('bathrooms')?.touched && addUnitForm.get('bathrooms')?.invalid"
           />
-          <div *ngIf="addUnitForm.get('bathrooms')?.touched && addUnitForm.get('bathrooms')?.invalid" class="invalid-feedback">
+          <div
+            *ngIf="addUnitForm.get('bathrooms')?.touched && addUnitForm.get('bathrooms')?.invalid"
+            class="invalid-feedback"
+          >
             Bathrooms must be greater than 0.
           </div>
         </div>
       </div>
 
       <div class="col-md-6 mb-3">
-          <label for="price" class="form-label fw-bold">Price</label>
-          <input
-            type="number"
-            id="price"
-            class="form-control"
-            formControlName="price"
-            [class.is-invalid]="addUnitForm.get('price')?.touched && addUnitForm.get('price')?.invalid"
-          />
-          <div *ngIf="addUnitForm.get('price')?.touched && addUnitForm.get('price')?.invalid" class="invalid-feedback">
-            Bathrooms must be greater than 0.
-          </div>
+        <label for="price" class="form-label fw-bold">Price</label>
+        <input
+          type="number"
+          id="price"
+          class="form-control"
+          formControlName="price"
+          [class.is-invalid]="addUnitForm.get('price')?.touched && addUnitForm.get('price')?.invalid"
+        />
+        <div
+          *ngIf="addUnitForm.get('price')?.touched && addUnitForm.get('price')?.invalid"
+          class="invalid-feedback"
+        >
+          Bathrooms must be greater than 0.
         </div>
+      </div>
 
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label class="form-label fw-bold">Unit Photos (URLs)</label>
-          <div formArrayName="photoUrls">
-            <div
-              *ngFor="let photoUrl of photoUrls.controls; let i = index"
-              [formGroupName]="i"
-              class="mb-2"
-            >
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="url"
-                  placeholder="Enter photo URL"
-                  [class.is-invalid]="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid"
-                />
-                <button
-                  type="button"
-                  class="btn btn-outline-danger"
-                  (click)="photoUrls.removeAt(i)"
-                  *ngIf="photoUrls.length > 1"
-                  title="Remove this photo URL"
-                >
-                  <i class="fas fa-trash"></i>
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-outline-success"
-                  (click)="addPhotoUrl()"
-                  *ngIf="i === photoUrls.length - 1"
-                  title="Add another photo URL"
-                >
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
-              <div *ngIf="photoUrl.get('url')?.touched && photoUrl.get('url')?.invalid" class="invalid-feedback">
-                Please provide a valid URL.
-              </div>
-            </div>
-          </div>
+          <label for="photoFiles" class="form-label fw-bold">Unit Photos</label>
+          <input
+            type="file"
+            id="photoFiles"
+            class="form-control"
+            multiple
+            (change)="onFileSelected($event)"
+          />
+          <small class="form-text text-muted">
+            You can select multiple photos.
+          </small>
         </div>
       </div>
 

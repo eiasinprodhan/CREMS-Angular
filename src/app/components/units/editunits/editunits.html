@@ -1,134 +1,152 @@
-<!-- Unit Details Card -->
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
 <div class="card">
-  <!-- Card Header -->
   <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
       <h5 class="card-title mb-0 text-md-start text-center">Edit Unit</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end align-items-center">
-      <button type="button" class="btn btn-primary" onclick="history.back()">
-        <i class="fa-solid fa-arrow-left mx-1"></i>Return
-      </button>
-    </div>
-  </div>
-
-  <div class="card-body my-5">
-    <form (ngSubmit)="updateUnit()" #unitForm="ngForm">
-      <!-- Unit Number -->
-      <div class="mb-3">
-        <label for="unitNumber" class="form-label">Unit Number</label>
-        <input
-          type="text"
-          id="unitNumber"
-          class="form-control"
-          name="unitNumber"
-          [(ngModel)]="unit.unitNumber"
-          required
-        />
-      </div>
-
-      <!-- Area -->
-      <div class="mb-3">
-        <label for="area" class="form-label">Area (sqft)</label>
-        <input
-          type="number"
-          id="area"
-          class="form-control"
-          name="area"
-          [(ngModel)]="unit.area"
-          required
-        />
-      </div>
-
-      <!-- Bedrooms -->
-      <div class="mb-3">
-        <label for="bedrooms" class="form-label">Bedrooms</label>
-        <input
-          type="number"
-          id="bedrooms"
-          class="form-control"
-          name="bedrooms"
-          [(ngModel)]="unit.bedrooms"
-          required
-        />
-      </div>
-
-      <!-- Bathrooms -->
-      <div class="mb-3">
-        <label for="bathrooms" class="form-label">Bathrooms</label>
-        <input
-          type="number"
-          id="bathrooms"
-          class="form-control"
-          name="bathrooms"
-          [(ngModel)]="unit.bathrooms"
-          required
-        />
-      </div>
-
-      <!-- Booking Status -->
-      <div class="mb-4">
-        <label class="form-label">Booking Status</label>
-        <select class="form-select" name="booked" [(ngModel)]="unit.booked" required>
-          <option [ngValue]="false">Available</option>
-          <option [ngValue]="true">Booked</option>
-        </select>
-      </div>
-
-      <!-- Customer -->
-      <div class="mb-4">
-        <label for="customerId" class="form-label">Customer</label>
-        <select
-          id="customerId"
-          class="form-select"
-          name="customerId"
-          [(ngModel)]="unit.customerId"
-          required
-        >
-          <option [ngValue]="null">-- No Customer --</option>
-          <option *ngFor="let customer of customers" [ngValue]="customer.id">
-            {{ customer.name }}
-          </option>
-        </select>
-      </div>
-
-      <!-- Price -->
-      <div class="mb-5">
-        <label for="price" class="form-label">Price</label>
-        <input
-          type="number"
-          id="price"
-          class="form-control"
-          name="price"
-          [(ngModel)]="unit.price"
-          required
-          min="0"
-          step="0.01"
-          placeholder="Enter price in USD"
-        />
-      </div>
-
-      <!-- Submit Button -->
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!unitForm.form.valid"
-        >
-          Update Unit
+      <a routerLink="/listunits">
+        <button type="button" class="btn btn-primary">
+          <i class="fa-solid fa-arrow-left mx-1"></i>Return
         </button>
-      </div>
-    </form>
-
-    <!-- Optional Success/Failure Message -->
-    <div *ngIf="message" class="mt-3">
-      <div
-        [ngClass]="{
-          'alert alert-success': messageType === 'success',
-          'alert alert-danger': messageType === 'error'
-        }"
-      >
-        {{ message }}
-      </div>
+      </a>
     </div>
   </div>
+
+  <div class="card-body">
+    <form (ngSubmit)="updateUnit()" #unitForm="ngForm">
+      <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+          <label for="unitNumber" class="form-label fw-bold">Unit Number</label>
+          <input
+            type="text"
+            id="unitNumber"
+            class="form-control"
+            name="unitNumber"
+            [(ngModel)]="unit.unitNumber"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="area" class="form-label fw-bold">Area (sqft)</label>
+          <input
+            type="number"
+            id="area"
+            class="form-control"
+            name="area"
+            [(ngModel)]="unit.area"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="bedrooms" class="form-label fw-bold">Bedrooms</label>
+          <input
+            type="number"
+            id="bedrooms"
+            class="form-control"
+            name="bedrooms"
+            [(ngModel)]="unit.bedrooms"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="bathrooms" class="form-label fw-bold">Bathrooms</label>
+          <input
+            type="number"
+            id="bathrooms"
+            class="form-control"
+            name="bathrooms"
+            [(ngModel)]="unit.bathrooms"
+            required
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="price" class="form-label fw-bold">Price</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            name="price"
+            [(ngModel)]="unit.price"
+            required
+            min="0"
+            step="0.01"
+          />
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="booked" class="form-label fw-bold">Booking Status</label>
+          <select
+            class="form-select"
+            id="booked"
+            name="booked"
+            [(ngModel)]="unit.booked"
+            required
+          >
+            <option [ngValue]="false">Available</option>
+            <option [ngValue]="true">Booked</option>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="customerId" class="form-label fw-bold">Customer</label>
+          <select
+            id="customerId"
+            class="form-select"
+            name="customerId"
+            [(ngModel)]="unit.customerId"
+            required
+          >
+            <option [ngValue]="null">-- No Customer --</option>
+            <option *ngFor="let customer of customers" [ngValue]="customer.id">
+              {{ customer.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-12 mb-3" *ngIf="unit.photoUrls?.length">
+          <label class="form-label fw-bold">Existing Photos</label>
+          <div class="d-flex flex-wrap gap-2">
+            <img
+              *ngFor="let photo of unit.photoUrls"
+              [src]="'http://localhost:8080/images/units/' + photo"
+              alt="Unit Photo"
+              class="img-thumbnail"
+              style="max-height: 150px"
+            />
+          </div>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="col-md-12 mb-3">
+          <label for="photo" class="form-label fw-bold"
+            >Upload New Photos</label
+          >
+          <input
+            type="file"
+            id="photo"
+            class="form-control"
+            name="photo"
+            (change)="onPhotosSelected($event)"
+            multiple
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!unitForm.form.valid"
+      >
+        <i class="fa-solid fa-floppy-disk mx-1"></i>Update Unit
+      </button>
+    </form>
+  </div>
+</div>

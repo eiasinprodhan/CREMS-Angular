@@ -7,60 +7,85 @@
       <h5 class="mb-0 text-md-start text-center">Book Unit</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end">
-      <button type="button" class="btn btn-primary" onclick="history.back()">
+      <button type="button" class="btn btn-primary" (click)="goBack()">
         <i class="fa-solid fa-arrow-left me-2"></i>Return
       </button>
     </div>
   </div>
 
   <div class="card-body py-5 px-4 px-md-5">
-    <form (ngSubmit)="updateUnit()" #unitForm="ngForm" novalidate>
-      <!-- Photos Section -->
-      <div
-        id="unitPhotoCarouselWrapper"
-        class="mx-auto mb-4"
-        style="max-width: 500px"
-      >
+    <!-- 📸 Building Photo -->
+    <div class="mb-5">
+      <label for="price" class="form-label">Building Photo</label>
+      <div class="text-center">
+        <img
+          [src]="'http://localhost:8080/images/buildings/' + building.photo"
+          alt="Building Photo"
+          class="img-fluid rounded"
+          style="max-height: 300px; object-fit: cover;"
+        />
+      </div>
+    </div>
+
+    <!-- 🏘️ Unit Photos Grid -->
+    <div class="mb-5">
+      <label for="price" class="form-label">Unit Photos</label>
+      <div class="row g-2">
         <div
-          id="unitPhotoCarousel"
-          class="carousel slide"
-          data-bs-ride="carousel"
+          class="col-6 col-md-4 col-lg-3"
+          *ngFor="let url of unit.photoUrls; let i = index"
         >
-          <div class="carousel-inner">
-            <div
-              *ngFor="let url of unit.photoUrls; let i = index"
-              class="carousel-item"
-              [ngClass]="{ active: i === 0 }"
-            >
-              <img
-                [src]="url"
-                class="d-block w-100"
-                alt="Unit Photo"
-                style="max-height: 250px; object-fit: cover"
-              />
-            </div>
-          </div>
+          <img
+            [src]="'http://localhost:8080/images/units/' + url"
+            alt="Unit Photo"
+            class="img-fluid rounded shadow-sm cursor-pointer"
+            (click)="openLightbox(i)"
+            style="height: 150px; width: 100%; object-fit: cover;"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- 💡 Lightbox Modal -->
+    <div
+      class="lightbox-overlay"
+      *ngIf="lightboxVisible"
+      (click)="closeLightbox()"
+    >
+      <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <button
+          class="btn btn-light position-absolute top-0 end-0 m-3"
+          (click)="closeLightbox()"
+        >
+          &times;
+        </button>
+        <img
+          [src]="'http://localhost:8080/images/units/' + unit.photoUrls[lightboxIndex]"
+          class="img-fluid d-block mx-auto"
+          alt="Full Unit Image"
+          style="max-height: 90vh;"
+        />
+        <div class="d-flex justify-content-between mt-3 px-4">
           <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#unitPhotoCarousel"
-            data-bs-slide="prev"
+            class="btn btn-outline-light"
+            (click)="prevLightbox($event)"
+            [disabled]="lightboxIndex === 0"
           >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            Previous
           </button>
           <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#unitPhotoCarousel"
-            data-bs-slide="next"
+            class="btn btn-outline-light"
+            (click)="nextLightbox($event)"
+            [disabled]="lightboxIndex === unit.photoUrls.length - 1"
           >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            Next
           </button>
         </div>
       </div>
+    </div>
 
+    <!-- 📝 Form -->
+    <form #unitForm="ngForm">
       <!-- Unit Details -->
       <div class="row g-4 mb-4">
         <div class="col-md-6">
@@ -79,7 +104,6 @@
           <label class="form-label">Bathrooms</label>
           <p class="form-control-plaintext">{{ unit.bathrooms }}</p>
         </div>
-        <!-- ✅ Floor & Building Name -->
         <div class="col-md-6">
           <label class="form-label">Floor</label>
           <p class="form-control-plaintext">{{ floor.name || unit.floorId }}</p>
@@ -87,9 +111,9 @@
         <div class="col-md-6">
           <label class="form-label">Building</label>
           <p class="form-control-plaintext">
-            <a routerLink="/viewbuildings/{{building.id}}"
-              >{{ building.name || unit.buildingId }}</a
-            >
+            <a routerLink="/viewbuildings/{{ building.id }}">
+              {{ building.name || unit.buildingId }}
+            </a>
           </p>
         </div>
       </div>
@@ -147,14 +171,14 @@
           class="btn btn-primary"
           type="submit"
           [disabled]="!unitForm.form.valid"
-          (click)="printInvoice()"
+          (click)="updateUnit()"
         >
           Book Unit
         </button>
       </div>
     </form>
 
-    <!-- Success / Error Message -->
+    <!-- Message -->
     <div *ngIf="message" class="mt-4">
       <div
         [ngClass]="{
@@ -164,185 +188,6 @@
         role="alert"
       >
         {{ message }}
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Invoice -->
-
-<!-- Primary Color Invoice with Bottom Signature -->
-<div
-  id="invoiceToPrint"
-  [style.visibility]="'hidden'"
-  [style.position]="'absolute'"
-  [style.left]="'-9999px'"
-  class="text-primary"
-  style="
-    width: 210mm;
-    height: 297mm;
-    padding: 40px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #f3f9ff, #ffffff);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
-    position: relative;
-    overflow: hidden;
-  "
->
-  <!-- Decorative Blurred Circles -->
-  <div
-    style="
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      background: rgba(13, 110, 253, 0.15);
-      filter: blur(80px);
-      border-radius: 50%;
-      top: -60px;
-      left: -60px;
-      z-index: 0;
-    "
-  ></div>
-
-  <div
-    style="
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      background: rgba(13, 110, 253, 0.1);
-      filter: blur(100px);
-      border-radius: 50%;
-      bottom: -100px;
-      right: -100px;
-      z-index: 0;
-    "
-  ></div>
-
-  <!-- Main Content -->
-  <div
-    style="
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    "
-  >
-    <!-- Header -->
-    <!-- Header: Centered CREMS -->
-    <div style="text-align: center; position: relative; margin-bottom: 24px">
-      <div style="display: inline-flex; align-items: center; gap: 10px">
-        <svg
-            width="32"
-            height="22"
-            viewBox="0 0 32 22"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-              fill="currentColor"
-            />
-            <path
-              opacity="0.06"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-              fill="#161616"
-            />
-            <path
-              opacity="0.06"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-              fill="#161616"
-            />
-            <path
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-              fill="currentColor"
-            />
-          </svg>
-        <span class="fs-2 fw-bold text-primary" style="font-size: 28px"
-          >CREMS</span
-        >
-      </div>
-      <p class="fs-5 text-muted mt-2 mb-0">🏠 Unit Booking Invoice</p>
-    </div>
-
-    <!-- Customer Info -->
-    <div class="d-flex justify-content-between mb-4 gap-3">
-      <div *ngIf="selectedCustomer" class="flex-fill">
-        <div class="d-flex align-items-center gap-3">
-          <img
-            [src]="selectedCustomer.photo"
-            alt="{{ selectedCustomer.name }}"
-            class="rounded-circle border border-primary"
-            style="width: 80px; height: 80px; object-fit: cover"
-          />
-          <div>
-            <p class="mb-0 fw-bold">{{ selectedCustomer.name }}</p>
-            <p class="mb-0 text-muted small">{{ selectedCustomer.email }}</p>
-            <p class="mb-0 text-muted small">{{ selectedCustomer.phone }}</p>
-          </div>
-        </div>
-        <p class="mt-2 small">
-          <strong>Address:</strong> {{ selectedCustomer.address }}
-        </p>
-      </div>
-      <div class="flex-fill text-end small">
-        <p><strong>Invoice Date:</strong> {{ today | date: 'mediumDate' }}</p>
-        <p><strong>Invoice No:</strong> INV-{{ unit.unitNumber }}</p>
-      </div>
-    </div>
-
-    <!-- Unit Table -->
-    <table
-      class="table table-bordered rounded overflow-hidden"
-      style="font-size: 15px"
-    >
-      <thead class="bg-primary text-white">
-        <tr>
-          <th class="p-2 text-center">Unit Number</th>
-          <th class="p-2 text-center">Building</th>
-          <th class="p-2 text-center">Floor</th>
-          <th class="p-2 text-center">Area (sqft)</th>
-          <th class="p-2 text-center">Bedrooms</th>
-          <th class="p-2 text-center">Bathrooms</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-white">
-          <td class="text-center p-2">{{ unit.unitNumber }}</td>
-          <td class="text-center p-2">
-            {{ building.name || unit.buildingId }}
-          </td>
-          <td class="text-center p-2">{{ floor.name || unit.floorId }}</td>
-          <td class="text-end p-2">{{ unit.area }}</td>
-          <td class="text-end p-2">{{ unit.bedrooms }}</td>
-          <td class="text-end p-2">{{ unit.bathrooms }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Spacer -->
-    <div class="flex-grow-1"></div>
-
-    <!-- Signature -->
-    <div
-      style="position: absolute; bottom: 40px; right: 40px; text-align: center"
-    >
-      <div
-        class="border-top border-2 border-primary"
-        style="width: 200px; padding-top: 6px"
-      >
-        <p class="mb-0 text-primary small">
-          <strong>Authorized Signature</strong>
-        </p>
       </div>
     </div>
   </div>

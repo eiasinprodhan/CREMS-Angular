@@ -13,11 +13,12 @@ import { CustomerService } from '../../../services/customer.service';
   templateUrl: './editunits.html',
   styleUrl: './editunits.css'
 })
-export class Editunits implements OnInit{
+export class Editunits implements OnInit {
   id!: number;
   unit: Unit = new Unit();
   floors: Floor[] = [];
   customers: Customer[] = [];
+  selectedPhotos: File[] = [];
 
   message: string = '';
   messageType: string = '';
@@ -36,7 +37,6 @@ export class Editunits implements OnInit{
     this.loadUnit();
     this.loadFloors();
     this.loadCustomers();
-    this.cdr.markForCheck();
   }
 
   loadUnit(): void {
@@ -49,7 +49,7 @@ export class Editunits implements OnInit{
       error: (err) => {
         console.error('Failed to load unit:', err);
         this.message = 'Failed to load unit.';
-        this.messageType = 'error';
+        this.messageType = 'danger';
       }
     });
   }
@@ -62,14 +62,22 @@ export class Editunits implements OnInit{
   }
 
   loadCustomers(): void {
-    this.customerService.listCustomers().subscribe({
-      next: (data) => this.customers = data,
-      error: (err) => console.error('Failed to load customers:', err)
-    });
+  this.customerService.listCustomers().subscribe({
+    next: (data) => {
+      this.customers = data;
+      this.cdr.markForCheck();
+    },
+    error: (err) => console.error('Failed to load customers:', err)
+  });
+}
+
+
+  onPhotosSelected(event: any): void {
+    this.selectedPhotos = Array.from(event.target.files);
   }
 
   updateUnit(): void {
-    this.unitService.editUnit(this.unit).subscribe({
+    this.unitService.editUnit(this.unit, this.selectedPhotos).subscribe({
       next: () => {
         this.message = 'Unit updated successfully!';
         this.messageType = 'success';
@@ -78,8 +86,9 @@ export class Editunits implements OnInit{
       error: (err) => {
         console.error('Failed to update unit:', err);
         this.message = 'Failed to update unit.';
-        this.messageType = 'error';
+        this.messageType = 'danger';
       }
     });
   }
 }
+
