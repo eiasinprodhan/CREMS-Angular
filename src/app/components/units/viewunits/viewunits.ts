@@ -17,19 +17,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Viewunits implements OnInit{
   id!: number;
-  unit: Unit = new Unit();
-  customer: Customer = new Customer();
-  floor: Floor = new Floor();
-  building: Building = new Building();
+  unit: any = {};
+  building: any = {};
+  floor: any = {};
+  isModalOpen: boolean = false;
+  currentIndex: number = 0;
 
   constructor(
     private unitService: UnitService,
-    private customerService: CustomerService,
     private floorService: FloorService,
     private buildingService: BuildingService,
     private ar: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
-    private router: Router
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -41,47 +40,16 @@ export class Viewunits implements OnInit{
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
         this.unit = data;
-
-        if (this.unit.customerId) {
-          this.loadCustomer(this.unit.customerId);
-        }
-
-        if (this.unit.floorId) {
-          this.loadFloor(this.unit.floorId);
-        }
-
         if (this.unit.buildingId) {
           this.loadBuilding(this.unit.buildingId);
         }
-
+        if (this.unit.floorId) {
+          this.loadFloor(this.unit.floorId);
+        }
         this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Error loading unit:', error);
-      }
-    });
-  }
-
-  loadCustomer(id: number): void {
-    this.customerService.viewCustomers(id).subscribe({
-      next: (data) => {
-        this.customer = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading customer:', error);
-      }
-    });
-  }
-
-  loadFloor(id: number): void {
-    this.floorService.viewFloors(id).subscribe({
-      next: (data) => {
-        this.floor = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading floor:', error);
       }
     });
   }
@@ -98,8 +66,41 @@ export class Viewunits implements OnInit{
     });
   }
 
-  getBookingClass(isBooked: boolean): string {
-    return isBooked ? 'bg-success' : 'bg-secondary';
+  loadFloor(id: number): void {
+    this.floorService.viewFloors(id).subscribe({
+      next: (data) => {
+        this.floor = data;
+        this.cdr.markForCheck();
+      },
+      error: (error) => {
+        console.error('Error loading floor:', error);
+      }
+    });
+  }
+
+  openFullScreenModal(index: number): void {
+    this.isModalOpen = true;
+    this.currentIndex = index;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  nextImage(): void {
+    if (this.currentIndex < this.unit.photoUrls.length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0;  // Loop back to the first image
+    }
+  }
+
+  prevImage(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.unit.photoUrls.length - 1;  // Loop back to the last image
+    }
   }
   
 }

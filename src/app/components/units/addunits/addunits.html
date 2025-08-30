@@ -88,6 +88,7 @@
         </div>
       </div>
 
+      <div class="row">
       <div class="col-md-6 mb-3">
         <label for="price" class="form-label fw-bold">Price</label>
         <input
@@ -101,8 +102,27 @@
           *ngIf="addUnitForm.get('price')?.touched && addUnitForm.get('price')?.invalid"
           class="invalid-feedback"
         >
-          Bathrooms must be greater than 0.
+          Price must be greater than 0.
         </div>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="interestRate" class="form-label fw-bold">Interest Rate</label>
+        <input
+          type="number"
+          id="interestRate"
+          class="form-control"
+          formControlName="interestRate"
+          [class.is-invalid]="addUnitForm.get('interestRate')?.touched && addUnitForm.get('interestRate')?.invalid"
+        />
+        <div
+          *ngIf="addUnitForm.get('interestRate')?.touched && addUnitForm.get('interestRate')?.invalid"
+          class="invalid-feedback"
+        >
+          Interest Rate be greater than 0.
+        </div>
+      </div>
+
       </div>
 
       <div class="row">

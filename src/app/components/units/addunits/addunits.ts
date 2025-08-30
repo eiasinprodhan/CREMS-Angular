@@ -40,8 +40,8 @@ export class Addunits {
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
       booked: [false, Validators.required],
-      customerId: [0],
-      price: [0],
+      price: [0, Validators.required],
+      interestRate: [0, Validators.required]
       // Removed photoUrls from form since files will be handled separately
     });
 

@@ -1,0 +1,28 @@
+/* Fullscreen Modal Background */
+.fullscreen-modal .modal-content {
+  background-color: black;
+  border: none;
+  border-radius: 0;
+}
+
+.fullscreen-modal .modal-body {
+  padding: 0;
+}
+
+/* Center the image in full screen */
+.fullscreen-modal .modal-body img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  margin: auto;
+}
+
+/* Dark Overlay behind the modal */
+.fullscreen-modal {
+  background-color: rgba(0, 0, 0, 0.8);  /* Semi-transparent black */
+}
+
+/* Close, Previous, and Next Buttons */
+.modal-footer button {
+  color: white;
+}

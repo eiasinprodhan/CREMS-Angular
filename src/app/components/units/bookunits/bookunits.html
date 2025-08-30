@@ -1,82 +1,65 @@
 <div class="card">
-  <!-- Card Header -->
-  <div
-    class="row card-header flex-column flex-md-row align-items-center mx-0 px-3"
-  >
+  <div class="row card-header flex-column flex-md-row align-items-center mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
       <h5 class="mb-0 text-md-start text-center">Book Unit</h5>
     </div>
     <div class="col-md-auto d-flex justify-content-end">
-      <button type="button" class="btn btn-primary" (click)="goBack()">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
         <i class="fa-solid fa-arrow-left me-2"></i>Return
       </button>
     </div>
   </div>
 
   <div class="card-body py-5 px-4 px-md-5">
-    <!-- 📸 Building Photo -->
-    <div class="mb-5">
-      <label for="price" class="form-label">Building Photo</label>
+    <!-- Building Photo -->
+    <div class="mb-5" *ngIf="building?.photo">
+      <label class="form-label">Building Photo</label>
       <div class="text-center">
         <img
           [src]="'http://localhost:8080/images/buildings/' + building.photo"
           alt="Building Photo"
           class="img-fluid rounded"
-          style="max-height: 300px; object-fit: cover;"
+          style="max-height: 300px; object-fit: cover"
         />
       </div>
     </div>
 
-    <!-- 🏘️ Unit Photos Grid -->
-    <div class="mb-5">
-      <label for="price" class="form-label">Unit Photos</label>
+    <!-- Unit Photos Grid -->
+    <div class="mb-5" *ngIf="unit?.photoUrls?.length">
+      <label class="form-label">Unit Photos</label>
       <div class="row g-2">
-        <div
-          class="col-6 col-md-4 col-lg-3"
-          *ngFor="let url of unit.photoUrls; let i = index"
-        >
+        <div class="col-6 col-md-4 col-lg-3" *ngFor="let url of (unit.photoUrls || []); let i = index">
           <img
             [src]="'http://localhost:8080/images/units/' + url"
             alt="Unit Photo"
             class="img-fluid rounded shadow-sm cursor-pointer"
             (click)="openLightbox(i)"
-            style="height: 150px; width: 100%; object-fit: cover;"
+            style="height: 150px; width: 100%; object-fit: cover"
           />
         </div>
       </div>
     </div>
 
-    <!-- 💡 Lightbox Modal -->
-    <div
-      class="lightbox-overlay"
-      *ngIf="lightboxVisible"
-      (click)="closeLightbox()"
-    >
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" *ngIf="lightboxVisible" (click)="closeLightbox()">
       <div class="lightbox-content" (click)="$event.stopPropagation()">
-        <button
-          class="btn btn-light position-absolute top-0 end-0 m-3"
-          (click)="closeLightbox()"
-        >
+        <button class="btn btn-light position-absolute top-0 end-0 m-3" (click)="$event.stopPropagation(); closeLightbox()">
           &times;
         </button>
         <img
           [src]="'http://localhost:8080/images/units/' + unit.photoUrls[lightboxIndex]"
           class="img-fluid d-block mx-auto"
           alt="Full Unit Image"
-          style="max-height: 90vh;"
+          style="max-height: 90vh"
         />
         <div class="d-flex justify-content-between mt-3 px-4">
-          <button
-            class="btn btn-outline-light"
-            (click)="prevLightbox($event)"
-            [disabled]="lightboxIndex === 0"
-          >
+          <button class="btn btn-outline-light" (click)="prevLightbox($event)" [disabled]="lightboxIndex === 0">
             Previous
           </button>
           <button
             class="btn btn-outline-light"
             (click)="nextLightbox($event)"
-            [disabled]="lightboxIndex === unit.photoUrls.length - 1"
+            [disabled]="!unit?.photoUrls?.length || lightboxIndex === unit.photoUrls.length - 1"
           >
             Next
           </button>
@@ -84,111 +67,175 @@
       </div>
     </div>
 
-    <!-- 📝 Form -->
-    <form #unitForm="ngForm">
-      <!-- Unit Details -->
+    <!-- Form -->
+    <form [formGroup]="bookingForm" (ngSubmit)="bookUnit()">
+      <!-- Unit/Location details (read-only) -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <label class="form-label">Building</label>
+          <div class="input-group">
+            <span class="input-group-text">ID</span>
+            <input class="form-control" formControlName="buildingId" readonly />
+            <span class="input-group-text">Name</span>
+            <input class="form-control" [value]="building?.name || ''" readonly />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Floor</label>
+          <div class="input-group">
+            <span class="input-group-text">ID</span>
+            <input class="form-control" formControlName="floorId" readonly />
+            <span class="input-group-text">Name</span>
+            <input class="form-control" [value]="floor?.name || ''" readonly />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Unit</label>
+          <div class="input-group">
+            <span class="input-group-text">ID</span>
+            <input class="form-control" formControlName="unitId" readonly />
+            <span class="input-group-text">No.</span>
+            <input class="form-control" [value]="unit?.unitNumber || ''" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking meta -->
       <div class="row g-4 mb-4">
         <div class="col-md-6">
-          <label class="form-label">Unit Number</label>
-          <p class="form-control-plaintext">{{ unit.unitNumber }}</p>
+          <label for="customerId" class="form-label">Customer</label>
+          <select id="customerId" class="form-select" formControlName="customerId" required>
+            <option [ngValue]="null">-- Select Customer --</option>
+            <option *ngFor="let c of customers" [ngValue]="c.id">
+              {{ c?.name || ('ID: ' + c?.id) }}
+            </option>
+          </select>
+          <div *ngIf="bookingForm.get('customerId')?.invalid && bookingForm.get('customerId')?.touched" class="text-danger">
+            Customer is required.
+          </div>
         </div>
-        <div class="col-md-6">
-          <label class="form-label">Area (sqft)</label>
-          <p class="form-control-plaintext">{{ unit.area }}</p>
+
+        <div class="col-md-3">
+          <label for="date" class="form-label">Booking Date</label>
+          <input id="date" type="date" class="form-control" formControlName="date" required />
         </div>
-        <div class="col-md-6">
-          <label class="form-label">Bedrooms</label>
-          <p class="form-control-plaintext">{{ unit.bedrooms }}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Bathrooms</label>
-          <p class="form-control-plaintext">{{ unit.bathrooms }}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Floor</label>
-          <p class="form-control-plaintext">{{ floor.name || unit.floorId }}</p>
-        </div>
-        <div class="col-md-6">
-          <label class="form-label">Building</label>
-          <p class="form-control-plaintext">
-            <a routerLink="/viewbuildings/{{ building.id }}">
-              {{ building.name || unit.buildingId }}
-            </a>
-          </p>
+
+        <div class="col-md-3">
+          <label for="isLoan" class="form-label">Payment System</label>
+          <select id="isLoan" class="form-select" formControlName="isLoan" required>
+            <option [ngValue]="null">-- Select Payment --</option>
+            <option [ngValue]="false">Full Payment</option>
+            <option [ngValue]="true">Loan</option>
+          </select>
+          <div *ngIf="bookingForm.get('isLoan')?.invalid && bookingForm.get('isLoan')?.touched" class="text-danger">
+            Payment System is required.
+          </div>
         </div>
       </div>
 
-      <!-- Booking Status -->
-      <div class="mb-4">
-        <label class="form-label">Booking Status</label>
-        <select
-          class="form-select"
-          name="booked"
-          [(ngModel)]="unit.booked"
-          required
-        >
-          <option [ngValue]="false">Available</option>
-          <option [ngValue]="true">Booked</option>
-        </select>
+      <!-- Financials -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-3">
+          <label for="amount" class="form-label">Unit Price</label>
+          <input type="number" id="amount" class="form-control" formControlName="amount" min="0" step="0.01" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="discount" class="form-label">Discount (%)</label>
+          <input type="number" id="discount" class="form-control" formControlName="discount" min="0" step="0.01" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="downPayment" class="form-label">Down Payment</label>
+          <input type="number" id="downPayment" class="form-control" formControlName="downPayment" min="0" step="0.01" />
+        </div>
+
+        <div class="col-md-3">
+          <label for="dueAmount" class="form-label">Due Amount</label>
+          <input type="number" id="dueAmount" class="form-control" formControlName="dueAmount" readonly />
+        </div>
       </div>
 
-      <!-- Customer -->
-      <div class="mb-4">
-        <label for="customerId" class="form-label">Customer</label>
-        <select
-          id="customerId"
-          class="form-select"
-          name="customerId"
-          [(ngModel)]="unit.customerId"
-          required
-        >
-          <option [ngValue]="null">-- No Customer --</option>
-          <option *ngFor="let customer of customers" [ngValue]="customer.id">
-            {{ customer.name }}
-          </option>
-        </select>
+      <!-- Loan-only inputs -->
+      <div *ngIf="isLoanSelected" class="row g-4 mb-4">
+        <div class="col-md-4">
+          <label for="interestRate" class="form-label">Interest Rate (%/year)</label>
+          <input type="number" id="interestRate" class="form-control" formControlName="interestRate" min="0" step="0.01" required />
+          <div *ngIf="bookingForm.get('interestRate')?.invalid && bookingForm.get('interestRate')?.touched" class="text-danger">
+            Interest Rate is required.
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label for="year" class="form-label">Loan Years</label>
+          <input type="number" id="year" class="form-control" formControlName="year" min="1" step="1" required />
+          <div *ngIf="bookingForm.get('year')?.invalid && bookingForm.get('year')?.touched" class="text-danger">
+            Loan Years are required.
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label for="emi" class="form-label">EMI (Monthly)</label>
+          <input type="number" id="emi" class="form-control" formControlName="emi" readonly />
+        </div>
       </div>
 
-      <!-- Price -->
-      <div class="mb-5">
-        <label for="price" class="form-label">Price</label>
-        <input
-          type="number"
-          id="price"
-          class="form-control"
-          name="price"
-          [(ngModel)]="unit.price"
-          required
-          min="0"
-          step="0.01"
-          placeholder="Enter price in USD"
-        />
+      <!-- Live Summary -->
+      <div class="row g-3 mb-4">
+        <div class="col-12">
+          <div class="p-3 border rounded bg-light">
+            <div class="row g-3">
+              <div class="col-md-3">
+                <strong>Building:</strong> {{ building?.name || '-' }}
+              </div>
+              <div class="col-md-3">
+                <strong>Floor:</strong> {{ floor?.name || '-' }}
+              </div>
+              <div class="col-md-3">
+                <strong>Unit No.:</strong> {{ unit?.unitNumber || '-' }}
+              </div>
+              <div class="col-md-3">
+                <strong>Booking Date:</strong> {{ bookingForm.get('date')?.value || '-' }}
+              </div>
+
+              <div class="col-md-3">
+                <strong>Amount:</strong> {{ bookingForm.get('amount')?.value || 0 }}
+              </div>
+              <div class="col-md-3">
+                <strong>Discount:</strong> {{ bookingForm.get('discount')?.value || 0 }}
+              </div>
+              <div class="col-md-3">
+                <strong>Down Payment:</strong> {{ bookingForm.get('downPayment')?.value || 0 }}
+              </div>
+              <div class="col-md-3">
+                <strong>Principal:</strong> {{ principal }}
+              </div>
+
+              <div class="col-md-3" *ngIf="isLoanSelected">
+                <strong>Months:</strong> {{ months || 0 }}
+              </div>
+              <div class="col-md-3" *ngIf="isLoanSelected">
+                <strong>Interest (%/yr):</strong> {{ bookingForm.get('interestRate')?.value || 0 }}
+              </div>
+              <div class="col-md-3" *ngIf="isLoanSelected">
+                <strong>EMI:</strong> {{ bookingForm.get('emi')?.value || 0 }}
+              </div>
+              <div class="col-md-3">
+                <strong>Due Amount:</strong> {{ bookingForm.get('dueAmount')?.value || 0 }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Submit Button -->
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!unitForm.form.valid"
-          (click)="updateUnit()"
-        >
+      <!-- Submit -->
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">
           Book Unit
         </button>
       </div>
     </form>
-
-    <!-- Message -->
-    <div *ngIf="message" class="mt-4">
-      <div
-        [ngClass]="{
-          'alert alert-success': messageType === 'success',
-          'alert alert-danger': messageType === 'error'
-        }"
-        role="alert"
-      >
-        {{ message }}
-      </div>
-    </div>
   </div>
 </div>

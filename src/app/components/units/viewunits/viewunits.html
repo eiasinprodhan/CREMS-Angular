@@ -1,6 +1,5 @@
 <!-- Unit Details Card -->
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-
   <!-- Card Header -->
   <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
@@ -17,34 +16,33 @@
   <div class="card-body px-4 py-5">
     <div *ngIf="unit && unit.unitNumber; else loadingTemplate">
 
-      <!-- Carousel -->
-      <div id="unitPhotoCarouselWrapper" class="mx-auto mb-5" style="max-width: 500px;">
-        <div id="unitPhotoCarousel" class="carousel slide rounded-3 shadow-sm" data-bs-ride="carousel">
-          <div class="carousel-inner rounded-3 overflow-hidden">
-            <div 
-              *ngFor="let url of unit.photoUrls; let i = index" 
-              class="carousel-item" 
-              [ngClass]="{ active: i === 0 }">
-              <img 
-                [src]="'http://localhost:8080/images/units/' + url" 
-                class="d-block w-100" 
-                alt="{{ url }}" 
-                style="max-height: 300px; object-fit: cover;" />
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#unitPhotoCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+      <!-- Building Photo (Top) -->
+       <h6 class="text-muted">Building Photo</h6>
+      <div class="mx-auto mb-5" style="max-width: 500px;">
+        <img 
+          [src]="'http://localhost:8080/images/buildings/' + building.photo" 
+          class="d-block w-100 rounded-3" 
+          alt="Building Photo" 
+          style="max-height: 300px; object-fit: cover;" />
+      </div>
+
+      <!-- Unit Photos Gallery -->
+      <div id="unitPhotoGallery" class="row g-3">
+        <div class="col-12 mb-4">
+          <h6 class="text-muted">Unit Photos</h6>
+        </div>
+        <div class="col-4" *ngFor="let url of unit.photoUrls; let i = index">
+          <img 
+            [src]="'http://localhost:8080/images/units/' + url" 
+            class="img-thumbnail" 
+            alt="{{ url }}" 
+            style="cursor: pointer; max-height: 200px; object-fit: cover;" 
+            (click)="openFullScreenModal(i)" />
         </div>
       </div>
 
       <!-- Unit Details -->
-      <div class="row g-4">
+      <div class="row g-4 my-5">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Unit ID</label>
           <div class="text-secondary">{{ unit.id }}</div>
@@ -53,7 +51,9 @@
           <label class="form-label text-primary fw-semibold">Unit Number</label>
           <div class="text-secondary">{{ unit.unitNumber }}</div>
         </div>
+      </div>
 
+      <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Area (sqft)</label>
           <div class="text-secondary">{{ unit.area }}</div>
@@ -62,7 +62,9 @@
           <label class="form-label text-primary fw-semibold">Bedrooms</label>
           <div class="text-secondary">{{ unit.bedrooms }}</div>
         </div>
+      </div>
 
+      <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Bathrooms</label>
           <div class="text-secondary">{{ unit.bathrooms }}</div>
@@ -71,12 +73,14 @@
           <label class="form-label text-primary fw-semibold">Booking Status</label>
           <div>
             <span class="badge px-3 py-2 fs-6"
-              [ngClass]="unit.booked ? 'bg-success' : 'bg-warning text-dark'">
+              [ngClass]="unit.booked ? 'bg-success rounded-pill' : 'bg-warning text-dark  rounded-pill'">
               {{ unit.booked ? 'Booked' : 'Available' }}
             </span>
           </div>
         </div>
+      </div>
 
+      <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Floor</label>
           <div class="text-secondary">{{ floor.name || unit.floorId }}</div>
@@ -91,11 +95,20 @@
             </a>
           </div>
         </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label text-primary fw-semibold">Price</label>
+          <div class="text-secondary">
+            {{ unit.price }}
+          </div>
+        </div>
 
         <div class="col-md-6">
-          <label class="form-label text-primary fw-semibold">Customer</label>
+          <label class="form-label text-primary fw-semibold">Interest Rate</label>
           <div class="text-secondary">
-            <a routerLink="/viewcustomers/{{customer.id}}"> {{customer.name || 'N/A' }}</a>
+            {{ unit.interestRate + '%' }}
           </div>
         </div>
       </div>
@@ -107,5 +120,24 @@
         Loading unit data or no data available.
       </div>
     </ng-template>
+  </div>
+</div>
+
+<!-- Fullscreen Modal for Viewing Unit Photos -->
+<div *ngIf="isModalOpen" class="modal fade show d-block fullscreen-modal" tabindex="-1" aria-labelledby="fullscreenModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <img 
+          [src]="'http://localhost:8080/images/units/' + unit.photoUrls[currentIndex]" 
+          class="img-fluid" 
+          alt="Full Screen Image" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="prevImage()">Previous</button>
+        <button type="button" class="btn btn-primary" (click)="nextImage()">Next</button>
+      </div>
+    </div>
   </div>
 </div>

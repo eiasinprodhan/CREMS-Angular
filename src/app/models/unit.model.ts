@@ -7,7 +7,6 @@ export class Unit {
   bedrooms!: number;
   bathrooms!: number;
   booked!: boolean;
-  customerId!: number;
   photoUrls!: string[];
   price!: number;
   interestRate!: number;

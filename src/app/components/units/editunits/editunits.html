@@ -42,7 +42,9 @@
             required
           />
         </div>
+      </div>
 
+      <div class="row mt-4">
         <div class="col-md-6 mb-3">
           <label for="bedrooms" class="form-label fw-bold">Bedrooms</label>
           <input
@@ -66,7 +68,9 @@
             required
           />
         </div>
+      </div>
 
+      <div class="row mt-4">
         <div class="col-md-6 mb-3">
           <label for="price" class="form-label fw-bold">Price</label>
           <input
@@ -94,22 +98,41 @@
             <option [ngValue]="true">Booked</option>
           </select>
         </div>
+      </div>
 
+      <div class="row mt-4">
         <div class="col-md-6 mb-3">
-          <label for="customerId" class="form-label fw-bold">Customer</label>
-          <select
-            id="customerId"
-            class="form-select"
-            name="customerId"
-            [(ngModel)]="unit.customerId"
-            required
+          <label for="interestRate" class="form-label fw-bold"
+            >Interest Rate</label
           >
-            <option [ngValue]="null">-- No Customer --</option>
-            <option *ngFor="let customer of customers" [ngValue]="customer.id">
-              {{ customer.name }}
-            </option>
-          </select>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            name="price"
+            [(ngModel)]="unit.interestRate"
+            required
+            min="0"
+            step="0.01"
+          />
         </div>
+
+        <!-- Photo Upload -->
+        <div class="col-md-6 mb-3">
+          <label for="photo" class="form-label fw-bold"
+            >Upload New Photos</label
+          >
+          <input
+            type="file"
+            id="photo"
+            class="form-control"
+            name="photo"
+            (change)="onPhotosSelected($event)"
+            multiple
+          />
+        </div>
+
+        <div class="row mt-4"></div>
 
         <div class="col-md-12 mb-3" *ngIf="unit.photoUrls?.length">
           <label class="form-label fw-bold">Existing Photos</label>
@@ -122,21 +145,6 @@
               style="max-height: 150px"
             />
           </div>
-        </div>
-
-        <!-- Photo Upload -->
-        <div class="col-md-12 mb-3">
-          <label for="photo" class="form-label fw-bold"
-            >Upload New Photos</label
-          >
-          <input
-            type="file"
-            id="photo"
-            class="form-control"
-            name="photo"
-            (change)="onPhotosSelected($event)"
-            multiple
-          />
         </div>
       </div>
 
