@@ -10,4 +10,5 @@ export class Unit {
   customerId!: number;
   photoUrls!: string[];
   price!: number;
+  interestRate!: number;
 }
