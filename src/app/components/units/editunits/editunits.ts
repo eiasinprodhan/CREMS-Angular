@@ -42,7 +42,6 @@ export class Editunits implements OnInit {
   loadUnit(): void {
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
-        // Deep clone to avoid binding issues
         this.unit = JSON.parse(JSON.stringify(data));
         this.unit.id = this.id;
         this.cdr.markForCheck();
@@ -77,8 +76,7 @@ export class Editunits implements OnInit {
   }
 
   updateUnit(): void {
-    console.log('Updating unit:', this.unit.unitNumber); // Debug current value
-    this.unitService.editUnit(this.unit, this.selectedPhotos).subscribe({
+    this.unitService.editUnit(this.unit, this.selectedPhotos || []).subscribe({
       next: () => {
         this.message = 'Unit updated successfully!';
         this.messageType = 'success';

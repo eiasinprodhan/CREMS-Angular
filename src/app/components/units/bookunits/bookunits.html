@@ -178,7 +178,7 @@
 
         <div class="col-md-4">
           <label for="emi" class="form-label">EMI (Monthly)</label>
-          <input type="number" id="emi" class="form-control" formControlName="emi" readonly />
+          <input type="number" id="emi" class="form-control" formControlName="emiAmount" readonly />
         </div>
       </div>
 
@@ -220,7 +220,7 @@
                 <strong>Interest (%/yr):</strong> {{ bookingForm.get('interestRate')?.value || 0 }}
               </div>
               <div class="col-md-3" *ngIf="isLoanSelected">
-                <strong>EMI:</strong> {{ bookingForm.get('emi')?.value || 0 }}
+                <strong>EMI:</strong> {{ bookingForm.get('emiAmount')?.value || 0 }}
               </div>
               <div class="col-md-3">
                 <strong>Due Amount:</strong> {{ bookingForm.get('dueAmount')?.value || 0 }}

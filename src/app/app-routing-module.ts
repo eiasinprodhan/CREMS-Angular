@@ -47,6 +47,7 @@ import { Viewcustomers } from './components/customers/viewcustomers/viewcustomer
 import { Editcustomers } from './components/customers/editcustomers/editcustomers';
 import { Addtransactions } from './components/transactions/addtransactions/addtransactions';
 import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
+import { Listbooking } from './components/units/listbooking/listbooking';
 
 
 
@@ -97,6 +98,7 @@ const routes: Routes = [
   { path: 'viewunits/:id', component: Viewunits },
   { path: 'editunits/:id', component: Editunits },
   { path: 'bookunit/:id', component: Bookunits },
+  { path: 'listbooking', component: Listbooking },
 
   // Raw Materials
   { path: 'stockin', component: Addrawmaterials },

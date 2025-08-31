@@ -12,4 +12,5 @@ export class Booking {
     amount!: number;
     discount!: number;
     dueAmount!: number;
+    emiAmount!: number;
 }

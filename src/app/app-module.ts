@@ -54,6 +54,8 @@ import { Editcustomers } from './components/customers/editcustomers/editcustomer
 import { Viewcustomers } from './components/customers/viewcustomers/viewcustomers';
 import { Addtransactions } from './components/transactions/addtransactions/addtransactions';
 import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
+import { Listbooking } from './components/units/listbooking/listbooking';
+import { Viewbooking } from './components/units/viewbooking/viewbooking';
 
 @NgModule({
   declarations: [
@@ -106,7 +108,9 @@ import { Edittransactions } from './components/transactions/edittransactions/edi
     Editcustomers,
     Viewcustomers,
     Addtransactions,
-    Edittransactions
+    Edittransactions,
+    Listbooking,
+    Viewbooking
   ],
   imports: [
     BrowserModule,
