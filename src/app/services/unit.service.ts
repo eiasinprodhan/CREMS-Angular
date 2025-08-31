@@ -53,4 +53,8 @@ export class UnitService {
     return this.http.delete(this.baseUrl + '/' + id);
   }
 
+  getUnitByBuildingId(buildingId: number): Observable<any> {
+    return this.http.get(this.baseUrl + '/productdetails/' + buildingId);
+  }
+
 }

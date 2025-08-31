@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
-import { AuthService } from './services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -9,21 +8,25 @@ import { AuthService } from './services/auth.service';
   standalone: false,
   styleUrl: './app.css',
 })
-export class App implements OnInit {
+export class App {
   protected title = 'CREM-Angular';
-  role: string | null = null;
+  showHeader = true;
 
-  constructor(
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const hiddenRoutes = ['/', '/signin', '/signup', '/products'];
 
-  ngOnInit(): void {
-    this.getRole();
-    this.cdr.detectChanges();
+        // Add dynamic check for product details
+        const isProductDetails = event.url.startsWith('/productdetails/');
+
+        this.showHeader = !(
+          hiddenRoutes.includes(event.url) || isProductDetails
+        );
+      }
+    });
+
+
   }
 
-  getRole(): void {
-    this.role = this.authService.getEmployeeRole();
-  }
 }

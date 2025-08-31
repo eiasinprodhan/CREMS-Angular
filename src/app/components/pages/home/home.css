@@ -1,0 +1,36 @@
+/* Hover underline effect */
+  .hover-underline {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .hover-underline::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 5px;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.3s ease;
+  }
+  .hover-underline:hover::after,
+  .hover-underline.active::after {
+    width: 100%;
+  }
+
+  /* Button hover effect */
+  .btn-outline-light:hover {
+    background-color: #fff;
+    color: #764ba2 !important;
+    box-shadow: 0 8px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Navbar link hover color */
+  .nav-link:hover {
+    color: #ffd700 !important; /* gold/yellow highlight */
+  }
+
+  /* Add some top padding to body to prevent content hidden under fixed navbar */
+  body {
+    padding-top: 70px; /* Adjust depending on navbar height + 5px gap */
+  }

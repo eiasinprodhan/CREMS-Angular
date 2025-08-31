@@ -67,15 +67,15 @@ export class Bookunits implements OnInit {
       isLoan: [null, Validators.required],
 
       // Financials
-      amount: [null, [Validators.min(0)]],
-      discount: [0, [Validators.min(0)]],
-      downPayment: [0, [Validators.min(0)]],
+      amount: [0],
+      discount: [0],
+      downPayment: [0],
       dueAmount: [0], // calculated
 
       // Loan-only
-      interestRate: [null],
-      year: [null],
-      emi: [null], // calculated (not sent to backend)
+      interestRate: [0],
+      year: [0],
+      emi: [0], // calculated (not sent to backend)
     });
 
     // Toggle validators when payment system changes

@@ -57,7 +57,7 @@ const routes: Routes = [
   // Pages
   { path: '', component: Home },
   { path: 'products', component: Products },
-  { path: 'productdetails', component: Productdetails },
+  { path: 'productdetails/:id', component: Productdetails },
   { path: 'signin', component: Signin },
   { path: 'signup', component: Signup },
   { path: 'signout', component: Signout },

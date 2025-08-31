@@ -1,0 +1,17 @@
+/* When sidebar/header is hidden */
+.no-header .layout-wrapper,
+.no-header .layout-container,
+.no-header .layout-page,
+.no-header .content-wrapper,
+.no-header .container-xxl,
+.no-header .row {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Optional: fix spacing for content inside router-outlet */
+.no-header .container-p-y {
+  padding: 0 !important;
+}

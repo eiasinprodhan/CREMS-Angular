@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BuildingService } from '../../../services/building.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -6,6 +8,27 @@ import { Component } from '@angular/core';
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
-export class Products {
+export class Products implements OnInit{
+
+  buildings!: any;
+
+  constructor(
+    private buildingService: BuildingService,
+    private router: Router
+  ){}
+
+  ngOnInit(): void {
+    this.loadAllBuilding();
+  }
+
+  loadAllBuilding(): void{
+    this.buildings = this.buildingService.listBuildings();
+  }
+
+  productDetails(id: number): void{
+    this.router.navigate(['productdetails', id])
+  }
+
+  
 
 }

@@ -59,7 +59,7 @@
           <button
             class="btn btn-outline-light"
             (click)="nextLightbox($event)"
-            [disabled]="!unit?.photoUrls?.length || lightboxIndex === unit.photoUrls.length - 1"
+            [disabled]="!unit.photoUrls.length || lightboxIndex === unit.photoUrls.length - 1"
           >
             Next
           </button>
@@ -77,7 +77,7 @@
             <span class="input-group-text">ID</span>
             <input class="form-control" formControlName="buildingId" readonly />
             <span class="input-group-text">Name</span>
-            <input class="form-control" [value]="building?.name || ''" readonly />
+            <input class="form-control" [value]="building.name || ''" readonly />
           </div>
         </div>
 
@@ -87,7 +87,7 @@
             <span class="input-group-text">ID</span>
             <input class="form-control" formControlName="floorId" readonly />
             <span class="input-group-text">Name</span>
-            <input class="form-control" [value]="floor?.name || ''" readonly />
+            <input class="form-control" [value]="floor.name || ''" readonly />
           </div>
         </div>
 
@@ -97,7 +97,7 @@
             <span class="input-group-text">ID</span>
             <input class="form-control" formControlName="unitId" readonly />
             <span class="input-group-text">No.</span>
-            <input class="form-control" [value]="unit?.unitNumber || ''" readonly />
+            <input class="form-control" [value]="unit.unitNumber || ''" readonly />
           </div>
         </div>
       </div>
@@ -188,13 +188,13 @@
           <div class="p-3 border rounded bg-light">
             <div class="row g-3">
               <div class="col-md-3">
-                <strong>Building:</strong> {{ building?.name || '-' }}
+                <strong>Building:</strong> {{ building.name || '-' }}
               </div>
               <div class="col-md-3">
-                <strong>Floor:</strong> {{ floor?.name || '-' }}
+                <strong>Floor:</strong> {{ floor.name || '-' }}
               </div>
               <div class="col-md-3">
-                <strong>Unit No.:</strong> {{ unit?.unitNumber || '-' }}
+                <strong>Unit No.:</strong> {{ unit.unitNumber || '-' }}
               </div>
               <div class="col-md-3">
                 <strong>Booking Date:</strong> {{ bookingForm.get('date')?.value || '-' }}
