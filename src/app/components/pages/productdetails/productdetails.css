@@ -1,0 +1,13 @@
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.list-group-item {
+  border: none;
+  padding: 0.5rem 0;
+}
+
+.carousel-inner img {
+  border-radius: 0.5rem 0.5rem 0 0;
+}

@@ -21,138 +21,76 @@
       <div class="row mt-4">
         <div class="col-md-6 mb-3">
           <label for="unitNumber" class="form-label fw-bold">Unit Number</label>
-          <input
-            type="text"
-            id="unitNumber"
-            class="form-control"
-            name="unitNumber"
-            [(ngModel)]="unit.unitNumber"
-            required
-          />
+          <input type="text" id="unitNumber" class="form-control" name="unitNumber" [(ngModel)]="unit.unitNumber" required />
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="area" class="form-label fw-bold">Area (sqft)</label>
-          <input
-            type="number"
-            id="area"
-            class="form-control"
-            name="area"
-            [(ngModel)]="unit.area"
-            required
-          />
+          <input type="number" id="area" class="form-control" name="area" [(ngModel)]="unit.area" required />
         </div>
       </div>
 
       <div class="row mt-4">
         <div class="col-md-6 mb-3">
           <label for="bedrooms" class="form-label fw-bold">Bedrooms</label>
-          <input
-            type="number"
-            id="bedrooms"
-            class="form-control"
-            name="bedrooms"
-            [(ngModel)]="unit.bedrooms"
-            required
-          />
+          <input type="number" id="bedrooms" class="form-control" name="bedrooms" [(ngModel)]="unit.bedrooms" required />
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="bathrooms" class="form-label fw-bold">Bathrooms</label>
-          <input
-            type="number"
-            id="bathrooms"
-            class="form-control"
-            name="bathrooms"
-            [(ngModel)]="unit.bathrooms"
-            required
-          />
+          <input type="number" id="bathrooms" class="form-control" name="bathrooms" [(ngModel)]="unit.bathrooms" required />
         </div>
       </div>
 
       <div class="row mt-4">
         <div class="col-md-6 mb-3">
           <label for="price" class="form-label fw-bold">Price</label>
-          <input
-            type="number"
-            id="price"
-            class="form-control"
-            name="price"
-            [(ngModel)]="unit.price"
-            required
-            min="0"
-            step="0.01"
-          />
+          <input type="number" id="price" class="form-control" name="price" [(ngModel)]="unit.price" required min="0" step="0.01" />
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="booked" class="form-label fw-bold">Booking Status</label>
-          <select
-            class="form-select"
-            id="booked"
-            name="booked"
-            [(ngModel)]="unit.booked"
-            required
-          >
-            <option [ngValue]="false">Available</option>
-            <option [ngValue]="true">Booked</option>
-          </select>
+          <label for="interestRate" class="form-label fw-bold">Interest Rate</label>
+          <input type="number" id="interestRate" class="form-control" name="interestRate" [(ngModel)]="unit.interestRate" required min="0" step="0.01" />
         </div>
       </div>
 
       <div class="row mt-4">
         <div class="col-md-6 mb-3">
-          <label for="interestRate" class="form-label fw-bold"
-            >Interest Rate</label
-          >
-          <input
-            type="number"
-            id="price"
-            class="form-control"
-            name="price"
-            [(ngModel)]="unit.interestRate"
-            required
-            min="0"
-            step="0.01"
-          />
+          <label for="floorId" class="form-label fw-bold">Floor</label>
+          <select class="form-select" id="floorId" name="floorId" [(ngModel)]="unit.floorId" required>
+            <option *ngFor="let floor of floors" [value]="floor.id">{{ floor.name || 'Floor ' + floor.id }}</option>
+          </select>
         </div>
 
-        <!-- Photo Upload -->
         <div class="col-md-6 mb-3">
-          <label for="photo" class="form-label fw-bold"
-            >Upload New Photos</label
-          >
-          <input
-            type="file"
-            id="photo"
-            class="form-control"
-            name="photo"
-            (change)="onPhotosSelected($event)"
-            multiple
-          />
+          <label for="booked" class="form-label fw-bold">Booking Status</label>
+          <select class="form-select" id="booked" name="booked" [(ngModel)]="unit.booked" required>
+            <option [ngValue]="false">Available</option>
+            <option [ngValue]="true">Booked</option>
+          </select>
         </div>
 
-        <div class="row mt-4"></div>
+  
+      </div>
 
-        <div class="col-md-12 mb-3" *ngIf="unit.photoUrls?.length">
+      <div class="row mt-4">
+
+        <div class="col-md-12 mb-3">
+          <label for="photo" class="form-label fw-bold">Upload New Photos</label>
+          <input type="file" id="photo" class="form-control" name="photo" (change)="onPhotosSelected($event)" multiple />
+        </div>
+      </div>
+
+      <div class="row mt-4" *ngIf="unit.photoUrls?.length">
+        <div class="col-md-12 mb-3">
           <label class="form-label fw-bold">Existing Photos</label>
           <div class="d-flex flex-wrap gap-2">
-            <img
-              *ngFor="let photo of unit.photoUrls"
-              [src]="'http://localhost:8080/images/units/' + photo"
-              alt="Unit Photo"
-              class="img-thumbnail"
-              style="max-height: 150px"
-            />
+            <img *ngFor="let photo of unit.photoUrls" [src]="'http://localhost:8080/images/units/' + photo" alt="Unit Photo" class="img-thumbnail" style="max-height: 150px" />
           </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="btn btn-success"
-        [disabled]="!unitForm.form.valid"
-      >
+      <button type="submit" class="btn btn-success" [disabled]="!unitForm.form.valid">
         <i class="fa-solid fa-floppy-disk mx-1"></i>Update Unit
       </button>
     </form>

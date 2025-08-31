@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { BuildingService } from '../../../services/building.service';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,7 @@ export class Products implements OnInit{
 
   constructor(
     private buildingService: BuildingService,
+    private cdr: ChangeDetectorRef,
     private router: Router
   ){}
 
@@ -23,6 +24,8 @@ export class Products implements OnInit{
 
   loadAllBuilding(): void{
     this.buildings = this.buildingService.listBuildings();
+    this.cdr.markForCheck();
+
   }
 
   productDetails(id: number): void{

@@ -11,7 +11,7 @@ import { CustomerService } from '../../../services/customer.service';
   selector: 'app-editunits',
   standalone: false,
   templateUrl: './editunits.html',
-  styleUrl: './editunits.css'
+  styleUrl: './editunits.css',
 })
 export class Editunits implements OnInit {
   id!: number;
@@ -42,7 +42,8 @@ export class Editunits implements OnInit {
   loadUnit(): void {
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
-        this.unit = data;
+        // Deep clone to avoid binding issues
+        this.unit = JSON.parse(JSON.stringify(data));
         this.unit.id = this.id;
         this.cdr.markForCheck();
       },
@@ -50,33 +51,33 @@ export class Editunits implements OnInit {
         console.error('Failed to load unit:', err);
         this.message = 'Failed to load unit.';
         this.messageType = 'danger';
-      }
+      },
     });
   }
 
   loadFloors(): void {
     this.floorService.listFloors().subscribe({
-      next: (data) => this.floors = data,
-      error: (err) => console.error('Failed to load floors:', err)
+      next: (data) => (this.floors = data),
+      error: (err) => console.error('Failed to load floors:', err),
     });
   }
 
   loadCustomers(): void {
-  this.customerService.listCustomers().subscribe({
-    next: (data) => {
-      this.customers = data;
-      this.cdr.markForCheck();
-    },
-    error: (err) => console.error('Failed to load customers:', err)
-  });
-}
-
+    this.customerService.listCustomers().subscribe({
+      next: (data) => {
+        this.customers = data;
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Failed to load customers:', err),
+    });
+  }
 
   onPhotosSelected(event: any): void {
     this.selectedPhotos = Array.from(event.target.files);
   }
 
   updateUnit(): void {
+    console.log('Updating unit:', this.unit.unitNumber); // Debug current value
     this.unitService.editUnit(this.unit, this.selectedPhotos).subscribe({
       next: () => {
         this.message = 'Unit updated successfully!';
@@ -87,8 +88,7 @@ export class Editunits implements OnInit {
         console.error('Failed to update unit:', err);
         this.message = 'Failed to update unit.';
         this.messageType = 'danger';
-      }
+      },
     });
   }
 }
-

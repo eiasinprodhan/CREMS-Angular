@@ -111,6 +111,57 @@
 </nav>
 
 
+<!-- Navbar End -->
+
+<div class="container mt-5">
+  <div class="row g-4">
+    <div *ngFor="let unit of units" class="col-md-6 col-lg-4">
+      <div class="card shadow-sm border-0 h-100">
+        <div id="carousel-{{ unit.unitNumber }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let photo of unit.photoUrls; let i = index" class="carousel-item" [class.active]="i === 0">
+              <img [src]="'http://localhost:8080/images/units/' + photo"
+                   class="d-block w-100"
+                   alt="Unit photo"
+                   style="height:220px; object-fit:cover; border-top-left-radius:0.5rem; border-top-right-radius:0.5rem;" />
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carousel-' + unit.unitNumber" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carousel-' + unit.unitNumber" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title d-flex justify-content-between align-items-center">
+            Unit #{{ unit.unitNumber }}
+            <span *ngIf="unit.booked" class="badge bg-danger">Booked</span>
+          </h5>
+          <ul class="list-group list-group-flush mb-3 small">
+            <li class="list-group-item d-flex justify-content-between"><strong>Area:</strong> <span>{{ unit.area }} sqft</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Bedrooms:</strong> <span>{{ unit.bedrooms }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Bathrooms:</strong> <span>{{ unit.bathrooms }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Floor ID:</strong> <span>{{ unit.floorId }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Building ID:</strong> <span>{{ unit.buildingId }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Interest Rate:</strong> <span>{{ unit.interestRate }}%</span></li>
+            <li class="list-group-item d-flex justify-content-between text-success fw-bold"><strong>Price:</strong> <span>{{ unit.price | number }}</span></li>
+          </ul>
+          <div class="d-grid">
+            <button class="btn btn-primary" [disabled]="unit.booked" title="Book this unit" onclick="window.location.href='tel:01845653215'">
+              {{ unit.booked ? 'Already Booked' : 'Contact To Book' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
 
 
