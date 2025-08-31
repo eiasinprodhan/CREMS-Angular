@@ -14,8 +14,11 @@ export class EmployeeService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Create new employee
-  addEmployee(employee: Employee): Observable<any> {
-    return this.http.post(this.baseUrl+'/', employee);
+  addEmployee(employee: Employee, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('employee', JSON.stringify(employee));
+    formData.append('photo', file)
+    return this.http.post(this.baseUrl+'/', formData);
   }
 
   // Get all employees

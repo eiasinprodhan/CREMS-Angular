@@ -10,6 +10,7 @@ import { EmployeeService } from '../../../services/employee.service';
 })
 export class Addemployees implements OnInit {
   addEmployeeForm!: FormGroup;
+  photoFile!: File;
 
   message: string = '';
   messageType: string = '';
@@ -32,7 +33,6 @@ export class Addemployees implements OnInit {
       salaryType: ['', Validators.required],
       salary: [null, [Validators.required, Validators.min(1)]],
       status: [false],
-      photo: ['', Validators.required],
       country: ['', Validators.required],
       address: ['', Validators.required],
     });
@@ -44,7 +44,7 @@ export class Addemployees implements OnInit {
       return;
     }
 
-    this.employeeService.addEmployee(this.addEmployeeForm.value).subscribe({
+    this.employeeService.addEmployee(this.addEmployeeForm.value, this.photoFile).subscribe({
       next: () => {
         this.message = 'Employee added successfully!';
         this.messageType = 'success';
@@ -56,5 +56,12 @@ export class Addemployees implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  onPhotoSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.photoFile = event.target.files[0];
+      console.log('Selected file:', this.photoFile);
+    }
   }
 }

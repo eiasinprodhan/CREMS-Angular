@@ -23,7 +23,7 @@
       >
         <div class="flex-shrink-0 mt-n5 mx-sm-0 mx-auto">
           <img
-            src="{{employee.photo}}"
+            [src]="'http://localhost:8080/images/employees/' + employee.photo"
             alt="{{employee.name}}"
             class="d-block h-auto ms-0 ms-sm-6 rounded user-profile-img"
             style="height: 150px; width: 150px"

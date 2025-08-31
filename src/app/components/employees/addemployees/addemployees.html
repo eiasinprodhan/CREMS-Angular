@@ -529,20 +529,21 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12 mb-3">
+        <div class="col-md-6 mb-3">
           <label for="photo" class="form-label fw-bold">Photo</label>
           <input
-            type="text"
+            type="file"
             id="photo"
             class="form-control"
             formControlName="photo"
+            (change)="onPhotoSelected($event)"
             [class.is-invalid]="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
           />
           <div
-            class="invalid-feedback"
             *ngIf="addEmployeeForm.get('photo')?.touched && addEmployeeForm.get('photo')?.invalid"
+            class="invalid-feedback"
           >
-            Photo is required.
+            Photo URL is required.
           </div>
         </div>
       </div>
