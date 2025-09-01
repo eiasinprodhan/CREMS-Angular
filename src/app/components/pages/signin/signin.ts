@@ -18,7 +18,7 @@ export class Signin {
     private router: Router,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -44,12 +44,13 @@ export class Signin {
         this.cdr.detectChanges();
 
         if (role === 'Admin') {
-          this.router.navigate(['/dashboard']);
+          window.location.href = '/dashboard';
         } else if (role === 'Project Manager') {
-          this.router.navigate(['/listprojects']);
+          window.location.href = '/listprojects';
         } else {
-          this.router.navigate(['/listbuildings']);
+          window.location.href = '/listbuildings';
         }
+
 
         this.loginForm.reset();
         this.errorMessage = '';

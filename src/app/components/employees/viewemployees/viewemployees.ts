@@ -14,8 +14,8 @@ import { BuildingService } from '../../../services/building.service';
 export class Viewemployees implements OnInit {
   id!: number;
   employee: Employee = new Employee();
-  workHistoryData: any;  // Observable<any[]> expected
-  isInactive: boolean = true;  // Default to inactive until proven otherwise
+  workHistoryData: any;
+  isInactive: boolean = true;
 
   constructor(
     private employeeService: EmployeeService,

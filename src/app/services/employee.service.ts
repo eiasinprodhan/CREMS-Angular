@@ -11,19 +11,19 @@ import { environments } from './environments';
 export class EmployeeService {
   baseUrl: string = environments.apiBaseUrl + '/employees';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Create new employee
   addEmployee(employee: Employee, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('employee', JSON.stringify(employee));
     formData.append('photo', file)
-    return this.http.post(this.baseUrl+'/', formData);
+    return this.http.post(this.baseUrl + '/', formData);
   }
 
   // Get all employees
   listEmployees(): Observable<any> {
-    return this.http.get(this.baseUrl+'/');
+    return this.http.get(this.baseUrl + '/');
   }
 
   // Get single employee
@@ -32,8 +32,11 @@ export class EmployeeService {
   }
 
   // Update employee
-  editEmployee(employee: Employee): Observable<any> {
-    return this.http.put(`${this.baseUrl}/`, employee);
+  editEmployee(employee: Employee, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('employee', JSON.stringify(employee));
+    formData.append('photo', file)
+    return this.http.put(this.baseUrl + '/', formData);
   }
 
   // Delete employee

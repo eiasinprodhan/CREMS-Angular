@@ -448,16 +448,26 @@
       </div>
 
       <div class="row">
-        <div class="col-md-12 mb-3">
-          <label class="form-label fw-bold">Photo</label>
-          <input
-            type="text"
-            class="form-control"
-            name="photo"
-            [(ngModel)]="employee.photo"
-            required
-            min="0"
-          />
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label fw-bold">Current Photo</label>
+            <div *ngIf="employee.photo">
+              <img
+                [src]="'http://localhost:8080/images/employees/' + employee.photo"
+                alt="Employee Photo"
+                class="img-thumbnail mb-2"
+                style="max-height: 200px"
+              />
+            </div>
+
+            <label class="form-label fw-bold">Upload New Photo</label>
+            <input
+              type="file"
+              class="form-control"
+              (change)="onPhotoSelected($event)"
+              accept="image/*"
+            />
+          </div>
         </div>
       </div>
 

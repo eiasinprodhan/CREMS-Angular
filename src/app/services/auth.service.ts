@@ -4,13 +4,14 @@ import { Employee } from '../models/employee.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthResponse } from '../models/authresponse.model';
+import { environments } from './environments';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private baseUrl: string = "http://localhost:3000/employees";
+  private baseUrl: string = environments.apiBaseUrl + '/employees';
 
   private currentEmployeeSubject: BehaviorSubject<Employee | null>;
   private currentEmployee$: Observable<Employee | null>;
@@ -42,30 +43,29 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<AuthResponse> {
-  let params = new HttpParams().append('email', credentials.email);
+  const params = new HttpParams()
+    .set('email', credentials.email)
+    .set('password', credentials.password);
 
-  return this.http.get<Employee[]>(`${this.baseUrl}`, { params }).pipe(
-    map(employees => { // Changed 'employee' to 'employees'
-      if (employees.length > 0) {
-        const employee = employees[0]; // Changed 'Employee[0]' to 'employees[0]'
-        if (employee.password === credentials.password) {
-          const token = btoa(`${employee.email}:${employee.password}`);
-          this.storeToken(token);
-          this.setCurrentEmployee(employee);
-          return { token, employee } as AuthResponse;
-        } else {
-          throw new Error("Wrong password.");
-        }
+  return this.http.get<Employee>(`${this.baseUrl}/login`, { params }).pipe(
+    map(employee => {
+      if (employee) {
+        // Simulate token generation (Base64 of email:password)
+        const token = btoa(`${employee.email}:${credentials.password}`);
+        this.storeToken(token);
+        this.setCurrentEmployee(employee);
+        return { token, employee } as AuthResponse;
       } else {
-        throw new Error("Employee not found.");
+        throw new Error('Login failed: No employee returned.');
       }
     }),
     catchError(error => {
-      console.log(error);
+      console.error('Login error:', error);
       throw error;
     })
   );
 }
+
 
   public get currentEmployeeValue(): Employee | null {
     return this.currentEmployeeSubject.value;
