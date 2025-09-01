@@ -25,7 +25,7 @@
               <tr *ngFor="let booking of enrichedBookings">
                 <td>{{ booking.id }}</td>
                 <td>{{ booking.customerName }}</td>
-                <td>{{ booking.date | date: 'mediumDate' }}</td>
+                <td>{{ booking.date}}</td>
                 <td>{{ booking.amount | currency }}</td> 
                 <td>{{ booking.discount }}%</td> 
                 <td>{{ booking.dueAmount | currency }}</td>

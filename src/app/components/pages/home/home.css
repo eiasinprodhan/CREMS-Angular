@@ -1,24 +1,4 @@
-/* Hover underline effect */
-  .hover-underline {
-    position: relative;
-    transition: color 0.3s ease;
-  }
-  .hover-underline::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 5px;
-    left: 0;
-    background-color: #fff;
-    transition: width 0.3s ease;
-  }
-  .hover-underline:hover::after,
-  .hover-underline.active::after {
-    width: 100%;
-  }
-
-  /* Button hover effect */
+/* Button hover effect */
   .btn-outline-light:hover {
     background-color: #fff;
     color: #764ba2 !important;

@@ -1,8 +1,7 @@
+<!-- Main View -->
 <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-  <!-- Header with Print Button -->
-  <div
-    class="row card-header flex-column flex-md-row align-items-center mx-0 px-3"
-  >
+  <!-- Header -->
+  <div class="row card-header flex-column flex-md-row align-items-center mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
       <h5 class="card-title mb-0 text-md-start text-center">Booking Details</h5>
     </div>
@@ -16,11 +15,9 @@
     </div>
   </div>
 
-  <!-- Main Booking Details -->
+  <!-- Body -->
   <div class="card-body px-4 py-5">
-    <div
-      *ngIf="!isLoading && booking && unit && customer; else loadingTemplate"
-    >
+    <div *ngIf="!isLoading && booking && unit && customer; else loadingTemplate">
       <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label fw-semibold">Booking ID</label>
@@ -31,6 +28,7 @@
           <div>{{ unit.unitNumber }} (ID: {{ unit.id }})</div>
         </div>
       </div>
+
       <div class="row g-4 mt-3">
         <div class="col-md-6">
           <label class="form-label fw-semibold">Customer</label>
@@ -41,6 +39,7 @@
           <div>{{ booking.date | date: 'mediumDate' }}</div>
         </div>
       </div>
+
       <div class="row g-4 mt-3">
         <div class="col-md-6">
           <label class="form-label fw-semibold">Amount</label>
@@ -51,6 +50,7 @@
           <div>{{ booking.discount | currency }}</div>
         </div>
       </div>
+
       <div class="row g-4 mt-3">
         <div class="col-md-6">
           <label class="form-label fw-semibold">Due Amount</label>
@@ -61,14 +61,12 @@
           <div>{{ booking.emiAmount | currency }}</div>
         </div>
       </div>
+
       <div class="row g-4 mt-3">
         <div class="col-md-6">
           <label class="form-label fw-semibold">Loan</label>
           <div>
-            <span
-              class="badge"
-              [ngClass]="booking.isLoan ? 'bg-success' : 'bg-secondary'"
-            >
+            <span class="badge" [ngClass]="booking.isLoan ? 'bg-success' : 'bg-secondary'">
               {{ booking.isLoan ? 'Yes' : 'No' }}
             </span>
           </div>
@@ -79,6 +77,7 @@
         </div>
       </div>
     </div>
+
     <ng-template #loadingTemplate>
       <div class="text-center text-muted fst-italic pt-4">
         Loading booking data or no data available.
@@ -87,8 +86,8 @@
   </div>
 </div>
 
-<!-- Hidden Printable Invoice -->
-<div
+<!-- Printable Invoice (Hidden) -->
+<div *ngIf="booking && unit && customer"
   id="bookingToPrint"
   [style.visibility]="'hidden'"
   [style.position]="'absolute'"
@@ -106,138 +105,46 @@
 >
   <!-- Header -->
   <div style="text-align: center; margin-bottom: 30px">
-    <h2 style="color: #007bff; margin-bottom: 5px">
-        <span class="app-brand-logo demo"
-          ><span class="text-primary"
-            ><svg
-              width="32"
-              height="22"
-              viewBox="0 0 32 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
-                fill="currentColor"
-              ></path>
-              <path
-                opacity="0.06"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
-                fill="#161616"
-              ></path>
-              <path
-                opacity="0.06"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
-                fill="#161616"
-              ></path>
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
-                fill="currentColor"
-              ></path></svg></span></span
-        ><span class="app-brand-text demo menu-text fw-bold ms-3"
-          >CREMS</span
-        >
-    </h2>
-    <h5 style="color: #64686b; margin-bottom: 5px">Unit Booking Invoice</h5>
-
-    <p style="font-size: 14px">
-      Booking Date: {{ booking.date | date: 'mediumDate' }}
-    </p>
+    <h2 style="color: #007bff;">CREMS</h2>
+    <h5 style="color: #64686b;">Unit Booking Invoice</h5>
+    <p style="font-size: 14px">Booking Date: {{ booking.date | date: 'mediumDate' }}</p>
   </div>
 
   <hr style="margin-bottom: 30px" />
 
   <!-- Customer Photo and Info -->
   <div style="display: flex; align-items: center; margin-bottom: 30px">
-    <div
-      style="
-        flex: 0 0 120px;
-        height: 120px;
-        border-radius: 8px;
-        overflow: hidden;
-        border: 1px solid #ccc;
-        margin-right: 20px;
-      "
-    >
-      <img
-        [src]="customer.photo"
-        alt="Customer Photo"
-        style="width: 100%; height: 100%; object-fit: cover"
-      />
+    <div style="flex: 0 0 120px; height: 120px; overflow: hidden; margin-right: 20px; border: 1px solid #ccc; border-radius: 8px;">
+      <img [src]="customer.photo" alt="Customer Photo" style="width: 100%; height: 100%; object-fit: cover;" />
     </div>
     <div style="flex: 1">
-      <h4 style="margin: 0 0 5px">Customer Details</h4>
+      <h4>Customer Details</h4>
       <table style="width: 100%; font-size: 14px">
-        <tr>
-          <td><strong>Name:</strong></td>
-          <td>{{ customer.name }}</td>
-        </tr>
-        <tr>
-          <td><strong>Email:</strong></td>
-          <td>{{ customer.email }}</td>
-        </tr>
-        <tr>
-          <td><strong>Phone:</strong></td>
-          <td>{{ customer.phone }}</td>
-        </tr>
-        <tr>
-          <td><strong>Address:</strong></td>
-          <td>{{ customer.address }}</td>
-        </tr>
+        <tr><td><strong>Name:</strong></td><td>{{ customer.name }}</td></tr>
+        <tr><td><strong>Email:</strong></td><td>{{ customer.email }}</td></tr>
+        <tr><td><strong>Phone:</strong></td><td>{{ customer.phone }}</td></tr>
+        <tr><td><strong>Address:</strong></td><td>{{ customer.address }}</td></tr>
       </table>
     </div>
   </div>
 
   <!-- Booking Info Table -->
   <div style="margin-bottom: 40px">
-    <h4 style="margin-bottom: 10px">Booking Information</h4>
+    <h4>Booking Information</h4>
     <table style="width: 100%; border-collapse: collapse; font-size: 14px">
-      <tr style="background-color: #f8f9fa; border-bottom: 1px solid #ccc">
-        <th style="text-align: left; padding: 8px">Booking ID</th>
-        <td style="padding: 8px">{{ booking.id }}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left; padding: 8px">Unit Number</th>
-        <td style="padding: 8px">{{ unit.unitNumber }}</td>
-      </tr>
-      <tr style="background-color: #f8f9fa">
-        <th style="text-align: left; padding: 8px">Amount</th>
-        <td style="padding: 8px">{{ booking.amount | currency }}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left; padding: 8px">Discount</th>
-        <td style="padding: 8px">{{ booking.discount | currency }}</td>
-      </tr>
-      <tr style="background-color: #f8f9fa">
-        <th style="text-align: left; padding: 8px">Due Amount</th>
-        <td style="padding: 8px">{{ booking.dueAmount | currency }}</td>
-      </tr>
-      <tr *ngIf="booking.isLoan">
-        <th style="text-align: left; padding: 8px">EMI Amount</th>
-        <td style="padding: 8px">{{ booking.emiAmount | currency }}</td>
-      </tr>
-      <tr style="background-color: #f8f9fa">
-        <th style="text-align: left; padding: 8px">Loan</th>
-        <td style="padding: 8px">{{ booking.isLoan ? 'Yes' : 'No' }}</td>
-      </tr>
-      <tr>
-        <th style="text-align: left; padding: 8px">Interest Rate</th>
-        <td style="padding: 8px">{{ booking.interestRate }}%</td>
-      </tr>
+      <tr style="background-color: #f8f9fa;"><th>Booking ID</th><td>{{ booking.id }}</td></tr>
+      <tr><th>Unit Number</th><td>{{ unit.unitNumber }}</td></tr>
+      <tr style="background-color: #f8f9fa;"><th>Amount</th><td>{{ booking.amount | currency }}</td></tr>
+      <tr><th>Discount</th><td>{{ booking.discount | currency }}</td></tr>
+      <tr style="background-color: #f8f9fa;"><th>Due Amount</th><td>{{ booking.dueAmount | currency }}</td></tr>
+      <tr *ngIf="booking?.isLoan"><th>EMI Amount</th><td>{{ booking.emiAmount | currency }}</td></tr>
+      <tr style="background-color: #f8f9fa;"><th>Loan</th><td>{{ booking.isLoan ? 'Yes' : 'No' }}</td></tr>
+      <tr><th>Interest Rate</th><td>{{ booking.interestRate }}%</td></tr>
     </table>
   </div>
 
   <!-- Signature -->
-  <!-- Signature Section -->
-  <div style="margin-top: 60px; text-align: right">
+  <div style="margin-top: 60px; text-align: right;">
     <div style="display: inline-block; text-align: center; margin-right: 40px">
       <div style="border-top: 2px solid #000; width: 200px; padding-top: 6px">
         <p style="margin: 0"><strong>Authorized Signature</strong></p>

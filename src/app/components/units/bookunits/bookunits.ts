@@ -253,7 +253,7 @@ export class Bookunits implements OnInit {
 
         this.unit.booked = true;
         this.unitService.updateUnitForBook(this.unit).subscribe({
-          next: () => this.router.navigate(['/listbooking']),
+          next: () => this.router.navigate(['/listunits']),
           error: (err) => {
             console.error('Failed to update unit:', err);
             this.message = 'Booking saved, but failed to update unit status.';
