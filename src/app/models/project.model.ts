@@ -1,3 +1,5 @@
+import { Employee } from "./employee.model";
+
 export class Project {
     id!: number;
     name!: string;
@@ -5,6 +7,6 @@ export class Project {
     startDate!: Date;
     expectedEndDate!: Date;
     projectType!: string;
-    projectManager!: number;
+    projectManager!: Employee;
     description!: string;
 }

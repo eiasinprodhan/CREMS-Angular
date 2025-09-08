@@ -80,7 +80,7 @@
             [class.is-invalid]="addProjectForm.get('projectManager')?.touched && addProjectForm.get('projectManager')?.invalid"
           >
             <option value="" disabled selected>Select Project Manager</option>
-            <option *ngFor="let e of projectManagers|async" [ngValue]="e.id">
+            <option *ngFor="let e of projectManagers|async" [ngValue]="e">
               {{ e.name }}
             </option>
           </select>

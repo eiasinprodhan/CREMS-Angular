@@ -40,7 +40,7 @@ export class Viewprojects implements OnInit {
     this.projectService.viewProjects(this.id).subscribe({
       next: (data) => {
         this.project = data;
-        this.viewEmployee(this.project.projectManager);
+        this.viewEmployee(this.project.projectManager.id);
         console.log(data);
         this.cdr.markForCheck();
       },
