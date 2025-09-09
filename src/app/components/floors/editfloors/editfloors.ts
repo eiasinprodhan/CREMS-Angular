@@ -33,14 +33,14 @@ export class Editfloors {
     this.editFloorForm = this.formBuilder.group({
       name: ['', Validators.required],
       building: ['', Validators.required],
-      expectedEndDate: ['', Validators.required], // ✅ Added
+      expectedEndDate: ['', Validators.required],
     });
 
     this.listBuildings();
     this.viewFloor();
   }
 
-  // View Floor
+
   viewFloor(): void {
     this.floorService.viewFloors(this.id).subscribe({
       next: (data) => {
@@ -48,7 +48,7 @@ export class Editfloors {
         this.editFloorForm.patchValue({
           name: this.floor.name,
           building: this.floor.building,
-          expectedEndDate: this.formatDate(this.floor.expectedEndDate), // ✅ Format
+          expectedEndDate: this.formatDate(this.floor.expectedEndDate),
         });
         this.cdr.markForCheck();
       },
@@ -58,7 +58,6 @@ export class Editfloors {
     });
   }
 
-  // Update Floor
   updateFloor(): void {
     if (this.editFloorForm.invalid) {
       this.editFloorForm.markAllAsTouched();
@@ -67,7 +66,8 @@ export class Editfloors {
 
     const updatedFloor = {
       ...this.editFloorForm.value,
-      expectedEndDate: new Date(this.editFloorForm.value.expectedEndDate), id: this.id
+      expectedEndDate: new Date(this.editFloorForm.value.expectedEndDate),
+      id: this.id,
     };
 
     this.floorService.editFloors(updatedFloor).subscribe({
@@ -90,6 +90,7 @@ export class Editfloors {
     this.buildingService.listBuildings().subscribe({
       next: (data) => {
         this.buildings = data;
+        this.cdr.markForCheck();
       },
       error: (error) => {
         console.log(error);
@@ -97,9 +98,12 @@ export class Editfloors {
     });
   }
 
-
   private formatDate(dateString: string | Date): string {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
+  }
+
+  compareBuildings(b1: any, b2: any): boolean {
+    return b1 && b2 ? b1.id === b2.id : b1 === b2;
   }
 }

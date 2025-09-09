@@ -48,13 +48,15 @@
             id="building"
             class="form-select"
             formControlName="building"
+            [compareWith]="compareBuildings"
             [class.is-invalid]="editFloorForm.get('building')?.touched && editFloorForm.get('building')?.invalid"
           >
-            <option value="" disabled selected>Select Building</option>
-            <option *ngFor="let b of buildings" [ngValue]="b.id">
+            <option [ngValue]="null" disabled>Select Building</option>
+            <option *ngFor="let b of buildings" [ngValue]="b">
               {{ b.name }}
             </option>
           </select>
+
           <div
             *ngIf="editFloorForm.get('building')?.touched && editFloorForm.get('building')?.invalid"
             class="invalid-feedback"
@@ -65,7 +67,9 @@
 
         <!-- Expected End Date -->
         <div class="col-md-4 mb-3">
-          <label for="expectedEndDate" class="form-label fw-bold">Expected End Date</label>
+          <label for="expectedEndDate" class="form-label fw-bold"
+            >Expected End Date</label
+          >
           <input
             type="date"
             id="expectedEndDate"

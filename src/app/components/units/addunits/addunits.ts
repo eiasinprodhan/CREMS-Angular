@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UnitService } from '../../../services/unit.service';
 import { Unit } from '../../../models/unit.model';
 import { ActivatedRoute } from '@angular/router';
-import { BuildingService } from '../../../services/building.service';
 import { FloorService } from '../../../services/floor.service';
 import { Floor } from '../../../models/floor.model';
 
@@ -20,7 +19,7 @@ export class Addunits {
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
-  selectedFiles: File[] = [];  // <-- To hold selected files
+  selectedFiles: File[] = [];
 
   constructor(
     private unitService: UnitService,
@@ -34,39 +33,40 @@ export class Addunits {
 
     this.addUnitForm = this.formBuilder.group({
       unitNumber: ['', Validators.required],
-      buildingId: [0],
-      floorId: [this.floorId, Validators.required],
+      building: [null, Validators.required],
+      floor: [null, Validators.required],
       area: [0, [Validators.required, Validators.min(1)]],
       bedrooms: [0, [Validators.required, Validators.min(1)]],
       bathrooms: [0, [Validators.required, Validators.min(1)]],
       booked: [false, Validators.required],
       price: [0, Validators.required],
       interestRate: [0, Validators.required]
-      // Removed photoUrls from form since files will be handled separately
     });
 
-    this.loadFloors();
+    this.loadFloorAndPatchForm();
   }
 
-  loadFloors(): void {
+  loadFloorAndPatchForm(): void {
     this.floorService.viewFloors(this.floorId).subscribe({
       next: (data) => {
         this.floor = data;
 
         this.addUnitForm.patchValue({
-          buildingId: this.floor.building || 0,
+          floor: { id: this.floor.id },
+          building: { id: this.floor.building.id }
         });
       },
       error: (err) => {
         console.error('Error loading floor:', err);
+        this.message = 'Failed to load floor details.';
+        this.messageType = 'danger';
       },
     });
   }
 
-  // Handle file input change event
-  onFileSelected(event: any) {
+  onFileSelected(event: any): void {
     if (event.target.files && event.target.files.length > 0) {
-      this.selectedFiles = Array.from(event.target.files);  // Store all selected files
+      this.selectedFiles = Array.from(event.target.files);
     }
   }
 
@@ -80,7 +80,9 @@ export class Addunits {
 
     const unit: Unit = this.addUnitForm.value;
 
-    // Call service and pass both unit object and the files array
+    unit.floor = { id: this.floor.id } as any;
+    unit.building = { id: this.floor.building.id } as any;
+
     this.unitService.addUnit(unit, this.selectedFiles).subscribe({
       next: () => {
         this.message = 'Unit Added Successfully.';
@@ -88,12 +90,12 @@ export class Addunits {
 
         this.addUnitForm.reset();
         this.addUnitForm.patchValue({
-          floorId: this.floorId,
-          buildingId: this.floor.building || 0,
+          floor: { id: this.floor.id },
+          building: { id: this.floor.building.id }
         });
 
         this.selectedFiles = [];
-        // Reset file input UI (optional)
+
         const fileInput = document.getElementById('photoFiles') as HTMLInputElement;
         if (fileInput) {
           fileInput.value = '';
@@ -107,7 +109,7 @@ export class Addunits {
     });
   }
 
-  private markAllFieldsAsTouched() {
+  private markAllFieldsAsTouched(): void {
     Object.keys(this.addUnitForm.controls).forEach((field) => {
       const control = this.addUnitForm.get(field);
       control?.markAsTouched({ onlySelf: true });

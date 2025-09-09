@@ -4,46 +4,47 @@ import { StageService } from '../../../services/stage.service';
 import { Stage } from '../../../models/stage.model';
 import { ActivatedRoute } from '@angular/router';
 import { EmployeeService } from '../../../services/employee.service';
+import { Floor } from '../../../models/floor.model';
+import { FloorService } from '../../../services/floor.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-addstages',
   standalone: false,
   templateUrl: './addstages.html',
-  styleUrl: './addstages.css'
+  styleUrl: './addstages.css',
 })
 export class Addstages implements OnInit {
+  floorId!: number;
   addStageForm!: FormGroup;
+  floor: Floor = new Floor();
   message: string = '';
   messageType: 'success' | 'danger' = 'success';
 
-  labours!: any;
+  labours$!: Observable<any[]>;
 
   constructor(
     private stageService: StageService,
+    private floorService: FloorService,
     private employeeService: EmployeeService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.floorId = +this.route.snapshot.params['id'];
+
     this.addStageForm = this.formBuilder.group({
       name: ['', Validators.required],
       startDate: [new Date().toISOString().slice(0, 10), Validators.required],
       endDate: ['', Validators.required],
-      floor: [''],
-      labours: [[]],
-    });
-
-    this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.addStageForm.patchValue({ floor: params['id'] });
-      }
+      floor: [null],
+      labours: [[], Validators.required],
     });
 
     this.viewLabours();
-
+    this.getFloorById();
   }
-
 
   addStage(): void {
     if (this.addStageForm.invalid) {
@@ -53,8 +54,12 @@ export class Addstages implements OnInit {
       return;
     }
 
+    const formValue = this.addStageForm.value;
+
     const stage: Stage = {
-      ...this.addStageForm.value
+      ...formValue,
+      labours: formValue.labours,
+      floor: this.floor,
     };
 
     this.stageService.addStages(stage).subscribe({
@@ -79,6 +84,13 @@ export class Addstages implements OnInit {
   }
 
   viewLabours(): void {
-    this.labours = this.employeeService.viewEmployeeByRole("Labour");
+    this.labours$ = this.employeeService.viewEmployeeByRole('Labour');
+  }
+
+  getFloorById(): void {
+    this.floorService.viewFloors(this.floorId).subscribe((data) => {
+      this.floor = data;
+      this.addStageForm.patchValue({ floor: data });
+    });
   }
 }

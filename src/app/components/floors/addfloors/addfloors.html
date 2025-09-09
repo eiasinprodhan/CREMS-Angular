@@ -47,7 +47,7 @@
             [class.is-invalid]="addFloorForm.get('building')?.touched && addFloorForm.get('building')?.invalid"
           >
             <option value="" disabled selected>Select Building</option>
-            <option *ngFor="let b of buildings | async" [ngValue]="b.id">
+            <option *ngFor="let b of buildings | async" [ngValue]="b">
               {{ b.name }}
             </option>
           </select>

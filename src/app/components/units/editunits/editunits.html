@@ -110,9 +110,10 @@
             id="floor"
             name="floor"
             [(ngModel)]="unit.floor"
+            [compareWith]="compareFloors"
             required
           >
-            <option *ngFor="let floor of floors" [value]="floor.id">
+            <option *ngFor="let floor of floors" [ngValue]="floor">
               {{ floor.name || 'Floor ' + floor.id }}
             </option>
           </select>

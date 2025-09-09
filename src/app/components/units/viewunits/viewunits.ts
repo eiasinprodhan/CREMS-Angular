@@ -18,8 +18,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class Viewunits implements OnInit{
   id!: number;
   unit: any = {};
-  building: any = {};
-  floor: any = {};
   isModalOpen: boolean = false;
   currentIndex: number = 0;
 
@@ -40,12 +38,6 @@ export class Viewunits implements OnInit{
     this.unitService.viewUnit(this.id).subscribe({
       next: (data) => {
         this.unit = data;
-        if (this.unit.buildingId) {
-          this.loadBuilding(this.unit.buildingId);
-        }
-        if (this.unit.floorId) {
-          this.loadFloor(this.unit.floorId);
-        }
         this.cdr.markForCheck();
       },
       error: (error) => {
@@ -54,29 +46,6 @@ export class Viewunits implements OnInit{
     });
   }
 
-  loadBuilding(id: number): void {
-    this.buildingService.viewBuildings(id).subscribe({
-      next: (data) => {
-        this.building = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading building:', error);
-      }
-    });
-  }
-
-  loadFloor(id: number): void {
-    this.floorService.viewFloors(id).subscribe({
-      next: (data) => {
-        this.floor = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading floor:', error);
-      }
-    });
-  }
 
   openFullScreenModal(index: number): void {
     this.isModalOpen = true;
@@ -91,7 +60,7 @@ export class Viewunits implements OnInit{
     if (this.currentIndex < this.unit.photoUrls.length - 1) {
       this.currentIndex++;
     } else {
-      this.currentIndex = 0;  // Loop back to the first image
+      this.currentIndex = 0;
     }
   }
 
@@ -99,7 +68,7 @@ export class Viewunits implements OnInit{
     if (this.currentIndex > 0) {
       this.currentIndex--;
     } else {
-      this.currentIndex = this.unit.photoUrls.length - 1;  // Loop back to the last image
+      this.currentIndex = this.unit.photoUrls.length - 1;
     }
   }
   

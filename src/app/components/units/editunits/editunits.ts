@@ -89,4 +89,8 @@ export class Editunits implements OnInit {
       },
     });
   }
+
+  compareFloors(f1: Floor, f2: Floor): boolean {
+    return f1 && f2 ? f1.id === f2.id : f1 === f2;
+  }
 }

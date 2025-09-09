@@ -15,15 +15,15 @@
   <!-- Card Body -->
   <div class="card-body px-4 py-5">
     <div *ngIf="unit && unit.unitNumber; else loadingTemplate">
-
       <!-- Building Photo (Top) -->
-       <h6 class="text-muted">Building Photo</h6>
-      <div class="mx-auto mb-5" style="max-width: 500px;">
-        <img 
-          [src]="'http://localhost:8080/images/buildings/' + building.photo" 
-          class="d-block w-100 rounded-3" 
-          alt="Building Photo" 
-          style="max-height: 300px; object-fit: cover;" />
+      <h6 class="text-muted">Building Photo</h6>
+      <div class="mx-auto mb-5" style="max-width: 500px">
+        <img
+          [src]="'http://localhost:8080/images/buildings/' + unit.building.photo"
+          class="d-block w-100 rounded-3"
+          alt="Building Photo"
+          style="max-height: 300px; object-fit: cover"
+        />
       </div>
 
       <!-- Unit Photos Gallery -->
@@ -32,12 +32,13 @@
           <h6 class="text-muted">Unit Photos</h6>
         </div>
         <div class="col-4" *ngFor="let url of unit.photoUrls; let i = index">
-          <img 
-            [src]="'http://localhost:8080/images/units/' + url" 
-            class="img-thumbnail" 
-            alt="{{ url }}" 
-            style="cursor: pointer; max-height: 200px; object-fit: cover;" 
-            (click)="openFullScreenModal(i)" />
+          <img
+            [src]="'http://localhost:8080/images/units/' + url"
+            class="img-thumbnail"
+            alt="{{ url }}"
+            style="cursor: pointer; max-height: 200px; object-fit: cover"
+            (click)="openFullScreenModal(i)"
+          />
         </div>
       </div>
 
@@ -70,10 +71,14 @@
           <div class="text-secondary">{{ unit.bathrooms }}</div>
         </div>
         <div class="col-md-6">
-          <label class="form-label text-primary fw-semibold">Booking Status</label>
+          <label class="form-label text-primary fw-semibold"
+            >Booking Status</label
+          >
           <div>
-            <span class="badge px-3 py-2 fs-6"
-              [ngClass]="unit.booked ? 'bg-success rounded-pill' : 'bg-warning text-dark  rounded-pill'">
+            <span
+              class="badge px-3 py-2 fs-6"
+              [ngClass]="unit.booked ? 'bg-success rounded-pill' : 'bg-warning text-dark  rounded-pill'"
+            >
               {{ unit.booked ? 'Booked' : 'Available' }}
             </span>
           </div>
@@ -83,15 +88,18 @@
       <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Floor</label>
-          <div class="text-secondary">{{ floor.name || unit.floorId }}</div>
+          <div class="text-secondary">
+            {{ unit.floor.name || unit.floor.id }}
+          </div>
         </div>
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Building</label>
           <div>
-            <a 
-              routerLink="/viewbuildings/{{building.id}}" 
-              class="text-decoration-none text-info fw-medium">
-              {{ building.name || unit.buildingId }}
+            <a
+              routerLink="/viewbuildings/{{ unit.building.id }}"
+              class="text-decoration-none text-info fw-medium"
+            >
+              {{ unit.building.name || unit.building.id }}
             </a>
           </div>
         </div>
@@ -100,16 +108,14 @@
       <div class="row g-4">
         <div class="col-md-6">
           <label class="form-label text-primary fw-semibold">Price</label>
-          <div class="text-secondary">
-            {{ unit.price }}
-          </div>
+          <div class="text-secondary">{{ unit.price }}</div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label text-primary fw-semibold">Interest Rate</label>
-          <div class="text-secondary">
-            {{ unit.interestRate + '%' }}
-          </div>
+          <label class="form-label text-primary fw-semibold"
+            >Interest Rate</label
+          >
+          <div class="text-secondary">{{ unit.interestRate + '%' }}</div>
         </div>
       </div>
     </div>
@@ -124,19 +130,32 @@
 </div>
 
 <!-- Fullscreen Modal for Viewing Unit Photos -->
-<div *ngIf="isModalOpen" class="modal fade show d-block fullscreen-modal" tabindex="-1" aria-labelledby="fullscreenModalLabel" aria-hidden="true">
+<div
+  *ngIf="isModalOpen"
+  class="modal fade show d-block fullscreen-modal"
+  tabindex="-1"
+  aria-labelledby="fullscreenModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <img 
-          [src]="'http://localhost:8080/images/units/' + unit.photoUrls[currentIndex]" 
-          class="img-fluid" 
-          alt="Full Screen Image" />
+        <img
+          [src]="'http://localhost:8080/images/units/' + unit.photoUrls[currentIndex]"
+          class="img-fluid"
+          alt="Full Screen Image"
+        />
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="prevImage()">Previous</button>
-        <button type="button" class="btn btn-primary" (click)="nextImage()">Next</button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="prevImage()">
+          Previous
+        </button>
+        <button type="button" class="btn btn-primary" (click)="nextImage()">
+          Next
+        </button>
       </div>
     </div>
   </div>

@@ -17,7 +17,6 @@
   <div class="card-body">
     <form [formGroup]="addStageForm" (ngSubmit)="addStage()">
       <div class="row mt-4">
-        <!-- Name -->
         <div class="col-md-6 mb-3">
           <label for="name" class="form-label fw-bold">Stage Name</label>
           <input
@@ -27,18 +26,13 @@
             formControlName="name"
             [class.is-invalid]="addStageForm.get('name')?.touched && addStageForm.get('name')?.invalid"
           />
-          <div
-            *ngIf="addStageForm.get('name')?.touched && addStageForm.get('name')?.invalid"
-            class="invalid-feedback"
-          >
+          <div *ngIf="addStageForm.get('name')?.touched && addStageForm.get('name')?.invalid" class="invalid-feedback">
             Stage name is required.
           </div>
         </div>
 
         <div class="col-md-6 mb-3">
-          <label for="endDate" class="form-label fw-bold"
-            >Expected End Date</label
-          >
+          <label for="endDate" class="form-label fw-bold">Expected End Date</label>
           <input
             type="date"
             id="endDate"
@@ -46,10 +40,7 @@
             formControlName="endDate"
             [class.is-invalid]="addStageForm.get('endDate')?.touched && addStageForm.get('endDate')?.invalid"
           />
-          <div
-            *ngIf="addStageForm.get('endDate')?.touched && addStageForm.get('endDate')?.invalid"
-            class="invalid-feedback"
-          >
+          <div *ngIf="addStageForm.get('endDate')?.touched && addStageForm.get('endDate')?.invalid" class="invalid-feedback">
             End Date is required.
           </div>
         </div>
@@ -57,29 +48,21 @@
 
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="projectManager" class="form-label fw-bold"
-            >Labours</label
-          >
+          <label for="labours" class="form-label fw-bold">Labours</label>
           <select
             id="labours"
             class="form-select"
             formControlName="labours"
-            [class.is-invalid]="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid"
             multiple
             size="5"
+            [class.is-invalid]="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid"
           >
-            <option value="" disabled selected>Select Labours</option>
-            <option *ngFor="let l of labours|async" [ngValue]="l.id">
+            <option *ngFor="let l of labours$ | async" [value]="l.id">
               {{ l.name }}
             </option>
           </select>
-          <small class="text-muted"
-            >Hold Ctrl (Windows) or Cmd (Mac) to select multiple labours.</small
-          >
-          <div
-            *ngIf="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid"
-            class="invalid-feedback"
-          >
+          <small class="text-muted">Hold Ctrl (Windows) or Cmd (Mac) to select multiple labours.</small>
+          <div *ngIf="addStageForm.get('labours')?.touched && addStageForm.get('labours')?.invalid" class="invalid-feedback">
             Labours are required.
           </div>
         </div>
