@@ -21,14 +21,13 @@ export class Editstages {
     private ar: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
     this.viewLabours();
   }
 
-  // Load labours
   viewLabours(): void {
     this.employeeService.viewEmployeeByRoles("Labour").subscribe({
       next: (data) => {
@@ -42,14 +41,14 @@ export class Editstages {
     });
   }
 
-  // View Stage by ID
+
   viewStage(): void {
     this.stageService.viewStages(this.id).subscribe({
       next: (data) => {
+        data.endDate = this.formatDate(data.endDate);
         this.stage = data;
         console.log('Stage loaded:', this.stage);
-        
-        // Set previously selected labours based on the stage data
+
         this.setLabourSelection();
         this.cdr.markForCheck();
       },
@@ -59,7 +58,6 @@ export class Editstages {
     });
   }
 
-  // Set previously selected labours based on stage data
   setLabourSelection(): void {
     if (this.labours && this.stage.labours) {
       this.labours.forEach(labour => {
@@ -69,7 +67,6 @@ export class Editstages {
     }
   }
 
-  // Update Stage
   updateStage(): void {
     const selectedLabours = this.labours
       .filter(labour => labour.selected)
@@ -78,11 +75,19 @@ export class Editstages {
     this.stageService.editStages(this.stage).subscribe({
       next: (res) => {
         console.log('Stage updated:', res);
-        this.router.navigate(['liststages', this.stage.floor]);
+        this.router.navigate(['liststages', this.stage.floor.id]);
       },
       error: (error) => {
         console.log('Error updating stage:', error);
       }
     });
+  }
+
+  formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
+    const day = ('0' + d.getDate()).slice(-2);
+    const year = d.getFullYear();
+    return `${year}-${month}-${day}`;
   }
 }

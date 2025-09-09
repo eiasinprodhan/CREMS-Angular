@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Employee } from '../../../models/employee.model';
 import { TransactionService } from '../../../services/transaction.service';
 import { Transaction } from '../../../models/transaction.model';
-import { isPlatformBrowser } from '@angular/common';
 import { StagepaymentService } from '../../../services/stagepayment.service';
 import { StagePayment } from '../../../models/stagepayments.model';
 
@@ -39,7 +38,7 @@ export class Listattendances implements OnInit {
     private transactionService: TransactionService,
     private stagePaymentService: StagepaymentService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
@@ -58,8 +57,6 @@ export class Listattendances implements OnInit {
         this.stage = data;
         console.log('Loaded stage:', this.stage);
         this.onDateChange();
-
-        // ✅ Load payment dates AFTER stage is loaded
         this.loadPaidDates();
       },
       error: (error) => {
@@ -118,15 +115,15 @@ export class Listattendances implements OnInit {
   getTotalSalary(): number {
     return Array.isArray(this.stage.labours)
       ? this.stage.labours.reduce((total, labourId: number) => {
-          return total + this.getEmployeeSalary(labourId);
-        }, 0)
+        return total + this.getEmployeeSalary(labourId);
+      }, 0)
       : 0;
   }
 
   getAttendanceByLabour(id: number): string {
     const attendance = this.attendances.find(a =>
       a.employee.id === id &&
-      a.stage.id=== this.id &&
+      a.stage.id === this.id &&
       a.date === this.selectedDate
     );
     return attendance?.status ?? '';
@@ -143,8 +140,10 @@ export class Listattendances implements OnInit {
 
   saveAttendance(id: number, status: string, baseSalary: number): void {
     const attendance = new Attendance();
-    attendance.employee.id = id;
-    attendance.stage.id = this.id;
+    this.employeeService.viewEmployee(id).subscribe(employee => {
+      attendance.employee = employee;
+    });
+    attendance.stage = this.stage;
     attendance.date = this.selectedDate;
     attendance.status = status;
     attendance.salary = status === 'Present' ? baseSalary : 0;
@@ -158,8 +157,10 @@ export class Listattendances implements OnInit {
     if (!attendanceId) return;
     const attendance = new Attendance();
     attendance.id = attendanceId;
-    attendance.employee.id = id;
-    attendance.stage.id = this.id;
+    this.employeeService.viewEmployee(id).subscribe(employee => {
+      attendance.employee = employee;
+    });
+    attendance.stage = this.stage;
     attendance.date = this.selectedDate;
     attendance.status = status;
     attendance.salary = status === 'Present' ? baseSalary : 0;
