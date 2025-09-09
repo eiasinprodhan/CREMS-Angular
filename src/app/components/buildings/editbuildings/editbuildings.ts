@@ -86,4 +86,13 @@ export class Editbuildings implements OnInit {
     }
   }
 
+  compareProjects(p1: Project, p2: Project): boolean {
+  return p1 && p2 ? p1.id === p2.id : p1 === p2;
+}
+
+compareEmployees(e1: any, e2: any): boolean {
+  return e1 && e2 ? e1.id === e2.id : e1 === e2;
+}
+
+
 }

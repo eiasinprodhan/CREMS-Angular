@@ -46,7 +46,7 @@
           <label class="form-label fw-bold">Project Type</label>
           <div class="text-muted">{{ project.projectType }}</div>
         </div>
-        
+
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Budget</label>
           <div class="text-muted">{{ project.budget | currency }}</div>
@@ -56,9 +56,9 @@
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label fw-bold">Project Manager</label>
-          <a routerLink="/viewemployees/{{employee.id}}"
-            ><div class="text-success">{{ employee.name }}</div></a
-          >
+          <a routerLink="/viewemployees/{{ project.projectManager.id }}">
+            <div class="text-success">{{ project.projectManager.name }}</div>
+          </a>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -76,10 +76,22 @@
       </div>
 
       <div class="row">
-        <div class="col-12 mb-3">
+        <div class="col-6 mb-3">
           <label class="form-label fw-bold">Description</label>
           <div class="text-muted">
             {{ project.description || 'No description provided.' }}
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Status</label>
+          <div>
+            <span
+              class="badge px-3 py-2 text-white"
+              [ngClass]="getStatusClass(projectStatus)"
+            >
+              {{ projectStatus }}
+            </span>
           </div>
         </div>
       </div>

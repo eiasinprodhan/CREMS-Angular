@@ -176,9 +176,9 @@ export class Bookunits implements OnInit {
 
         this.bookingForm.patchValue(
           {
-            buildingId: this.unit.buildingId ?? null,
-            floorId: this.unit.floorId ?? null,
-            unitId: this.unit.id ?? null,
+            building: this.unit.building ?? null,
+            floor: this.unit.floor ?? null,
+            unit: this.unit ?? null,
             interestRate: this.unit.interestRate ?? null,
             amount: this.unit.price ?? null,
           },
@@ -187,8 +187,8 @@ export class Bookunits implements OnInit {
 
         this.recalcDueAndEmi();
 
-        if (this.unit.floorId) this.loadFloor(this.unit.floorId);
-        if (this.unit.buildingId) this.loadBuilding(this.unit.buildingId);
+        if (this.unit.floor) this.loadFloor(this.unit.floor.id);
+        if (this.unit.building) this.loadBuilding(this.unit.building.id);
 
         this.cdr.markForCheck();
       },
@@ -227,10 +227,10 @@ export class Bookunits implements OnInit {
     const isLoan = this.isLoanSelected;
 
     const booking = new Booking();
-    booking.buildingId = v.buildingId;
-    booking.floorId = v.floorId;
-    booking.unitId = v.unitId;
-    booking.customerId = v.customerId;
+    booking.building.id = v.buildingId;
+    booking.floor.id = v.floorId;
+    booking.unit.id = v.unitId;
+    booking.customer.id = v.customerId;
     booking.date = v.date ? new Date(v.date) : new Date();
     booking.isLoan = isLoan;
     booking.downPayment = isLoan ? Number(v.downPayment) || 0 : 0;

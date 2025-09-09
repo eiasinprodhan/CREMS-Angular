@@ -39,9 +39,9 @@ export class Viewbooking implements OnInit {
   loadBooking(): void {
     this.bookingService.viewBooking(this.id).subscribe({
       next: (data) => {
-        this.booking = data;
-        this.loadUnit(data.unitId);
-        this.loadCustomer(data.customerId);
+        this.booking = data; 
+        this.loadUnit(data.unit.id);
+        this.loadCustomer(data.customer.id);
         this.cdr.markForCheck();
       },
       error: (err) => {

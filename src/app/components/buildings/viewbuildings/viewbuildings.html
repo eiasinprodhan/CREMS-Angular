@@ -94,8 +94,8 @@
             <label class="form-label fw-semibold">Site Manager</label>
             <div class="text-muted">
               <a class="text-decoration-none text-success fw-medium"
-                [routerLink]="'/viewemployees/' + siteManager.id">
-                {{ siteManager.name }}
+                [routerLink]="'/viewemployees/' + building.siteManager.id">
+                {{ building.siteManager.name }}
               </a>
             </div>
           </div>
@@ -104,8 +104,8 @@
             <label class="form-label fw-semibold">Project</label>
             <div>
               <a class="text-decoration-none text-success fw-medium"
-                [routerLink]="'/viewprojects/' + building.project">
-                {{ project.name }}
+                [routerLink]="'/viewprojects/' + building.project.id">
+                {{ building.project.name }}
               </a>
             </div>
           </div>

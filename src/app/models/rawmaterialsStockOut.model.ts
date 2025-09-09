@@ -1,7 +1,10 @@
+import { RawMaterials } from "./rawmaterial.model";
+import { Stage } from "./stage.model";
+
 export class RawMaterialsStockIn {
     id!: number;
-    stageId!:number;
-    rawMaterialId!:number;
+    stage!:Stage;
+    rawMaterial!:RawMaterials;
     name!: string;
     date!:Date;
     quantity!: number;

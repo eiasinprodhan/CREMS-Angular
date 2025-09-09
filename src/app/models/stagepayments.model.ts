@@ -1,6 +1,8 @@
+import { Stage } from "./stage.model";
+
 export class StagePayment{
   id!: number;
-  stageId!: number;
+  stage!: Stage;
   date!: string;
   paid!: boolean;
 }

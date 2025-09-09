@@ -18,9 +18,7 @@ import { forkJoin } from 'rxjs';
 export class Viewbuildings implements OnInit {
   id!: number;
   building: Building = new Building();
-  project: Project = new Project();
-  siteManager: Employee = new Employee();
-  floors: number = 0; // ✅ Only completed floors
+  floors: number = 0;
   buildingStatus: number = 0;
 
   constructor(
@@ -42,13 +40,8 @@ export class Viewbuildings implements OnInit {
     }).subscribe({
       next: ({ building, floors }) => {
         this.building = building;
-
-        // ✅ Count only completed floors
         const today = new Date();
         this.floors = floors.filter(floor => new Date(floor.expectedEndDate) <= today).length;
-
-        this.viewProjectDetails(building.project);
-        this.viewSiteManager(building.siteManager);
         this.getBuildingStatus();
       },
       error: (error) => {
@@ -61,29 +54,7 @@ export class Viewbuildings implements OnInit {
     this.router.navigate(['viewprojects', id]);
   }
 
-  viewProjectDetails(id: number): void {
-    this.projectService.viewProjects(id).subscribe({
-      next: (data) => {
-        this.project = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading project:', error);
-      }
-    });
-  }
 
-  viewSiteManager(id: number): void {
-    this.employeeService.viewEmployee(id).subscribe({
-      next: (data) => {
-        this.siteManager = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading site manager:', error);
-      }
-    });
-  }
 
   getBuildingStatus(): void {
     if (this.building.floorCount && this.floors != null) {

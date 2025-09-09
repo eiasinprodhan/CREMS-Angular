@@ -15,27 +15,24 @@ export class Listprojects implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.listProjects();
   }
 
-  //Projects List
   listProjects(): void {
     this.projects = this.projectService.listProjects();
   }
 
-  // View Projects
-  viewProjects(id: number): void{
+  viewProjects(id: number): void {
     this.router.navigate(['viewprojects', id]);
   }
 
-  editProjects(id: number): void{
+  editProjects(id: number): void {
     this.router.navigate(['editprojects', id]);
   }
 
-  // Delete Project
   deleteProjects(id: number): void {
     this.projectService.deleteProjects(id).subscribe({
       next: (res) => {
@@ -46,10 +43,22 @@ export class Listprojects implements OnInit {
       error: (error) => {
         console.log(error);
       }
-    })
+    });
   }
 
-   // Project Status Design
+  getProjectStatus(project: any): string {
+    const today = new Date();
+
+    const start = new Date(project.startDate);
+    const end = new Date(project.expectedEndDate);
+
+    if (!start || !end) return 'Unknown';
+
+    if (today < start) return 'Up Coming';
+    if (today > end) return 'Completed';
+    return 'Under Construction';
+  }
+
   getStatusClass(status: string): string {
     switch (status.toLowerCase()) {
       case 'up coming':

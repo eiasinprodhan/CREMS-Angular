@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Booking } from '../../../models/booking.model';
 import { BookingService } from '../../../services/booking.service';
 import { CustomerService } from '../../../services/customer.service';
 import { Customer } from '../../../models/customer.model';
@@ -33,7 +32,7 @@ export class Listbooking implements OnInit {
 
       this.enrichedBookings = bookings.map((booking) => ({
         ...booking,
-        customerName: customerMap.get(booking.customerId) || 'Unknown',
+        customerName: customerMap.get(booking.customer.id) || 'Unknown',
       }));
     });
   }

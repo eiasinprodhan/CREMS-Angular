@@ -74,7 +74,7 @@
             [class.is-invalid]="addBuildingForm.get('project')?.touched && addBuildingForm.get('project')?.invalid"
           >
             <option value="" disabled selected>Select Project</option>
-            <option *ngFor="let p of projects | async" [ngValue]="p.id">
+            <option *ngFor="let p of projects | async" [ngValue]="p">
               {{ p.name }}
             </option>
           </select>
@@ -95,7 +95,7 @@
             [class.is-invalid]="addBuildingForm.get('siteManager')?.touched && addBuildingForm.get('siteManager')?.invalid"
           >
             <option value="" disabled selected>Select Site Manager</option>
-            <option *ngFor="let e of siteManagers | async" [ngValue]="e.id">
+            <option *ngFor="let e of siteManagers | async" [ngValue]="e">
               {{ e.name }}
             </option>
           </select>

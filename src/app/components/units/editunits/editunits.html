@@ -104,12 +104,12 @@
 
       <div class="row mt-4">
         <div class="col-md-6 mb-3">
-          <label for="floorId" class="form-label fw-bold">Floor</label>
+          <label for="floor" class="form-label fw-bold">Floor</label>
           <select
             class="form-select"
-            id="floorId"
-            name="floorId"
-            [(ngModel)]="unit.floorId"
+            id="floor"
+            name="floor"
+            [(ngModel)]="unit.floor"
             required
           >
             <option *ngFor="let floor of floors" [value]="floor.id">

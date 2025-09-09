@@ -1,7 +1,10 @@
+import { Building } from "./building.model";
+import { Floor } from "./floor.model";
+
 export class Unit {
   id!: number;
-  floorId!: number;
-  buildingId!: number;
+  building!: Building;
+  floor!: Floor;
   unitNumber!: string;
   area!: number;
   bedrooms!: number;

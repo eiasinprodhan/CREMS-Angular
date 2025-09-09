@@ -56,10 +56,11 @@
             class="form-select"
             name="project"
             [(ngModel)]="building.project"
+            [compareWith]="compareProjects"
             required
           >
-            <option value="" disabled>Select Project</option>
-            <option *ngFor="let p of projects" [value]="p.id">
+            <option [ngValue]="null" disabled>Select Project</option>
+            <option *ngFor="let p of projects" [ngValue]="p">
               {{ p.name }}
             </option>
           </select>
@@ -74,10 +75,11 @@
             class="form-select"
             name="siteManager"
             [(ngModel)]="building.siteManager"
+            [compareWith]="compareEmployees"
             required
           >
-            <option value="" disabled>Select Site Manager</option>
-            <option *ngFor="let e of siteManagers | async" [value]="e.id">
+            <option [ngValue]="null" disabled>Select Site Manager</option>
+            <option *ngFor="let e of siteManagers | async" [ngValue]="e">
               {{ e.name }}
             </option>
           </select>

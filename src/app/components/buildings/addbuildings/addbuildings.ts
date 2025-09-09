@@ -35,7 +35,7 @@ export class Addbuildings implements OnInit {
       type: ['', Validators.required],
       location: ['', Validators.required],
       project: ['', Validators.required],
-      siteManager: ['', [Validators.required]],
+      siteManager: [, [Validators.required]],
       floorCount: [0, [Validators.required]],
       unitCount: [0, [Validators.required]]
     });

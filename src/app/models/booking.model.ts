@@ -1,9 +1,14 @@
+import { Building } from "./building.model";
+import { Customer } from "./customer.model";
+import { Floor } from "./floor.model";
+import { Unit } from "./unit.model";
+
 export class Booking {
     id!: number;
-    buildingId!: number;
-    floorId!: number;
-    unitId!: number;
-    customerId!: number;
+    building!: Building;
+    floor!: Floor;
+    unit!: Unit;
+    customer!: Customer;
     date!: Date;
     isLoan!: boolean;
     downPayment!: number;

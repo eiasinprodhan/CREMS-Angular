@@ -1,6 +1,8 @@
+import { Building } from "./building.model";
+
 export class Floor {
   id!: number;
   name!: string;
-  building!: number;
+  building!: Building;
   expectedEndDate!: Date;
 }

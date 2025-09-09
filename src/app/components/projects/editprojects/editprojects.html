@@ -85,9 +85,10 @@
             class="form-select"
             [(ngModel)]="project.projectManager"
             name="projectManager"
+            [compareWith]="compareEmployees"
           >
             <option [ngValue]="null" disabled>Select Project Manager</option>
-            <option *ngFor="let e of projectManagers | async" [ngValue]="e.id">
+            <option *ngFor="let e of projectManagers | async" [ngValue]="e">
               {{ e.name }}
             </option>
           </select>

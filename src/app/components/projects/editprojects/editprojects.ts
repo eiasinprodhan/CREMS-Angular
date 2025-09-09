@@ -29,11 +29,9 @@ export class Editprojects {
     this.viewEmployees();
   }
 
-  // View Project
   viewProjects(): void {
     this.projectService.viewProjects(this.id).subscribe({
       next: (data) => {
-        // Convert date objects to strings for input fields
         data.startDate = this.formatDate(data.startDate);
         data.expectedEndDate = this.formatDate(data.expectedEndDate);
         this.project = data;
@@ -45,7 +43,6 @@ export class Editprojects {
     });
   }
 
-  // Convert Date or date string to 'YYYY-MM-DD' format
   formatDate(date: string | Date): string {
     const d = new Date(date);
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
@@ -54,9 +51,7 @@ export class Editprojects {
     return `${year}-${month}-${day}`;
   }
 
-  // Edit Project
   updateProject(): void {
-    // Convert string dates back to Date objects if needed by backend
     this.project.startDate = new Date(this.project.startDate);
     this.project.expectedEndDate = new Date(this.project.expectedEndDate);
 
@@ -71,8 +66,12 @@ export class Editprojects {
     });
   }
 
-  // View Employees
   viewEmployees(): void {
     this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
   }
+
+  compareEmployees(e1: any, e2: any): boolean {
+  return e1 && e2 ? e1.id === e2.id : e1 === e2;
+}
+
 }
