@@ -1,6 +1,5 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
-import { Employee } from '../models/employee.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthResponse } from '../models/authresponse.model';
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = environments.apiBaseUrl + '/user';
+  private baseUrl = environments.apiBaseUrl + '/auth';
 
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -31,7 +30,7 @@ export class AuthService {
   login(email: string, password: string): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(
-        this.baseUrl + 'login',
+        this.baseUrl + '/login',
         { email, password },
         { headers: this.headers }
       )
@@ -101,7 +100,7 @@ export class AuthService {
     return userRole ? roles.includes(userRole) : false;
   }
 
-  isJobSeeker(): boolean {
-    return this.getUserRole() === 'JOBSEEKER';
+  isAdmin(): boolean {
+    return this.getUserRole() === 'ADMIN';
   }
 }

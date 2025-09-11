@@ -1,6 +1,4 @@
-import { Employee } from "./employee.model";
-export class AuthResponse{
-
-    token!: string;
-    employee!: Employee;
+export interface AuthResponse {
+    token: string;
+    message: string;
 }

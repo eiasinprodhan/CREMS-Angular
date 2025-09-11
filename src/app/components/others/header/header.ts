@@ -18,20 +18,20 @@ export class Header {
   ) {}
 
   ngOnInit(): void {
-    this.loadUserProfile();
+    // this.loadUserProfile();
   }
 
-  loadUserProfile(): void {
-    const sub = this.employeeService.getEmployeeProfile().subscribe({
-      next: (res) => {
-        if (res) {
-          this.employee = res;
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => {
-        console.error('Error loading user profile:', err);
-      },
-    });
-  }
+  // loadUserProfile(): void {
+  //   const sub = this.employeeService.getEmployeeProfile().subscribe({
+  //     next: (res) => {
+  //       if (res) {
+  //         this.employee = res;
+  //         this.cdr.detectChanges();
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Error loading user profile:', err);
+  //     },
+  //   });
+  // }
 }

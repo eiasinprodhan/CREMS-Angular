@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class Signin {
   loginForm!: FormGroup;
-  errorMessage: string = '';
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
 
   constructor(
     private authService: AuthService,
@@ -29,36 +30,33 @@ export class Signin {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'Please correct the highlighted errors.';
-      this.loginForm.markAllAsTouched();
       return;
     }
 
-    const employeeDetails = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
-    this.authService.login(employeeDetails).subscribe({
-      next: (res) => {
-        this.authService.storeToken(res.token);
+    this.authService.login(email, password).subscribe({
+      next: (response) => {
+        this.successMessage = 'Login successful!';
+        this.errorMessage = null;
 
-        const role = this.authService.getEmployeeRole();
-        this.cdr.detectChanges();
+        const role = this.authService.getUserRole();
 
-        if (role === 'Admin') {
+        if (role === 'ADMIN') {
           window.location.href = '/dashboard';
-        } else if (role === 'Project Manager') {
+        } else if (role === 'PROJECT_MANAGER') {
           window.location.href = '/listprojects';
+        } else if (role === 'SITE_MANAGER') {
+          this.router.navigate(['/listbuildings']);
         } else {
-          window.location.href = '/listbuildings';
+          this.router.navigate(['/signin']);
         }
-
-
-        this.loginForm.reset();
-        this.errorMessage = '';
       },
       error: (err) => {
-        console.error('Login error:', err);
-        this.errorMessage = 'Invalid email or password.';
-      },
+        this.errorMessage = 'Login failed. Please check your credentials.';
+        this.successMessage = null;
+      }
     });
   }
+
 }

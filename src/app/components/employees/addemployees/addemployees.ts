@@ -46,7 +46,6 @@ export class Addemployees implements OnInit {
       return;
     }
 
-    // Build user object here dynamically
     const user: User = {
       name: this.addEmployeeForm.value.name,
       email: this.addEmployeeForm.value.email,

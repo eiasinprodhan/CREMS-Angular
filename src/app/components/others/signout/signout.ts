@@ -21,7 +21,7 @@ export class Signout {
 
   logout(): void {
     this.authService.logout();
-    this.authService.removeEmployeeDetails();
+    this.authService.logout();
     this.cdr.markForCheck();
     this.router.navigate(['/signin']);
   }

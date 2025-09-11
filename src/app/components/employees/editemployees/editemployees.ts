@@ -25,7 +25,7 @@ export class Editemployees implements OnInit {
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
     this.loadEmployee();
-    this.loadUserProfile(); // Added call to load current employee role
+    // this.loadUserProfile(); // Added call to load current employee role
   }
 
   loadEmployee(): void {
@@ -70,17 +70,17 @@ export class Editemployees implements OnInit {
     this.router.navigate(['listemployees']);
   }
 
-  loadUserProfile(): void {
-    this.employeeService.getEmployeeProfile().subscribe({
-      next: (res) => {
-        if (res) {
-          this.currentEmployee = res;
-          this.cdr.detectChanges();
-        }
-      },
-      error: (err) => {
-        console.error('Error loading user profile:', err);
-      },
-    });
-  }
+  // loadUserProfile(): void {
+  //   this.employeeService.getEmployeeProfile().subscribe({
+  //     next: (res) => {
+  //       if (res) {
+  //         this.currentEmployee = res;
+  //         this.cdr.detectChanges();
+  //       }
+  //     },
+  //     error: (err) => {
+  //       console.error('Error loading user profile:', err);
+  //     },
+  //   });
+  // }
 }
