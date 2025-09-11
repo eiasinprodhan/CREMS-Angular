@@ -4,6 +4,7 @@ import { Employee } from '../models/employee.model';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environments } from './environments';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,14 @@ import { environments } from './environments';
 export class EmployeeService {
   baseUrl: string = environments.apiBaseUrl + '/employees';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Create new employee
-  addEmployee(employee: Employee, file: File): Observable<any> {
+  addEmployee(user: User, employee: Employee, file: File): Observable<any> {
     const formData = new FormData();
+    formData.append('user', JSON.stringify(user));
     formData.append('employee', JSON.stringify(employee));
-    formData.append('photo', file)
+    formData.append('photo', file);
+
     return this.http.post(this.baseUrl + '/', formData);
   }
 
@@ -35,7 +37,7 @@ export class EmployeeService {
   editEmployee(employee: Employee, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('employee', JSON.stringify(employee));
-    formData.append('photo', file)
+    formData.append('photo', file);
     return this.http.put(this.baseUrl + '/', formData);
   }
 
@@ -61,10 +63,6 @@ export class EmployeeService {
   // update empployee totalsalary And
   updateTotalSalary(id: number, salary: number): Observable<any> {
     return this.http.patch(this.baseUrl + '/' + id, { salary: salary });
-  }
-
-  getEmployeeProfile(): Observable<Employee | null> {
-    return of(this.authService.getEmployeeProfileFromStorage());
   }
 
   updateEmployeeProfile(employee: Employee): Observable<Employee> {

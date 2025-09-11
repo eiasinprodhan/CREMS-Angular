@@ -1,133 +1,107 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { Employee } from '../models/employee.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { AuthResponse } from '../models/authresponse.model';
 import { environments } from './environments';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  private baseUrl = environments.apiBaseUrl + '/user';
 
-  private baseUrl: string = environments.apiBaseUrl + '/employees';
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  private currentEmployeeSubject: BehaviorSubject<Employee | null>;
-  private currentEmployee$: Observable<Employee | null>;
+  private userRoleSubject: BehaviorSubject<string | null> = new BehaviorSubject<
+    string | null
+  >(null);
+
+  public userRole$: Observable<string | null> =
+    this.userRoleSubject.asObservable();
 
   constructor(
     private http: HttpClient,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {
-    const storedEmployee = this.isBrowser() ? JSON.parse(localStorage.getItem('currentEmployee') || 'null') : null;
-    this.currentEmployeeSubject = new BehaviorSubject<Employee | null>(storedEmployee);
-    this.currentEmployee$ = this.currentEmployeeSubject.asObservable();
+  ) {}
+
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(
+        this.baseUrl + 'login',
+        { email, password },
+        { headers: this.headers }
+      )
+      .pipe(
+        map((response: AuthResponse) => {
+          if (this.isBrowser() && response.token) {
+            localStorage.setItem('authToken', response.token);
+            const decodeToken = this.decodeToken(response.token);
+            localStorage.setItem('userRole', decodeToken.role);
+            this.userRoleSubject.next(decodeToken.role);
+          }
+          return response;
+        })
+      );
   }
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
-  registration(employee: Employee): Observable<AuthResponse> {
-    return this.http.post<Employee>(this.baseUrl, Employee).pipe(
-      map((newEmployee: Employee) => {
-        const token = btoa(`${newEmployee.email}${newEmployee.password}`);
-        return { token, employee: newEmployee } as AuthResponse;
-      }),
-      catchError(error => {
-        console.log(error);
-        throw error;
-      })
-    );
-  }
-
-  login(credentials: { email: string; password: string }): Observable<AuthResponse> {
-  const params = new HttpParams()
-    .set('email', credentials.email)
-    .set('password', credentials.password);
-
-  return this.http.get<Employee>(`${this.baseUrl}/login`, { params }).pipe(
-    map(employee => {
-      if (employee) {
-        // Simulate token generation (Base64 of email:password)
-        const token = btoa(`${employee.email}:${credentials.password}`);
-        this.storeToken(token);
-        this.setCurrentEmployee(employee);
-        return { token, employee } as AuthResponse;
-      } else {
-        throw new Error('Login failed: No employee returned.');
-      }
-    }),
-    catchError(error => {
-      console.error('Login error:', error);
-      throw error;
-    })
-  );
-}
-
-
-  public get currentEmployeeValue(): Employee | null {
-    return this.currentEmployeeSubject.value;
-  }
-
-  logout(): void {
-    this.clearCurrentEmployee();
-    if (this.isBrowser()) {
-      localStorage.removeItem('token');
-    }
-  }
-
-  private setCurrentEmployee(Employee: Employee): void {
-    if (this.isBrowser()) {
-      localStorage.setItem('currentEmployee', JSON.stringify(Employee));
-    }
-    this.currentEmployeeSubject.next(Employee);
-  }
-
-  private clearCurrentEmployee(): void {
-    if (this.isBrowser()) {
-      localStorage.removeItem('currentEmployee');
-    }
-    this.currentEmployeeSubject.next(null);
-  }
-
-  isAuthenticated(): boolean {
-    return !!this.getToken();
+  decodeToken(token: string) {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
   }
 
   getToken(): string | null {
-    return this.isBrowser() ? localStorage.getItem('token') : null;
-  }
-
-  getEmployeeRole(): any {
-    return this.currentEmployeeValue?.role;
-  }
-
-  storeToken(token: string): void {
     if (this.isBrowser()) {
-      localStorage.setItem('token', token);
-    }
-  }
-
-  storeEmployeeProfile(Employee: Employee): void {
-    if (this.isBrowser()) {
-      localStorage.setItem('currentEmployee', JSON.stringify(Employee));
-    }
-  }
-
-  getEmployeeProfileFromStorage(): Employee | null {
-    if (this.isBrowser()) {
-      const EmployeeProfile = localStorage.getItem('currentEmployee');
-      console.log('Employee Profile is: ', EmployeeProfile);
-      return EmployeeProfile ? JSON.parse(EmployeeProfile) : null;
+      return localStorage.getItem('authToken');
     }
     return null;
   }
 
-  removeEmployeeDetails(): void {
+  getUserRole(): string | null {
     if (this.isBrowser()) {
-      localStorage.clear();
+      return localStorage.getItem('userRole');
     }
+    return null;
+  }
+
+  isTokenExpired(token: string): boolean {
+    const docodeToken = this.decodeToken(token);
+
+    const expiry = docodeToken.exp * 1000;
+    return Date.now() > expiry;
+  }
+
+  isLoggIn(): boolean {
+    const token = this.getToken();
+    if (token && !this.isTokenExpired(token)) {
+      return true;
+    }
+    this.logout();
+    return false;
+  }
+
+  logout(): void {
+    if (this.isBrowser()) {
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('authToken');
+      this.userRoleSubject.next(null);
+    }
+    this.router.navigate(['/login']);
+  }
+
+  hasRole(roles: string[]): boolean {
+    const userRole = this.getUserRole();
+    return userRole ? roles.includes(userRole) : false;
+  }
+
+  isJobSeeker(): boolean {
+    return this.getUserRole() === 'JOBSEEKER';
   }
 }
