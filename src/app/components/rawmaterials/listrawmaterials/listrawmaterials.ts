@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RawmaterialsService } from '../../../services/rawmaterials.service';
 
 @Component({
@@ -11,7 +11,8 @@ export class Listrawmaterials implements OnInit{
   rawmaterials!: any;
 
   constructor(
-    private rawMaterialsService: RawmaterialsService
+    private rawMaterialsService: RawmaterialsService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
@@ -20,6 +21,20 @@ export class Listrawmaterials implements OnInit{
 
   listRawMaterials(): void{
     this.rawmaterials = this.rawMaterialsService.listRawMaterials();
+    this.cdr.markForCheck();
   }
+
+  deleteRawMaterials(id: number): void {
+  this.rawMaterialsService.deleteRawMaterials(id).subscribe({
+    next: () => {
+      this.listRawMaterials();
+      this.cdr.markForCheck();
+    },
+    error: (error) => {
+      console.error('Delete failed', error);
+    }
+  });
+}
+
 
 }

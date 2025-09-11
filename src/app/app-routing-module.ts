@@ -106,6 +106,7 @@ const routes: Routes = [
   { path: 'stockin', component: Addrawmaterials },
   { path: 'listrawmaterials', component: Listrawmaterials },
   { path: 'rawmaterilas/:id', component: Viewrawmaterials },
+  { path: 'addrawmaterials', component: Editrawmaterials },
 
   // Employees
   { path: 'addemployees', component: Addemployees },
@@ -113,7 +114,7 @@ const routes: Routes = [
   { path: 'viewemployees/:id', component: Viewemployees },
   { path: 'editemployees/:id', component: Editemployees },
 
-    // Customers
+  // Customers
   { path: 'addcustomers', component: Addcustomers },
   { path: 'listcustomers', component: Listcustomers },
   { path: 'viewcustomers/:id', component: Viewcustomers },
@@ -122,9 +123,9 @@ const routes: Routes = [
 
 
   // Transaction
-  {path: 'listtransactions', component: Listtransactions},
-  {path: 'addtransactions', component: Addtransactions},
-  {path: 'edittransactions/:id', component: Edittransactions}
+  { path: 'listtransactions', component: Listtransactions },
+  { path: 'addtransactions', component: Addtransactions },
+  { path: 'edittransactions/:id', component: Edittransactions }
 ];
 
 @NgModule({

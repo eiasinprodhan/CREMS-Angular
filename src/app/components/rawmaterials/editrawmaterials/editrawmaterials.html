@@ -1,1 +1,79 @@
-<p>editrawmaterials works!</p>
+<div *ngIf="message" class="alert" [ngClass]="'alert-' + messageType">
+  {{ message }}
+</div>
+
+<div class="card">
+  <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+    <div class="col-md-auto me-auto d-md-flex align-items-center">
+      <h5 class="card-title mb-0 text-md-start text-center">Add Raw Materials</h5>
+    </div>
+    <div class="col-md-auto d-flex justify-content-end align-items-center">
+      <button type="button" class="btn btn-primary" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left mx-1"></i>Return
+      </button>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addRawMaterialForm">
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label fw-bold">Name</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="name"
+          [class.is-invalid]="
+            addRawMaterialForm.get('name')?.touched && addRawMaterialForm.get('name')?.invalid
+          "
+        />
+        <div
+          *ngIf="addRawMaterialForm.get('name')?.touched && addRawMaterialForm.get('name')?.invalid"
+          class="invalid-feedback"
+        >
+          Name is required.
+        </div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="mb-3">
+        <label for="quantity" class="form-label fw-bold">Quantity</label>
+        <input
+          type="number"
+          id="quantity"
+          class="form-control"
+          formControlName="quantity"
+          [class.is-invalid]="
+            addRawMaterialForm.get('quantity')?.touched && addRawMaterialForm.get('quantity')?.invalid
+          "
+        />
+      </div>
+
+      <!-- Unit -->
+      <div class="mb-3">
+        <label for="unit" class="form-label fw-bold">Unit</label>
+        <input
+          type="text"
+          id="unit"
+          class="form-control"
+          formControlName="unit"
+          [class.is-invalid]="
+            addRawMaterialForm.get('unit')?.touched && addRawMaterialForm.get('unit')?.invalid
+          "
+        />
+        <div
+          *ngIf="addRawMaterialForm.get('unit')?.touched && addRawMaterialForm.get('unit')?.invalid"
+          class="invalid-feedback"
+        >
+          Unit is required.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" (click)="addRawMaterial()">
+        <i class="fa-solid fa-floppy-disk mx-1"></i> Save Raw Material
+      </button>
+    </form>
+  </div>
+</div>

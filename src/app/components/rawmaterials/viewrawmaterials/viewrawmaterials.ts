@@ -3,6 +3,9 @@ import { RawMaterials } from '../../../models/rawmaterial.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RawmaterialsService } from '../../../services/rawmaterials.service';
 import { ActivatedRoute } from '@angular/router';
+import { StageService } from '../../../services/stage.service';
+import { Stage } from '../../../models/stage.model';
+import { RawMaterialsStockOut } from '../../../models/rawmaterialsStockOut.model';
 
 @Component({
   selector: 'app-viewrawmaterials',
@@ -13,15 +16,19 @@ import { ActivatedRoute } from '@angular/router';
 export class Viewrawmaterials {
   id!: number;
   rawmaterials: RawMaterials[] = [];
+  stage: Stage = new Stage();
   selectedRawMaterials?: RawMaterials;
   rawMaterialForm!: FormGroup;
-  stockOutlist!: any;
+  stockOutlist: RawMaterialsStockOut[] = [];
 
   message: string = '';
   messageType: string = '';
 
+  stageLoaded = false; // track stage load status
+
   constructor(
     private rawMaterialsService: RawmaterialsService,
+    private stageService: StageService,
     private ar: ActivatedRoute,
     private formBuilder: FormBuilder,
     private cdr: ChangeDetectorRef
@@ -29,9 +36,9 @@ export class Viewrawmaterials {
 
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
+
     this.rawMaterialForm = this.formBuilder.group({
-      rawMaterialId: ['', Validators.required],
-      stageId: [''],
+      rawMaterial: [null, Validators.required],
       name: [''],
       date: ['', Validators.required],
       quantity: [null, [Validators.required, Validators.min(1)]],
@@ -39,8 +46,24 @@ export class Viewrawmaterials {
     });
 
     this.listRawMaterials();
-    this.watchPriceChanges();
-    this.listStockOut();
+    this.getStageById();
+    // load stockOut after stage is loaded (to be safe)
+  }
+
+  getStageById(): void {
+    this.stageService.viewStages(this.id).subscribe({
+      next: (data) => {
+        this.stage = data;
+        this.stageLoaded = true;
+        this.listStockOut();
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Error fetching stage:', err);
+        this.message = 'Failed to load stage data.';
+        this.messageType = 'danger';
+      }
+    });
   }
 
   listRawMaterials(): void {
@@ -52,101 +75,98 @@ export class Viewrawmaterials {
 
   onItemSelect(event: any): void {
     const selectedId = +event.target.value;
-    this.selectedRawMaterials = this.rawmaterials.find(rm => rm.id === selectedId);
-    console.log('Selected:', this.selectedRawMaterials);
-    if (this.selectedRawMaterials) {
+    const selected = this.rawmaterials.find(rm => rm.id === selectedId);
+    this.selectedRawMaterials = selected;
+
+    if (selected) {
       this.rawMaterialForm.patchValue({
-        name: this.selectedRawMaterials.name,
-        unit: this.selectedRawMaterials.unit,
-        stageId: this.id
+        name: selected.name,
+        unit: selected.unit,
+        rawMaterial: selected
       });
-
-      this.updateTotalPrice();
-      this.cdr.detectChanges();
     }
-    this.updateTotalPrice();
-    this.cdr.detectChanges();
-  }
-
-
-  watchPriceChanges(): void {
-    this.rawMaterialForm.get('unitprice')?.valueChanges.subscribe(() => {
-      this.updateTotalPrice();
-    });
-
-    this.rawMaterialForm.get('quantity')?.valueChanges.subscribe(() => {
-      this.updateTotalPrice();
-    });
-  }
-
-  updateTotalPrice(): void {
-    const unitprice = this.rawMaterialForm.get('unitprice')?.value || 0;
-    const quantity = this.rawMaterialForm.get('quantity')?.value || 0;
-    const total = unitprice * quantity;
-    this.rawMaterialForm.get('totalprice')?.setValue(total, { emitEvent: false });
   }
 
   submitStockOut(): void {
-  if (this.rawMaterialForm.invalid) {
-    this.rawMaterialForm.markAllAsTouched();
-    return;
-  }
-
-  const stockOutData = this.rawMaterialForm.getRawValue();
-
-  if (!this.selectedRawMaterials) {
-    this.message = 'Please select a raw material.';
-    this.messageType = 'danger';
-    return;
-  }
-
-  const availableQuantity = this.selectedRawMaterials.quantity || 0;
-
- 
-  if (stockOutData.quantity > availableQuantity) {
-    this.message = 'Stock is not available. Requested quantity exceeds available stock.';
-    this.messageType = 'danger';
-    return;
-  }
-
-  const updatedQuantity = availableQuantity - stockOutData.quantity;
-
-  this.rawMaterialsService.saveStockOut(stockOutData).subscribe({
-    next: () => {
-      const updatedRawMaterial: RawMaterials = {
-        id: this.selectedRawMaterials!.id,
-        name: this.selectedRawMaterials!.name,
-        quantity: updatedQuantity,
-        unit: this.selectedRawMaterials!.unit
-      };
-
-      this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial).subscribe({
-        next: () => {
-          this.listRawMaterials();
-          this.rawMaterialForm.reset();
-          this.selectedRawMaterials = undefined;
-          this.message = 'Stock out record added successfully.';
-          this.messageType = 'success';
-          this.listStockOut();
-        },
-        error: (updateError) => {
-          console.error('Error updating raw materials quantity:', updateError);
-          this.message = 'Failed to update raw materials quantity.';
-          this.messageType = 'danger';
-        }
-      });
-    },
-    error: (err) => {
-      console.error('Error saving stock out:', err);
-      this.message = 'Failed to add stock out. Please try again.';
-      this.messageType = 'danger';
+    if (!this.stageLoaded) {
+      this.message = 'Stage data is still loading. Please wait.';
+      this.messageType = 'warning';
+      return;
     }
-  });
-}
 
+    if (this.rawMaterialForm.invalid) {
+      this.rawMaterialForm.markAllAsTouched();
+      return;
+    }
+
+    const formData = this.rawMaterialForm.getRawValue();
+    const selectedRawMaterial: RawMaterials = formData.rawMaterial;
+
+    if (!selectedRawMaterial) {
+      this.message = 'Please select a raw material.';
+      this.messageType = 'danger';
+      return;
+    }
+
+    const availableQuantity = selectedRawMaterial.quantity || 0;
+
+    if (formData.quantity > availableQuantity) {
+      this.message = 'Stock is not available. Requested quantity exceeds available stock.';
+      this.messageType = 'danger';
+      return;
+    }
+
+    const updatedQuantity = availableQuantity - formData.quantity;
+
+    // Prepare minimal objects with only id to avoid sending full nested objects
+    const stockOutData: RawMaterialsStockOut = {
+      rawMaterial: { id: selectedRawMaterial.id } as RawMaterials,
+      name: selectedRawMaterial.name,
+      date: new Date(formData.date),
+      quantity: formData.quantity,
+      unit: selectedRawMaterial.unit,
+      stage: { id: this.stage.id } as Stage
+    };
+
+    console.log('Saving StockOut:', stockOutData);
+
+    this.rawMaterialsService.saveStockOut(stockOutData).subscribe({
+      next: () => {
+        const updatedRawMaterial: RawMaterials = {
+          id: selectedRawMaterial.id,
+          name: selectedRawMaterial.name,
+          quantity: updatedQuantity,
+          unit: selectedRawMaterial.unit
+        };
+
+        this.rawMaterialsService.updateRawMaterialsQuantity(updatedRawMaterial).subscribe({
+          next: () => {
+            this.listRawMaterials();
+            this.rawMaterialForm.reset();
+            this.selectedRawMaterials = undefined;
+            this.message = 'Stock out record added successfully.';
+            this.messageType = 'success';
+            this.listStockOut();
+          },
+          error: (updateError) => {
+            console.error('Error updating raw materials quantity:', updateError);
+            this.message = 'Failed to update raw materials quantity.';
+            this.messageType = 'danger';
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error saving stock out:', err);
+        this.message = 'Failed to add stock out. Please try again.';
+        this.messageType = 'danger';
+      }
+    });
+  }
 
   listStockOut(): void {
-    this.stockOutlist = this.rawMaterialsService.listStockOut(this.id);
-    this.cdr.markForCheck();
+    this.rawMaterialsService.listStockOut(this.id).subscribe(data => {
+      this.stockOutlist = data;
+      this.cdr.markForCheck();
+    });
   }
 }

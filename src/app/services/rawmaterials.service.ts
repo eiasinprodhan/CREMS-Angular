@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { RawMaterials } from '../models/rawmaterial.model';
 import { RawMaterialsStockIn } from '../models/rawmaterialsstockin.model';
 import { environments } from './environments';
+import { RawMaterialsStockOut } from '../models/rawmaterialsStockOut.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,16 @@ export class RawmaterialsService {
     private http: HttpClient
   ) { }
 
+  addRawMaterials(rawmaterial: RawMaterials): Observable<any> {
+    return this.http.post(this.baseUrlOfRawMaterials + '/', rawmaterial);
+  }
+
   listRawMaterials(): Observable<RawMaterials[]> {
     return this.http.get<RawMaterials[]>(this.baseUrlOfRawMaterials + '/');
+  }
+
+  deleteRawMaterials(id: number): Observable<any> {
+    return this.http.delete(this.baseUrlOfRawMaterials + '/' + id);
   }
 
 
@@ -34,11 +43,11 @@ export class RawmaterialsService {
     return this.http.get(this.baseUrlOfRawMaterialsStockIn + '/');
   }
 
-  deleteStockIn(id: number): Observable<any>{
+  deleteStockIn(id: number): Observable<any> {
     return this.http.delete(this.baseUrlOfRawMaterialsStockIn + '/' + id);
   }
 
-  saveStockOut(stockOut: RawMaterialsStockIn): Observable<any> {
+  saveStockOut(stockOut: RawMaterialsStockOut): Observable<any> {
     return this.http.post(this.baseUrlOfRawMaterialsStockOut + '/', stockOut);
   }
 
