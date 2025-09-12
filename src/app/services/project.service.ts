@@ -79,7 +79,7 @@ export class ProjectService {
       }
     }
 
-    return this.http.delete(this.baseUrl+'/'+id);
+    return this.http.delete(this.baseUrl+'/'+id, { headers });
   }
 
   listWorkHistory(id: number): Observable<any>{

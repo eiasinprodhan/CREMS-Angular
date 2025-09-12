@@ -57,7 +57,7 @@
     <li class="menu-header small">
       <span class="menu-header-text">Main Menu</span>
     </li>
-    <li class="menu-item" *ngIf="employee?.role==='Admin'">
+    <li class="menu-item" *ngIf="role==='ADMIN'">
       <a routerLink="dashboard" class="menu-link">
         <i class="menu-icon icon-base ti tabler-smart-home"></i>
         <span class="mx-3"><span class="mx-3">Dashboard</span></span>
@@ -72,7 +72,7 @@
       </a>
 
       <ul class="menu-sub">
-        <li class="menu-item" *ngIf="employee?.role==='Admin' || employee?.role==='Project Manager'">
+        <li class="menu-item" *ngIf="role==='ADMIN' || role==='PROJECT_MANAGER'">
           <a routerLink="listprojects" class="menu-link"> Projects </a>
         </li>
         <li class="menu-item">
@@ -101,23 +101,23 @@
         <li class="menu-item">
           <a routerLink="listemployees" class="menu-link"> Employees </a>
         </li>
-        <li class="menu-item" *ngIf="employee?.role==='Admin'">
+        <li class="menu-item" *ngIf="role==='ADMIN'">
           <a routerLink="listcustomers" class="menu-link"> Customers </a>
         </li>
-        <li class="menu-item" *ngIf="employee?.role==='Admin'">
+        <li class="menu-item" *ngIf="role==='ADMIN'">
           <a href="listbooking" class="menu-link"> Bookings </a>
         </li>
       </ul>
     </li>
 
     <!-- Acccountings -->
-    <li class="menu-item" *ngIf="employee?.role==='Admin'">
+    <li class="menu-item" *ngIf="role==='ADMIN'">
       <a class="menu-link menu-toggle">
         <i class="menu-icon icon-base ti tabler-coin-taka"></i>
         <span class="mx-3"><span class="mx-3">Accountings</span></span>
       </a>
 
-      <ul class="menu-sub" *ngIf="employee?.role==='Admin'">
+      <ul class="menu-sub" *ngIf="role==='ADMIN'">
         <li class="menu-item">
           <a routerLink="listtransactions" class="menu-link"> Transactions </a>
         </li>
@@ -799,7 +799,7 @@
                 </div>
                 <div class="flex-grow-1">
                   <h6 class="mb-0">{{employee?.name}}</h6>
-                  <small class="text-body-secondary">{{employee?.role}}</small>
+                  <small class="text-body-secondary">{{role}}</small>
                 </div>
               </div>
             </a>

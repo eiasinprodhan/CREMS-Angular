@@ -84,7 +84,7 @@ export class Addstages implements OnInit {
   }
 
   viewLabours(): void {
-    this.labours$ = this.employeeService.viewEmployeeByRole('Labour');
+    this.labours$ = this.employeeService.viewEmployeeByRole('LABOUR');
   }
 
   getFloorById(): void {

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { EmployeeService } from '../../../services/employee.service';
 import { Employee } from '../../../models/employee.model';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,27 +12,19 @@ import { Subscription } from 'rxjs';
 })
 export class Header {
   employee: Employee | null = null;
+  role!: string | null;
 
   constructor(
     private employeeService: EmployeeService,
+    private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    // this.loadUserProfile();
+    this.loadUserProfile();
   }
 
-  // loadUserProfile(): void {
-  //   const sub = this.employeeService.getEmployeeProfile().subscribe({
-  //     next: (res) => {
-  //       if (res) {
-  //         this.employee = res;
-  //         this.cdr.detectChanges();
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error('Error loading user profile:', err);
-  //     },
-  //   });
-  // }
+  loadUserProfile(): void {
+    this.role = this.authService.getUserRole();
+  }
 }
