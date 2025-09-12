@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export class Employee {
     id!: number;
     name!: string;
@@ -15,4 +17,5 @@ export class Employee {
     address!:string;
     totalSalary!:number;
     lastSalary!: Date;
+    user!:User
 }

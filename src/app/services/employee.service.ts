@@ -39,20 +39,47 @@ export class EmployeeService {
 
   // Get all employees
   listEmployees(): Observable<any> {
-    return this.http.get(this.baseUrl + '/');
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(this.baseUrl + '/', { headers });
   }
 
   // Get single employee
   viewEmployee(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(`${this.baseUrl}/${id}`, { headers });
   }
 
   // Update employee
   editEmployee(employee: Employee, file: File): Observable<any> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
     const formData = new FormData();
     formData.append('employee', JSON.stringify(employee));
     formData.append('photo', file);
-    return this.http.put(this.baseUrl + '/', formData);
+    return this.http.put(this.baseUrl + '/', formData, { headers });
   }
 
   // Delete employee
