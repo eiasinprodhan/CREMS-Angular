@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Transaction } from '../models/transaction.model';
 import { environments } from './environments';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +12,47 @@ export class TransactionService {
   baseUrl: string = environments.apiBaseUrl + '/transactions';
 
   constructor(
-    private http: HttpClient
-  ) { }
+      private http: HttpClient,
+      @Inject(PLATFORM_ID) private platformId: Object
+    ) { }
 
   public saveTransaction(transaction: Transaction): Observable<any> {
-    return this.http.post(this.baseUrl + '/', transaction);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.post(this.baseUrl + '/', transaction, { headers });
   }
 
   public listTransaction(): Observable<any> {
-    return this.http.get(this.baseUrl + '/');
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(this.baseUrl + '/', { headers });
   }
 
   public deleteTransaction(id: number): Observable<any> {
-    return this.http.delete(this.baseUrl + "/" + id);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.delete(this.baseUrl + "/" + id, { headers });
   }
 
 }

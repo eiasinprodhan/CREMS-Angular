@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RawMaterials } from '../models/rawmaterial.model';
 import { RawMaterialsStockIn } from '../models/rawmaterialsstockin.model';
 import { environments } from './environments';
 import { RawMaterialsStockOut } from '../models/rawmaterialsStockOut.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -15,43 +16,125 @@ export class RawmaterialsService {
   baseUrlOfRawMaterialsStockOut: string = environments.apiBaseUrl + "/stockoutdetails";
 
   constructor(
-    private http: HttpClient
-  ) { }
+      private http: HttpClient,
+      @Inject(PLATFORM_ID) private platformId: Object
+    ) { }
 
   addRawMaterials(rawmaterial: RawMaterials): Observable<any> {
-    return this.http.post(this.baseUrlOfRawMaterials + '/', rawmaterial);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.post(this.baseUrlOfRawMaterials + '/', rawmaterial, { headers });
   }
 
   listRawMaterials(): Observable<RawMaterials[]> {
-    return this.http.get<RawMaterials[]>(this.baseUrlOfRawMaterials + '/');
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get<RawMaterials[]>(this.baseUrlOfRawMaterials + '/', { headers });
   }
 
   deleteRawMaterials(id: number): Observable<any> {
-    return this.http.delete(this.baseUrlOfRawMaterials + '/' + id);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.delete(this.baseUrlOfRawMaterials + '/' + id, { headers });
   }
 
 
   updateRawMaterialsQuantity(rawMaterials: RawMaterials): Observable<any> {
-    return this.http.put(this.baseUrlOfRawMaterials + "/", rawMaterials);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.put(this.baseUrlOfRawMaterials + "/", rawMaterials, { headers });
   }
 
   saveStockIn(stockIn: RawMaterialsStockIn): Observable<any> {
-    return this.http.post(this.baseUrlOfRawMaterialsStockIn + '/', stockIn);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.post(this.baseUrlOfRawMaterialsStockIn + '/', stockIn, { headers });
   }
 
   listStockIn(): Observable<any> {
-    return this.http.get(this.baseUrlOfRawMaterialsStockIn + '/');
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(this.baseUrlOfRawMaterialsStockIn + '/', { headers });
   }
 
   deleteStockIn(id: number): Observable<any> {
-    return this.http.delete(this.baseUrlOfRawMaterialsStockIn + '/' + id);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.delete(this.baseUrlOfRawMaterialsStockIn + '/' + id, { headers });
   }
 
   saveStockOut(stockOut: RawMaterialsStockOut): Observable<any> {
-    return this.http.post(this.baseUrlOfRawMaterialsStockOut + '/', stockOut);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.post(this.baseUrlOfRawMaterialsStockOut + '/', stockOut, { headers });
   }
 
   listStockOut(id: number): Observable<any> {
-    return this.http.get(this.baseUrlOfRawMaterialsStockOut + "?stageid=" + id);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(this.baseUrlOfRawMaterialsStockOut + "?stageid=" + id, { headers });
   }
 }

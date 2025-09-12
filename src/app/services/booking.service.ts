@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { environments } from './environments';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Booking } from '../models/booking.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -10,27 +11,70 @@ import { Booking } from '../models/booking.model';
 export class BookingService {
 
   baseUrl: string = environments.apiBaseUrl + '/bookings';
-  
-    constructor(private http: HttpClient) { }
-  
-  
-    addBooking(booking: Booking): Observable<any> {
-      return this.http.post(`${this.baseUrl}/`, booking);
+
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
+
+
+  addBooking(booking: Booking): Observable<any> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
     }
-  
-    listBookings(): Observable<Booking[]> {
-      return this.http.get<Booking[]>(this.baseUrl + '/');
+    return this.http.post(`${this.baseUrl}/`, booking, { headers });
+  }
+
+  listBookings(): Observable<Booking[]> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
     }
-  
-    viewBooking(id: number): Observable<Booking> {
-      return this.http.get<Booking>(`${this.baseUrl}/${id}`);
+    return this.http.get<Booking[]>(this.baseUrl + '/', { headers });
+  }
+
+  viewBooking(id: number): Observable<Booking> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
     }
-  
-    editBooking(booking: Booking): Observable<any> {
-     return this.http.put(`${this.baseUrl}/`, booking);
+    return this.http.get<Booking>(`${this.baseUrl}/${id}`, { headers });
+  }
+
+  editBooking(booking: Booking): Observable<any> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
     }
-  
-    deleteBooking(id: number): Observable<any> {
-      return this.http.delete(this.baseUrl + '/' + id);
+    return this.http.put(`${this.baseUrl}/`, booking, { headers });
+  }
+
+  deleteBooking(id: number): Observable<any> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
     }
+    return this.http.delete(this.baseUrl + '/' + id, { headers });
+  }
 }

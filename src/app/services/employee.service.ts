@@ -84,30 +84,84 @@ export class EmployeeService {
 
   // Delete employee
   deleteEmployee(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.delete(`${this.baseUrl}/${id}`, { headers });
   }
 
   // Search employee by role
   viewEmployeeByRole(role: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}?role=${role}`);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get(`${this.baseUrl}?role=${role}`, { headers });
   }
 
   viewEmployeeByRoles(role: string): Observable<Employee[]> {
-    return this.http.get<Employee[]>(`${this.baseUrl}?role=${role}`);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.get<Employee[]>(`${this.baseUrl}?role=${role}`, { headers });
   }
 
   //Update employee status
   editEmployeeStatus(id: number, status: boolean): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, status);
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.put(`${this.baseUrl}/${id}`, status, { headers });
   }
 
   // update empployee totalsalary And
   updateTotalSalary(id: number, salary: number): Observable<any> {
-    return this.http.patch(this.baseUrl + '/' + id, { salary: salary });
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
+    return this.http.patch(this.baseUrl + '/' + id, { salary: salary }, { headers });
   }
 
   updateEmployeeProfile(employee: Employee): Observable<Employee> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+
     localStorage.setItem('userProfile', JSON.stringify(employee));
-    return this.http.put<Employee>(`${this.baseUrl}/${employee.id}`, employee);
+    return this.http.put<Employee>(`${this.baseUrl}/${employee.id}`, employee, { headers });
   }
 }
