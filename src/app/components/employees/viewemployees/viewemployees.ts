@@ -27,7 +27,8 @@ export class Viewemployees implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.id = this.ar.snapshot.params['id'];
+    this.id = +this.ar.snapshot.params['id'];
+    console.log('Employee ID from route:', this.id);
     this.viewEmployee();
   }
 
@@ -48,9 +49,9 @@ export class Viewemployees implements OnInit {
   }
 
   workHistory(id: number, role: string): void {
-    if (role === 'Project Manager') {
+    if (role === 'PROJECT_MANAGER') {
       this.workHistoryData = this.projectService.listWorkHistory(id);
-    } else if (role === 'Site Manager') {
+    } else if (role === 'SITE_MANAGER') {
       this.workHistoryData = this.buildingService.listWorkHistory(id);
     } else {
       this.isInactive = true;  // Labour or unknown roles

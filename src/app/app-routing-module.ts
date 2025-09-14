@@ -49,6 +49,9 @@ import { Addtransactions } from './components/transactions/addtransactions/addtr
 import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
 import { Listbooking } from './components/units/listbooking/listbooking';
 import { Viewbooking } from './components/units/viewbooking/viewbooking';
+import { AdminGuard } from './guards/admin.guard';
+import { AllGuard } from './guards/all.guard';
+import { NotAuthenticatedGuard } from './guards/na.guard';
 
 
 
@@ -57,75 +60,75 @@ const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
 
   // Pages
-  { path: '', component: Home },
-  { path: 'products', component: Products },
-  { path: 'productdetails/:id', component: Productdetails },
-  { path: 'signin', component: Signin },
-  { path: 'signup', component: Signup },
-  { path: 'signout', component: Signout },
+  { path: '', component: Home , canActivate: [NotAuthenticatedGuard]},
+  { path: 'products', component: Products , canActivate: [NotAuthenticatedGuard]},
+  { path: 'productdetails/:id', component: Productdetails , canActivate: [NotAuthenticatedGuard]},
+  { path: 'signin', component: Signin , canActivate: [NotAuthenticatedGuard]},
+  { path: 'signup', component: Signup , canActivate: [NotAuthenticatedGuard]},
+  { path: 'signout', component: Signout , canActivate: [AllGuard]},
 
   // Projects
-  { path: 'addprojects', component: Addprojects },
-  { path: 'listprojects', component: Listprojects },
-  { path: 'viewprojects/:id', component: Viewprojects },
-  { path: 'editprojects/:id', component: Editprojects },
+  { path: 'addprojects', component: Addprojects, canActivate: [AllGuard]},
+  { path: 'listprojects', component: Listprojects},
+  { path: 'viewprojects/:id', component: Viewprojects , canActivate: [AllGuard]},
+  { path: 'editprojects/:id', component: Editprojects , canActivate: [AllGuard]},
 
   // Buildings
-  { path: 'addbuildings', component: Addbuildings },
-  { path: 'listbuildings', component: Listbuildings },
-  { path: 'viewbuildings/:id', component: Viewbuildings },
-  { path: 'editbuildings/:id', component: Editbuildings },
+  { path: 'addbuildings', component: Addbuildings , canActivate: [AllGuard]},
+  { path: 'listbuildings', component: Listbuildings},
+  { path: 'viewbuildings/:id', component: Viewbuildings , canActivate: [AllGuard]},
+  { path: 'editbuildings/:id', component: Editbuildings , canActivate: [AllGuard]},
 
   // Floors
-  { path: 'addfloors', component: Addfloors },
-  { path: 'listfloors', component: Listfloors },
-  { path: 'editfloors/:id', component: Editfloors },
+  { path: 'addfloors', component: Addfloors , canActivate: [AllGuard]},
+  { path: 'listfloors', component: Listfloors , canActivate: [AllGuard]},
+  { path: 'editfloors/:id', component: Editfloors , canActivate: [AllGuard]},
 
   // Staged
-  { path: 'addstages/:id', component: Addstages },
-  { path: 'liststages/:id', component: Liststages },
-  { path: 'viewstages/:id', component: Viewstages },
-  { path: 'editstages/:id', component: Editstages },
+  { path: 'addstages/:id', component: Addstages , canActivate: [AllGuard]},
+  { path: 'liststages/:id', component: Liststages , canActivate: [AllGuard]},
+  { path: 'viewstages/:id', component: Viewstages , canActivate: [AllGuard]},
+  { path: 'editstages/:id', component: Editstages , canActivate: [AllGuard]},
 
   // Attendance
-  { path: 'addattendances/:id', component: Addattendances },
-  { path: 'listattendances/:id', component: Listattendances },
-  { path: 'viewattendances/:id', component: Viewattendances },
-  { path: 'editattendances/:id', component: Editattendances },
+  { path: 'addattendances/:id', component: Addattendances , canActivate: [AllGuard]},
+  { path: 'listattendances/:id', component: Listattendances , canActivate: [AllGuard]},
+  { path: 'viewattendances/:id', component: Viewattendances , canActivate: [AllGuard]},
+  { path: 'editattendances/:id', component: Editattendances , canActivate: [AllGuard]},
 
   // Units
-  { path: 'addunits/:id', component: Addunits },
-  { path: 'listunits', component: Listunits },
-  { path: 'viewunits/:id', component: Viewunits },
-  { path: 'editunits/:id', component: Editunits },
-  { path: 'bookunit/:id', component: Bookunits },
-  { path: 'listbooking', component: Listbooking },
-  { path: 'viewbooking/:id', component: Viewbooking },
+  { path: 'addunits/:id', component: Addunits , canActivate: [AllGuard]},
+  { path: 'listunits', component: Listunits , canActivate: [AllGuard]},
+  { path: 'viewunits/:id', component: Viewunits , canActivate: [AllGuard]},
+  { path: 'editunits/:id', component: Editunits , canActivate: [AllGuard]},
+  { path: 'bookunit/:id', component: Bookunits , canActivate: [AllGuard]},
+  { path: 'listbooking', component: Listbooking , canActivate: [AllGuard]},
+  { path: 'viewbooking/:id', component: Viewbooking , canActivate: [AllGuard]},
 
   // Raw Materials
-  { path: 'stockin', component: Addrawmaterials },
-  { path: 'listrawmaterials', component: Listrawmaterials },
-  { path: 'rawmaterilas/:id', component: Viewrawmaterials },
-  { path: 'addrawmaterials', component: Editrawmaterials },
+  { path: 'stockin', component: Addrawmaterials , canActivate: [AllGuard]},
+  { path: 'listrawmaterials', component: Listrawmaterials , canActivate: [AllGuard]},
+  { path: 'rawmaterilas/:id', component: Viewrawmaterials , canActivate: [AllGuard]},
+  { path: 'addrawmaterials', component: Editrawmaterials , canActivate: [AdminGuard]},
 
   // Employees
-  { path: 'addemployees', component: Addemployees },
-  { path: 'listemployees', component: Listemployees },
-  { path: 'viewemployees/:id', component: Viewemployees },
-  { path: 'editemployees/:id', component: Editemployees },
+  { path: 'addemployees', component: Addemployees , canActivate: [AdminGuard]},
+  { path: 'listemployees', component: Listemployees , canActivate: [AdminGuard]},
+  { path: 'viewemployees/:id', component: Viewemployees , canActivate: [AdminGuard]},
+  { path: 'editemployees/:id', component: Editemployees , canActivate: [AdminGuard]},
 
   // Customers
-  { path: 'addcustomers', component: Addcustomers },
-  { path: 'listcustomers', component: Listcustomers },
-  { path: 'viewcustomers/:id', component: Viewcustomers },
-  { path: 'editcustomers/:id', component: Editcustomers },
+  { path: 'addcustomers', component: Addcustomers , canActivate: [AdminGuard]},
+  { path: 'listcustomers', component: Listcustomers , canActivate: [AdminGuard]},
+  { path: 'viewcustomers/:id', component: Viewcustomers , canActivate: [AdminGuard]},
+  { path: 'editcustomers/:id', component: Editcustomers , canActivate: [AdminGuard]},
 
 
 
   // Transaction
-  { path: 'listtransactions', component: Listtransactions },
-  { path: 'addtransactions', component: Addtransactions },
-  { path: 'edittransactions/:id', component: Edittransactions }
+  { path: 'listtransactions', component: Listtransactions , canActivate: [AdminGuard]},
+  { path: 'addtransactions', component: Addtransactions , canActivate: [AdminGuard]},
+  { path: 'edittransactions/:id', component: Edittransactions , canActivate: [AdminGuard]}
 ];
 
 @NgModule({

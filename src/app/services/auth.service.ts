@@ -103,4 +103,12 @@ export class AuthService {
   isAdmin(): boolean {
     return this.getUserRole() === 'ADMIN';
   }
+
+  isProjectManager(): boolean {
+    return this.getUserRole() === 'PROJECT_MANAGER';
+  }
+
+  isSiteManager(): boolean {
+    return this.getUserRole() === 'SITE_MANAGER';
+  }
 }
