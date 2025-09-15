@@ -142,8 +142,8 @@
             <li class="list-group-item d-flex justify-content-between"><strong>Area:</strong> <span>{{ unit.area }} sqft</span></li>
             <li class="list-group-item d-flex justify-content-between"><strong>Bedrooms:</strong> <span>{{ unit.bedrooms }}</span></li>
             <li class="list-group-item d-flex justify-content-between"><strong>Bathrooms:</strong> <span>{{ unit.bathrooms }}</span></li>
-            <li class="list-group-item d-flex justify-content-between"><strong>Floor ID:</strong> <span>{{ unit.floorId }}</span></li>
-            <li class="list-group-item d-flex justify-content-between"><strong>Building ID:</strong> <span>{{ unit.buildingId }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Floor:</strong> <span>{{ unit.floor.name }}</span></li>
+            <li class="list-group-item d-flex justify-content-between"><strong>Building:</strong> <span>{{ unit.building.name }}</span></li>
             <li class="list-group-item d-flex justify-content-between"><strong>Interest Rate:</strong> <span>{{ unit.interestRate }}%</span></li>
             <li class="list-group-item d-flex justify-content-between text-success fw-bold"><strong>Price:</strong> <span>{{ unit.price | number }}</span></li>
           </ul>

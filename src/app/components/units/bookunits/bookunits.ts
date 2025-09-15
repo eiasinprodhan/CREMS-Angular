@@ -52,10 +52,10 @@ export class Bookunits implements OnInit {
 
   ngOnInit(): void {
     this.bookingForm = this.formBuilder.group({
-      buildingId: [null],
-      floorId: [null],
-      unitId: [null],
-      customerId: [null, Validators.required],
+      building: [null],
+      floor: [null],
+      unit: [null],
+      customer: [null, Validators.required],
       date: [this.toDateInputValue(new Date()), Validators.required],
       isLoan: [null, Validators.required],
       amount: [0],
@@ -74,7 +74,6 @@ export class Bookunits implements OnInit {
     });
 
     this.bookingForm.valueChanges.subscribe(() => this.recalcDueAndEmi());
-
     this.loadCustomers();
     this.loadUnit();
   }
@@ -186,33 +185,9 @@ export class Bookunits implements OnInit {
         );
 
         this.recalcDueAndEmi();
-
-        if (this.unit.floor) this.loadFloor(this.unit.floor.id);
-        if (this.unit.building) this.loadBuilding(this.unit.building.id);
-
         this.cdr.markForCheck();
       },
       error: (err) => console.error('Failed to load unit:', err),
-    });
-  }
-
-  loadFloor(id: number): void {
-    this.floorService.viewFloors(id).subscribe({
-      next: (data) => {
-        this.floor = data;
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Failed to load floor:', err),
-    });
-  }
-
-  loadBuilding(id: number): void {
-    this.buildingService.viewBuildings(id).subscribe({
-      next: (data) => {
-        this.building = data;
-        this.cdr.markForCheck();
-      },
-      error: (err) => console.error('Failed to load building:', err),
     });
   }
 
@@ -227,10 +202,10 @@ export class Bookunits implements OnInit {
     const isLoan = this.isLoanSelected;
 
     const booking = new Booking();
-    booking.building.id = v.buildingId;
-    booking.floor.id = v.floorId;
-    booking.unit.id = v.unitId;
-    booking.customer.id = v.customerId;
+    booking.building = v.building;
+    booking.floor = v.floor;
+    booking.unit = v.unit;
+    booking.customer = v.customer;
     booking.date = v.date ? new Date(v.date) : new Date();
     booking.isLoan = isLoan;
     booking.downPayment = isLoan ? Number(v.downPayment) || 0 : 0;
@@ -240,6 +215,8 @@ export class Bookunits implements OnInit {
     booking.discount = Number(v.discount) || 0;
     booking.dueAmount = Number(v.dueAmount) || 0;
     booking.emiAmount = Number(v.emiAmount) || 0;
+
+    console.log(booking);
 
     this.bookingService.addBooking(booking).subscribe({
       next: () => {
