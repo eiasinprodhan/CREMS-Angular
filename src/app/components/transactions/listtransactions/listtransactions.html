@@ -1,97 +1,130 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div class="dt-container dt-bootstrap5 dt-empty-footer">
+
       <!-- Header -->
-      <div
-        class="row card-header flex-column flex-md-row border-bottom mx-0 px-3"
-      >
-        <div
-          class="d-md-flex justify-content-between align-items-center col-md-auto me-auto mt-0"
-        >
-          <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-6">
-            Transactions
-          </h5>
+      <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+        <div class="col-md-auto me-auto">
+          <h5 class="card-title mb-0">Transactions</h5>
         </div>
-        <div
-          class="d-md-flex justify-content-between align-items-center col-md-auto ms-auto mt-0"
-        >
+        <div class="col-md-auto mx-auto">
+          <input type="date" class="form-control" [(ngModel)]="selectedDate" (change)="filterByDate()" />
+        </div>
+        <div class="col-md-auto ms-auto d-flex gap-2">
           <a routerLink="/addtransactions">
             <button class="btn btn-primary" type="button">
-              <i class="fa-solid fa-plus mx-1"></i>Add New Transaction
+              <i class="fa-solid fa-plus mx-1"></i>Add Transaction
             </button>
           </a>
+          <button class="btn btn-secondary" (click)="printTransactionsPdf()">
+            <i class="fa fa-print me-1"></i> Export PDF
+          </button>
         </div>
       </div>
 
-      <!-- Filter Controls -->
-      <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
-        <div class="col-md-auto me-auto mt-0">
-          <label>
-            Show
-            <select class="form-select">
-              <option>10</option>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
-            </select>
-            entries
-          </label>
-        </div>
-        <div class="col-md-auto ms-auto mt-0">
-          <label>
-            Search:
-            <input type="search" class="form-control ms-4" placeholder="" />
-          </label>
-        </div>
-      </div>
-
-      <!-- Table -->
-      <div class="table-responsive">
-        <table class="table dataTable">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let transaction of transactions | async">
-              <td>{{ transaction.id }}</td>
-              <td>{{ transaction.name }}</td>
-              <td>{{ transaction.date | date }}</td>
-              <td [ngClass]="transaction.credit ? 'text-success' : 'text-danger'">
-                {{ transaction.amount }}
-                <i
-                  [ngClass]="transaction.credit ? 'fa-solid fa-up-long text-success' : 'fa-solid fa-down-long text-danger'"
-                >
-                </i>
-              </td>
-              <td>
-                <div class="d-flex gap-2">
-                  <button
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="deleteTransaction(transaction.id)"
-                  >
+      <!-- Table Section -->
+      <div class="table-responsive p-3">
+        <div id="print-section">
+          <table class="table dataTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of transactions">
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.name }}</td>
+                <td>{{ transaction.date | date: 'yyyy-MM-dd' }}</td>
+                <td [ngClass]="transaction.credit ? 'text-success' : 'text-danger'">
+                  {{ transaction.amount | currency }}
+                  <i [ngClass]="transaction.credit ? 'fa-solid fa-up-long text-success' : 'fa-solid fa-down-long text-danger'"></i>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteTransaction(transaction.id)">
                     <i class="fa fa-trash"></i>
                   </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                </td>
+              </tr>
+              <tr *ngIf="transactions.length === 0">
+                <td colspan="5" class="text-center">No transactions found.</td>
+              </tr>
+            </tbody>
+            <tfoot *ngIf="transactions.length > 0">
+              <tr>
+                <td colspan="3" class="text-end fw-bold">Total Credit:</td>
+                <td colspan="2" class="text-success fw-bold">{{ totalCredit | currency }}</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="text-end fw-bold">Total Debit:</td>
+                <td colspan="2" class="text-danger fw-bold">{{ totalDebit | currency }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
 
       <!-- Footer -->
-      <div class="row mx-3 justify-content-between">
-        <div class="col-md-auto me-auto mt-0">
-          <div>Showing 0 to 0 of 0 entries</div>
-        </div>
-        <div class="col-md-auto ms-auto mt-0">
-          <nav aria-label="pagination"></nav>
-        </div>
+      <div class="row mx-3 mb-3 justify-content-between">
+        <div class="col-md-auto me-auto">Showing {{ transactions.length }} of {{ allTransactions.length }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF Export Section (Hidden) -->
+<div id="pdf-section"
+  [style.visibility]="'hidden'"
+  [style.position]="'absolute'"
+  [style.left]="'-9999px'"
+  style="width: 210mm; padding: 40px; background-color: #fff; font-family: Arial, sans-serif;"
+>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <h2 style="color: #007bff;">CREMS</h2>
+    <h4>Transaction Report</h4>
+    <p>Date: {{ selectedDate }}</p>
+  </div>
+
+  <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+    <thead>
+      <tr style="background-color: #f8f8f8;">
+        <th style="border: 1px solid #ccc; padding: 6px;">ID</th>
+        <th style="border: 1px solid #ccc; padding: 6px;">Name</th>
+        <th style="border: 1px solid #ccc; padding: 6px;">Date</th>
+        <th style="border: 1px solid #ccc; padding: 6px;">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions">
+        <td style="border: 1px solid #ccc; padding: 6px;">{{ transaction.id }}</td>
+        <td style="border: 1px solid #ccc; padding: 6px;">{{ transaction.name }}</td>
+        <td style="border: 1px solid #ccc; padding: 6px;">{{ transaction.date | date: 'yyyy-MM-dd' }}</td>
+        <td style="border: 1px solid #ccc; padding: 6px;" [style.color]="transaction.credit ? 'green' : 'red'">
+          {{ transaction.amount | currency }}
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" style="text-align: right; font-weight: bold;">Total Credit:</td>
+        <td style="font-weight: bold; color: green;">{{ totalCredit | currency }}</td>
+      </tr>
+      <tr>
+        <td colspan="3" style="text-align: right; font-weight: bold;">Total Debit:</td>
+        <td style="font-weight: bold; color: red;">{{ totalDebit | currency }}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- Signature -->
+  <div style="margin-top: 60px; text-align: right;">
+    <div style="display: inline-block; text-align: center; margin-right: 40px">
+      <div style="border-top: 2px solid #000; width: 200px; padding-top: 6px">
+        <p style="margin: 0"><strong>Authorized Signature</strong></p>
       </div>
     </div>
   </div>

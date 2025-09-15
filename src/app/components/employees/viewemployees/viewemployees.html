@@ -22,12 +22,14 @@
         class="user-profile-header d-flex flex-column flex-lg-row text-sm-start text-center mb-5"
       >
         <div class="flex-shrink-0 mt-n5 mx-sm-0 mx-auto">
-          <img
-            [src]="'http://localhost:8080/images/employees/' + employee.photo"
-            alt="{{employee.name}}"
-            class="d-block h-auto ms-0 ms-sm-6 rounded user-profile-img"
-            style="height: 150px; width: 150px"
-          />
+          <ng-container *ngIf="employee.photo">
+            <img
+              [src]="'http://localhost:8080/images/employees/' + employee.photo"
+              alt="{{employee.name}}"
+              class="rounded user-profile-img"
+              style="height: 150px; width: 150px"
+            />
+          </ng-container>
         </div>
         <div class="flex-grow-1 mt-3 mt-lg-5">
           <div

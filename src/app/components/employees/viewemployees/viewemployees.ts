@@ -28,7 +28,6 @@ export class Viewemployees implements OnInit {
 
   ngOnInit(): void {
     this.id = +this.ar.snapshot.params['id'];
-    console.log('Employee ID from route:', this.id);
     this.viewEmployee();
   }
 
@@ -36,6 +35,7 @@ export class Viewemployees implements OnInit {
     this.employeeService.viewEmployee(this.id).subscribe({
       next: (data) => {
         this.employee = data;
+        this.cdr.markForCheck();
         this.workHistory(this.employee.id, this.employee.role);
       },
       error: (error) => {
@@ -54,7 +54,7 @@ export class Viewemployees implements OnInit {
     } else if (role === 'SITE_MANAGER') {
       this.workHistoryData = this.buildingService.listWorkHistory(id);
     } else {
-      this.isInactive = true;  // Labour or unknown roles
+      this.isInactive = true;
       return;
     }
 
@@ -62,7 +62,6 @@ export class Viewemployees implements OnInit {
       if (!data || data.length === 0) {
         this.isInactive = true;
       } else {
-        // Consider all ongoing if at least one project is ongoing
         const now = new Date();
         const hasOngoing = data.some(wh => new Date(wh.expectedEndDate) >= now);
         this.isInactive = !hasOngoing;
