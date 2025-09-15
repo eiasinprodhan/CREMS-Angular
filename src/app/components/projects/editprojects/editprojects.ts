@@ -67,7 +67,7 @@ export class Editprojects {
   }
 
   viewEmployees(): void {
-    this.projectManagers = this.employeeService.viewEmployeeByRole("Project Manager");
+    this.projectManagers = this.employeeService.viewEmployeeByRole("PROJECT_MANAGER");
   }
 
   compareEmployees(e1: any, e2: any): boolean {

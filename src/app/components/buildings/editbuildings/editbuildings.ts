@@ -76,7 +76,7 @@ export class Editbuildings implements OnInit {
   }
 
   viewSiteManager(): void {
-    this.siteManagers = this.employeeService.viewEmployeeByRole("Site Manager");
+    this.siteManagers = this.employeeService.viewEmployeeByRole("SITE_MANAGER");
   }
 
   onPhotoSelected(event: any): void {

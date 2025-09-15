@@ -26,23 +26,21 @@ export class Listfloors {
     this.listBuildings();
   }
 
-  // Get List of Buildings
   listFloors(): void {
     this.floors = this.floorService.listFloors();
   }
 
-  // Get Building Name
   getBuildingName(id: number): string {
     const building = this.buildings.find((b) => b.id === id);
     return building ? building.name : 'Unknown';
     this.cdr.markForCheck();
   }
 
-  // Building List
   listBuildings(): void {
     this.buildingService.listBuildings().subscribe(
       (data: Building[]) => {
         this.buildings = data;
+        console.log(this.buildings)
         this.cdr.markForCheck();
       }
     );
