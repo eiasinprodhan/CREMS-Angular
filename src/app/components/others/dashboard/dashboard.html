@@ -121,3 +121,86 @@
     </div>
   </div>
 </div>
+
+<!-- Last 10 Private Transactions -->
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Last 10 Transactions</h5>
+        <div *ngIf="isLoadingTransactions" class="spinner-container">
+          <span class="spinner-border"></span> Loading...
+        </div>
+        <table *ngIf="!isLoadingTransactions" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of last10Transactions">
+              <td>{{ transaction.name }}</td>
+              <td>
+                <!-- Debit or Credit icon next to the amount -->
+                <span *ngIf="transaction.credit" class="text-success">
+                  <i class="fa-solid fa-arrow-up"></i> 
+                  {{ transaction.amount | currency }}
+                </span>
+                <span *ngIf="!transaction.credit" class="text-danger">
+                  <i class="fa-solid fa-arrow-down"></i> 
+                  {{ transaction.amount | currency }}
+                </span>
+              </td>
+              <td>{{ transaction.date | date }}</td>
+            </tr>
+            <tr *ngIf="last10Transactions.length === 0">
+              <td colspan="4" class="text-center">No transactions found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Last 10 Bookings -->
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Last 10 Bookings</h5>
+        <div *ngIf="isLoadingBookings" class="spinner-container">
+          <span class="spinner-border"></span> Loading...
+        </div>
+        <table *ngIf="!isLoadingBookings" class="table table-striped">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Customer</th>
+              <th>Building</th>
+              <th>Floor</th>
+              <th>Paid Amount</th>
+              <th>Booking Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let booking of last10Bookings">
+              <td><img [src]="booking.customer.photo" [alt]="booking.customer?.name" class="img-thumbnail" style="height: 50px; width: 50px; object-fit: cover;"/></td>
+              <td>{{ booking.customer?.name }}</td>
+              <td>{{ booking.building?.name }}</td>
+              <td>{{ booking.floor?.name }}</td>
+              <td class="text-success">{{ booking.downPayment | currency }}</td>
+              <td>{{ booking.date | date: 'short' }}</td>
+            </tr>
+            <tr *ngIf="last10Bookings.length === 0">
+              <td colspan="6" class="text-center">No bookings found.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

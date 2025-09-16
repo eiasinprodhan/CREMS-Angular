@@ -14,6 +14,7 @@ export class Header {
   employee: Employee | null = null;
   role!: string | null;
   email!: string | null;
+  link!:string;
 
   constructor(
     private employeeService: EmployeeService,
@@ -23,6 +24,15 @@ export class Header {
 
   ngOnInit(): void {
     this.loadUserProfile();
+    if(this.role==='ADMIN'){
+      this.link = '/dashboard'
+    }else if(this.role==='PROJECT_MANAGER'){
+      this.link = '/listprojects'
+    }else if(this.role==='SITE_MANAGER'){
+      this.link = '/listbuildings'
+    }else{
+      this.link = '/'
+    }
   }
 
   loadUserProfile(): void {
@@ -33,4 +43,5 @@ export class Header {
       this.cdr.detectChanges();
     });
   }
+  
 }

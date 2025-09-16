@@ -2,7 +2,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu">
   <div class="app-brand demo">
-    <a routerLink="/dashboard" class="app-brand-link">
+    <a routerLink="/{{ link }}" class="app-brand-link">
       <span class="app-brand-logo demo">
         <span class="text-primary">
           <svg
@@ -72,7 +72,10 @@
       </a>
 
       <ul class="menu-sub">
-        <li class="menu-item" *ngIf="role==='ADMIN' || role==='PROJECT_MANAGER'">
+        <li
+          class="menu-item"
+          *ngIf="role==='ADMIN' || role==='PROJECT_MANAGER'"
+        >
           <a routerLink="listprojects" class="menu-link"> Projects </a>
         </li>
         <li class="menu-item">
@@ -782,7 +785,11 @@
           data-bs-toggle="dropdown"
         >
           <div class="avatar avatar-online">
-            <img [src]="'http://localhost:8080/images/employees/' + employee?.photo" alt class="rounded-circle" />
+            <img
+              [src]="'http://localhost:8080/images/employees/' + employee?.photo"
+              alt
+              class="rounded-circle"
+            />
           </div>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
@@ -794,7 +801,11 @@
               <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 me-2">
                   <div class="avatar avatar-online">
-                    <img [src]="'http://localhost:8080/images/employees/' + employee?.photo" alt class="rounded-circle" />
+                    <img
+                      [src]="'http://localhost:8080/images/employees/' + employee?.photo"
+                      alt
+                      class="rounded-circle"
+                    />
                   </div>
                 </div>
                 <div class="flex-grow-1">
@@ -817,7 +828,10 @@
             </a>
           </li>
           <li>
-            <a class="dropdown-item" routerLink="/editemployees/{{ employee?.id }}">
+            <a
+              class="dropdown-item"
+              routerLink="/editemployees/{{ employee?.id }}"
+            >
               <i class="icon-base ti tabler-settings me-3 icon-md"></i
               ><span class="align-middle">Edit Account</span>
             </a>

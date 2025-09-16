@@ -49,9 +49,7 @@ import { Addtransactions } from './components/transactions/addtransactions/addtr
 import { Edittransactions } from './components/transactions/edittransactions/edittransactions';
 import { Listbooking } from './components/units/listbooking/listbooking';
 import { Viewbooking } from './components/units/viewbooking/viewbooking';
-import { AdminGuard } from './guards/admin.guard';
-import { AllGuard } from './guards/all.guard';
-import { NotAuthenticatedGuard } from './guards/na.guard';
+
 
 
 
