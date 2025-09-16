@@ -104,9 +104,6 @@
         <li class="menu-item" *ngIf="role==='ADMIN'">
           <a routerLink="listcustomers" class="menu-link"> Customers </a>
         </li>
-        <li class="menu-item" *ngIf="role==='ADMIN'">
-          <a href="listbooking" class="menu-link"> Bookings </a>
-        </li>
       </ul>
     </li>
 
@@ -118,6 +115,9 @@
       </a>
 
       <ul class="menu-sub" *ngIf="role==='ADMIN'">
+        <li class="menu-item" *ngIf="role==='ADMIN'">
+          <a href="listbooking" class="menu-link"> Bookings </a>
+        </li>
         <li class="menu-item">
           <a routerLink="listtransactions" class="menu-link"> Transactions </a>
         </li>

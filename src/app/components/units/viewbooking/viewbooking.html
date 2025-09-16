@@ -186,78 +186,167 @@
   </div>
 </div>
 
-
 <!-- Printable Invoice (A4) -->
 <div *ngIf="booking" id="bookingToPrint" class="invoice-a4">
   <!-- Header -->
   <div class="invoice-header">
     <div class="brand">
+      <svg
+        width="32"
+        height="22"
+        viewBox="0 0 32 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z"
+          fill="currentColor"
+        ></path>
+        <path
+          opacity="0.06"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z"
+          fill="#161616"
+        ></path>
+        <path
+          opacity="0.06"
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z"
+          fill="#161616"
+        ></path>
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z"
+          fill="currentColor"
+        ></path>
+      </svg>
       <div>
         <h2>CREMS</h2>
-        <div style="font-size:12px;color:#6c757d;">Real Estate Management System</div>
+        <div style="font-size: 12px; color: #6c757d">
+          Real Estate Management System
+        </div>
       </div>
     </div>
 
     <div class="meta">
       <div class="title">Unit Booking Invoice</div>
       <div>Booking ID: <strong>{{ booking.id }}</strong></div>
-      <div>Booking Date: <strong>{{ booking.date | date:'mediumDate' }}</strong></div>
+      <div>
+        Booking Date: <strong>{{ booking.date | date:'mediumDate' }}</strong>
+      </div>
       <div>Printed: <strong>{{ today | date:'mediumDate' }}</strong></div>
     </div>
   </div>
 
-  <hr style="border:none;border-top:1px solid #e9ecef;margin:12px 0 18px 0;" />
+  <hr
+    style="border: none; border-top: 1px solid #e9ecef; margin: 12px 0 18px 0"
+  />
 
   <!-- Top: Customer | Property | Quick Finance -->
   <div class="top-grid">
     <!-- Customer -->
     <div class="card customer-info">
       <div class="customer-photo">
-        <img [src]="booking.customer.photo || 'assets/default-user.png'" alt="Customer" style="width:100%;height:100%;object-fit:cover;" />
+        <img
+          [src]="booking.customer.photo || 'assets/default-user.png'"
+          alt="Customer"
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
       </div>
-      <div class="customer-details" style="flex:1;">
+      <div class="customer-details" style="flex: 1">
         <div class="name">{{ booking.customer.name }}</div>
         <table>
-          <tr><td class="key">Email</td><td>{{ booking.customer.email }}</td></tr>
-          <tr><td class="key">Phone</td><td>{{ booking.customer.phone }}</td></tr>
-          <tr><td class="key">Address</td><td style="word-break:break-word;">{{ booking.customer.address }}</td></tr>
+          <tr>
+            <td class="key">Email</td>
+            <td>{{ booking.customer.email }}</td>
+          </tr>
+          <tr>
+            <td class="key">Phone</td>
+            <td>{{ booking.customer.phone }}</td>
+          </tr>
+          <tr>
+            <td class="key">Address</td>
+            <td style="word-break: break-word">
+              {{ booking.customer.address }}
+            </td>
+          </tr>
         </table>
       </div>
     </div>
 
     <!-- Property -->
     <div class="card">
-      <div style="font-weight:700;color:#0d6efd;margin-bottom:8px;">Property Details</div>
+      <div style="font-weight: 700; color: #0d6efd; margin-bottom: 8px">
+        Property Details
+      </div>
       <table class="property-table">
-        <tr><td class="key">Building</td><td>{{ booking.unit.building.name }}</td></tr>
-        <tr><td class="key">Location</td><td>{{ booking.unit.building.location }}</td></tr>
-        <tr><td class="key">Floor</td><td>{{ booking.unit.floor.name }} (ID: {{ booking.unit.floor.id }})</td></tr>
-        <tr><td class="key">Unit</td><td>Unit {{ booking.unit.unitNumber }} (ID: {{ booking.unit.id }})</td></tr>
+        <tr>
+          <td class="key">Building</td>
+          <td>{{ booking.unit.building.name }}</td>
+        </tr>
+        <tr>
+          <td class="key">Location</td>
+          <td>{{ booking.unit.building.location }}</td>
+        </tr>
+        <tr>
+          <td class="key">Floor</td>
+          <td>
+            {{ booking.unit.floor.name }} (ID: {{ booking.unit.floor.id }})
+          </td>
+        </tr>
+        <tr>
+          <td class="key">Unit</td>
+          <td>
+            Unit {{ booking.unit.unitNumber }} (ID: {{ booking.unit.id }})
+          </td>
+        </tr>
       </table>
     </div>
 
     <!-- Quick Finance -->
     <div class="card">
-      <div style="font-weight:700;color:#0d6efd;margin-bottom:8px;">Payment Summary</div>
-      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-        <div><span class="badge">Total: {{ booking.amount | currency }}</span></div>
+      <div style="font-weight: 700; color: #0d6efd; margin-bottom: 8px">
+        Payment Summary
+      </div>
+      <div
+        style="display: flex; flex-direction: column; gap: 6px; font-size: 13px"
+      >
+        <div>
+          <span class="badge">Total: {{ booking.amount | currency }}</span>
+        </div>
         <div>Discount: <strong>{{ booking.discount }}%</strong></div>
-        <div>Down Payment: <strong>{{ booking.downPayment | currency }}</strong></div>
-        <div>Due Amount: <strong>{{ booking.dueAmount | currency }}</strong></div>
-        <div *ngIf="booking.isLoan">EMI: <strong>{{ booking.emiAmount | currency }}</strong> / month</div>
-        <div *ngIf="booking.isLoan">Interest: <strong>{{ booking.interestRate }}%</strong> • Tenure: <strong>{{ booking.year }} yrs</strong></div>
+        <div>
+          Down Payment: <strong>{{ booking.downPayment | currency }}</strong>
+        </div>
+        <div>
+          Due Amount: <strong>{{ booking.dueAmount | currency }}</strong>
+        </div>
+        <div *ngIf="booking.isLoan">
+          EMI: <strong>{{ booking.emiAmount | currency }}</strong> / month
+        </div>
+        <div *ngIf="booking.isLoan">
+          Interest: <strong>{{ booking.interestRate }}%</strong> • Tenure:
+          <strong>{{ booking.year }} yrs</strong>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Financial details table -->
-  <div class="card" style="margin-top:8px;">
-    <div style="font-weight:700;color:#0d6efd;margin-bottom:8px;">Financial Details</div>
+  <div class="card" style="margin-top: 8px">
+    <div style="font-weight: 700; color: #0d6efd; margin-bottom: 8px">
+      Financial Details
+    </div>
     <table class="fin-table">
       <thead>
         <tr>
-          <th style="width:70%;">Description</th>
-          <th style="width:30%;" class="text-right">Amount</th>
+          <th style="width: 70%">Description</th>
+          <th style="width: 30%" class="text-right">Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -267,11 +356,18 @@
         </tr>
         <tr>
           <td>Discount ({{ booking.discount }}%)</td>
-          <td class="text-right">-{{ (booking.amount * booking.discount / 100) | currency }}</td>
+          <td class="text-right">
+            -{{ (booking.amount * booking.discount / 100) | currency }}
+          </td>
         </tr>
         <tr>
           <td><strong>Net Price</strong></td>
-          <td class="text-right"><strong>{{ (booking.amount - (booking.amount * booking.discount / 100)) | currency }}</strong></td>
+          <td class="text-right">
+            <strong
+              >{{ (booking.amount - (booking.amount * booking.discount / 100)) |
+              currency }}</strong
+            >
+          </td>
         </tr>
         <tr>
           <td>Down Payment</td>
@@ -280,10 +376,6 @@
         <tr>
           <td>Amount Due</td>
           <td class="text-right">{{ booking.dueAmount | currency }}</td>
-        </tr>
-        <tr>
-          <td>Remaining Balance</td>
-          <td class="text-right">{{ (booking.dueAmount - booking.downPayment) | currency }}</td>
         </tr>
         <tr *ngIf="booking.isLoan">
           <td>EMI (Monthly)</td>
@@ -296,8 +388,10 @@
       </tbody>
       <tfoot>
         <tr>
-          <td style="padding:12px;">Total Paid</td>
-          <td class="text-right" style="padding:12px;">{{ booking.downPayment | currency }}</td>
+          <td style="padding: 12px">Total Paid</td>
+          <td class="text-right" style="padding: 12px">
+            {{ booking.downPayment | currency }}
+          </td>
         </tr>
       </tfoot>
     </table>
@@ -305,27 +399,34 @@
 
   <!-- Note -->
   <div class="note">
-    <strong>Note:</strong> This invoice is system-generated. Please retain it for your records. For loaned bookings, EMI schedule is indicative and subject to bank confirmation.
+    <strong>Note:</strong> This invoice is system-generated. Please retain it
+    for your records. For loaned bookings, EMI schedule is indicative and
+    subject to bank confirmation.
   </div>
 
   <!-- Signatures -->
   <div class="signature-wrap">
     <div class="signature">
       <div class="line"></div>
-      <div style="margin-top:6px;font-weight:600;">Authorized Signatory</div>
+      <div style="margin-top: 6px; font-weight: 600">Authorized Signatory</div>
       <small>CREMS Sales</small>
     </div>
 
     <div class="signature">
       <div class="line"></div>
-      <div style="margin-top:6px;font-weight:600;">Customer Signature</div>
+      <div style="margin-top: 6px; font-weight: 600">Customer Signature</div>
       <small>{{ booking.customer.name }}</small>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    <div>CREMS Real Estate Solutions — www.crems.com | supportcrems.com | +1 (555) 123-4567</div>
-    <div style="margin-top:4px">© {{ today | date:'yyyy' }} CREMS. Page 1 of 1</div>
+    <div>
+      CREMS Real Estate Solutions — www.crems.com | supportcrems.com | +1 (555)
+      123-4567
+    </div>
+    <div style="margin-top: 4px">
+      © {{ today | date:'yyyy' }} CREMS. Page 1 of 1
+    </div>
   </div>
 </div>
