@@ -3,14 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Unit } from '../../../models/unit.model';
-import { Floor } from '../../../models/floor.model';
-import { Building } from '../../../models/building.model';
 import { Customer } from '../../../models/customer.model';
 import { Booking } from '../../../models/booking.model';
 
 import { UnitService } from '../../../services/unit.service';
-import { FloorService } from '../../../services/floor.service';
-import { BuildingService } from '../../../services/building.service';
 import { CustomerService } from '../../../services/customer.service';
 import { BookingService } from '../../../services/booking.service';
 import { TransactionService } from '../../../services/transaction.service';
@@ -26,8 +22,6 @@ export class Bookunits implements OnInit {
   id!: number;
 
   unit: Unit = new Unit();
-  floor: Floor = new Floor();
-  building: Building = new Building();
   customers: Customer[] = [];
 
   bookingForm!: FormGroup;
@@ -43,8 +37,6 @@ export class Bookunits implements OnInit {
     private cdr: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private unitService: UnitService,
-    private floorService: FloorService,
-    private buildingService: BuildingService,
     private customerService: CustomerService,
     private bookingService: BookingService,
     private transactionService: TransactionService
@@ -192,59 +184,61 @@ export class Bookunits implements OnInit {
   }
 
   bookUnit(): void {
-    if (!this.bookingForm.valid) {
-      this.message = 'Please fill the required fields.';
-      this.messageType = 'error';
-      return;
-    }
-
-    const v = this.bookingForm.value;
-    const isLoan = this.isLoanSelected;
-
-    const booking = new Booking();
-    booking.building = v.building;
-    booking.floor = v.floor;
-    booking.unit = v.unit;
-    booking.customer = v.customer;
-    booking.date = v.date ? new Date(v.date) : new Date();
-    booking.isLoan = isLoan;
-    booking.downPayment = isLoan ? Number(v.downPayment) || 0 : 0;
-    booking.interestRate = isLoan ? Number(v.interestRate) || 0 : 0;
-    booking.year = isLoan ? Number(v.year) || 0 : 0;
-    booking.amount = Number(v.amount) || 0;
-    booking.discount = Number(v.discount) || 0;
-    booking.dueAmount = Number(v.dueAmount) || 0;
-    booking.emiAmount = Number(v.emiAmount) || 0;
-
-    console.log(booking);
-
-    this.bookingService.addBooking(booking).subscribe({
-      next: () => {
-        const description = `Booking: Building - ${this.building?.name}, Floor - ${this.floor?.name}, Unit - ${this.unit?.unitNumber}`;
-        const transactionAmount = isLoan ? booking.downPayment : booking.amount;
-
-        const transaction = new Transaction(description, new Date(), transactionAmount, true);
-        this.transactionService.saveTransaction(transaction).subscribe({
-          error: (err) => console.warn('Transaction save failed:', err),
-        });
-
-        this.unit.booked = true;
-        this.unitService.updateUnitForBook(this.unit).subscribe({
-          next: () => this.router.navigate(['/listunits']),
-          error: (err) => {
-            console.error('Failed to update unit:', err);
-            this.message = 'Booking saved, but failed to update unit status.';
-            this.messageType = 'error';
-          },
-        });
-      },
-      error: (err) => {
-        console.error('Failed to save booking:', err);
-        this.message = 'Error saving booking.';
-        this.messageType = 'error';
-      },
-    });
+  if (!this.bookingForm.valid) {
+    this.message = 'Please fill the required fields.';
+    this.messageType = 'error';
+    return;
   }
+
+  const v = this.bookingForm.value;
+  const isLoan = this.isLoanSelected;
+
+  const booking = new Booking();
+
+  booking.building = v.building?.id ? { id: v.building.id } as any : null;
+  booking.floor = v.floor?.id ? { id: v.floor.id } as any : null;
+  booking.unit = v.unit?.id ? { id: v.unit.id } as any : null;
+  booking.customer = v.customer?.id ? { id: v.customer.id } as any : null;
+
+  booking.date = v.date ? new Date(v.date) : new Date();
+  booking.isLoan = isLoan;
+  booking.downPayment = isLoan ? Number(v.downPayment) || 0 : 0;
+  booking.interestRate = isLoan ? Number(v.interestRate) || 0 : 0;
+  booking.year = isLoan ? Number(v.year) || 0 : 0;
+  booking.amount = Number(v.amount) || 0;
+  booking.discount = Number(v.discount) || 0;
+  booking.dueAmount = Number(v.dueAmount) || 0;
+  booking.emiAmount = Number(v.emiAmount) || 0;
+
+  console.log('Sending Booking:', booking);
+
+  this.bookingService.addBooking(booking).subscribe({
+    next: () => {
+      const description = `Booking: Building - ${this.unit.building?.name}, Floor - ${this.unit.floor?.name}, Unit - ${this.unit?.unitNumber}`;
+      const transactionAmount = isLoan ? booking.downPayment : booking.amount;
+
+      const transaction = new Transaction(description, new Date(), transactionAmount, true);
+      this.transactionService.saveTransaction(transaction).subscribe({
+        error: (err) => console.warn('Transaction save failed:', err),
+      });
+
+      this.unit.booked = true;
+      this.unitService.updateUnitForBook(this.unit).subscribe({
+        next: () => this.router.navigate(['/listunits']),
+        error: (err) => {
+          console.error('Failed to update unit:', err);
+          this.message = 'Booking saved, but failed to update unit status.';
+          this.messageType = 'error';
+        },
+      });
+    },
+    error: (err) => {
+      console.error('Failed to save booking:', err);
+      this.message = 'Error saving booking.';
+      this.messageType = 'error';
+    },
+  });
+}
 
   openLightbox(index: number): void {
     this.lightboxIndex = index;

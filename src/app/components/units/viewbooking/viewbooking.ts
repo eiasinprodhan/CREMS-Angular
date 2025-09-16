@@ -13,13 +13,12 @@ import html2canvas from 'html2canvas';
   selector: 'app-viewbooking',
   standalone: false,
   templateUrl: './viewbooking.html',
-  styleUrls: ['./viewbooking.css'] // ✅ fixed `styleUrl` to `styleUrls`
+  styleUrls: ['./viewbooking.css']
 })
 export class Viewbooking implements OnInit {
   id!: number;
+  today: Date = new Date();
   booking?: Booking;
-  unit?: Unit;
-  customer?: Customer;
   isLoading: boolean = true;
 
   constructor(
@@ -40,8 +39,7 @@ export class Viewbooking implements OnInit {
     this.bookingService.viewBooking(this.id).subscribe({
       next: (data) => {
         this.booking = data; 
-        this.loadUnit(data.unit.id);
-        this.loadCustomer(data.customer.id);
+        this.isLoading = false;
         this.cdr.markForCheck();
       },
       error: (err) => {
@@ -51,43 +49,15 @@ export class Viewbooking implements OnInit {
     });
   }
 
-  loadUnit(unitId: number): void {
-    this.unitService.viewUnit(unitId).subscribe({
-      next: (data) => {
-        this.unit = data;
-        this.cdr.markForCheck();
-        this.checkReady();
-      },
-      error: (err) => {
-        console.error('Error loading unit:', err);
-        this.cdr.markForCheck();
-        this.checkReady();
-      }
-    });
-  }
-
-  loadCustomer(customerId: number): void {
-    this.customerService.viewCustomers(customerId).subscribe({
-      next: (data) => {
-        this.customer = data;
-        this.cdr.markForCheck();
-        this.checkReady();
-      },
-      error: (err) => {
-        console.error('Error loading customer:', err);
-        this.checkReady();
-      }
-    });
-  }
 
   checkReady(): void {
-    if (this.unit && this.customer) {
+    if (this.booking) {
       this.isLoading = false;
     }
   }
 
   printBooking(): void {
-    if (!this.booking || !this.unit || !this.customer) return;
+    if (!this.booking) return;
 
     const element = document.getElementById('bookingToPrint');
     if (!element) return;

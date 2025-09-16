@@ -1,9 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookingService } from '../../../services/booking.service';
-import { CustomerService } from '../../../services/customer.service';
-import { Customer } from '../../../models/customer.model';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-listbooking',
@@ -16,24 +13,23 @@ export class Listbooking implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private customerService: CustomerService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    forkJoin([
-      this.bookingService.listBookings(),
-      this.customerService.listCustomers(),
-    ]).subscribe(([bookings, customers]) => {
-      const customerMap = new Map<number, string>(
-        customers.map((c: Customer): [number, string] => [c.id, c.name])
-      );
+    this.listAllBookings();
+  }
 
-      this.enrichedBookings = bookings.map((booking) => ({
-        ...booking,
-        customerName: customerMap.get(booking.customer.id) || 'Unknown',
-      }));
+  listAllBookings(): void {
+    this.bookingService.listBookings().subscribe({
+      next: (data) => {
+        this.enrichedBookings = data;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Error fetching bookings:', err);
+      }
     });
   }
 
@@ -48,7 +44,7 @@ export class Listbooking implements OnInit {
   deleteBooking(id: number): void {
     this.bookingService.deleteBooking(id).subscribe({
       next: () => {
-        this.cdr.markForCheck();
+        window.location.reload();
       },
       error: (err) => {
         console.error('Error deleting booking:', err);

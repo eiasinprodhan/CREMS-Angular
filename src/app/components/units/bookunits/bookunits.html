@@ -12,11 +12,11 @@
 
   <div class="card-body py-5 px-4 px-md-5">
     <!-- Building Photo -->
-    <div class="mb-5" *ngIf="building?.photo">
+    <div class="mb-5" *ngIf="unit.building?.photo">
       <label class="form-label">Building Photo</label>
       <div class="text-center">
         <img
-          [src]="'http://localhost:8080/images/buildings/' + building.photo"
+          [src]="'http://localhost:8080/images/buildings/' + unit.building.photo"
           alt="Building Photo"
           class="img-fluid rounded"
           style="max-height: 300px; object-fit: cover"
@@ -69,36 +69,19 @@
 
     <!-- Form -->
     <form [formGroup]="bookingForm" (ngSubmit)="bookUnit()">
-      <!-- Unit/Location details (read-only) -->
+      <!-- Unit/Location details (read-only, no hidden inputs) -->
       <div class="row g-4 mb-4">
         <div class="col-md-4">
           <label class="form-label">Building</label>
-          <div class="input-group">
-            <span class="input-group-text">ID</span>
-            <input class="form-control" formControlName="buildingId" readonly />
-            <span class="input-group-text">Name</span>
-            <input class="form-control" [value]="building.name || ''" readonly />
-          </div>
+          <span class="form-control-plaintext">{{ unit.building.name || '' }}</span>
         </div>
-
         <div class="col-md-4">
           <label class="form-label">Floor</label>
-          <div class="input-group">
-            <span class="input-group-text">ID</span>
-            <input class="form-control" formControlName="floorId" readonly />
-            <span class="input-group-text">Name</span>
-            <input class="form-control" [value]="floor.name || ''" readonly />
-          </div>
+          <span class="form-control-plaintext">{{ unit.floor.name || '' }}</span>
         </div>
-
         <div class="col-md-4">
           <label class="form-label">Unit</label>
-          <div class="input-group">
-            <span class="input-group-text">ID</span>
-            <input class="form-control" formControlName="unitId" readonly />
-            <span class="input-group-text">No.</span>
-            <input class="form-control" [value]="unit.unitNumber || ''" readonly />
-          </div>
+          <span class="form-control-plaintext">{{ unit.unitNumber || '' }}</span>
         </div>
       </div>
 
@@ -106,13 +89,13 @@
       <div class="row g-4 mb-4">
         <div class="col-md-6">
           <label for="customerId" class="form-label">Customer</label>
-          <select id="customerId" class="form-select" formControlName="customerId" required>
+          <select id="customerId" class="form-select" formControlName="customer" required>
             <option [ngValue]="null">-- Select Customer --</option>
-            <option *ngFor="let c of customers" [ngValue]="c.id">
+            <option *ngFor="let c of customers" [ngValue]="c">
               {{ c?.name || ('ID: ' + c?.id) }}
             </option>
           </select>
-          <div *ngIf="bookingForm.get('customerId')?.invalid && bookingForm.get('customerId')?.touched" class="text-danger">
+          <div *ngIf="bookingForm.get('customer')?.invalid && bookingForm.get('customer')?.touched" class="text-danger">
             Customer is required.
           </div>
         </div>
@@ -188,10 +171,10 @@
           <div class="p-3 border rounded bg-light">
             <div class="row g-3">
               <div class="col-md-3">
-                <strong>Building:</strong> {{ building.name || '-' }}
+                <strong>Building:</strong> {{ unit.building.name || '-' }}
               </div>
               <div class="col-md-3">
-                <strong>Floor:</strong> {{ floor.name || '-' }}
+                <strong>Floor:</strong> {{ unit.floor.name || '-' }}
               </div>
               <div class="col-md-3">
                 <strong>Unit No.:</strong> {{ unit.unitNumber || '-' }}
@@ -235,6 +218,9 @@
         <button type="submit" class="btn btn-primary" [disabled]="bookingForm.invalid">
           Book Unit
         </button>
+      </div>
+      <div *ngIf="message" class="mt-3 alert" [ngClass]="{'alert-success': messageType==='success', 'alert-danger': messageType==='error'}">
+        {{ message }}
       </div>
     </form>
   </div>
