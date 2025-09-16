@@ -164,4 +164,18 @@ export class EmployeeService {
     localStorage.setItem('userProfile', JSON.stringify(employee));
     return this.http.put<Employee>(`${this.baseUrl}/${employee.id}`, employee, { headers });
   }
+
+  viewEmployeeProfileByEmail(email: string | null): Observable<Employee | null> {
+    let headers = new HttpHeaders();
+
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        headers = headers.set('Authorization', 'Bearer ' + token);
+      }
+    }
+    return this.http.get<Employee>(`${this.baseUrl}/email/${email}`, { headers });
+  }
+
+
 }

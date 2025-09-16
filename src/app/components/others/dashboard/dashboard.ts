@@ -7,6 +7,7 @@ import { Customer } from '../../../models/customer.model';
 import { CustomerService } from '../../../services/customer.service';
 import { Building } from '../../../models/building.model';
 import { BuildingService } from '../../../services/building.service';
+import { TransactionService } from '../../../services/transaction.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,12 +21,15 @@ export class Dashboard implements OnInit {
   buildings: Building[] = [];
   employees: Employee[] = [];
   customers: Customer[] = [];
+  totalCredit: number = 0;
+  totalDebit: number = 0;
 
   constructor(
     private projectService: ProjectService,
     private buildingService: BuildingService,
     private employeeService: EmployeeService,
     private customerService: CustomerService,
+    private transactionService: TransactionService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -48,6 +52,19 @@ export class Dashboard implements OnInit {
     });
     this.customerService.listCustomers().subscribe(data => {
       this.customers = data;
+      this.cdr.markForCheck();
+    });
+
+    this.transactionService.listTransaction().subscribe(data => {
+      const transactions = data;
+      this.totalCredit = transactions
+        .filter((t: any) => t.credit)
+        .reduce((sum: number, t: any) => sum + t.amount, 0);
+
+      this.totalDebit = transactions
+        .filter((t: any) => !t.credit)
+        .reduce((sum: number, t: any) => sum + t.amount, 0);
+
       this.cdr.markForCheck();
     });
   }

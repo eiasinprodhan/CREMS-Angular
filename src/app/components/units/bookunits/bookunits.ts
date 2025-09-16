@@ -202,7 +202,7 @@ export class Bookunits implements OnInit {
 
   booking.date = v.date ? new Date(v.date) : new Date();
   booking.isLoan = isLoan;
-  booking.downPayment = isLoan ? Number(v.downPayment) || 0 : 0;
+  booking.downPayment = Number(v.downPayment);
   booking.interestRate = isLoan ? Number(v.interestRate) || 0 : 0;
   booking.year = isLoan ? Number(v.year) || 0 : 0;
   booking.amount = Number(v.amount) || 0;
@@ -215,7 +215,7 @@ export class Bookunits implements OnInit {
   this.bookingService.addBooking(booking).subscribe({
     next: () => {
       const description = `Booking: Building - ${this.unit.building?.name}, Floor - ${this.unit.floor?.name}, Unit - ${this.unit?.unitNumber}`;
-      const transactionAmount = isLoan ? booking.downPayment : booking.amount;
+      const transactionAmount = booking.downPayment;
 
       const transaction = new Transaction(description, new Date(), transactionAmount, true);
       this.transactionService.saveTransaction(transaction).subscribe({

@@ -44,7 +44,8 @@ export class Listbooking implements OnInit {
   deleteBooking(id: number): void {
     this.bookingService.deleteBooking(id).subscribe({
       next: () => {
-        window.location.reload();
+        this.listAllBookings();
+        this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Error deleting booking:', err);

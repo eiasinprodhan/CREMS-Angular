@@ -13,6 +13,7 @@ import { AuthService } from '../../../services/auth.service';
 export class Header {
   employee: Employee | null = null;
   role!: string | null;
+  email!: string | null;
 
   constructor(
     private employeeService: EmployeeService,
@@ -26,5 +27,10 @@ export class Header {
 
   loadUserProfile(): void {
     this.role = this.authService.getUserRole();
+    this.email = this.authService.getUserEmail();
+    this.employeeService.viewEmployeeProfileByEmail(this.email).subscribe(data=>{
+      this.employee = data;
+      this.cdr.detectChanges();
+    });
   }
 }

@@ -41,6 +41,8 @@ export class AuthService {
             const decodeToken = this.decodeToken(response.token);
             localStorage.setItem('userRole', decodeToken.role);
             this.userRoleSubject.next(decodeToken.role);
+            localStorage.setItem('userEmail', decodeToken.sub);
+            this.userRoleSubject.next(decodeToken.sub);
           }
           return response;
         })
@@ -66,6 +68,13 @@ export class AuthService {
   getUserRole(): string | null {
     if (this.isBrowser()) {
       return localStorage.getItem('userRole');
+    }
+    return null;
+  }
+
+  getUserEmail(): string | null {
+    if (this.isBrowser()) {
+      return localStorage.getItem('userEmail');
     }
     return null;
   }
