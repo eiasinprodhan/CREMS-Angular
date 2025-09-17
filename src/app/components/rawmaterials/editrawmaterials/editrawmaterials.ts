@@ -22,7 +22,7 @@ export class Editrawmaterials {
   ngOnInit(): void {
     this.addRawMaterialForm = this.formBuilder.group({
       name: ['', Validators.required],
-      quantity: [0], // allow 0 as a valid value
+      quantity: [0],
       unit: ['', Validators.required]
     });
   }

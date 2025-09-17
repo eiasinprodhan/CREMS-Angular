@@ -38,7 +38,6 @@
 
       <!-- Quantity -->
       <div class="mb-3">
-        <label for="quantity" class="form-label fw-bold">Quantity</label>
         <input
           type="number"
           id="quantity"
@@ -47,6 +46,7 @@
           [class.is-invalid]="
             addRawMaterialForm.get('quantity')?.touched && addRawMaterialForm.get('quantity')?.invalid
           "
+          hidden
         />
       </div>
 
