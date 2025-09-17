@@ -187,26 +187,42 @@
 </div>
 
 <!-- Loan Payment Section -->
-<div *ngIf="booking?.isLoan" class="card shadow-lg border-0 rounded-4 overflow-hidden mt-4">
-  <div class="row card-header flex-column flex-md-row align-items-center mx-0 px-3">
+<div
+  *ngIf="booking?.isLoan"
+  class="card shadow-lg border-0 rounded-4 overflow-hidden mt-4"
+>
+  <div class="row card-header mx-0 px-3">
     <div class="col-md-auto me-auto d-md-flex align-items-center">
-      <h5 class="card-title mb-0 text-md-start text-center">Loan Payment</h5>
+      <h5 class="card-title mb-0 text-md-start text-center">
+        Pay EMI (
+        <span class="text-danger" *ngIf="dueEMI !== undefined">
+          Available EMI: {{ dueEMI }}
+        </span>
+        )
+      </h5>
     </div>
   </div>
 
   <div class="card-body px-4 py-5">
     <!-- Alert Message -->
-    <div *ngIf="alertMessage" class="alert" [ngClass]="{
+    <div
+      *ngIf="alertMessage"
+      class="alert"
+      [ngClass]="{
         'alert-success': alertType === 'success',
         'alert-danger': alertType === 'danger'
-      }" role="alert">
+      }"
+      role="alert"
+    >
       {{ alertMessage }}
     </div>
 
     <form [formGroup]="loanPaymentForm" (ngSubmit)="submitLoanPayment()">
       <div class="row g-4">
         <div class="col-md-6">
-          <label for="amount" class="form-label fw-semibold">Payment Amount</label>
+          <label for="amount" class="form-label fw-semibold"
+            >Payment Amount</label
+          >
           <input
             type="number"
             id="amount"
@@ -214,7 +230,6 @@
             class="form-control"
             placeholder="Enter payment amount"
             [value]="booking?.emiAmount"
-            required
           />
         </div>
         <div class="col-md-6">
@@ -228,8 +243,69 @@
           />
         </div>
       </div>
-      <button type="submit" class="btn btn-primary mt-4">Submit Payment</button>
+
+      <button
+        type="submit"
+        class="btn btn-primary mt-4"
+        [disabled]="disableSubmit"
+      >
+        Submit Payment
+      </button>
+
+      <!-- Show reason why submit is disabled -->
+      <div *ngIf="disableSubmit" class="text-danger mt-2">
+        EMI already paid for this month or no EMI left to pay.
+      </div>
     </form>
+  </div>
+</div>
+
+<div class="row g-4 mt-4" *ngIf="booking?.isLoan">
+  <div class="col-12">
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <h5 class="card-title mb-4">EMI Payment History</h5>
+
+        <!-- Loading Spinner (Optional) -->
+        <div *ngIf="isLoading" class="d-flex align-items-center gap-2 mb-3">
+          <div class="spinner-border text-primary" role="status"></div>
+          <span>Loading loan payments...</span>
+        </div>
+
+        <!-- Loan Payments Table -->
+        <table *ngIf="!isLoading" class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Payment Date</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lp of loanPayments; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ lp.date | date: 'mediumDate' }}</td>
+              <td>{{ lp.amount | currency }}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="deleteLoanPayment(lp.id!)"
+                >
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="loanPayments.length === 0">
+              <td colspan="3" class="text-center text-muted">
+                No loan payments found.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 

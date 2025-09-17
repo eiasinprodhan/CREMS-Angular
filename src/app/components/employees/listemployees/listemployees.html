@@ -59,7 +59,7 @@
                 <td>{{ employee.id }}</td>
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.phone }}</td>
-                <td>{{ employee.role }}</td>
+                <td>{{ formatRole(employee.role) }}</td>
                 <!-- <td>
                   <span class="badge rounded-pill" [ngClass]="employee.status ? 'bg-success' : 'bg-danger'">
                     {{ employee.status ? 'Active' : 'Inactive' }}

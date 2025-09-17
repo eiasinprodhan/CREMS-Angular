@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Employee } from '../../../models/employee.model';
 import { EmployeeService } from '../../../services/employee.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-editemployees',
@@ -14,9 +15,11 @@ export class Editemployees implements OnInit {
   employee: Employee = new Employee();
   photoFile!: File;
   currentEmployee: Employee | null = null;
+  role!: string | null;
 
   constructor(
     private employeeService: EmployeeService,
+    private authService: AuthService,
     private ar: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private router: Router
@@ -25,20 +28,21 @@ export class Editemployees implements OnInit {
   ngOnInit(): void {
     this.id = this.ar.snapshot.params['id'];
     this.loadEmployee();
-    // this.loadUserProfile(); // Added call to load current employee role
+    this.role = this.authService.getUserRole();
   }
 
   loadEmployee(): void {
     this.employeeService.viewEmployee(this.id).subscribe({
       next: (data) => {
         this.employee = data;
-        this.cdr.markForCheck(); // Optional: Only needed if using OnPush change detection
+        this.cdr.markForCheck();
       },
       error: (error) => {
         console.error('Failed to load employee:', error);
       },
     });
   }
+
 
   onPhotoSelected(event: any): void {
     const file = event.target.files[0];

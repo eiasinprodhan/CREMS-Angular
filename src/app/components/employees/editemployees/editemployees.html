@@ -80,7 +80,7 @@
           />
         </div>
 
-        <div class="col-md-4 mb-3" *ngIf="currentEmployee?.role === 'Admin'">
+        <div class="col-md-4 mb-3" *ngIf="role === 'ADMIN'">
           <label class="form-label fw-bold">Role</label>
           <select
             class="form-select"
@@ -89,10 +89,10 @@
             required
           >
             <option value="" disabled selected>Select Role</option>
-            <option value="Admin">Admin</option>
-            <option value="Project Manager">Project Manager</option>
-            <option value="Site Manager">Site Manager</option>
-            <option value="Labour">Labour</option>
+            <option value="ADMIN">Admin</option>
+            <option value="PROJECT_MANAGER">Project Manager</option>
+            <option value="SSITE_MANAGER">Site Manager</option>
+            <option value="LABOUR">Labour</option>
           </select>
         </div>
 

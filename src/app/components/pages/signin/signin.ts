@@ -47,9 +47,9 @@ export class Signin {
         } else if (role === 'PROJECT_MANAGER') {
           window.location.href = '/listprojects';
         } else if (role === 'SITE_MANAGER') {
-          this.router.navigate(['/listbuildings']);
+          window.location.href = '/listbuildings';
         } else {
-          this.router.navigate(['/signin']);
+          window.location.href = '/signin';
         }
       },
       error: (err) => {
