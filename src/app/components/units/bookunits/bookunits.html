@@ -90,9 +90,9 @@
         <div class="col-md-6">
           <label for="customerId" class="form-label">Customer</label>
           <select id="customerId" class="form-select" formControlName="customer" required>
-            <option [ngValue]="null">-- Select Customer --</option>
+            <option [ngValue]="null">Select Customer</option>
             <option *ngFor="let c of customers" [ngValue]="c">
-              {{ c?.name || ('ID: ' + c?.id) }}
+              {{ c?.name || ('ID: ' + c?.id) }} ({{ ('ID: ' + c?.id) }})
             </option>
           </select>
           <div *ngIf="bookingForm.get('customer')?.invalid && bookingForm.get('customer')?.touched" class="text-danger">
@@ -108,7 +108,7 @@
         <div class="col-md-3">
           <label for="isLoan" class="form-label">Payment System</label>
           <select id="isLoan" class="form-select" formControlName="isLoan" required>
-            <option [ngValue]="null">-- Select Payment --</option>
+            <option [ngValue]="null">Select Payment</option>
             <option [ngValue]="false">Full Payment</option>
             <option [ngValue]="true">Loan</option>
           </select>
