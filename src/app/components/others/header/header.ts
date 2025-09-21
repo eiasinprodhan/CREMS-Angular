@@ -43,5 +43,14 @@ export class Header {
       this.cdr.detectChanges();
     });
   }
+
+  formatRole(role: string | null): string {
+    if (!role) return '';
+    return role
+      .toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    }
   
 }
