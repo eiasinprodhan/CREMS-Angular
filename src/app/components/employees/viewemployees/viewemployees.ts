@@ -89,12 +89,25 @@ export class Viewemployees implements OnInit {
     }
   }
 
-
   formatRole(role: string): string {
-  return role
-    .toLowerCase()
-    .split('_')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+    if (!role) return '';
+    return role
+      .toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  // Helper methods for cleaner template
+  isProjectManager(): boolean {
+    return this.employee.role === 'PROJECT_MANAGER';
+  }
+
+  isSiteManager(): boolean {
+    return this.employee.role === 'SITE_MANAGER';
+  }
+
+  isLabour(): boolean {
+    return this.employee.role === 'LABOUR';
   }
 }

@@ -41,18 +41,16 @@
                 class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-4 my-2"
               >
                 <li class="list-inline-item d-flex gap-2 align-items-center">
-                  <i class="icon-base ti tabler-palette icon-lg"></i
-                  ><span class="fw-medium">{{formatRole(employee.role)}}</span>
+                  <i class="icon-base ti tabler-palette icon-lg"></i>
+                  <span class="fw-medium">{{formatRole(employee.role)}}</span>
                 </li>
                 <li class="list-inline-item d-flex gap-2 align-items-center">
-                  <i class="icon-base ti tabler-map-pin icon-lg"></i
-                  ><span class="fw-medium">{{employee.country}}</span>
+                  <i class="icon-base ti tabler-map-pin icon-lg"></i>
+                  <span class="fw-medium">{{employee.country}}</span>
                 </li>
                 <li class="list-inline-item d-flex gap-2 align-items-center">
-                  <i class="icon-base ti tabler-calendar icon-lg"></i
-                  ><span class="fw-medium"
-                    >{{employee.joiningDate | date}}</span
-                  >
+                  <i class="icon-base ti tabler-calendar icon-lg"></i>
+                  <span class="fw-medium">{{employee.joiningDate | date}}</span>
                 </li>
               </ul>
             </div>
@@ -79,33 +77,33 @@
         </p>
         <ul class="list-unstyled my-3 py-1">
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-user icon-lg"></i
-            ><span class="fw-medium mx-2">Full Name:</span>
+            <i class="icon-base ti tabler-user icon-lg"></i>
+            <span class="fw-medium mx-2">Full Name:</span>
             <span>{{employee.name}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-id icon-lg"></i
-            ><span class="fw-medium mx-2">NID:</span>
+            <i class="icon-base ti tabler-id icon-lg"></i>
+            <span class="fw-medium mx-2">NID:</span>
             <span>{{employee.nid}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-calendar icon-lg"></i
-            ><span class="fw-medium mx-2">Joining Date:</span>
+            <i class="icon-base ti tabler-calendar icon-lg"></i>
+            <span class="fw-medium mx-2">Joining Date:</span>
             <span>{{employee.joiningDate | date}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-file-typography icon-lg"></i
-            ><span class="fw-medium mx-2">Salary Type:</span>
+            <i class="icon-base ti tabler-file-typography icon-lg"></i>
+            <span class="fw-medium mx-2">Salary Type:</span>
             <span>{{employee.salaryType}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-coin icon-lg"></i
-            ><span class="fw-medium mx-2">Salary:</span>
+            <i class="icon-base ti tabler-coin icon-lg"></i>
+            <span class="fw-medium mx-2">Salary:</span>
             <span>{{employee.salary}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-flag icon-lg"></i
-            ><span class="fw-medium mx-2">Country:</span>
+            <i class="icon-base ti tabler-flag icon-lg"></i>
+            <span class="fw-medium mx-2">Country:</span>
             <span>{{employee.country}}</span>
           </li>
         </ul>
@@ -114,13 +112,13 @@
         </p>
         <ul class="list-unstyled my-3 py-1">
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-phone-call icon-lg"></i
-            ><span class="fw-medium mx-2">Contact:</span>
+            <i class="icon-base ti tabler-phone-call icon-lg"></i>
+            <span class="fw-medium mx-2">Contact:</span>
             <span>{{employee.phone}}</span>
           </li>
           <li class="d-flex align-items-center mb-4">
-            <i class="icon-base ti tabler-mail icon-lg"></i
-            ><span class="fw-medium mx-2">Email:</span>
+            <i class="icon-base ti tabler-mail icon-lg"></i>
+            <span class="fw-medium mx-2">Email:</span>
             <span>{{employee.email}}</span>
           </li>
         </ul>
@@ -162,7 +160,8 @@
                   id="dt-search-0"
                   placeholder="Search..."
                   aria-controls="DataTables_Table_0"
-                /><label for="dt-search-0"></label>
+                />
+                <label for="dt-search-0"></label>
               </div>
             </div>
           </div>
@@ -170,7 +169,8 @@
             <div
               class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive"
             >
-              <ng-container *ngIf="employee.role === 'Project Manager'">
+              <!-- PROJECT MANAGER TABLE -->
+              <ng-container *ngIf="isProjectManager()">
                 <table
                   class="datatables-basic table dataTable dtr-column"
                   id="DataTables_Table_0"
@@ -219,10 +219,11 @@
                 </table>
               </ng-container>
 
-              <ng-container *ngIf="employee.role === 'Site Manager'">
+              <!-- SITE MANAGER TABLE -->
+              <ng-container *ngIf="isSiteManager()">
                 <table
                   class="datatables-basic table dataTable dtr-column"
-                  id="DataTables_Table_0"
+                  id="DataTables_Table_1"
                 >
                   <thead>
                     <tr>
@@ -234,7 +235,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let wh of workHistoryData|async">
+                    <tr *ngFor="let wh of workHistoryData | async">
                       <td>{{ wh.name }}</td>
                       <td>{{ wh.type }}</td>
                       <td>{{ wh.floorCount }}</td>
@@ -253,7 +254,8 @@
                 </table>
               </ng-container>
 
-              <ng-container *ngIf="employee.role === 'Labour'">
+              <!-- LABOUR MESSAGE -->
+              <ng-container *ngIf="isLabour()">
                 <p class="p-5 text-center">
                   Labour don't have any work history.
                 </p>
