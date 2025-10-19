@@ -190,7 +190,7 @@ export class Listattendances implements OnInit {
   }
 
   onPay(): void {
-    const transaction = new Transaction("Labours daily salary", this.today, this.getTotalSalary(), false);
+    const transaction = new Transaction("Labours daily salary (" + this.selectedDate + ")", this.today, this.getTotalSalary(), false);
     this.transactionService.saveTransaction(transaction).subscribe({
       next: () => {
         this.paidDates[this.selectedDate] = true;
