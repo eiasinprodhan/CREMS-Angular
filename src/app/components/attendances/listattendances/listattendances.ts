@@ -11,6 +11,7 @@ import { Transaction } from '../../../models/transaction.model';
 import { isPlatformBrowser } from '@angular/common';
 import { StagepaymentService } from '../../../services/stagepayment.service';
 import { StagePayment } from '../../../models/stagepayments.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-listattendances',
@@ -30,6 +31,30 @@ export class Listattendances implements OnInit {
   loading: boolean = false;
   error: string = '';
 
+  // Filtered and Paginated Data
+  filteredLabours: number[] = [];
+  paginatedLabours: number[] = [];
+
+  // Search and Filter
+  searchTerm: string = ''; // Combined search for ID and Employee Name
+  sortBySalary: string = ''; // 'asc', 'desc', or ''
+  
+  // Pagination
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  totalPages: number = 0;
+  
+  // Sort options
+  sortOptions: any[] = [
+    { value: '', label: 'No Sorting' },
+    { value: 'asc', label: 'Salary (Low to High)' },
+    { value: 'desc', label: 'Salary (High to Low)' }
+  ];
+  
+  // Items per page options
+  itemsPerPageOptions: number[] = [5, 10, 25, 50, 100];
+
   constructor(
     private attendanceService: AttendanceService,
     private employeeService: EmployeeService,
@@ -43,41 +68,161 @@ export class Listattendances implements OnInit {
 
   ngOnInit(): void {
     this.id = +this.route.snapshot.params['id'];
+    console.log('Stage ID:', this.id);
     this.loadData();
   }
 
   private loadData(): void {
-    this.listEmployees();
-    this.viewEmployeeByStage();
-    this.listAttendances();
-  }
+    this.loading = true;
+    console.log('Loading data...');
 
-  viewEmployeeByStage(): void {
-    this.stageService.viewStages(this.id).subscribe({
-      next: (data) => {
-        this.stage = data;
-        console.log('Loaded stage:', this.stage);
+    forkJoin({
+      employees: this.employeeService.listEmployees(),
+      stage: this.stageService.viewStages(this.id),
+      attendances: this.attendanceService.listAttendances()
+    }).subscribe({
+      next: (result) => {
+        console.log('Data received:', result);
+        this.employees = result.employees || [];
+        this.stage = result.stage || new Stage();
+        this.attendances = result.attendances || [];
+        this.loading = false;
         this.onDateChange();
-
-        // ✅ Load payment dates AFTER stage is loaded
         this.loadPaidDates();
+        this.applyFilters();
+        this.cdr.detectChanges();
       },
       error: (error) => {
-        console.error('Error loading stage:', error);
+        console.error('Error loading data:', error);
+        this.loading = false;
+        this.error = 'Failed to load data.';
       }
     });
   }
 
-  listEmployees(): void {
-    this.employeeService.listEmployees().subscribe({
-      next: (data: Employee[]) => {
-        this.employees = data;
-        this.cdr.markForCheck();
-      },
-      error: (error) => {
-        console.error('Error loading employees:', error);
+  applyFilters(): void {
+    console.log('Applying filters...');
+    const labours = this.stage?.labours ?? [];
+    console.log('Total labours:', labours.length);
+    
+    let filtered = [...labours];
+
+    // Filter by ID or Employee Name (combined search)
+    if (this.searchTerm.trim()) {
+      const searchLower = this.searchTerm.toLowerCase().trim();
+      filtered = filtered.filter(labourId => {
+        const matchesId = labourId.toString().includes(searchLower);
+        const employeeName = this.getEmployeeName(labourId).toLowerCase();
+        const matchesName = employeeName.includes(searchLower);
+        return matchesId || matchesName;
+      });
+      console.log('Filtered by search term:', filtered.length);
+    }
+
+    // Sort by Salary
+    if (this.sortBySalary) {
+      filtered.sort((a, b) => {
+        const salaryA = this.getEmployeeSalary(a);
+        const salaryB = this.getEmployeeSalary(b);
+        
+        if (this.sortBySalary === 'asc') {
+          return salaryA - salaryB;
+        } else if (this.sortBySalary === 'desc') {
+          return salaryB - salaryA;
+        }
+        return 0;
+      });
+      console.log('Sorted by Salary:', this.sortBySalary);
+    }
+
+    this.filteredLabours = filtered;
+    this.totalItems = filtered.length;
+    this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage) || 1;
+    
+    console.log('Filtered labours:', this.filteredLabours.length);
+    console.log('Total items:', this.totalItems);
+    console.log('Total pages:', this.totalPages);
+    
+    // Reset to first page when filters change
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
+    
+    this.updatePagination();
+  }
+
+  updatePagination(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedLabours = this.filteredLabours.slice(startIndex, endIndex);
+    
+    console.log('Paginated labours:', this.paginatedLabours.length);
+    console.log('Start index:', startIndex, 'End index:', endIndex);
+    console.log('Current page:', this.currentPage);
+  }
+
+  onSearchChange(): void {
+    this.applyFilters();
+  }
+
+  onSortChange(): void {
+    this.applyFilters();
+  }
+
+  onItemsPerPageChange(): void {
+    this.applyFilters();
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPagesToShow = 5;
+    
+    if (this.totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
       }
-    });
+    } else {
+      let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
+      let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
+
+      if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  }
+
+  clearFilters(): void {
+    this.searchTerm = '';
+    this.sortBySalary = '';
+    this.currentPage = 1;
+    this.applyFilters();
   }
 
   listAttendances(): void {
@@ -87,6 +232,7 @@ export class Listattendances implements OnInit {
         this.attendances = data;
         console.log('Loaded attendances:', this.attendances);
         this.loading = false;
+        this.applyFilters();
         this.cdr.markForCheck();
       },
       error: (err) => {
@@ -116,11 +262,9 @@ export class Listattendances implements OnInit {
   }
 
   getTotalSalary(): number {
-    return Array.isArray(this.stage.labours)
-      ? this.stage.labours.reduce((total, labourId: number) => {
-          return total + this.getEmployeeSalary(labourId);
-        }, 0)
-      : 0;
+    return this.filteredLabours.reduce((total, labourId: number) => {
+      return total + this.getEmployeeSalary(labourId);
+    }, 0);
   }
 
   getAttendanceByLabour(id: number): string {
@@ -186,21 +330,29 @@ export class Listattendances implements OnInit {
     const start = new Date(this.stage.startDate);
     const end = new Date(this.stage.endDate);
     this.dateRestriction = selected >= start && selected <= end;
+    this.applyFilters();
     this.cdr.markForCheck();
   }
 
   onPay(): void {
-    const transaction = new Transaction("Labours daily salary (" + this.selectedDate + ")", this.today, this.getTotalSalary(), false);
-    this.transactionService.saveTransaction(transaction).subscribe({
-      next: () => {
-        this.paidDates[this.selectedDate] = true;
-        this.savePaidDates();
-        this.cdr.markForCheck();
-      },
-      error: (err) => {
-        console.error('Failed to save transaction:', err);
-      }
-    });
+    if (confirm('Are you sure you want to mark this day as paid?')) {
+      const transaction = new Transaction(
+        "Labours daily salary (" + this.selectedDate + ")", 
+        this.today, 
+        this.getTotalSalary(), 
+        false
+      );
+      
+      this.transactionService.saveTransaction(transaction).subscribe({
+        next: () => {
+          this.savePaidDates();
+        },
+        error: (err) => {
+          console.error('Failed to save transaction:', err);
+          alert('Failed to process payment. Please try again.');
+        }
+      });
+    }
   }
 
   isPaid(): boolean {
@@ -216,10 +368,12 @@ export class Listattendances implements OnInit {
     this.stagePaymentService.savePayment(payment).subscribe({
       next: () => {
         this.paidDates[this.selectedDate] = true;
+        alert('Payment recorded successfully!');
         this.cdr.markForCheck();
       },
       error: (err) => {
         console.error('Failed to save payment status:', err);
+        alert('Failed to record payment. Please try again.');
       }
     });
   }
@@ -243,13 +397,19 @@ export class Listattendances implements OnInit {
 
   getStatusTotals(): { present: number; absent: number; onLeave: number } {
     const counts = { present: 0, absent: 0, onLeave: 0 };
-    this.attendances.forEach(a => {
-      if (a.date === this.selectedDate && a.stageId === this.id) {
-        if (a.status === 'Present') counts.present++;
-        else if (a.status === 'Absent') counts.absent++;
-        else if (a.status === 'On Leave') counts.onLeave++;
-      }
+    this.filteredLabours.forEach(labourId => {
+      const status = this.getAttendanceByLabour(labourId);
+      if (status === 'Present') counts.present++;
+      else if (status === 'Absent') counts.absent++;
+      else if (status === 'On Leave') counts.onLeave++;
     });
     return counts;
+  }
+
+  getShowingText(): string {
+    if (this.totalItems === 0) return 'Showing 0 to 0 of 0 entries';
+    const start = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const end = Math.min(this.currentPage * this.itemsPerPage, this.totalItems);
+    return `Showing ${start} to ${end} of ${this.totalItems} entries`;
   }
 }

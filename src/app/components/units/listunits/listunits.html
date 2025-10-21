@@ -1,123 +1,313 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div class="dt-container dt-bootstrap5 dt-empty-footer">
+
       <!-- Header -->
       <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0">
-          <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-6">
+        <div class="col-md-auto me-auto mt-0">
+          <h5 class="card-title mb-0 text-md-start text-center">
             Units
+            <span class="badge bg-secondary ms-2" *ngIf="!isLoading">{{ totalItems }}</span>
+            <span class="badge bg-success ms-1" *ngIf="!isLoading" title="Booked Units">
+              <i class="fa fa-check me-1"></i>{{ getBookedCount() }}
+            </span>
+            <span class="badge bg-danger ms-1" *ngIf="!isLoading" title="Available Units">
+              <i class="fa fa-times me-1"></i>{{ getAvailableCount() }}
+            </span>
           </h5>
         </div>
+        <div class="col-md-auto ms-auto mt-0">
+          <a routerLink="/addunits">
+            <button class="btn btn-primary" type="button">
+              <i class="fa-solid fa-plus mx-1"></i>Add New Unit
+            </button>
+          </a>
+        </div>
       </div>
 
-      <!-- Filter/Length/Search -->
-      <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0">
-          <div class="dt-length">
-            <label for="dt-length-0">
-              Show
-              <select class="form-select" id="dt-length-0">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              entries
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading units...</p>
+      </div>
+
+      <!-- Content (only show when not loading) -->
+      <div *ngIf="!isLoading">
+        
+        <!-- Search and Filter Section -->
+        <div class="row mx-0 px-3 py-3 border-bottom align-items-start">
+          <!-- Combined Search Bar -->
+          <div class="col-md-3 mb-3 mb-md-0">
+            <label for="searchTerm" class="form-label">
+              <i class="fa fa-search me-1"></i>Search Units
             </label>
-          </div>
-        </div>
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0">
-          <div class="dt-search mt-0 mt-md-6 mb-6">
-            <label for="dt-search-0">Search:</label>
             <input
-              type="search"
-              class="form-control ms-4"
-              id="dt-search-0"
+              type="text"
+              id="searchTerm"
+              class="form-control"
+              placeholder="Search by ID or Unit Number..."
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange()"
             />
+            <small class="text-muted d-block mt-1">Search by ID or Unit Number</small>
+          </div>
+
+          <!-- Booked Status Filter -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="bookedFilter" class="form-label">
+              <i class="fa fa-filter me-1"></i>Status
+            </label>
+            <select
+              id="bookedFilter"
+              class="form-select"
+              [(ngModel)]="selectedBookedStatus"
+              (ngModelChange)="onBookedStatusChange()"
+            >
+              <option value="">All</option>
+              <option value="Booked">Booked</option>
+              <option value="Available">Available</option>
+            </select>
+          </div>
+
+          <!-- Sort by Area -->
+          <div class="col-md-3 mb-3 mb-md-0">
+            <label for="sortArea" class="form-label">
+              <i class="fa fa-sort me-1"></i>Sort by Area
+            </label>
+            <select
+              id="sortArea"
+              class="form-select"
+              [(ngModel)]="sortByArea"
+              (ngModelChange)="onSortChange()"
+            >
+              <option *ngFor="let option of sortOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Items Per Page -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="itemsPerPage" class="form-label">Items per page</label>
+            <select
+              id="itemsPerPage"
+              class="form-select"
+              [(ngModel)]="itemsPerPage"
+              (ngModelChange)="onItemsPerPageChange()"
+            >
+              <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <div class="col-md-2">
+            <label class="form-label d-block">&nbsp;</label>
+            <button
+              class="btn btn-secondary w-100"
+              type="button"
+              (click)="clearFilters()"
+              [disabled]="!searchTerm && !selectedBookedStatus && !sortByArea"
+            >
+              <i class="fa-solid fa-rotate-right mx-1"></i>Clear
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Table -->
-      <div class="justify-content-between dt-layout-table">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive">
-          <table class="datatables-basic table dataTable dtr-column">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Unit Number</th>
-                <th>Area (sqft)</th>
-                <th>Bedrooms</th>
-                <th>Bathrooms</th>
-                <th>Booked</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let unit of units | async">
-                <td>{{ unit.id }}</td>
-                <td>{{ unit.unitNumber }}</td>
-                <td>{{ unit.area }}</td>
-                <td>{{ unit.bedrooms }}</td>
-                <td>{{ unit.bathrooms }}</td>
-                <td>
-                    <span ngClass="{{unit.booked ? 'badge bg-success' : 'badge bg-danger'}}">{{ unit.booked ? 'Yes' : 'No' }}</span>
-                </td>
-                <td>
-                  <div class="d-flex gap-2">
-                    <!-- Book -->
-                    <ng-container *ngIf="!unit.booked">
+        <!-- Results Info -->
+        <div class="row mx-0 px-3 py-2">
+          <div class="col-12 text-center text-md-start">
+            <span class="text-muted">{{ getShowingText() }}</span>
+            <span class="text-muted ms-3" *ngIf="searchTerm || selectedBookedStatus || sortByArea">
+              <i class="fa fa-info-circle me-1"></i>
+              Filters/Sorting active
+            </span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="justify-content-between dt-layout-table">
+          <div class="table-responsive">
+            <table class="datatables-basic table dataTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Unit Number</th>
+                  <th>Area (sqft)</th>
+                  <th>Bedrooms</th>
+                  <th>Bathrooms</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Empty State -->
+                <tr *ngIf="paginatedUnits.length === 0 && !isLoading">
+                  <td colspan="7" class="text-center py-5">
+                    <div class="text-muted">
+                      <i class="fa-solid fa-home fa-3x mb-3 d-block"></i>
+                      <p class="mb-0 fs-5">No units found</p>
+                      <p class="small" *ngIf="searchTerm || selectedBookedStatus || sortByArea">
+                        Try adjusting your filters or 
+                        <a href="javascript:void(0);" (click)="clearFilters()" class="text-primary">clear all filters</a>
+                      </p>
+                      <p class="small" *ngIf="!searchTerm && !selectedBookedStatus && !sortByArea">
+                        Get started by adding a new unit
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                
+                <!-- Data Rows -->
+                <tr *ngFor="let unit of paginatedUnits">
+                  <td>
+                    <strong>{{ unit.id }}</strong>
+                  </td>
+                  <td>
+                    <i class="fa fa-door-open me-2 text-muted"></i>
+                    {{ unit.unitNumber }}
+                  </td>
+                  <td>
+                    <i class="fa fa-ruler-combined me-1 text-muted"></i>
+                    <strong>{{ unit.area }}</strong> sqft
+                  </td>
+                  <td>
+                    <i class="fa fa-bed me-1 text-muted"></i>
+                    {{ unit.bedrooms }}
+                  </td>
+                  <td>
+                    <i class="fa fa-bath me-1 text-muted"></i>
+                    {{ unit.bathrooms }}
+                  </td>
+                  <td>
+                    <span
+                      class="badge px-3 py-2 text-white rounded-pill"
+                      [ngClass]="getBookedClass(unit.booked)"
+                    >
+                      <i class="fa me-1" [ngClass]="unit.booked ? 'fa-check' : 'fa-times'"></i>
+                      {{ getBookedText(unit.booked) }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <!-- Book Button (only show if not booked) -->
                       <button
-                      class="btn btn-sm btn-outline-info"
-                      (click)="bookUnit(unit.id)"
-                    >
-                      <i class="fa fa-book"></i>
-                    </button>
-                    </ng-container>
-                    <!-- View -->
-                    <button
-                      class="btn btn-sm btn-outline-info"
-                      (click)="viewUnit(unit.id)"
-                    >
-                      <i class="fa fa-eye"></i>
-                    </button>
+                        *ngIf="!unit.booked"
+                        class="btn btn-sm btn-outline-success"
+                        (click)="bookUnit(unit.id)"
+                        title="Book Unit"
+                      >
+                        <i class="fa fa-calendar-check"></i>
+                      </button>
 
-                    <!-- Edit -->
-                    <button
-                      class="btn btn-sm btn-outline-primary"
-                      (click)="editUnit(unit.id)"
-                    >
-                      <i class="fa fa-edit"></i>
-                    </button>
+                      <!-- View -->
+                      <button
+                        class="btn btn-sm btn-outline-info"
+                        (click)="viewUnit(unit.id)"
+                        title="View Unit"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
 
-                    <!-- Delete -->
-                    <button
-                      class="btn btn-sm btn-outline-danger"
-                      (click)="deleteUnit(unit.id)"
-                    >
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+                      <!-- Edit -->
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="editUnit(unit.id)"
+                        title="Edit Unit"
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
 
-      <!-- Pagination Footer -->
-      <div class="row mx-3 justify-content-between">
-        <div class="dt-layout-start col-md-auto me-auto mt-0">
-          <div class="dt-info" role="status">
-            Showing 0 to 0 of 0 entries
+                      <!-- Delete -->
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="deleteUnit(unit.id)"
+                        title="Delete Unit"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="dt-layout-end col-md-auto ms-auto mt-0">
-          <div class="dt-paging">
-            <nav aria-label="pagination"></nav>
+
+        <!-- Pagination -->
+        <div class="row mx-0 px-3 py-3 border-top" *ngIf="totalPages > 1">
+          <div class="col-12">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="previousPage()"
+                    aria-label="Previous"
+                  >
+                    <i class="fa fa-chevron-left"></i>
+                  </a>
+                </li>
+
+                <!-- First Page -->
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 1">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(1)">1</a>
+                </li>
+                
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+
+                <!-- Page Numbers -->
+                <li 
+                  class="page-item" 
+                  *ngFor="let page of getPageNumbers()"
+                  [class.active]="page === currentPage"
+                >
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="goToPage(page)"
+                  >
+                    {{ page }}
+                  </a>
+                </li>
+
+                <!-- Last Page -->
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1">
+                  <span class="page-link">...</span>
+                </li>
+                
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(totalPages)">
+                    {{ totalPages }}
+                  </a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="nextPage()"
+                    aria-label="Next"
+                  >
+                    <i class="fa fa-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
+
       </div>
+      <!-- End Content -->
+
     </div>
   </div>
 </div>

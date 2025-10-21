@@ -1,79 +1,309 @@
 <div class="card">
   <!-- Card Header -->
-  <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-    <h5 class="card-title mb-0">
-      ({{ getBuildingName(floor.building.id) }}) {{ floor.name }} Floor's Stages
-    </h5>
-
-    <div>
-      <a [routerLink]="['/addunits', floor.id]" class="mt-2 mx-1">
-        <button class="btn btn-primary">
-          <i class="fa-solid fa-plus me-1"></i> Add Unit
-        </button>
-      </a>
-      <a [routerLink]="['/addstages', floor.id]" class="mt-2 mx-1">
-        <button class="btn btn-primary">
-          <i class="fa-solid fa-plus me-1"></i> Add New Stage
-        </button>
-      </a>
+  <div class="card-header border-bottom">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-2 mb-md-0">
+        <h5 class="card-title mb-0">
+          <i class="fa fa-building me-2 text-primary"></i>
+          <span *ngIf="!isLoading">
+            ({{ getBuildingName(floor.building.id) }}) {{ floor.name }} Floor's Stages
+          </span>
+          <span *ngIf="isLoading">Loading...</span>
+        </h5>
+        <div class="mt-2" *ngIf="!isLoading">
+          <span class="badge bg-secondary me-1" title="Total Stages">
+            <i class="fa fa-list me-1"></i>{{ totalItems }}
+          </span>
+          <span class="badge bg-primary me-1" title="Upcoming">
+            <i class="fa fa-clock me-1"></i>{{ getUpcomingCount() }}
+          </span>
+          <span class="badge bg-warning me-1" title="Ongoing">
+            <i class="fa fa-spinner me-1"></i>{{ getOngoingCount() }}
+          </span>
+          <span class="badge bg-success me-1" title="Completed">
+            <i class="fa fa-check me-1"></i>{{ getCompletedCount() }}
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a [routerLink]="['/addunits', floor.id]" class="me-2">
+          <button class="btn btn-outline-primary btn-sm">
+            <i class="fa-solid fa-plus me-1"></i> Add Unit
+          </button>
+        </a>
+        <a [routerLink]="['/addstages', floor.id]">
+          <button class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-plus me-1"></i> Add New Stage
+          </button>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Card Body -->
-  <div class="card-body">
-    <div class="row">
-      <div *ngFor="let stage of stages" class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 shadow-sm p-3 d-flex flex-column justify-content-between">
-          <!-- Top Row: Stage Name + Status -->
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="card-title text-primary mb-0">{{ stage.name }}</h5>
-            <ng-container *ngIf="getTimeStatus(stage) as status">
-              <span class="badge rounded-pill" [ngClass]="status.className">
-                {{ status.text }}
-              </span>
-            </ng-container>
-          </div>
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading stages...</p>
+  </div>
 
-          <!-- Middle Section: Attendance + Raw Materials -->
-          <div class="d-flex flex-column gap-2 mb-4 text-center">
-            <a routerLink="/listattendances/{{stage.id}}">
-              <button class="btn btn-outline-primary w-100">
-                <i class="fa fa-user-check me-1"></i> Attendance
-              </button>
-            </a>
-            <a [routerLink]="['/rawmaterilas', stage.id]">
-              <button class="btn btn-outline-success w-100">
-                <i class="fa fa-boxes-stacked me-1"></i> Raw Materials
-              </button>
-            </a>
-          </div>
+  <!-- Content (only show when not loading) -->
+  <div *ngIf="!isLoading">
+    
+    <!-- Search and Filter Section -->
+    <div class="card-body border-bottom">
+      <div class="row align-items-start">
+        <!-- Combined Search Bar -->
+        <div class="col-md-5 mb-3 mb-md-0">
+          <label for="searchTerm" class="form-label">
+            <i class="fa fa-search me-1"></i>Search Stages
+          </label>
+          <input
+            type="text"
+            id="searchTerm"
+            class="form-control"
+            placeholder="Search by Stage ID or Name..."
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+          />
+          <small class="text-muted d-block mt-1">Search by ID or Name</small>
+        </div>
 
-          <!-- Bottom Row: Action Buttons + Days Left -->
-          <div class="d-flex justify-content-between align-items-center mt-auto pt-2">
-            <!-- Actions -->
-            <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-primary" (click)="editStage(stage.id)" title="Edit Stage">
-                <i class="fa fa-edit"></i>
-              </button>
-              <button class="btn btn-sm btn-outline-danger" (click)="deleteStage(stage.id)" title="Delete Stage">
-                <i class="fa fa-trash"></i>
-              </button>
-            </div>
+        <!-- Sort by Days Left -->
+        <div class="col-md-3 mb-3 mb-md-0">
+          <label for="sortDaysLeft" class="form-label">
+            <i class="fa fa-sort me-1"></i>Sort by Days Left
+          </label>
+          <select
+            id="sortDaysLeft"
+            class="form-select"
+            [(ngModel)]="sortByDaysLeft"
+            (ngModelChange)="onSortChange()"
+          >
+            <option *ngFor="let option of sortOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
 
-            <!-- Days Left -->
-            <div class="text-danger small fw-semibold">
-              <i class="fa-regular fa-clock"></i> {{ getDaysLeft(stage.endDate)
-              }} days left
+        <!-- Items Per Page -->
+        <div class="col-md-2 mb-3 mb-md-0">
+          <label for="itemsPerPage" class="form-label">Cards per page</label>
+          <select
+            id="itemsPerPage"
+            class="form-select"
+            [(ngModel)]="itemsPerPage"
+            (ngModelChange)="onItemsPerPageChange()"
+          >
+            <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Clear Filters Button -->
+        <div class="col-md-2">
+          <label class="form-label d-block">&nbsp;</label>
+          <button
+            class="btn btn-secondary w-100"
+            type="button"
+            (click)="clearFilters()"
+            [disabled]="!searchTerm && !sortByDaysLeft"
+          >
+            <i class="fa-solid fa-rotate-right mx-1"></i>Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Info -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <span class="text-muted">{{ getShowingText() }}</span>
+          <span class="text-muted ms-3" *ngIf="searchTerm || sortByDaysLeft">
+            <i class="fa fa-info-circle me-1"></i>
+            Filters/Sorting active
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Body - Stages Grid -->
+    <div class="card-body">
+      <!-- Empty State -->
+      <div *ngIf="paginatedStages.length === 0" class="text-center py-5">
+        <i class="fa-solid fa-tasks fa-3x mb-3 d-block text-muted" style="opacity: 0.3;"></i>
+        <p class="mb-0 fs-5 text-muted">No stages found</p>
+        <p class="small text-muted" *ngIf="searchTerm || sortByDaysLeft">
+          Try adjusting your filters or 
+          <a href="javascript:void(0);" (click)="clearFilters()" class="text-primary">clear all filters</a>
+        </p>
+        <p class="small text-muted" *ngIf="!searchTerm && !sortByDaysLeft">
+          Get started by adding a new stage
+        </p>
+      </div>
+
+      <!-- Stages Cards -->
+      <div class="row" *ngIf="paginatedStages.length > 0">
+        <div *ngFor="let stage of paginatedStages" class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body d-flex flex-column">
+              
+              <!-- Top Row: Stage Name + Status -->
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div>
+                  <h5 class="card-title text-primary mb-1">
+                    <i class="fa fa-layer-group me-2"></i>{{ stage.name }}
+                  </h5>
+                  <small class="text-muted">
+                    <i class="fa fa-hashtag"></i> ID: {{ stage.id }}
+                  </small>
+                </div>
+                <ng-container *ngIf="getTimeStatus(stage) as status">
+                  <span class="badge rounded-pill px-3 py-2" [ngClass]="status.className">
+                    {{ status.text }}
+                  </span>
+                </ng-container>
+              </div>
+
+              <!-- Date Information -->
+              <div class="mb-3">
+                <div class="d-flex justify-content-between text-muted small mb-1">
+                  <span><i class="fa fa-calendar-check me-1"></i>Start:</span>
+                  <strong>{{ stage.startDate | date: 'mediumDate' }}</strong>
+                </div>
+                <div class="d-flex justify-content-between text-muted small">
+                  <span><i class="fa fa-calendar-times me-1"></i>End:</span>
+                  <strong>{{ stage.endDate | date: 'mediumDate' }}</strong>
+                </div>
+              </div>
+
+              <!-- Days Left Badge -->
+              <div class="mb-3 text-center">
+                <span 
+                  class="badge px-4 py-2"
+                  [ngClass]="{
+                    'bg-danger': getDaysLeft(stage.endDate) <= 7,
+                    'bg-warning': getDaysLeft(stage.endDate) > 7 && getDaysLeft(stage.endDate) <= 30,
+                    'bg-info': getDaysLeft(stage.endDate) > 30
+                  }"
+                >
+                  <i class="fa-regular fa-clock me-1"></i>
+                  {{ getDaysLeft(stage.endDate) }} days left
+                </span>
+              </div>
+
+              <!-- Middle Section: Attendance + Raw Materials -->
+              <div class="d-flex flex-column gap-2 mb-3">
+                <a routerLink="/listattendances/{{stage.id}}" class="text-decoration-none">
+                  <button class="btn btn-outline-primary w-100">
+                    <i class="fa fa-user-check me-2"></i> Attendance
+                  </button>
+                </a>
+                <a [routerLink]="['/rawmaterilas', stage.id]" class="text-decoration-none">
+                  <button class="btn btn-outline-success w-100">
+                    <i class="fa fa-boxes-stacked me-2"></i> Raw Materials
+                  </button>
+                </a>
+              </div>
+
+              <!-- Bottom Row: Action Buttons -->
+              <div class="d-flex justify-content-center gap-2 mt-auto pt-3 border-top">
+                <button 
+                  class="btn btn-sm btn-outline-info" 
+                  (click)="viewStage(stage.id)" 
+                  title="View Stage"
+                >
+                  <i class="fa fa-eye me-1"></i> View
+                </button>
+                <button 
+                  class="btn btn-sm btn-outline-primary" 
+                  (click)="editStage(stage.id)" 
+                  title="Edit Stage"
+                >
+                  <i class="fa fa-edit me-1"></i> Edit
+                </button>
+                <button 
+                  class="btn btn-sm btn-outline-danger" 
+                  (click)="deleteStage(stage.id)" 
+                  title="Delete Stage"
+                >
+                  <i class="fa fa-trash me-1"></i> Delete
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Card Footer -->
-  <div class="card-footer text-muted text-end">
-    Showing {{ stages.length || 0 }} {{ stages.length === 1 ? 'entry' :
-    'entries' }}
+    <!-- Pagination -->
+    <div class="card-footer border-top" *ngIf="totalPages > 1">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mb-0">
+          <!-- Previous Button -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a 
+              class="page-link" 
+              href="javascript:void(0);" 
+              (click)="previousPage()"
+              aria-label="Previous"
+            >
+              <i class="fa fa-chevron-left"></i>
+            </a>
+          </li>
+
+          <!-- First Page -->
+          <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 1">
+            <a class="page-link" href="javascript:void(0);" (click)="goToPage(1)">1</a>
+          </li>
+          
+          <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 2">
+            <span class="page-link">...</span>
+          </li>
+
+          <!-- Page Numbers -->
+          <li 
+            class="page-item" 
+            *ngFor="let page of getPageNumbers()"
+            [class.active]="page === currentPage"
+          >
+            <a 
+              class="page-link" 
+              href="javascript:void(0);" 
+              (click)="goToPage(page)"
+            >
+              {{ page }}
+            </a>
+          </li>
+
+          <!-- Last Page -->
+          <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1">
+            <span class="page-link">...</span>
+          </li>
+          
+          <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages">
+            <a class="page-link" href="javascript:void(0);" (click)="goToPage(totalPages)">
+              {{ totalPages }}
+            </a>
+          </li>
+
+          <!-- Next Button -->
+          <li class="page-item" [class.disabled]="currentPage === totalPages">
+            <a 
+              class="page-link" 
+              href="javascript:void(0);" 
+              (click)="nextPage()"
+              aria-label="Next"
+            >
+              <i class="fa fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
   </div>
+  <!-- End Content -->
+
 </div>

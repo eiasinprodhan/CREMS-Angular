@@ -1,132 +1,298 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
-    <div
-      id="DataTables_Table_0_wrapper"
-      class="dt-container dt-bootstrap5 dt-empty-footer"
-    >
+    <div class="dt-container dt-bootstrap5 dt-empty-footer">
+
       <!-- Header -->
-      <div
-        class="row card-header flex-column flex-md-row border-bottom mx-0 px-3"
-      >
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
-        >
-          <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-6">
+      <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+        <div class="col-md-auto me-auto mt-0 mb-2 mb-md-0">
+          <h5 class="card-title mb-0 text-md-start text-center">
+            <i class="fa fa-boxes-stacked me-2 text-primary"></i>
             Raw Materials
+            <span class="badge bg-secondary ms-2" *ngIf="!isLoading">{{ totalItems }}</span>
           </h5>
+          <div class="mt-2" *ngIf="!isLoading">
+            <span class="badge bg-warning me-1" *ngIf="getLowStockCount() > 0" title="Low Stock Items">
+              <i class="fa fa-exclamation-triangle me-1"></i>{{ getLowStockCount() }} Low Stock
+            </span>
+          </div>
         </div>
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0"
-        >
-          <a routerLink="/addrawmaterials">
-            <button class="btn btn-primary" type="button">
-              <i class="fa-solid fa-plus mx-1"></i>Add Raw Materials
+        <div class="col-md-auto ms-auto text-center text-md-end">
+          <a routerLink="/addrawmaterials" class="me-2">
+            <button class="btn btn-primary btn-sm mb-2 mb-md-0" type="button">
+              <i class="fa-solid fa-plus mx-1"></i>Add Raw Material
             </button>
           </a>
           <a routerLink="/stockin">
-            <button class="btn btn-primary mx-3" type="button">
-              <i class="fa-solid fa-plus mx-1"></i>Stock Raw Materials
+            <button class="btn btn-success btn-sm" type="button">
+              <i class="fa-solid fa-box mx-1"></i>Stock In
             </button>
           </a>
         </div>
       </div>
 
-      <!-- Filter Options -->
-      <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
-        >
-          <div class="dt-length">
-            <label for="dt-length-0">
-              Show
-              <select
-                name="DataTables_Table_0_length"
-                aria-controls="DataTables_Table_0"
-                class="form-select"
-                id="dt-length-0"
-              >
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              entries
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading raw materials...</p>
+      </div>
+
+      <!-- Content (only show when not loading) -->
+      <div *ngIf="!isLoading">
+        
+        <!-- Search and Filter Section -->
+        <div class="row mx-0 px-3 py-3 border-bottom align-items-start">
+          <!-- Combined Search Bar -->
+          <div class="col-md-5 mb-3 mb-md-0">
+            <label for="searchTerm" class="form-label">
+              <i class="fa fa-search me-1"></i>Search Raw Materials
             </label>
-          </div>
-        </div>
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0"
-        >
-          <div class="dt-search mt-0 mt-md-6 mb-6">
-            <label for="dt-search-0">Search:</label>
             <input
-              type="search"
-              class="form-control ms-4"
-              id="dt-search-0"
-              placeholder=""
-              aria-controls="DataTables_Table_0"
+              type="text"
+              id="searchTerm"
+              class="form-control"
+              placeholder="Search by ID or Material Name..."
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange()"
             />
+            <small class="text-muted d-block mt-1">Search by ID or Name</small>
+          </div>
+
+          <!-- Sort by Quantity -->
+          <div class="col-md-3 mb-3 mb-md-0">
+            <label for="sortQuantity" class="form-label">
+              <i class="fa fa-sort me-1"></i>Sort by Quantity
+            </label>
+            <select
+              id="sortQuantity"
+              class="form-select"
+              [(ngModel)]="sortByQuantity"
+              (ngModelChange)="onSortChange()"
+            >
+              <option *ngFor="let option of sortOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Items Per Page -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="itemsPerPage" class="form-label">Items per page</label>
+            <select
+              id="itemsPerPage"
+              class="form-select"
+              [(ngModel)]="itemsPerPage"
+              (ngModelChange)="onItemsPerPageChange()"
+            >
+              <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <div class="col-md-2">
+            <label class="form-label d-block">&nbsp;</label>
+            <button
+              class="btn btn-secondary w-100"
+              type="button"
+              (click)="clearFilters()"
+              [disabled]="!searchTerm && !sortByQuantity"
+            >
+              <i class="fa-solid fa-rotate-right mx-1"></i>Clear
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Table -->
-      <div class="justify-content-between dt-layout-table">
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive"
-        >
-          <table
-            class="datatables-basic table dataTable dtr-column"
-            id="DataTables_Table_0"
-            aria-describedby="DataTables_Table_0_info"
-          >
-            <thead>
-              <tr>
-                <th class="text-center">ID</th>
-                <th>Material Name</th>
-                <th>Quantity</th>
-                <th class="dt-orderable-asc dt-orderable-desc">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let rm of rawmaterials | async; index as i">
-                <td class="text-center">{{ i+1 }}</td>
-                <td>{{ rm.name }}</td>
-                <td>{{ rm.quantity }} {{ rm.unit }}</td>
-                <td><button
-                    class="btn btn-sm btn-outline-danger"
-                    (click)="deleteRawMaterials(rm.id)"
+        <!-- Results Info -->
+        <div class="row mx-0 px-3 py-2">
+          <div class="col-md-6 text-center text-md-start">
+            <span class="text-muted">{{ getShowingText() }}</span>
+            <span class="text-muted ms-3" *ngIf="searchTerm || sortByQuantity">
+              <i class="fa fa-info-circle me-1"></i>
+              Filters/Sorting active
+            </span>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <span class="badge bg-info px-3 py-2">
+              <i class="fa fa-box me-1"></i>
+              Total Quantity: {{ getTotalQuantity() }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="justify-content-between dt-layout-table">
+          <div class="table-responsive">
+            <table class="datatables-basic table dataTable table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 5%;">#</th>
+                  <th style="width: 10%;">ID</th>
+                  <th style="width: 35%;">Material Name</th>
+                  <th style="width: 20%;">Quantity</th>
+                  <th style="width: 15%;">Status</th>
+                  <th style="width: 15%;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Empty State -->
+                <tr *ngIf="paginatedRawMaterials.length === 0 && !isLoading">
+                  <td colspan="6" class="text-center py-5">
+                    <div class="text-muted">
+                      <i class="fa-solid fa-boxes-stacked fa-3x mb-3 d-block"></i>
+                      <p class="mb-0 fs-5">No raw materials found</p>
+                      <p class="small" *ngIf="searchTerm || sortByQuantity">
+                        Try adjusting your filters or 
+                        <a href="javascript:void(0);" (click)="clearFilters()" class="text-primary">clear all filters</a>
+                      </p>
+                      <p class="small" *ngIf="!searchTerm && !sortByQuantity">
+                        Get started by adding raw materials
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                
+                <!-- Data Rows -->
+                <tr *ngFor="let rm of paginatedRawMaterials; index as i">
+                  <td class="text-center">
+                    {{ (currentPage - 1) * itemsPerPage + i + 1 }}
+                  </td>
+                  <td>
+                    <strong class="text-primary">{{ rm.id }}</strong>
+                  </td>
+                  <td>
+                    <i class="fa fa-box me-2 text-muted"></i>
+                    {{ rm.name }}
+                  </td>
+                  <td>
+                    <span class="badge bg-primary px-3 py-2">
+                      <i class="fa fa-cubes me-1"></i>
+                      {{ rm.quantity }} {{ rm.unit }}
+                    </span>
+                  </td>
+                  <td>
+                    <ng-container *ngIf="getStockStatus(rm.quantity) as status">
+                      <span 
+                        class="badge px-3 py-2 text-white rounded-pill" 
+                        [ngClass]="status.className"
+                      >
+                        <i class="fa me-1" 
+                           [ngClass]="{
+                             'fa-check-circle': status.text === 'In Stock',
+                             'fa-exclamation-triangle': status.text === 'Low Stock',
+                             'fa-times-circle': status.text === 'Out of Stock'
+                           }">
+                        </i>
+                        {{ status.text }}
+                      </span>
+                    </ng-container>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button
+                        class="btn btn-sm btn-outline-info"
+                        (click)="viewRawMaterial(rm.id)"
+                        title="View Raw Material"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
+
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="editRawMaterial(rm.id)"
+                        title="Edit Raw Material"
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="deleteRawMaterials(rm.id)"
+                        title="Delete Raw Material"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="row mx-0 px-3 py-3 border-top" *ngIf="totalPages > 1">
+          <div class="col-12">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="previousPage()"
+                    aria-label="Previous"
                   >
-                    <i class="fa fa-trash"></i>
-                  </button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+                    <i class="fa fa-chevron-left"></i>
+                  </a>
+                </li>
 
-      <!-- Footer -->
-      <div class="row mx-3 justify-content-between">
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
-        >
-          <div
-            class="dt-info"
-            aria-live="polite"
-            id="DataTables_Table_0_info"
-            role="status"
-          >
-            Showing 1 to 35 of 35 entries
+                <!-- First Page -->
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 1">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(1)">1</a>
+                </li>
+                
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+
+                <!-- Page Numbers -->
+                <li 
+                  class="page-item" 
+                  *ngFor="let page of getPageNumbers()"
+                  [class.active]="page === currentPage"
+                >
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="goToPage(page)"
+                  >
+                    {{ page }}
+                  </a>
+                </li>
+
+                <!-- Last Page -->
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1">
+                  <span class="page-link">...</span>
+                </li>
+                
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(totalPages)">
+                    {{ totalPages }}
+                  </a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="nextPage()"
+                    aria-label="Next"
+                  >
+                    <i class="fa fa-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto mt-0"
-        >
-          <div class="dt-paging">
-            <nav aria-label="pagination"></nav>
-          </div>
-        </div>
+
       </div>
+      <!-- End Content -->
+
     </div>
   </div>
 </div>

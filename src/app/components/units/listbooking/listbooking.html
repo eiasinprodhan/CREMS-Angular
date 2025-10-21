@@ -1,55 +1,323 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div class="dt-container dt-bootstrap5 dt-empty-footer">
+
+      <!-- Header -->
       <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0">
-          <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-6">Bookings</h5>
+        <div class="col-md-auto me-auto mt-0">
+          <h5 class="card-title mb-0 text-md-start text-center">
+            <i class="fa fa-calendar-check me-2 text-primary"></i>
+            Bookings
+            <span class="badge bg-secondary ms-2" *ngIf="!isLoading">{{ totalItems }}</span>
+          </h5>
+        </div>
+        <div class="col-md-auto ms-auto mt-0">
+          <a routerLink="/addbooking">
+            <button class="btn btn-primary" type="button">
+              <i class="fa-solid fa-plus mx-1"></i>Add New Booking
+            </button>
+          </a>
         </div>
       </div>
 
-      <div class="justify-content-between dt-layout-table">
-        <div class="d-md-flex justify-content-between align-items-center dt-layout-full table-responsive">
-          <table class="datatables-basic table dataTable dtr-column">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Photo</th>
-                <th>Customer Name</th>
-                <th>Building Name</th>
-                <th>Floor Name</th>
-                <th>Due Amount</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let booking of enrichedBookings">
-                <td>{{ booking.id }}</td> 
-                <td><img [src]="booking.customer.photo" [alt]="booking.customer?.name" class="img-thumbnail" style="height: 50px; width: 50px; object-fit: cover;"/></td>
-                <td>{{ booking.customer?.name }}</td>
-                <td>{{ booking.building?.name }}</td>
-                <td>{{ booking.floor?.name }}</td>
-                <td class="text-danger">{{ booking.dueAmount | currency }}</td>
-                <td>
-                  <div class="d-flex gap-2">
-                    <button class="btn btn-sm btn-outline-info" (click)="viewBooking(booking.id)">
-                      <i class="fa fa-eye"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-primary" (click)="editBooking(booking.id)">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="deleteBooking(booking.id)">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr *ngIf="enrichedBookings.length === 0">
-                <td colspan="8" class="text-center">No bookings found.</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Loading Indicator -->
+      <div *ngIf="isLoading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-3 text-muted">Loading bookings...</p>
       </div>
+
+      <!-- Content (only show when not loading) -->
+      <div *ngIf="!isLoading">
+        
+        <!-- Search and Filter Section -->
+        <div class="row mx-0 px-3 py-3 border-bottom align-items-start">
+          <!-- Combined Search Bar -->
+          <div class="col-md-3 mb-3 mb-md-0">
+            <label for="searchTerm" class="form-label">
+              <i class="fa fa-search me-1"></i>Search
+            </label>
+            <input
+              type="text"
+              id="searchTerm"
+              class="form-control"
+              placeholder="Search by ID or Customer..."
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchChange()"
+            />
+            <small class="text-muted d-block mt-1">ID or Customer Name</small>
+          </div>
+
+          <!-- Building Filter -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="buildingFilter" class="form-label">
+              <i class="fa fa-building me-1"></i>Building
+            </label>
+            <select
+              id="buildingFilter"
+              class="form-select"
+              [(ngModel)]="selectedBuilding"
+              (ngModelChange)="onBuildingChange()"
+            >
+              <option *ngFor="let building of buildingOptions" [value]="building.id">
+                {{ building.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Floor Filter -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="floorFilter" class="form-label">
+              <i class="fa fa-layer-group me-1"></i>Floor
+            </label>
+            <select
+              id="floorFilter"
+              class="form-select"
+              [(ngModel)]="selectedFloor"
+              (ngModelChange)="onFloorChange()"
+            >
+              <option *ngFor="let floor of floorOptions" [value]="floor.id">
+                {{ floor.name }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Sort by Due Amount -->
+          <div class="col-md-2 mb-3 mb-md-0">
+            <label for="sortAmount" class="form-label">
+              <i class="fa fa-sort me-1"></i>Sort Amount
+            </label>
+            <select
+              id="sortAmount"
+              class="form-select"
+              [(ngModel)]="sortByDueAmount"
+              (ngModelChange)="onSortChange()"
+            >
+              <option *ngFor="let option of sortOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Items Per Page -->
+          <div class="col-md-1 mb-3 mb-md-0">
+            <label for="itemsPerPage" class="form-label">Per page</label>
+            <select
+              id="itemsPerPage"
+              class="form-select"
+              [(ngModel)]="itemsPerPage"
+              (ngModelChange)="onItemsPerPageChange()"
+            >
+              <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+                {{ option }}
+              </option>
+            </select>
+          </div>
+
+          <!-- Clear Filters Button -->
+          <div class="col-md-2">
+            <label class="form-label d-block">&nbsp;</label>
+            <button
+              class="btn btn-secondary w-100"
+              type="button"
+              (click)="clearFilters()"
+              [disabled]="!searchTerm && !selectedBuilding && !selectedFloor && !sortByDueAmount"
+            >
+              <i class="fa-solid fa-rotate-right mx-1"></i>Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Info -->
+        <div class="row mx-0 px-3 py-2">
+          <div class="col-md-6 text-center text-md-start">
+            <span class="text-muted">{{ getShowingText() }}</span>
+            <span class="text-muted ms-3" *ngIf="searchTerm || selectedBuilding || selectedFloor || sortByDueAmount">
+              <i class="fa fa-info-circle me-1"></i>
+              Filters/Sorting active
+            </span>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <span class="badge bg-danger px-3 py-2">
+              <i class="fa fa-money-bill me-1"></i>
+              Total Due: {{ getTotalDueAmount() | currency }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="justify-content-between dt-layout-table">
+          <div class="table-responsive">
+            <table class="datatables-basic table dataTable table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 8%;">ID</th>
+                  <th style="width: 10%;">Photo</th>
+                  <th style="width: 20%;">Customer Name</th>
+                  <th style="width: 18%;">Building Name</th>
+                  <th style="width: 18%;">Floor Name</th>
+                  <th style="width: 13%;">Due Amount</th>
+                  <th style="width: 13%;">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Empty State -->
+                <tr *ngIf="paginatedBookings.length === 0 && !isLoading">
+                  <td colspan="7" class="text-center py-5">
+                    <div class="text-muted">
+                      <i class="fa-solid fa-calendar-check fa-3x mb-3 d-block"></i>
+                      <p class="mb-0 fs-5">No bookings found</p>
+                      <p class="small" *ngIf="searchTerm || selectedBuilding || selectedFloor || sortByDueAmount">
+                        Try adjusting your filters or 
+                        <a href="javascript:void(0);" (click)="clearFilters()" class="text-primary">clear all filters</a>
+                      </p>
+                      <p class="small" *ngIf="!searchTerm && !selectedBuilding && !selectedFloor && !sortByDueAmount">
+                        Get started by adding a new booking
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+                
+                <!-- Data Rows -->
+                <tr *ngFor="let booking of paginatedBookings">
+                  <td>
+                    <strong class="text-primary">{{ booking.id }}</strong>
+                  </td>
+                  <td>
+                    <img 
+                      [src]="booking.customer?.photo || 'assets/images/default-avatar.png'" 
+                      [alt]="booking.customer?.name" 
+                      class="img-thumbnail rounded-circle" 
+                      style="height: 50px; width: 50px; object-fit: cover;"
+                      onerror="this.src='assets/images/default-avatar.png'"
+                    />
+                  </td>
+                  <td>
+                    <i class="fa fa-user me-2 text-muted"></i>
+                    {{ booking.customer?.name || 'N/A' }}
+                  </td>
+                  <td>
+                    <i class="fa fa-building me-2 text-muted"></i>
+                    {{ booking.building?.name || 'N/A' }}
+                  </td>
+                  <td>
+                    <i class="fa fa-layer-group me-2 text-muted"></i>
+                    {{ booking.floor?.name || 'N/A' }}
+                  </td>
+                  <td>
+                    <span 
+                      class="fw-bold" 
+                      [ngClass]="getDueAmountClass(booking.dueAmount)"
+                    >
+                      <i class="fa fa-dollar-sign me-1"></i>
+                      {{ booking.dueAmount | currency }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button
+                        class="btn btn-sm btn-outline-info"
+                        (click)="viewBooking(booking.id)"
+                        title="View Booking"
+                      >
+                        <i class="fa fa-eye"></i>
+                      </button>
+
+                      <button
+                        class="btn btn-sm btn-outline-primary"
+                        (click)="editBooking(booking.id)"
+                        title="Edit Booking"
+                      >
+                        <i class="fa fa-edit"></i>
+                      </button>
+
+                      <button
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="deleteBooking(booking.id)"
+                        title="Delete Booking"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="row mx-0 px-3 py-3 border-top" *ngIf="totalPages > 1">
+          <div class="col-12">
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center mb-0">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="previousPage()"
+                    aria-label="Previous"
+                  >
+                    <i class="fa fa-chevron-left"></i>
+                  </a>
+                </li>
+
+                <!-- First Page -->
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 1">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(1)">1</a>
+                </li>
+                
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 2">
+                  <span class="page-link">...</span>
+                </li>
+
+                <!-- Page Numbers -->
+                <li 
+                  class="page-item" 
+                  *ngFor="let page of getPageNumbers()"
+                  [class.active]="page === currentPage"
+                >
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="goToPage(page)"
+                  >
+                    {{ page }}
+                  </a>
+                </li>
+
+                <!-- Last Page -->
+                <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1">
+                  <span class="page-link">...</span>
+                </li>
+                
+                <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages">
+                  <a class="page-link" href="javascript:void(0);" (click)="goToPage(totalPages)">
+                    {{ totalPages }}
+                  </a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <a 
+                    class="page-link" 
+                    href="javascript:void(0);" 
+                    (click)="nextPage()"
+                    aria-label="Next"
+                  >
+                    <i class="fa fa-chevron-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Content -->
+
     </div>
   </div>
 </div>

@@ -1,20 +1,21 @@
 <div class="card">
   <div class="card-datatable table-responsive pt-0">
     <div class="dt-container dt-bootstrap5 dt-empty-footer">
+      
       <!-- Header -->
-      <div
-        class="row card-header flex-column flex-md-row border-bottom mx-0 px-3"
-      >
-        <div
-          class="d-md-flex justify-content-between align-items-center dt-layout-start col-md-auto me-auto mt-0"
-        >
-          <h5 class="card-title mb-0 text-md-start text-center pb-md-0 pb-2">
-            Attendance ({{ selectedDate | date: 'yyyy-MM-dd' }})
+      <div class="row card-header flex-column flex-md-row border-bottom mx-0 px-3">
+        <div class="col-md-4 me-auto mt-0">
+          <h5 class="card-title mb-0 text-md-start text-center">
+            <i class="fa fa-user-check me-2 text-primary"></i>
+            Attendance
           </h5>
+          <small class="text-muted">{{ selectedDate | date: 'fullDate' }}</small>
         </div>
         <div class="col-md-4 mt-2 mt-md-0">
+          <label for="dateSelect" class="form-label">Select Date</label>
           <input
             type="date"
+            id="dateSelect"
             class="form-control border border-primary"
             [(ngModel)]="selectedDate"
             (change)="onDateChange()"
@@ -22,118 +23,345 @@
         </div>
       </div>
 
-      <div class="row mx-0 px-3 my-0 justify-content-between border-bottom">
-        <div class="dt-layout-table w-100">
-          <div class="table-responsive">
-            <ng-container *ngIf="dateRestriction; else outOfRange">
-              <!-- Totals -->
-              <div class="alert alert-secondary my-2">
-                <strong>Totals:</strong>
-                Present: {{ getStatusTotals().present }}, Absent: {{
-                getStatusTotals().absent }}, On Leave: {{
-                getStatusTotals().onLeave }}
-              </div>
+      <!-- Loading Indicator -->
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3 text-muted">Loading attendance data...</p>
+      </div>
 
-              <table class="table table-bordered align-middle">
+      <!-- Error Message -->
+      <div *ngIf="error && !loading" class="alert alert-danger mx-3 mt-3">
+        <i class="fa fa-exclamation-circle me-2"></i>{{ error }}
+      </div>
+
+      <!-- Content (only show when not loading and date is valid) -->
+      <div *ngIf="!loading">
+        <ng-container *ngIf="dateRestriction; else outOfRange">
+          
+          <!-- Search and Filter Section -->
+          <div class="row mx-0 px-3 py-3 border-bottom align-items-start">
+            <!-- Combined Search Bar -->
+            <div class="col-md-5 mb-3 mb-md-0">
+              <label for="searchTerm" class="form-label">
+                <i class="fa fa-search me-1"></i>Search Employees
+              </label>
+              <input
+                type="text"
+                id="searchTerm"
+                class="form-control"
+                placeholder="Search by ID or Employee Name..."
+                [(ngModel)]="searchTerm"
+                (ngModelChange)="onSearchChange()"
+              />
+              <small class="text-muted d-block mt-1">Search by ID or Name</small>
+            </div>
+
+            <!-- Sort by Salary -->
+            <div class="col-md-3 mb-3 mb-md-0">
+              <label for="sortSalary" class="form-label">
+                <i class="fa fa-sort me-1"></i>Sort by Salary
+              </label>
+              <select
+                id="sortSalary"
+                class="form-select"
+                [(ngModel)]="sortBySalary"
+                (ngModelChange)="onSortChange()"
+              >
+                <option *ngFor="let option of sortOptions" [value]="option.value">
+                  {{ option.label }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Items Per Page -->
+            <div class="col-md-2 mb-3 mb-md-0">
+              <label for="itemsPerPage" class="form-label">Items per page</label>
+              <select
+                id="itemsPerPage"
+                class="form-select"
+                [(ngModel)]="itemsPerPage"
+                (ngModelChange)="onItemsPerPageChange()"
+              >
+                <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <div class="col-md-2">
+              <label class="form-label d-block">&nbsp;</label>
+              <button
+                class="btn btn-secondary w-100"
+                type="button"
+                (click)="clearFilters()"
+                [disabled]="!searchTerm && !sortBySalary"
+              >
+                <i class="fa-solid fa-rotate-right mx-1"></i>Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Status Totals -->
+          <div class="row mx-0 px-3 py-3 border-bottom">
+            <div class="col-12">
+              <div class="alert alert-info mb-0 d-flex justify-content-between align-items-center">
+                <div>
+                  <strong><i class="fa fa-chart-bar me-2"></i>Summary:</strong>
+                  <span class="badge bg-success ms-3">
+                    <i class="fa fa-user-check me-1"></i>Present: {{ getStatusTotals().present }}
+                  </span>
+                  <span class="badge bg-danger ms-2">
+                    <i class="fa fa-user-times me-1"></i>Absent: {{ getStatusTotals().absent }}
+                  </span>
+                  <span class="badge bg-warning ms-2">
+                    <i class="fa fa-user-clock me-1"></i>On Leave: {{ getStatusTotals().onLeave }}
+                  </span>
+                </div>
+                <div>
+                  <span class="text-muted">{{ getShowingText() }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="justify-content-between dt-layout-table">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover align-middle">
                 <thead class="table-light">
                   <tr>
-                    <th>#</th>
-                    <th>Employee Name</th>
-                    <th>Salary</th>
-                    <th>Attendance</th>
+                    <th style="width: 5%;">#</th>
+                    <th style="width: 15%;">Employee ID</th>
+                    <th style="width: 30%;">Employee Name</th>
+                    <th style="width: 15%;">Daily Salary</th>
+                    <th style="width: 35%;">Attendance</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let labourId of stage?.labours ?? []; index as i">
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ getEmployeeName(labourId) }}</td>
-                    <td>{{ getEmployeeSalary(labourId) }}</td>
+                  <!-- Empty State -->
+                  <tr *ngIf="paginatedLabours.length === 0">
+                    <td colspan="5" class="text-center py-5">
+                      <div class="text-muted">
+                        <i class="fa-solid fa-users fa-3x mb-3 d-block" style="opacity: 0.3;"></i>
+                        <p class="mb-0 fs-5">No employees found</p>
+                        <p class="small" *ngIf="searchTerm || sortBySalary">
+                          Try adjusting your filters or 
+                          <a href="javascript:void(0);" (click)="clearFilters()" class="text-primary">clear all filters</a>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Data Rows -->
+                  <tr *ngFor="let labourId of paginatedLabours; index as i">
+                    <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                    <td>
+                      <strong class="text-primary">{{ labourId }}</strong>
+                    </td>
+                    <td>
+                      <i class="fa fa-user me-2 text-muted"></i>
+                      {{ getEmployeeName(labourId) }}
+                    </td>
+                    <td>
+                      <span class="badge bg-info px-3 py-2">
+                        <i class="fa fa-money-bill me-1"></i>
+                        {{ getEmployeeSalary(labourId) | currency }}
+                      </span>
+                    </td>
                     <td>
                       <ng-container
                         *ngIf="getAttendanceByLabour(labourId) as attendanceStatus; else showButtons"
                       >
-                        <button
-                          class="btn mx-1"
-                          [ngClass]="{ 'btn-success': attendanceStatus === 'Present', 'btn-outline-success': attendanceStatus !== 'Present' }"
-                          (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Present', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-check"></i>
-                        </button>
+                        <div class="btn-group" role="group">
+                          <button
+                            class="btn btn-sm"
+                            [ngClass]="{ 
+                              'btn-success': attendanceStatus === 'Present', 
+                              'btn-outline-success': attendanceStatus !== 'Present' 
+                            }"
+                            (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Present', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="Present"
+                          >
+                            <i class="fas fa-user-check me-1"></i>Present
+                          </button>
 
-                        <button
-                          class="btn mx-1"
-                          [ngClass]="{ 'btn-danger': attendanceStatus === 'Absent', 'btn-outline-danger': attendanceStatus !== 'Absent' }"
-                          (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Absent', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-times"></i>
-                        </button>
+                          <button
+                            class="btn btn-sm"
+                            [ngClass]="{ 
+                              'btn-danger': attendanceStatus === 'Absent', 
+                              'btn-outline-danger': attendanceStatus !== 'Absent' 
+                            }"
+                            (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'Absent', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="Absent"
+                          >
+                            <i class="fas fa-user-times me-1"></i>Absent
+                          </button>
 
-                        <button
-                          class="btn mx-1"
-                          [ngClass]="{ 'btn-warning': attendanceStatus === 'On Leave', 'btn-outline-warning': attendanceStatus !== 'On Leave' }"
-                          (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'On Leave', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-clock"></i>
-                        </button>
+                          <button
+                            class="btn btn-sm"
+                            [ngClass]="{ 
+                              'btn-warning': attendanceStatus === 'On Leave', 
+                              'btn-outline-warning': attendanceStatus !== 'On Leave' 
+                            }"
+                            (click)="editAttendance(getAttendanceIDByLabour(labourId), labourId, 'On Leave', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="On Leave"
+                          >
+                            <i class="fas fa-user-clock me-1"></i>Leave
+                          </button>
+                        </div>
                       </ng-container>
 
                       <ng-template #showButtons>
-                        <button
-                          class="btn btn-outline-success mx-1"
-                          (click)="saveAttendance(labourId, 'Present', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-check"></i>
-                        </button>
-                        <button
-                          class="btn btn-outline-danger mx-1"
-                          (click)="saveAttendance(labourId, 'Absent', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-times"></i>
-                        </button>
-                        <button
-                          class="btn btn-outline-warning mx-1"
-                          (click)="saveAttendance(labourId, 'On Leave', getBaseSalary(labourId))"
-                          [disabled]="!isEditable()"
-                        >
-                          <i class="fas fa-user-clock"></i>
-                        </button>
+                        <div class="btn-group" role="group">
+                          <button
+                            class="btn btn-sm btn-outline-success"
+                            (click)="saveAttendance(labourId, 'Present', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="Mark Present"
+                          >
+                            <i class="fas fa-user-check me-1"></i>Present
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-danger"
+                            (click)="saveAttendance(labourId, 'Absent', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="Mark Absent"
+                          >
+                            <i class="fas fa-user-times me-1"></i>Absent
+                          </button>
+                          <button
+                            class="btn btn-sm btn-outline-warning"
+                            (click)="saveAttendance(labourId, 'On Leave', getBaseSalary(labourId))"
+                            [disabled]="!isEditable()"
+                            title="Mark On Leave"
+                          >
+                            <i class="fas fa-user-clock me-1"></i>Leave
+                          </button>
+                        </div>
                       </ng-template>
                     </td>
                   </tr>
 
-                  <tr class="table-info fw-bold">
-                    <td colspan="2" class="text-end">Total Salary</td>
-                    <td>{{ getTotalSalary() }}</td>
+                  <!-- Total Row -->
+                  <tr class="table-primary fw-bold" *ngIf="paginatedLabours.length > 0">
+                    <td colspan="3" class="text-end">
+                      <i class="fa fa-calculator me-2"></i>Total Salary for Selected Date
+                    </td>
+                    <td>
+                      <span class="badge bg-success px-3 py-2 fs-6">
+                        {{ getTotalSalary() | currency }}
+                      </span>
+                    </td>
                     <td>
                       <button
                         *ngIf="!isPaid()"
                         class="btn btn-primary"
                         (click)="onPay()"
+                        [disabled]="getTotalSalary() === 0"
                       >
-                        Pay
+                        <i class="fa fa-money-check-alt me-2"></i>Pay
                       </button>
-                      <span *ngIf="isPaid()" class="text-success fw-bold"
-                        >Paid</span
-                      >
+                      <span *ngIf="isPaid()" class="badge bg-success px-4 py-2 fs-6">
+                        <i class="fa fa-check-circle me-1"></i>Paid
+                      </span>
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </ng-container>
-
-            <ng-template #outOfRange>
-              <div class="alert alert-warning text-center my-3">
-                Selected date is outside the stage duration.
-              </div>
-            </ng-template>
+            </div>
           </div>
-        </div>
+
+          <!-- Pagination -->
+          <div class="row mx-0 px-3 py-3 border-top" *ngIf="totalPages > 1">
+            <div class="col-12">
+              <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center mb-0">
+                  <!-- Previous Button -->
+                  <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a 
+                      class="page-link" 
+                      href="javascript:void(0);" 
+                      (click)="previousPage()"
+                      aria-label="Previous"
+                    >
+                      <i class="fa fa-chevron-left"></i>
+                    </a>
+                  </li>
+
+                  <!-- First Page -->
+                  <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 1">
+                    <a class="page-link" href="javascript:void(0);" (click)="goToPage(1)">1</a>
+                  </li>
+                  
+                  <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[0] > 2">
+                    <span class="page-link">...</span>
+                  </li>
+
+                  <!-- Page Numbers -->
+                  <li 
+                    class="page-item" 
+                    *ngFor="let page of getPageNumbers()"
+                    [class.active]="page === currentPage"
+                  >
+                    <a 
+                      class="page-link" 
+                      href="javascript:void(0);" 
+                      (click)="goToPage(page)"
+                    >
+                      {{ page }}
+                    </a>
+                  </li>
+
+                  <!-- Last Page -->
+                  <li class="page-item disabled" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages - 1">
+                    <span class="page-link">...</span>
+                  </li>
+                  
+                  <li class="page-item" *ngIf="getPageNumbers().length > 0 && getPageNumbers()[getPageNumbers().length - 1] < totalPages">
+                    <a class="page-link" href="javascript:void(0);" (click)="goToPage(totalPages)">
+                      {{ totalPages }}
+                    </a>
+                  </li>
+
+                  <!-- Next Button -->
+                  <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a 
+                      class="page-link" 
+                      href="javascript:void(0);" 
+                      (click)="nextPage()"
+                      aria-label="Next"
+                    >
+                      <i class="fa fa-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <!-- Out of Range Message -->
+        <ng-template #outOfRange>
+          <div class="alert alert-warning text-center my-4 mx-3">
+            <i class="fa fa-exclamation-triangle fa-2x mb-3 d-block"></i>
+            <h5>Selected date is outside the stage duration.</h5>
+            <p class="mb-0">
+              Please select a date between 
+              <strong>{{ stage.startDate | date: 'mediumDate' }}</strong> and 
+              <strong>{{ stage.endDate | date: 'mediumDate' }}</strong>
+            </p>
+          </div>
+        </ng-template>
       </div>
+      <!-- End Content -->
+
     </div>
   </div>
 </div>

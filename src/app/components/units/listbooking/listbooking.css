@@ -1,0 +1,121 @@
+.pagination .page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.pagination .page-link {
+  cursor: pointer;
+  color: #007bff;
+}
+
+.pagination .page-link:hover {
+  color: #0056b3;
+  background-color: #e9ecef;
+}
+
+.pagination .page-item.disabled .page-link {
+  cursor: not-allowed;
+  color: #6c757d;
+  background-color: #fff;
+}
+
+.table-responsive {
+  min-height: 300px;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  min-height: 1.5rem;
+}
+
+.badge {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.btn-group .btn {
+  margin: 0 2px;
+}
+
+.d-flex.gap-2 {
+  gap: 0.5rem;
+}
+
+/* Empty state styling */
+.text-center.py-5 i {
+  opacity: 0.3;
+}
+
+/* Search input with icon */
+#searchTerm {
+  padding-left: 0.75rem;
+}
+
+/* Highlight effect when searching */
+#searchTerm:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Disabled clear button */
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Small text styling */
+small.text-muted {
+  font-size: 0.75rem;
+}
+
+/* Ensure all form controls in the same row align properly */
+.align-items-start .form-control,
+.align-items-start .form-select {
+  height: calc(2.25rem + 2px);
+}
+
+/* Table hover effect */
+.table-hover tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Icon styling */
+.table td i.text-muted {
+  opacity: 0.6;
+}
+
+/* Customer photo styling */
+.img-thumbnail {
+  border: 2px solid #dee2e6;
+  padding: 2px;
+}
+
+.rounded-circle {
+  border-radius: 50% !important;
+}
+
+/* Due amount colors */
+.text-success {
+  color: #198754 !important;
+  font-weight: 600;
+}
+
+.text-warning {
+  color: #ffc107 !important;
+  font-weight: 600;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+  font-weight: 600;
+}
+
+/* Total due badge */
+.badge.bg-danger {
+  background-color: #dc3545 !important;
+  font-size: 0.9rem;
+}
