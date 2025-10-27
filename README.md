@@ -26,47 +26,47 @@ responsive and user-friendly UI.
 ## ✨ Features
 
 #### 🏗️ Project & Property Hierarchy Management
--Manage projects, buildings, floors, and stages
--Visualize property structure and organization
+- Manage projects, buildings, floors, and stages
+- Visualize property structure and organization
 
 #### 🏘️ Unit Booking Management
--Interactive unit booking system
--Real-time availability tracking
--Booking status monitoring
+- Interactive unit booking system
+- Real-time availability tracking
+- Booking status monitoring
 
 
 #### 💳 EMI & Payment Processing
--EMI schedule management and tracking
--Payment transaction handling
--Payment history and records
+- EMI schedule management and tracking
+- Payment transaction handling
+- Payment history and records
 
 #### 👥 Customer Management
--Comprehensive customer details
--Client information tracking
--Customer relationship managemen
+- Comprehensive customer details
+- Client information tracking
+- Customer relationship managemen
 
 #### 👔 Employee Management & Attendance
--Employee records and profiles
--Attendance tracking system
--Labour management tools
+- Employee records and profiles
+- Attendance tracking system
+- Labour management tools
 
 #### 📊 Dashboard & Analytics
--Visual data representation
--Interactive reporting modules
--Performance insights
+- Visual data representation
+- Interactive reporting modules
+- Performance insights
 
 #### 🔐 Secure Authentication & Authorization
--Role-based access control
--Secure user authenticatio
+- Role-based access control
+- Secure user authenticatio
 
 #### 📱 Responsive & User-Friendly UI
--Mobile-responsive design
+- Mobile-responsive design
 -Intuitive navigation
--Modern interface
+- Modern interface
 
 #### 🔍 Advanced Search & Filtering
--Multi-criteria search
--Smart filtering options
+- Multi-criteria search
+- Smart filtering options
 
 ## 📸 Previews
 
