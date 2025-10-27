@@ -73,118 +73,78 @@ Built with **Angular** on the frontend and **Spring Boot** on the backend, it en
 ## 🖼️ Application Previews
 
 ### 🏠 Home, Building & Unit Pages
-<p align="center">
-  <img src="./previews/1.png" height="200px" />
-  <img src="./previews/2.png" height="200px" />
-  <img src="./previews/3.png" height="200px" />
-</p>
+![Screenshot 1](./previews/1.png)
+![Screenshot 2](./previews/2.png)
+![Screenshot 3](./previews/3.png)
 
 ### 🔐 Login
-<p align="center">
-  <img src="./previews/4.png" height="200px" />
-</p>
+![Screenshot 4](./previews/4.png)
 
 ### 📊 Dashboard
-<p align="center">
-  <img src="./previews/5.png" height="200px" />
-  <img src="./previews/6.png" height="200px" />
-</p>
+![Screenshot 5](./previews/5.png)
+![Screenshot 6](./previews/6.png)
 
 ### 🏗️ Projects
-<p align="center">
-  <img src="./previews/7.png" height="200px" />
-  <img src="./previews/8.png" height="200px" />
-  <img src="./previews/9.png" height="200px" />
-</p>
-<p align="center">
-  <img src="./previews/10.png" height="200px" />
-</p>
+![Screenshot 7](./previews/7.png)
+![Screenshot 8](./previews/8.png)
+![Screenshot 9](./previews/9.png)
+![Screenshot 10](./previews/10.png)
 
 ### 🏢 Buildings
-<p align="center">
-  <img src="./previews/11.png" height="200px" />
-  <img src="./previews/12.png" height="200px" />
-  <img src="./previews/13.png" height="200px" />
-</p>
-<p align="center">
-  <img src="./previews/14.png" height="200px" />
-</p>
+![Screenshot 11](./previews/11.png)
+![Screenshot 12](./previews/12.png)
+![Screenshot 13](./previews/13.png)
+![Screenshot 14](./previews/14.png)
 
 ### 🧱 Floors
-<p align="center">
-  <img src="./previews/15.png" height="200px" />
-  <img src="./previews/16.png" height="200px" />
-  <img src="./previews/17.png" height="200px" />
-</p>
-<p align="center">
-  <img src="./previews/18.png" height="200px" />
-</p>
+![Screenshot 15](./previews/15.png)
+![Screenshot 16](./previews/16.png)
+![Screenshot 17](./previews/17.png)
+![Screenshot 18](./previews/18.png)
 
 ### 🏗️ Stages
-<p align="center">
-  <img src="./previews/19.png" height="200px" />
-  <img src="./previews/20.png" height="200px" />
-  <img src="./previews/21.png" height="200px" />
-</p>
+![Screenshot 19](./previews/19.png)
+![Screenshot 20](./previews/20.png)
+![Screenshot 21](./previews/21.png)
 
 ### 👷 Attendance for Stage
-<p align="center">
-  <img src="./previews/22.png" height="200px" />
-  <img src="./previews/23.png" height="200px" />
-</p>
+![Screenshot 22](./previews/22.png)
+![Screenshot 23](./previews/23.png)
 
 ### ⚙️ Raw Materials for Stage
-<p align="center">
-  <img src="./previews/24.png" height="200px" />
-</p>
+![Screenshot 24](./previews/24.png)
 
 ### 🏘️ Units
-<p align="center">
-  <img src="./previews/25.png" height="200px" />
-  <img src="./previews/26.png" height="200px" />
-  <img src="./previews/27.png" height="200px" />
-</p>
-<p align="center">
-  <img src="./previews/28.png" height="200px" />
-  <img src="./previews/29.png" height="200px" />
-  <img src="./previews/30.png" height="200px" />
-</p>
+![Screenshot 25](./previews/25.png)
+![Screenshot 26](./previews/26.png)
+![Screenshot 27](./previews/27.png)
+![Screenshot 28](./previews/28.png)
+![Screenshot 29](./previews/29.png)
+![Screenshot 30](./previews/30.png)
 
 ### 🧱 Raw Materials
-<p align="center">
-  <img src="./previews/31.png" height="200px" />
-  <img src="./previews/32.png" height="200px" />
-  <img src="./previews/33.png" height="200px" />
-</p>
+![Screenshot 31](./previews/31.png)
+![Screenshot 32](./previews/32.png)
+![Screenshot 33](./previews/33.png)
 
 ### 👔 Employees
-<p align="center">
-  <img src="./previews/34.png" height="200px" />
-  <img src="./previews/35.png" height="200px" />
-  <img src="./previews/36.png" height="200px" />
-</p>
-<p align="center">
-  <img src="./previews/37.png" height="200px" />
-</p>
+![Screenshot 34](./previews/34.png)
+![Screenshot 35](./previews/35.png)
+![Screenshot 36](./previews/36.png)
+![Screenshot 37](./previews/37.png)
 
 ### 👥 Customers
-<p align="center">
-  <img src="./previews/38.png" height="200px" />
-  <img src="./previews/39.png" height="200px" />
-  <img src="./previews/40.png" height="200px" />
-</p>
+![Screenshot 38](./previews/38.png)
+![Screenshot 39](./previews/39.png)
+![Screenshot 40](./previews/40.png)
 
 ### 🏘️ Bookings
-<p align="center">
-  <img src="./previews/41.png" height="200px" />
-  <img src="./previews/42.png" height="200px" />
-  <img src="./previews/43.png" height="200px" />
-</p>
+![Screenshot 41](./previews/41.png)
+![Screenshot 42](./previews/42.png)
+![Screenshot 43](./previews/43.png)
 
 ### 💳 Transactions
-<p align="center">
-  <img src="./previews/44.png" height="200px" />
-</p>
+![Screenshot 44](./previews/44.png)
 
 ---
 
