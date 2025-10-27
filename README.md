@@ -1,73 +1,76 @@
 # 🏢 Real Estate Management System
 
-A comprehensive **frontend interface** for managing and visualizing **real estate projects**, including buildings, floors, and construction stages.  
-This system offers **interactive modules** for handling **unit bookings, EMI schedules, customer and employee management, attendance tracking, and payment transactions** — all through a **responsive, modern, and user-friendly UI**.
+A comprehensive **frontend and backend interface** for managing and visualizing **real estate projects** — including buildings, floors, and construction stages.  
+This system provides **interactive modules** for handling **unit bookings, EMI schedules, customer and employee management, attendance tracking, and secure payment transactions** — all wrapped in a **modern, responsive, and user-friendly UI**.
+
+---
+
+## 🧠 Overview
+
+This system streamlines real estate operations by connecting different functional areas such as **projects, customers, employees, and finances** into one intuitive platform.  
+Built with **Angular** on the frontend and **Spring Boot** on the backend, it ensures both performance and scalability.
 
 ---
 
 ## 🚀 Tech Stack
 
-### **Frontend**
+### 🖥️ **Frontend**
 - 🅰️ **Angular** — Modern web application framework  
 - 🟦 **TypeScript** — Type-safe JavaScript  
 - 🧱 **HTML5 / CSS3** — Responsive and accessible UI design  
-- 🎨 **Bootstrap / Angular Material** — Consistent and elegant UI components  
+- 🎨 **Bootstrap / Angular Material** — Elegant, consistent design components  
 
-### **Backend**
+### ⚙️ **Backend**
 - ☕ **Java** — Core backend programming language  
-- 🌱 **Spring Boot** — Robust backend framework  
+- 🌱 **Spring Boot** — Enterprise-grade backend framework  
 - 🔐 **Spring Security** — Authentication and authorization  
-- 🗄️ **Spring Data JPA** — ORM and database operations  
-- 🧩 **MySQL** — Relational database for persistent data storage  
+- 🗄️ **Spring Data JPA** — ORM and database management  
+- 🧩 **MySQL** — Relational database for persistent storage  
 
 ---
 
-## ✨ Features
+## ✨ Core Features
 
 ### 🏗️ Project & Property Hierarchy Management
-- Create and manage projects, buildings, floors, and stages  
+- Create and manage **projects**, **buildings**, **floors**, and **stages**  
 - Visualize hierarchical property structures  
 
 ### 🏘️ Unit Booking Management
-- Interactive booking and reservation system  
-- Real-time unit availability tracking  
-- Booking status monitoring and updates  
+- Interactive **unit booking** and **reservation**  
+- Real-time **availability tracking**  
+- Status updates and detailed booking information  
 
 ### 💳 EMI & Payment Processing
-- EMI schedule setup and tracking  
-- Secure payment transaction management  
-- Detailed payment history and record keeping  
+- Define and track **EMI schedules**  
+- Manage **secure transactions** and payment history  
 
 ### 👥 Customer Management
-- Centralized customer database  
-- Track client interactions and details  
-- Enhance customer relationship management  
+- Maintain a centralized **customer database**  
+- Record **interactions, details, and histories**  
 
 ### 👔 Employee Management & Attendance
-- Manage employee profiles and records  
-- Integrated attendance tracking system  
-- Labour management and assignment tools  
+- Manage **employee profiles**, roles, and assignments  
+- Integrated **attendance and labour tracking**  
 
 ### 📊 Dashboard & Analytics
-- Visual representation of key data and KPIs  
-- Interactive reporting and performance metrics  
+- Visual data representation and **KPI tracking**  
+- Generate **interactive reports**  
 
 ### 🔐 Secure Authentication & Authorization
-- Role-based access control (Admin, Employee, Customer)  
-- Encrypted authentication mechanisms  
+- **Role-based access control** (Admin, Employee, Customer)  
+- Encrypted login and session handling  
 
 ### 📱 Responsive & User-Friendly Interface
-- Fully mobile-responsive design  
-- Intuitive navigation and layout  
-- Modern interface with interactive components  
+- Fully **mobile-responsive** layout  
+- Intuitive and **interactive** navigation  
 
 ### 🔍 Advanced Search & Filtering
-- Multi-criteria search options  
-- Smart filtering for better data accessibility  
+- **Multi-criteria** search  
+- Smart filtering for data accessibility  
 
 ---
 
-## 📸 Application Previews
+## 🖼️ Application Previews
 
 ### 🏠 Home, Building & Unit Pages
 ![Screenshot 1](./previews/1.png)
@@ -145,3 +148,23 @@ This system offers **interactive modules** for handling **unit bookings, EMI sch
 
 ---
 
+## 🧾 Disclaimer
+
+> ⚠️ **Copyright Notice**  
+> This project and all associated assets (code, images, designs, and documentation) are the **intellectual property of the author**.  
+>  
+> ❌ **Unauthorized copying, modification, distribution, or commercial use is strictly prohibited.**  
+>  
+> ✅ You may refer to this project **for educational or portfolio purposes only**, with proper credit given to the original author.  
+
+---
+
+## 📩 Contact
+
+If you’d like to collaborate, discuss, or request permission for usage:  
+📧 **Email:** [your-email@example.com]  
+🌐 **Portfolio:** [your-portfolio-link.com]  
+
+---
+
+💡 *Crafted with passion for efficiency, design, and innovation in real estate management.*
