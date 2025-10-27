@@ -1,131 +1,145 @@
-# 🏢 Real Estate Management System
+# Real Estate Management System
 
-<div align="center">
+A frontend interface for the Real Estate Management
+System that enables users to manage and visualize projects, buildings,
+floors, and stages, while providing interactive modules for handling unit
+bookings, EMI schedules, customer details, employee records,
+attendance tracking, and payment transactions — all through a
+responsive and user-friendly UI.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Build](https://img.shields.io/badge/build-passing-brightgreen.svg)
-![Angular](https://img.shields.io/badge/Angular-18+-red.svg)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0+-brightgreen.svg)
 
-**A comprehensive, enterprise-grade solution for real estate project management**
+## 🚀 Tech Stack
 
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Installation](#-installation) • [Previews](#-previews) • [Documentation](#-documentation)
+### Frontend
+- **Angular** - Modern web application framework
+- **TypeScript** - Type-safe JavaScript
+- **HTML5/CSS3** - Responsive UI design
+- **Bootstrap/Material UI** - UI components
 
-</div>
-
----
-
-## 📋 Overview
-
-A modern, full-stack Real Estate Management System designed to streamline property operations. This platform provides an intuitive interface for managing projects, buildings, floors, and construction stages, while offering comprehensive modules for unit bookings, EMI schedules, customer relationships, employee management, attendance tracking, and financial transactions.
-
-### Key Highlights
-- 🎯 **Hierarchical Property Management** - Organize projects from macro to micro levels
-- 💼 **Complete Business Operations** - From bookings to payments, all in one place
-- 👥 **Stakeholder Management** - Handle customers, employees, and contractors efficiently
-- 📊 **Real-time Analytics** - Make data-driven decisions with interactive dashboards
-- 🔒 **Enterprise Security** - Role-based access control and secure authentication
-- 📱 **Responsive Design** - Seamless experience across all devices
-
----
-
-## 🛠️ Tech Stack
-
-### **Frontend**
-| Technology | Purpose |
-|-----------|---------|
-| ![Angular](https://img.shields.io/badge/Angular-DD0031?style=flat&logo=angular&logoColor=white) | Modern web application framework |
-| ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white) | Type-safe JavaScript superset |
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Responsive UI markup & styling |
-| ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white) | UI component library |
-
-### **Backend**
-| Technology | Purpose |
-|-----------|---------|
-| ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white) | Core programming language |
-| ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat&logo=spring-boot&logoColor=white) | Enterprise backend framework |
-| ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F?style=flat&logo=spring-security&logoColor=white) | Authentication & authorization |
-| ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=flat&logo=spring&logoColor=white) | ORM and database operations |
-| ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white) | Relational database management |
-
----
+### Backend
+- **Java** - Core programming language
+- **Spring Boot** - Backend framework
+- **Spring Security** - Authentication & Authorization
+- **Spring Data JPA** - Database operations
+- **MySQL** - Relational database
 
 ## ✨ Features
 
-### 🏗️ **Project & Property Hierarchy Management**
-- Multi-level project organization (Projects → Buildings → Floors → Units)
-- Visual property structure representation
-- Stage-wise construction tracking
-- Comprehensive property metadata
+#### 🏗️ Project & Property Hierarchy Management
+- Manage projects, buildings, floors, and stages
+- Visualize property structure and organization
 
-### 🏘️ **Unit Booking Management**
-- Interactive unit selection interface
+#### 🏘️ Unit Booking Management
+- Interactive unit booking system
 - Real-time availability tracking
-- Booking status monitoring and updates
-- Automated booking workflows
+- Booking status monitoring
 
-### 💳 **EMI & Payment Processing**
-- Flexible EMI schedule creation and management
-- Payment transaction processing
-- Comprehensive payment history
-- Automated payment reminders
 
-### 👥 **Customer Relationship Management**
-- Complete customer profiles and documentation
-- Communication history tracking
-- Customer segmentation and analytics
-- Document management system
+#### 💳 EMI & Payment Processing
+- EMI schedule management and tracking
+- Payment transaction handling
+- Payment history and records
 
-### 👔 **Employee Management & Attendance**
-- Employee records and role management
-- Daily attendance tracking
-- Labor workforce management
-- Performance monitoring tools
+#### 👥 Customer Management
+- Comprehensive customer details
+- Client information tracking
+- Customer relationship managemen
 
-### 📦 **Raw Materials & Inventory**
-- Material requirement planning
-- Stage-wise material allocation
-- Inventory tracking and management
-- Vendor management
+#### 👔 Employee Management & Attendance
+- Employee records and profiles
+- Attendance tracking system
+- Labour management tools
 
-### 📊 **Dashboard & Analytics**
-- Executive summary dashboards
-- Visual data representation with charts
-- Custom report generation
-- Real-time performance metrics
+#### 📊 Dashboard & Analytics
+- Visual data representation
+- Interactive reporting modules
+- Performance insights
 
-### 🔐 **Security & Access Control**
-- Role-based access control (RBAC)
-- Secure JWT authentication
-- Session management
-- Audit logging
+#### 🔐 Secure Authentication & Authorization
+- Role-based access control
+- Secure user authenticatio
 
-### 📱 **User Experience**
-- Fully responsive mobile-first design
-- Intuitive navigation and workflows
-- Modern, clean interface
-- Fast loading and optimized performance
+#### 📱 Responsive & User-Friendly UI
+- Mobile-responsive design
+-Intuitive navigation
+- Modern interface
 
-### 🔍 **Advanced Search & Filtering**
-- Multi-criteria search functionality
-- Dynamic filtering options
-- Export capabilities
-- Saved search preferences
+#### 🔍 Advanced Search & Filtering
+- Multi-criteria search
+- Smart filtering options
 
----
+## 📸 Previews
 
-## 🚀 Installation
+#### ✨ Home, Building & Unit Page
+![Screenshot 1](./previews/1.png)
+![Screenshot 2](./previews/2.png)
+![Screenshot 3](./previews/3.png)
 
-### Prerequisites
+#### ✨Login
+![Screenshot 4](./previews/4.png)
 
-```bash
-# Frontend Requirements
-Node.js >= 18.x
-npm >= 9.x
-Angular CLI >= 18.x
+#### ✨Dashboard
+![Screenshot 5](./previews/5.png)
+![Screenshot 6](./previews/6.png)
 
-# Backend Requirements
-Java JDK >= 17
-Maven >= 3.8
-MySQL >= 8.0
+#### ✨Projects
+![Screenshot 7](./previews/7.png)
+![Screenshot 8](./previews/8.png)
+![Screenshot 9](./previews/9.png)
+![Screenshot 10](./previews/10.png)
+
+#### ✨Buildings
+![Screenshot 11](./previews/11.png)
+![Screenshot 12](./previews/12.png)
+![Screenshot 13](./previews/13.png)
+![Screenshot 14](./previews/14.png)
+
+#### ✨Floors
+![Screenshot 15](./previews/15.png)
+![Screenshot 16](./previews/16.png)
+![Screenshot 17](./previews/17.png)
+![Screenshot 18](./previews/18.png)
+
+#### ✨Stages
+![Screenshot 19](./previews/19.png)
+![Screenshot 20](./previews/20.png)
+![Screenshot 21](./previews/21.png)
+
+#### ✨Attendaces For Stage
+![Screenshot 22](./previews/22.png)
+![Screenshot 23](./previews/23.png)
+
+#### ✨Raw Materials For Stage
+![Screenshot 24](./previews/24.png)
+
+#### ✨Units
+![Screenshot 25](./previews/25.png)
+![Screenshot 26](./previews/26.png)
+![Screenshot 27](./previews/27.png)
+![Screenshot 28](./previews/28.png)
+![Screenshot 29](./previews/29.png)
+![Screenshot 30](./previews/30.png)
+
+#### ✨Raw Materials
+![Screenshot 31](./previews/31.png)
+![Screenshot 32](./previews/32.png)
+![Screenshot 33](./previews/33.png)
+
+#### ✨Employees
+![Screenshot 34](./previews/34.png)
+![Screenshot 35](./previews/35.png)
+![Screenshot 36](./previews/36.png)
+![Screenshot 37](./previews/37.png)
+
+#### ✨Customers
+![Screenshot 38](./previews/38.png)
+![Screenshot 39](./previews/39.png)
+![Screenshot 40](./previews/40.png)
+
+#### ✨Bookings
+![Screenshot 41](./previews/41.png)
+![Screenshot 42](./previews/42.png)
+![Screenshot 43](./previews/43.png)
+
+#### ✨Transactions
+![Screenshot 44](./previews/44.png)
