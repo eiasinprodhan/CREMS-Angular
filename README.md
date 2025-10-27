@@ -163,7 +163,7 @@ Built with **Angular** on the frontend and **Spring Boot** on the backend, it en
 
 If you’d like to collaborate, discuss, or request permission for usage:  
 📧 **Email:** [eiasinprodhanl@gamil.com]  
-🌐 **Portfolio:** [eiasinprodhan.github.io](eiasinprodhan.github.io)
+🌐 **Portfolio:** [eiasinprodhan.github.io](https://eiasinprodhan.github.io)
 
 ---
 
