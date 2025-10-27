@@ -1,0 +1,109 @@
+# Real Estate Management System
+
+A comprehensive real estate management system built with Angular, Java, and Spring Boot for managing properties, clients, and transactions efficiently.
+
+## 🚀 Tech Stack
+
+### Frontend
+- **Angular** - Modern web application framework
+- **TypeScript** - Type-safe JavaScript
+- **HTML5/CSS3** - Responsive UI design
+- **Bootstrap/Material UI** - UI components
+
+### Backend
+- **Java** - Core programming language
+- **Spring Boot** - Backend framework
+- **Spring Security** - Authentication & Authorization
+- **Spring Data JPA** - Database operations
+- **MySQL/PostgreSQL** - Relational database
+
+## ✨ Features
+
+- 🏠 Property Management (Add, Edit, Delete, Search)
+- 👥 Client/Tenant Management
+- 💰 Transaction & Payment Tracking
+- 📊 Dashboard & Analytics
+- 🔐 Secure Authentication & Authorization
+- 📱 Responsive Design
+- 🔍 Advanced Search & Filtering
+- 📄 Report Generation
+- 📧 Email Notifications
+- 🗂️ Document Management
+
+## 📸 Application Preview
+
+### Dashboard & Overview
+![Screenshot 1](./previews/1.png)
+![Screenshot 2](./previews/2.png)
+![Screenshot 3](./previews/3.png)
+![Screenshot 4](./previews/4.png)
+
+### Property Management
+![Screenshot 5](./previews/5.png)
+![Screenshot 6](./previews/6.png)
+![Screenshot 7](./previews/7.png)
+![Screenshot 8](./previews/8.png)
+![Screenshot 9](./previews/9.png)
+
+### Client & Tenant Management
+![Screenshot 10](./previews/10.png)
+![Screenshot 11](./previews/11.png)
+![Screenshot 12](./previews/12.png)
+![Screenshot 13](./previews/13.png)
+
+### Transactions & Payments
+![Screenshot 14](./previews/14.png)
+![Screenshot 15](./previews/15.png)
+![Screenshot 16](./previews/16.png)
+![Screenshot 17](./previews/17.png)
+
+### Search & Filters
+![Screenshot 18](./previews/18.png)
+![Screenshot 19](./previews/19.png)
+![Screenshot 20](./previews/20.png)
+![Screenshot 21](./previews/21.png)
+
+### Reports & Analytics
+![Screenshot 22](./previews/22.png)
+![Screenshot 23](./previews/23.png)
+![Screenshot 24](./previews/24.png)
+![Screenshot 25](./previews/25.png)
+
+### Settings & Configuration
+![Screenshot 26](./previews/26.png)
+![Screenshot 27](./previews/27.png)
+![Screenshot 28](./previews/28.png)
+![Screenshot 29](./previews/29.png)
+
+### Additional Features
+![Screenshot 30](./previews/30.png)
+![Screenshot 31](./previews/31.png)
+![Screenshot 32](./previews/32.png)
+![Screenshot 33](./previews/33.png)
+![Screenshot 34](./previews/34.png)
+![Screenshot 35](./previews/35.png)
+![Screenshot 36](./previews/36.png)
+![Screenshot 37](./previews/37.png)
+![Screenshot 38](./previews/38.png)
+![Screenshot 39](./previews/39.png)
+![Screenshot 40](./previews/40.png)
+![Screenshot 41](./previews/41.png)
+![Screenshot 42](./previews/42.png)
+![Screenshot 43](./previews/43.png)
+![Screenshot 44](./previews/44.png)
+
+## 🛠️ Installation & Setup
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- Java JDK 11 or higher
+- Maven
+- MySQL/PostgreSQL database
+
+### Backend Setup
+
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/real-estate-management-system.git
+cd real-estate-management-system
