@@ -25,60 +25,48 @@ responsive and user-friendly UI.
 
 ## ✨ Features
 
-### 🏗️ Project & Property Hierarchy Management
-- Manage projects, buildings, floors, and stages
-- Visualize property structure and organization
-- Comprehensive hierarchy tracking
+#### 🏗️ Project & Property Hierarchy Management
+-Manage projects, buildings, floors, and stages
+-Visualize property structure and organization
 
-### 🏘️ Unit Booking Management
-- Interactive unit booking system
-- Real-time availability tracking
-- Booking status monitoring
+#### 🏘️ Unit Booking Management
+-Interactive unit booking system
+-Real-time availability tracking
+-Booking status monitoring
 
-### 💳 EMI & Payment Processing
-- EMI schedule management and tracking
-- Payment transaction handling
-- Payment history and records
-- Automated payment reminders
 
-### 👥 Customer Management
-- Comprehensive customer details
-- Client information tracking
-- Customer relationship management
-- Contact history and communication logs
+#### 💳 EMI & Payment Processing
+-EMI schedule management and tracking
+-Payment transaction handling
+-Payment history and records
 
-### 👔 Employee Management & Attendance
-- Employee records and profiles
-- Attendance tracking system
-- Staff management tools
-- Leave management
+#### 👥 Customer Management
+-Comprehensive customer details
+-Client information tracking
+-Customer relationship managemen
 
-### 📊 Dashboard & Analytics
-- Visual data representation
-- Interactive reporting modules
-- Performance insights
-- Customizable metrics and KPIs
+#### 👔 Employee Management & Attendance
+-Employee records and profiles
+-Attendance tracking system
+-Labour management tools
 
-### 🔐 Secure Authentication & Authorization
-- Role-based access control (RBAC)
-- Secure user authentication
-- Session management
-- Data encryption
+#### 📊 Dashboard & Analytics
+-Visual data representation
+-Interactive reporting modules
+-Performance insights
 
-### 📱 Responsive & User-Friendly UI
-- Mobile-responsive design
-- Intuitive navigation
-- Modern interface
-- Cross-browser compatibility
+#### 🔐 Secure Authentication & Authorization
+-Role-based access control
+-Secure user authenticatio
 
-### 🔍 Advanced Search & Filtering
-- Multi-criteria search
-- Smart filtering options
-- Quick search functionality
-- Export search results
+#### 📱 Responsive & User-Friendly UI
+-Mobile-responsive design
+-Intuitive navigation
+-Modern interface
 
-### Additional Capabilities
-- 📄 PDF report generation
+#### 🔍 Advanced Search & Filtering
+-Multi-criteria search
+-Smart filtering options
 
 ## 📸 Previews
 
