@@ -162,8 +162,8 @@ Built with **Angular** on the frontend and **Spring Boot** on the backend, it en
 ## 📩 Contact
 
 If you’d like to collaborate, discuss, or request permission for usage:  
-📧 **Email:** [your-email@example.com]  
-🌐 **Portfolio:** [your-portfolio-link.com]  
+📧 **Email:** [eiasinprodhanl@gamil.com]  
+🌐 **Portfolio:** [eiasinprodhan.github.io]  
 
 ---
 
